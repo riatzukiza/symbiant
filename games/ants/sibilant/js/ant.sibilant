@@ -94,8 +94,8 @@ assigning the weight value to the value returned"
                (f w i j x y)))
 
           size rad))
-(comment )
 (export map-weights)
+
 (macro genetics (assigner ...props)
 
        `(@assigner genetics

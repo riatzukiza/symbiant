@@ -45,7 +45,10 @@ var blend = (function blend$(color, pixel, v) {
 function decayNegative( x,y,v,display,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
-    let pixel = hexToComplimentary(display.get(x, y));
+    let pixel = display.get(x, y);
+    let alpha = pixel.alpha;
+    pixel = hexToComplimentary(pixel);
+    pixel.alpha = alpha;
     blend(pixel, color, v);
     display.set(x, y, pixel);
     return (v + decay);
@@ -86,7 +89,6 @@ const Pheremones = {
    },
   update( weights = this.weights,display = this.display,decay = this.decay,color = this.color ){ 
     
-      console.log("arguments to pheremons update", arguments);
       return weights.transit((v, x, y) => {
       	
         let emission = (function() {

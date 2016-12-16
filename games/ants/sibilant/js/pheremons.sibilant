@@ -48,7 +48,11 @@
     "brings a positive weight closer to zero, "
 
 
-    (let pixel  (hexToComplimentary (.get display x y)))
+    (let pixel  (.get display x y))
+    (let alpha pixel.alpha)
+    (assign pixel (hexToComplimentary pixel))
+    (assign pixel.alpha alpha)
+
     (blend  pixel color v)
 
 
@@ -81,11 +85,11 @@ Values are not changed unless done so explicitly by the function as a side effec
                         (weights.set x y new-weight))))
 
       (gmth update (weights display decay color)
-            (print "arguments to pheremons update" arguments)
 
             (weights.transit
 
              (=> (v x y)
+
                  (let emission
                    (if (> v 0) (decay-positive x y v display decay color)
                        (< v 0) (decay-negative x y v display decay color)))

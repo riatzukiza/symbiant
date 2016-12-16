@@ -45,7 +45,7 @@ let canvasb = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 ctx.scale(5, 5);
 let display = create(Display)(120, 120, 5, canvas, canvasb);
-let sim = create(Simulation)(display, 1, false);
+let sim = create(Simulation)(display, 60, false);
 let george = {
   x: 20,
   y: 20
@@ -177,7 +177,6 @@ var start = (function start$(sim) {
     }).call(this);
     [ reds, yellers, georges, antiGeorges ].each((colony) => {
     	
-      console.log("rendering colony weights", colony.color);
       colony.weights.update();
       return Pheremones.update(colony.weights, colony.display, colony.decay, colony.color);
     

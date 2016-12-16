@@ -92,16 +92,13 @@ module.exports.RGB2HSV = RGB2HSV;
  * @param  [String] hex : hex value  
  * @return [String] : complimentary color as hex value
  */
-function hexToComplimentary(hex){
+function hexToComplimentary(rgb){
 
     // Convert hex to rgb
     // Credit to Denis http://stackoverflow.com/a/36253499/4939630
-    var rgb = 'rgb(' + (hex = hex.replace('#', '')).match(new RegExp('(.{' + hex.length/3 + '})', 'g')).map(function(l) { return parseInt(hex.length%2 ? l+l : l, 16); }).join(',') + ')';
 
     // Get array of RGB values
-    rgb = rgb.replace(/[^\d,]/g, '').split(',');
-
-    var r = rgb[0], g = rgb[1], b = rgb[2];
+    var r = rgb.red, g = rgb.green, b = rgb.blue;
 
     // Convert RGB to HSL
     // Adapted from answer by 0x000f http://stackoverflow.com/a/34946092/4939630

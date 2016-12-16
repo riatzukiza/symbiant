@@ -35,7 +35,7 @@
 (.scale ctx 5 5)
 
 (Display let display (120 120 5 canvas canvasb))
-(Simulation let sim (display 1 false))
+(Simulation let sim (display 60 false))
 
 (let george { x 20 y 20 })
 
@@ -125,11 +125,11 @@
 
   (let black (color 0 0 0))
 
-  
   (reds.spawn 20 )
   (yellers.spawn 20)
   (.spawn georges 20)
   (.spawn anti-georges 20)
+
   (on (sim.start)"tick" (now ticks)
 
       (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
@@ -148,7 +148,6 @@
                                     sim.collision)) 0))))
       (each [reds yellers georges anti-georges ] (colony)
 
-            (print "rendering colony weights" colony.color)
             (.update colony.weights)
             (.update Pheremones colony.weights colony.display colony.decay colony.color))
 
