@@ -276,8 +276,9 @@ if there is not already one present. No ant is created if there is already an an
 (type Colony
 
       (property id 1)
+      (property colonies (new Set) )
 
-      (init (nest color (goals (new Set))  (ants (new Set))
+      (init (nest color (goals (new Set))  (ants (new Set) )
 
                   stats collision
 
@@ -291,7 +292,6 @@ if there is not already one present. No ant is created if there is already an an
       (generic load (mth) ())
 
       (generic spawn (fluent mth) (count  nest collision)
-               (print "this!" this)
 
                (area collision spot nest count
                      (.spawn.call Ant this y x )))

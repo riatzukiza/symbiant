@@ -35,7 +35,7 @@
 (.scale ctx 5 5)
 
 (Display let display (120 120 5 canvas canvasb))
-(Simulation let sim (display 60 false))
+(Simulation let sim (display 30 false))
 
 (let george { x 20 y 20 })
 
@@ -110,7 +110,7 @@
   (let anti-set (new Set))
 
   (let yellers ((create Colony) { x 20 y 20} yellow anti-set ))
-  (let reds ((create Colony) { x 30 y 60} (color 255 0 0) yellers.ants ))
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 155) yellers.ants ))
   (let georges ((create Colony) { x 100 y 100} (color 0 0 255 ) reds.ants))
   (let anti-georges ((create Colony) { x 100 y 30} (color 30 236 231) georges.ants anti-set))
   (let ultra-pred ((create Colony) { x 10 y 40} (color 30 200 231) (sequence goals .union
@@ -125,12 +125,13 @@
 
   (let black (color 0 0 0))
 
-  (reds.spawn 20 )
-  (yellers.spawn 20)
-  (.spawn georges 20)
-  (.spawn anti-georges 20)
 
   (on (sim.start)"tick" (now ticks)
+
+      (reds.spawn 2 )
+      (yellers.spawn 2)
+      (.spawn georges 2)
+      (.spawn anti-georges 2)
 
       (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 
@@ -151,17 +152,25 @@
             (.update colony.weights)
             (.update Pheremones colony.weights colony.display colony.decay colony.color))
 
-      (do-times 1
+      (.each sim.collision (=> (v x y)
+
+                               (assign color (.get-transition display x y))
+
+                               (assign color.red (Math.round (/ color.red 4))
+                                       color.green (Math.round (/ color.green 4))
+
+                                       color.blue (Math.round (/ color.blue 4))
+                                       color.alpha (Math.round (/ color.alpha 4)))
+
+                               (.set display x y color))) 
+      (do-times 2
 
         ;;(Colony.move georges sim.weights sim.stats sim.display sim.ants sim)
 
         (reds.move )
         (yellers.move )
         (georges.move)
-        (.move anti-georges)
-
-
-        )
+        (.move anti-georges))
 
 
       (display.set sim.nest.x sim.nest.y  yellow)

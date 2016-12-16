@@ -28,7 +28,7 @@ function decayPositive( x,y,v,display,decay,color ){
 var combine = (function combine$(old, addi) {
   /* combine eval.sibilant:35:0 */
 
-  return Math.round(Math.abs((old / addi)));
+  return Math.round((old + addi));
 });
 var blend = (function blend$(color, pixel, v) {
   /* blend eval.sibilant:37:0 */
@@ -36,11 +36,11 @@ var blend = (function blend$(color, pixel, v) {
   let b = combine(pixel.red, color.red);
   let r = combine(pixel.blue, color.blue);
   let g = combine(pixel.green, color.green);
-  let a = Math.round(Math.abs((pixel.alpha + v)));
+  let a = (1 / combine(pixel.alpha, v));
   pixel.red = r;
   pixel.blue = b;
   pixel.green = g;
-  return pixel.alpha = undefined;
+  return pixel.alpha = a;
 });
 function decayNegative( x,y,v,display,decay,color ){ 
   
@@ -98,10 +98,10 @@ const Pheremones = {
             return decayNegative(x, y, v, display, decay, color);
           }
         }).call(this);
-        color = display.getTransition(x, y);
-        color.red = (color.red / 4);
-        color.green = (color.green / 4);
-        color.blue = (color.blue / 4);
+        // color = display.getTransition(x, y);// color.red = Math.round((color.red / _));
+        // color.green = Math.round((color.green / 4));
+        // color.blue = Math.round((color.blue / 4));
+        // color.alpha = Math.round((color.alpha / 4));// display.set(x, y, color);
         return emission;
       
       });

@@ -45,7 +45,7 @@ let canvasb = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 ctx.scale(5, 5);
 let display = create(Display)(120, 120, 5, canvas, canvasb);
-let sim = create(Simulation)(display, 60, false);
+let sim = create(Simulation)(display, 30, false);
 let george = {
   x: 20,
   y: 20
@@ -119,7 +119,7 @@ var start = (function start$(sim) {
   }, { 
     red:255,
     green:0,
-    blue:0
+    blue:155
    }, yellers.ants);
   let georges = create(Colony)({
     x: 100,
@@ -151,12 +151,12 @@ var start = (function start$(sim) {
     green:0,
     blue:0
    };
-  reds.spawn(20);
-  yellers.spawn(20);
-  georges.spawn(20);
-  antiGeorges.spawn(20);
   return sim.start().on("tick", (now, ticks) => {
   	
+    reds.spawn(2);
+    yellers.spawn(2);
+    georges.spawn(2);
+    antiGeorges.spawn(2);
     
     (function() {
       if ((ticks % Math.round((1000 * Math.random() * Math.sin(ticks)))) === 0) {
@@ -181,7 +181,17 @@ var start = (function start$(sim) {
       return Pheremones.update(colony.weights, colony.display, colony.decay, colony.color);
     
     });
-    for (let time = 0;time < 1;++(time)){
+    sim.collision.each((v, x, y) => {
+    	
+      color = display.getTransition(x, y);
+      color.red = Math.round((color.red / 4));
+      color.green = Math.round((color.green / 4));
+      color.blue = Math.round((color.blue / 4));
+      color.alpha = Math.round((color.alpha / 4));
+      return display.set(x, y, color);
+    
+    });
+    for (let time = 0;time < 2;++(time)){
     reds.move();
     yellers.move();
     georges.move();

@@ -316,6 +316,7 @@ exports.Ant = Ant;
 const Colony = { 
   symbol:Symbol("Colony"),
   id:1,
+  colonies:(new Set()),
   init( nest = this.nest,color = this.color,goals = (new Set()),ants = (new Set()),stats = this.stats,collision = this.collision,weights = create(StateSpace)(120, 120),display = this.display,decay = 0.1 ){ 
     
       this.nest = nest;this.color = color;this.goals = goals;this.ants = ants;this.stats = stats;this.collision = collision;this.weights = weights;this.display = display;this.decay = decay;
@@ -331,7 +332,6 @@ const Colony = {
    },
   spawn( count = this.count,nest = this.nest,collision = this.collision ){ 
     
-      console.log("this!", this);
       eachWeight(collision, nest, (spot, i, j, x, y) => {
       	
         return Ant.spawn.call(this, y, x);

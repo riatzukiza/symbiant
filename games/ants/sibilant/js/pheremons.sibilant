@@ -32,7 +32,7 @@
 
     (- v  decay ))
 
-(def combine (old addi ) (Math.round (Math.abs (/ old addi))))
+(def combine (old addi ) (Math.round (+ old addi)))
 
 (def blend (color pixel v)
 
@@ -40,8 +40,13 @@
   (let r (combine pixel.blue color.blue))
   (let g (combine pixel.green color.green))
 
-  (let a (Math.round (Math.abs (+ pixel.alpha v))))
-  (assign pixel.red r pixel.blue b pixel.green g pixel.alpha))
+  (let a (/ 1 (combine pixel.alpha v)))
+
+  (assign pixel.red r
+          pixel.blue b
+          pixel.green g
+          pixel.alpha a
+          ))
 
 (fn decay-negative (x y v display decay color)
 
@@ -50,13 +55,14 @@
 
     (let pixel  (.get display x y))
     (let alpha pixel.alpha)
+
     (assign pixel (hexToComplimentary pixel))
     (assign pixel.alpha alpha)
 
     (blend  pixel color v)
 
-
     (display.set x y pixel)
+
     (+ v  decay ))
 
 (generic each-weight (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
@@ -94,11 +100,16 @@ Values are not changed unless done so explicitly by the function as a side effec
                    (if (> v 0) (decay-positive x y v display decay color)
                        (< v 0) (decay-negative x y v display decay color)))
 
-                 (assign color (.get-transition display x y))
+                 (comment (assign color (.get-transition display x y))
 
-                 (assign color.red (/ color.red 4)
-                         color.green (/ color.green 4)
+                          (assign color.red (Math.round (/ color.red *))
+                                  color.green (Math.round (/ color.green 4))
 
-                         color.blue (/ color.blue 4)) emission))))
+                                  color.blue (Math.round (/ color.blue 4))
+                                  color.alpha (Math.round (/ color.alpha 4)))
+
+                          (.set display x y color))
+
+                 emission))))
 
 (export Pheremones)
