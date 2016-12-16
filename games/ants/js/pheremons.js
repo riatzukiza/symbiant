@@ -12,59 +12,43 @@ const {
 const { 
   Layer
  } = require("./layer");
+const { 
+  hexToComplimentary
+ } = require("./complimentry");
 let colors = [];
-function decayPositive( x,y,v,display,sim ){ 
+function decayPositive( x,y,v,display,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
-    let color = display.get(x, y);
-    let b = Math.round((255 * Math.pow(v, 0.5)));
-    let r = color.red;
-    let g = color.green;
-    (function() {
-      if (b > 255) {
-        b = Math.round((b / 2));
-        g = Math.round((b / 2));
-        return (function() {
-          if (b > 255) {
-            b = Math.round((b / 2));
-            g = Math.round((b / 2));
-            return r = Math.round((b / 2));
-          }
-        }).call(this);
-      }
-    }).call(this);
-    color.red = r;
-    color.blue = b;
-    color.green = g;
-    display.set(x, y, color);
-    return (v - sim.decay);
+    let pixel = display.get(x, y);
+    blend(pixel, color, v);
+    display.set(x, y, pixel);
+    return (v - decay);
   
  };
-function decayNegative( x,y,v,display,sim ){ 
+var combine = (function combine$(old, addi) {
+  /* combine eval.sibilant:35:0 */
+
+  return Math.round(Math.abs((old / addi)));
+});
+var blend = (function blend$(color, pixel, v) {
+  /* blend eval.sibilant:37:0 */
+
+  let b = combine(pixel.red, color.red);
+  let r = combine(pixel.blue, color.blue);
+  let g = combine(pixel.green, color.green);
+  let a = Math.round(Math.abs((pixel.alpha + v)));
+  pixel.red = r;
+  pixel.blue = b;
+  pixel.green = g;
+  return pixel.alpha = undefined;
+});
+function decayNegative( x,y,v,display,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
-    let color = display.get(x, y);
-    let r = color.red;
-    let b = Math.round((255 * v));
-    let g = Math.round((255 * v));
-    (function() {
-      if (b > 255) {
-        b = Math.round((b / 2));
-        g = Math.round((b / 2));
-        return (function() {
-          if (b > 255) {
-            b = Math.round((b / 2));
-            g = Math.round((b / 2));
-            return r = Math.round((b / 2));
-          }
-        }).call(this);
-      }
-    }).call(this);
-    color.red = r;
-    color.blue = b;
-    color.green = g;
-    display.set(x, y, color);
-    return (v + sim.decay);
+    let pixel = hexToComplimentary(display.get(x, y));
+    blend(pixel, color, v);
+    display.set(x, y, pixel);
+    return (v + decay);
   
  };
 function eachWeight( weights = this.weights,pos = this.pos,f = this.f,size = 3,rad = Math.floor((size / 2)) ){ 
@@ -80,6 +64,12 @@ function eachWeight( weights = this.weights,pos = this.pos,f = this.f,size = 3,r
  };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
+  init( rate = this.rate,decay = this.decay,color = this.color,display = this.display,weights = this.weights ){ 
+    
+      this.rate = rate;this.decay = decay;this.color = color;this.display = display;this.weights = weights;
+      return this;
+    
+   },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5 ){ 
     
       return eachWeight(weights, pos, (w, i, j, x, y) => {
@@ -94,23 +84,23 @@ const Pheremones = {
       }, r);
     
    },
-  update( weights = this.weights,display = this.display,sim = this.sim ){ 
+  update( weights = this.weights,display = this.display,decay = this.decay,color = this.color ){ 
     
+      console.log("arguments to pheremons update", arguments);
       return weights.transit((v, x, y) => {
       	
-        return (function() {
-          if (Math.abs(v) > sim.decay) {
-            return (function() {
-              if (v > 0) {
-                return decayPositive(x, y, v, display, sim);
-              } else if (v < 0) {
-                return decayNegative(x, y, v, display, sim);
-              }
-            }).call(this);
-          } else {
-            return 0;
+        let emission = (function() {
+          if (v > 0) {
+            return decayPositive(x, y, v, display, decay, color);
+          } else if (v < 0) {
+            return decayNegative(x, y, v, display, decay, color);
           }
         }).call(this);
+        color = display.getTransition(x, y);
+        color.red = (color.red / 4);
+        color.green = (color.green / 4);
+        color.blue = (color.blue / 4);
+        return emission;
       
       });
     

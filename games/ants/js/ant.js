@@ -12,11 +12,14 @@ const {
   extend,
   mixin
  } = require("./util");
+const { 
+  StateSpace
+ } = require("./state-space");
 var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, weight = 1, c = 0) {
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:41:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));
@@ -24,7 +27,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:21:0 */
+  /* matrix-center eval.sibilant:23:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -60,38 +63,50 @@ function mapWeights( weights = this.weights,pos = this.pos,f = this.f,size = 3,r
 exports.mapWeights = mapWeights;
 const Ant = { 
   symbol:Symbol("Ant"),
-  life:500,
-  init( x = this.x,y = this.y,emitting = this.emitting,ants = this.ants,goals = this.goals,id = 1,color = this.color,nest = this.nest,weights = this.weights,collision = this.collision,display = this.display,stats = this.stats,ant = this ){ 
+  life:1000,
+  init( x = this.x,y = this.y,emitting = this.emitting,ants = this.ants,goals = this.goals,id = 1,color = this.color,nest = this.nest,weights = this.weights,collision = this.collision,display = this.display,stats = this.stats,ant = this,life = this.life ){ 
     
-      this.x = x;this.y = y;this.emitting = emitting;this.ants = ants;this.goals = goals;this.id = id;this.color = color;this.nest = nest;this.weights = weights;this.collision = collision;this.display = display;this.stats = stats;this.ant = ant;
+      this.x = x;this.y = y;this.emitting = emitting;this.ants = ants;this.goals = goals;this.id = id;this.color = color;this.nest = nest;this.weights = weights;this.collision = collision;this.display = display;this.stats = stats;this.ant = ant;this.life = life;
       this.genetics = { 
         deviance:((function() {
-          if (Math.random() <= 0.5) {
+          if (Math.random() < 0.5) {
             return -1;
           } else {
             return 1;
           }
         }).call(this) * ((Math.random() * (1 - 0)) + 0)),
         rate:((function() {
-          if (Math.random() <= 0.5) {
+          if (Math.random() < 0.5) {
             return -1;
           } else {
             return 1;
           }
         }).call(this) * ((Math.random() * (1 - 0)) + 0)),
         mutationFactor:((function() {
-          if (Math.random() <= 0.5) {
+          if (Math.random() < 0.5) {
             return -1;
           } else {
             return 1;
           }
         }).call(this) * ((Math.random() * (1 - 0)) + 0)),
-        findRate:50,
-        returnRate:50,
+        findRate:((function() {
+          if (Math.random() < 0.5) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }).call(this) * ((Math.random() * (50 - 0)) + 0)),
+        returnRate:((function() {
+          if (Math.random() < 0.5) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }).call(this) * ((Math.random() * (50 - 0)) + 0)),
         kernel:mooreNeighborhood(3, 3).dmap(() => {
         	
           return ((function() {
-            if (Math.random() <= 0.5) {
+            if (Math.random() < 0.5) {
               return -1;
             } else {
               return 1;
@@ -155,7 +170,7 @@ const Ant = {
    },
   _eat( stats = this.stats,weights = this.weights,ant = this.ant ){ 
     
-      ant.life = (ant.life + 20);
+      ant.life = (ant.life + 500);
       ant.emitting = true;
       return Pheremones.emit(ant, weights, (ant.genetics.rate * ant.genetics.findRate), 120);
     
@@ -175,7 +190,7 @@ const Ant = {
       ant.genetics.kernel.dmap((x) => {
       	
         return (x + ((function() {
-          if (Math.random() <= 0.5) {
+          if (Math.random() < 0.5) {
             return -1;
           } else {
             return 1;
@@ -184,25 +199,25 @@ const Ant = {
       
       });
       ant.genetics.returnRate = (ant.genetics.returnRate + ((function() {
-        if (Math.random() <= 0.5) {
+        if (Math.random() < 0.5) {
           return -1;
         } else {
           return 1;
         }
       }).call(this) * ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0)));ant.genetics.findRate = (ant.genetics.findRate + ((function() {
-        if (Math.random() <= 0.5) {
+        if (Math.random() < 0.5) {
           return -1;
         } else {
           return 1;
         }
       }).call(this) * ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0)));ant.genetics.deviance = (ant.genetics.deviance + ((function() {
-        if (Math.random() <= 0.5) {
+        if (Math.random() < 0.5) {
           return -1;
         } else {
           return 1;
         }
       }).call(this) * ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0)));ant.genetics.rate = (ant.genetics.rate + ((function() {
-        if (Math.random() <= 0.5) {
+        if (Math.random() < 0.5) {
           return -1;
         } else {
           return 1;
@@ -222,7 +237,7 @@ const Ant = {
           }
         }).call(this);
       
-      }, 3);
+      }, 10);
       return true__QUERY;
     
    },
@@ -277,7 +292,7 @@ const Ant = {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
+      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
       (function() {
         if (ant.life > random) {
           ant.choose();
@@ -301,9 +316,10 @@ exports.Ant = Ant;
 const Colony = { 
   symbol:Symbol("Colony"),
   id:1,
-  init( nest = this.nest,color = this.color,goals = (new Set()),ants = (new Set()),stats = this.stats,collision = this.collision,weights = this.weights,display = this.display ){ 
+  init( nest = this.nest,color = this.color,goals = (new Set()),ants = (new Set()),stats = this.stats,collision = this.collision,weights = create(StateSpace)(120, 120),display = this.display,decay = 0.1 ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.ants = ants;this.stats = stats;this.collision = collision;this.weights = weights;this.display = display;
+      this.nest = nest;this.color = color;this.goals = goals;this.ants = ants;this.stats = stats;this.collision = collision;this.weights = weights;this.display = display;this.decay = decay;
+      console.log("collision", collision);
       return this;
     
    },
@@ -313,11 +329,18 @@ const Colony = {
   load(  ){ 
     
    },
-  spawn( count = this.count,nest = this.nest ){ 
-    for (let time = 0;time < count;++(time)){
-    Ant.spawn.call(this, (null + nest.x), nest.y)}
+  spawn( count = this.count,nest = this.nest,collision = this.collision ){ 
+    
+      console.log("this!", this);
+      eachWeight(collision, nest, (spot, i, j, x, y) => {
+      	
+        return Ant.spawn.call(this, y, x);
+      
+      }, count);
+      return this;
+    
    },
-  move( ants = this.ants ){ 
+  move( ants = this.ants,weights = this.weights,display = this.display,color = this.color ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
       return ants.each((ant) => {

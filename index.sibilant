@@ -102,10 +102,7 @@
       (then promise string
             (each connections (socket)
                   (.emit socket "change")))))
-(type Project
-      (init (src target))
-
-      )
+(type Project (init (src target)))
 (def initial-build (p src path)
   (print "initial build of" src path)
   (pipe (Promise.resolve p)
@@ -168,6 +165,5 @@
 (let games ((create Directory) "./games"))
 
 (pipe (.each games add-game)
-      
       (.then (aprint "all games loaded"))
       (.catch  (aprint "failed to set up all the games")))

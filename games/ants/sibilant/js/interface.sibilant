@@ -4,21 +4,29 @@
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 
-(let canvas (document.get-element-by-id "game"))
-(let context ($ "#container"))
+(let canvasa (document.get-element-by-id "game"))
+(let canvasb (document.get-element-by-id "gameb"))
 
+(let context ($ "#container"))
 
 (import (emit-pheremones Ant)
         "./ant")
 
 (def interface (sim)
 
-  (assign canvas.onselectstart (-> false))
-  (sequence ($ canvas ) .css
+  (assign canvasa.onselectstart (-> false))
+  (assign canvasb.onselectstart (-> false))
+  (sequence ($ canvasa ) .css
             ("transform" "scale(5)")
             ( "top" "1200px")
             ( "left" "1200px")
             ("position" "absolute"))
+
+  (.hide (sequence ($ canvasb ) .css
+                   ("transform" "scale(5)")
+                   ( "top" "1200px")
+                   ( "left" "1200px")
+                   ("position" "absolute")))
 
   (panel Controls
          (sequence here .css
@@ -26,105 +34,7 @@
                    ("z-index" "9999")
 
                    )
-         (panel draw
+         (panel colonies)
 
-                (check-box draw? false)
-
-                (option ant false)
-                (option pheremones false)
-
-                (let x-diff 0)
-                (let y-diff 0)
-
-                (comment (mouse-down canvas
-                                     (assign x-diff x
-                                             y-diff y)))
-                (comment (drag canvas
-                               (if (ant.is ":checked") (.spawn Ant x y sim.ants sim )
-                                   (pheremones.is ":checked") (emit-pheremones (literal x y) sim.weights sim.emission-rate)))))
-
-         (panel simulation-controls
-
-                (float-input weight-constant sim.weight-constant)
-
-                (float-input emission-rate sim.emission-rate)
-
-                (float-input decay sim.decay)
-
-                (button kill-all {}
-
-                        (assign sim.ants (new Set))
-
-                        (assign sim.stats (literal
-                                           (property returning-ants 0)
-                                           (property emitting-ants 0)
-                                           (property successful-returns 0))))
-                (button clear-weights {} (sim.weights.clear))
-
-
-                (button spawn {}
-
-                        (print "spawning to " sim.display)
-
-                        (.spawn Ant sim.nest.x sim.nest.y sim.ants sim.nest
-
-                                1
-                                sim.weight-constant
-                                sim.emission-rate
-                                { red 255 green 0 blue 0} false))
-
-                (button change {} (print "changing simvars from" sim)
-                        (sim.once "tick"
-                                  (-> (assign sim.decay (parse-float (decay.val) 10)
-                                              sim.emission-rate (parse-float (emission-rate.val) 10)
-                                              sim.weight-constant (parse-float (weight-constant.val) 10))))))
-
-         (panel display-controls
-
-                (int-input height 120)
-                (int-input width 120)
-                (int-input cell-size 5)
-
-                (button toggle {} (.toggle sim))
-
-                (button randomize {}
-                        (pipe display
-                              (.randomize)
-                              (.update )
-                              (.render )))
-
-                (button empty {}
-                        (pipe display
-                              (.empty)
-                              (.update )
-                              (.empty)
-                              (.render )))
-
-                (button resize {}
-                        (print width height cell-size)
-                        (var w (.val width)
-                             h (.val height)
-                             c (.val cell-size))
-                        (print w h c)
-                        (.once sim "tick"
-                               (=> ()
-                                   (.update (.resize weights))
-                                   (pipe display (.resize  w h c) (.update ))))))
-         (panel stats
-                (counter weight-at-mouse
-                         (let mx 0)
-                         (let my 0)
-
-                         (mouse-move canvas
-                                     (here.text (.get sim.weights mx my))
-                                     (assign mx x my y))
-
-                         (on sim "tick" () (here.text (.get sim.weights mx my))))
-
-                (counter ants-count (on sim "tick" () (here.text sim.ants.size)))
-                (counter successful-returns-count (sim.on "tick" (=> () (here.text sim.stats.successful-returns))))
-                (counter hunting-ants-count (sim.on "tick" (=> () (here.text (- sim.ants.size sim.stats.returning-ants)))))
-                (counter returning-ants-count (sim.on "tick" (=> () (here.text sim.stats.returning-ants))))
-                (counter tick (sim.on "tick" (=> (now tick) (here.text tick))))
-                (counter frame-delay (sim.on "tick" (=> (now tick) (here.text (parse-int sim.elapsed 10))))))) context)
+         ) context)
 (export interface)

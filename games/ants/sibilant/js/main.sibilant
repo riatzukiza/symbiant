@@ -1,3 +1,5 @@
+(include "./deps")
+
 (import-namespace defs)
 (import-namespace js)
 
@@ -28,26 +30,23 @@
 
 (let socket (io "/ants"))
 (let canvas (document.get-element-by-id "game"))
+(let canvasb (document.get-element-by-id "game"))
 (let ctx (.get-context canvas "2d"))
 (.scale ctx 5 5)
 
-(const display (new Layer canvas))
-(Simulation let sim (display 30 false))
+(Display let display (120 120 5 canvas canvasb))
+(Simulation let sim (display 1 false))
 
 (let george { x 20 y 20 })
 
 (macro all-zero (w h) `(.dmap ((create Matrix) [] @w @h) (lambda () 0) ))
-
 (macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
 
-(macro random-sign  ( ) `(if (<= (Math.random) 0.5) -1 1))
+(macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
 (macro random-signed (max) `(* (random-sign) (random-float 0 @max)))
 
 (macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
-
-
-
 
 (macro do-times (x ...body)
        `(loop (for (let time 0) (< time @x) (++ time) ...@body)))
@@ -71,6 +70,7 @@
                         (let goal (Goal.pool.get-cell x y))
                         (goals.add goal)
                         (collision.set x y goal))))
+
 (assign Goal.pool
         (.dmap ((create Matrix) [] 120 120)
 
@@ -96,20 +96,23 @@
             (random-int 0 sim.collision.height)
             (random-int 0 sim.collision.height)
             goals sim.collision))
-  (do-times 1000 (random-goal))
+  (comment (do-times 1000 (random-goal)))
+
 
 
   (print "sim" sim )
+
   (assign Colony.display sim.display
-          Colony.weights sim.weights
           Colony.collision sim.collision
           Colony.stats sim.stats
           Colony.ants sim.ants)
 
-  (let reds ((create Colony) { x 30 y 60} (color 255 0 0) goals sim.ants))
-  (let yellers ((create Colony) { x 20 y 20} yellow goals ))
-  (let georges ((create Colony) { x 100 y 100} white reds.ants))
-  (let anti-georges ((create Colony) { x 100 y 30} (color 244 236 231) georges.ants))
+  (let anti-set (new Set))
+
+  (let yellers ((create Colony) { x 20 y 20} yellow anti-set ))
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 0) yellers.ants ))
+  (let georges ((create Colony) { x 100 y 100} (color 0 0 255 ) reds.ants))
+  (let anti-georges ((create Colony) { x 100 y 30} (color 30 236 231) georges.ants anti-set))
   (let ultra-pred ((create Colony) { x 10 y 40} (color 30 200 231) (sequence goals .union
                                                                              (reds.ants)
                                                                              (yellers.ants)
@@ -120,29 +123,36 @@
   (interface sim)
 
 
+  (let black (color 0 0 0))
+
+  
+  (reds.spawn 20 )
+  (yellers.spawn 20)
+  (.spawn georges 20)
+  (.spawn anti-georges 20)
   (on (sim.start)"tick" (now ticks)
 
       (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 
+      ;;(.clear display black 120)
       (every (Math.round (* 1000 (Math.random) (Math.sin ticks))) ticks
 
-             (reds.spawn 10 )
-             (yellers.spawn 10)
-             (.spawn georges 10 )
-             (.spawn anti-georges 10)
-             (.spawn ultra-pred 10)
 
-              (each goals (goal)
-                    (if (= (random-bit) 1)
-                        (request-animation-frame
-                         (-> (.spawn Goal
-                                     (+ goal.x (random-int -2 2))
-                                     (+ goal.y (random-int -2 2))
-                                     goals
-                                     sim.collision)) 0))))
+             (each goals (goal)
+                   (if (= (random-bit) 1)
+                       (request-animation-frame
+                        (-> (.spawn Goal
+                                    (+ goal.x (random-int -2 2))
+                                    (+ goal.y (random-int -2 2))
+                                    goals
+                                    sim.collision)) 0))))
+      (each [reds yellers georges anti-georges ] (colony)
 
+            (print "rendering colony weights" colony.color)
+            (.update colony.weights)
+            (.update Pheremones colony.weights colony.display colony.decay colony.color))
 
-      (do-times 5
+      (do-times 1
 
         ;;(Colony.move georges sim.weights sim.stats sim.display sim.ants sim)
 
@@ -150,12 +160,10 @@
         (yellers.move )
         (georges.move)
         (.move anti-georges)
-        (.move ultra-pred)
 
-        (.update sim.weights)
-        (.update Pheremones sim.weights sim.display sim)
 
         )
+
 
       (display.set sim.nest.x sim.nest.y  yellow)
       (display.set georges.nest.x georges.nest.y  yellow)
@@ -164,7 +172,10 @@
 
       (sim.collision.update)
 
-      (display.update)))
+      (display.render)
+
+      (display.update)
+      ))
 
 
 (let yellow {

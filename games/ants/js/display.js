@@ -6,19 +6,23 @@ const {
 const { 
   StateSpace
  } = require("./state-space");
+const { 
+  Layer
+ } = require("./layer");
+const $ = require("jquery/dist/jquery.min.js");
 const Display = { 
   symbol:Symbol("Display"),
   offx:0,
   offy:0,
-  init( width = this.width,height = this.height,cellSize = this.cellSize,ctx = this.ctx,red = create(StateSpace)(width, height),green = create(StateSpace)(width, height),blue = create(StateSpace)(width, height) ){ 
+  init( width = this.width,height = this.height,cellSize = this.cellSize,canvasA = this.canvasA,canvasB = this.canvasB,state = (new Layer(canvasA, cellSize)),transition = (new Layer(canvasB, cellSize)) ){ 
     
-      this.width = width;this.height = height;this.cellSize = cellSize;this.ctx = ctx;this.red = red;this.green = green;this.blue = blue;
+      this.width = width;this.height = height;this.cellSize = cellSize;this.canvasA = canvasA;this.canvasB = canvasB;this.state = state;this.transition = transition;
       return this;
     
    },
-  resize( width = this.width,height = this.height,cellSize = this.cellSize,ctx = this.ctx ){ 
+  resize( width = this.width,height = this.height,cellSize = this.cellSize,canvas = this.canvas ){ 
     
-      Display.init.call(this, width, height, cellSize, ctx);
+      Display.init.call(this, width, height, cellSize, canvas);
       return this;
     
    },
@@ -61,57 +65,46 @@ const Display = {
       });
     
    },
-  set( x = this.x,y = this.y,color = this.color,red = this.red,green = this.green,blue = this.blue ){ 
+  set( x = this.x,y = this.y,color = this.color,transition = this.transition ){ 
     
       "set the transition value of the pixel at the given x and y.";
       x = (x + this.offx);
       y = (y + this.offy);
-      red.set(x, y, color.red);
-      green.set(x, y, color.green);
-      return blue.set(x, y, color.blue);
+      return transition.set(x, y, color);
     
    },
-  setState( x = this.x,y = this.y,color = this.color,red = this.red,green = this.green,blue = this.blue ){ 
+  setState( x = this.x,y = this.y,color = this.color,state = this.state ){ 
     
       x = (x + this.offx);
       y = (y + this.offy);
       "unsafe, manipulate the state of a pixel at position x y";
-      red.setState(x, y, color.red);
-      green.setState(x, y, color.green);
-      return blue.setState(x, y, color.blue);
+      return state.set(x, y, color);
     
    },
-  get( x = this.x,y = this.y,red = this.red,green = this.green,blue = this.blue ){ 
+  get( x = this.x,y = this.y,state = this.state ){ 
     
       "get the state of the pixel at x and y";
       x = (x + this.offx);
       y = (y + this.offy);
-      return { 
-        red:red.get(x, y),
-        green:green.get(x, y),
-        blue:blue.get(x, y)
-       };
+      return state.get(x, y);
     
    },
-  getTransition( x = this.x,y = this.y,red = this.red,green = this.green,blue = this.blue ){ 
+  getTransition( x = this.x,y = this.y,transition = this.transition ){ 
     
       "get the transition value of the pixel at x and y. Is not its self unsafe, but it using it directly may\n" +
       "mean you are trying to do somthing unsafe else where.";
       x = (x + this.offx);
       y = (y + this.offy);
-      return { 
-        red:red.getTransition(x, y),
-        green:green.getTransition(x, y),
-        blue:blue.getTransition(x, y)
-       };
+      return transition.get(x, y);
     
    },
-  update( red = this.red,green = this.green,blue = this.blue ){ 
+  update( state = this.state,transition = this.transition ){ 
     
       "swap the transition and the state matricies for all red green and blue.";
-      red.update();
-      green.update();
-      blue.update();
+      $(state.canvas).hide();
+      $(transition.canvas).show();
+      this.state = transition;
+      this.transition = state;
       return this;
     
    },
@@ -121,11 +114,7 @@ const Display = {
       "for the value at the associated indexes in the transition.";
       for (let i = 0;i < width;++(i)){
       for (let j = 0;j < height;++(j)){
-      this.set(i, j, f({ 
-        red:red.get(i, j),
-        green:green.get(i, j),
-        blue:blue.get(i, j)
-       }, { 
+      this.set(i, j, f(this.get(i, j), { 
         x:i,
         y:j
        }))}};
@@ -149,23 +138,10 @@ const Display = {
       return this;
     
    },
-  render( ctx = this.ctx,cellSize = this.cellSize ){ 
+  render( state = this.state ){ 
     
       "load the current state into the canvas";
-      let size = cellSize;
-      this.each(({ 
-        red:r,
-        green:g,
-        blue:b
-       }, { 
-        x:i,
-        y:j
-       }) => {
-      	
-        ctx.fillStyle = ("rgb(" + r + "," + g + "," + b + ")");
-        return ctx.fillRect((size * i), (size * j), size, size);
-      
-      });
+      state.update();
       return this;
     
    }

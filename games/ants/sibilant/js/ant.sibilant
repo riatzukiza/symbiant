@@ -3,6 +3,8 @@
 (import (Pheremones) "./pheremons")
 (import (Matrix) "./matrix")
 (import ( create extend mixin) "./util")
+(import (State-space) "./state-space")
+
 (macro gene (ent value)
        `(get @ent (quote genetics) (quote @value)))
 (macro mutate (ent values)
@@ -26,7 +28,9 @@
 
 (let choice {x 60 y 60})
 
-(macro collide (ent ...body) `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
+                                  (do ...@body)
+                                  ))
 
 (macro area (space el-name center size ...@body)
 
@@ -105,14 +109,17 @@ assigning the weight value to the value returned"
        `(set this (quote @name) @value))
 (type Ant
 
-      (property life 500)
+      (property life 1000)
 
-      (init ( x y  emitting ants goals (id 1) color nest weights collision display stats (ant this))
+      (init ( x y  emitting ants goals (id 1) color nest weights collision display stats (ant this) life)
+
             (genetics  member deviance rate mutation-factor
-                       (find-rate 50)
-                       (return-rate 50)
-                       (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))
-            )
+
+                       (find-rate (random-signed 50))
+
+                       (return-rate (random-signed 50))
+
+                       (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
 
       (generic save (mth) (path genetics life)
 
@@ -156,7 +163,7 @@ if there is not already one present. No ant is created if there is already an an
       (generic *eat (mth) (stats weights ant)
 
 
-               (assign ant.life (+ ant.life 20)
+               (assign ant.life (+ ant.life 500)
                        ant.emitting true)
 
                (.emit Pheremones ant weights (* (gene ant rate) (gene ant find-rate)) 120))
@@ -185,7 +192,7 @@ if there is not already one present. No ant is created if there is already an an
 
       (generic *sated (mth) (nest ant collision)
                (let true? false)
-               (adjacent  collision spot ant
+               (area  collision spot ant 10
                           (when (and (= nest.x x) (= nest.y y) (> ant.life Ant.life))
                             (assign true? true))) true?)
 
@@ -204,10 +211,9 @@ if there is not already one present. No ant is created if there is already an an
                (let done false)
 
                (when (not (gene ant kernel))
-                 (assign (gene ant kernel)
-                         (moore-neighborhood 3 3 (gene ant deviance)))
 
-                 )
+                 (assign (gene ant kernel)
+                         (moore-neighborhood 3 3 (gene ant deviance))))
 
                (each-valid-move  ant weights
                                  (incr-by count (+ w (gene ant deviance) (.get-cell (gene ant kernel) i j))))
@@ -260,22 +266,40 @@ if there is not already one present. No ant is created if there is already an an
                (.emit Pheremones ant weights (* (gene ant rate) (/ ant.life Ant.life)))))
 
 (export Ant)
+(macro area (space el-name center size ...@body)
 
+       `(each-weight @space @center
+
+                     (=> (@el-name i j x y)
+                         ...@body)
+                     @size ))
 (type Colony
 
       (property id 1)
 
-      (init (nest color (goals (new Set))  (ants (new Set)) stats collision weights display ))
+      (init (nest color (goals (new Set))  (ants (new Set))
+
+                  stats collision
+
+                  (weights ((create State-space) 120 120))
+
+                  display
+                  (decay 0.1)) (print "collision" collision))
 
 
       (generic save (mth) ())
       (generic load (mth) ())
 
-      (generic spawn (mth!) (count  nest )
+      (generic spawn (fluent mth) (count  nest collision)
+               (print "this!" this)
 
-               (do-times count (.spawn.call Ant this (+ ()nest.x) nest.y )))
+               (area collision spot nest count
+                     (.spawn.call Ant this y x )))
 
-      (generic move (mth) (ants )
+      (generic move (mth) (ants weights display color )
+
                "Process the movement of ever ant in a set of ants, updating weights along the way."
+
                (.each ants (=> (ant) (.move ant )))))
+
 (export Colony )

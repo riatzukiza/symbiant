@@ -16,6 +16,7 @@
          (property nests (new Set))
 
          (property ants (new Set))
+
          (property weights ((create State-space) 120 120))
          (property collision ((create State-space) 120 120))
 

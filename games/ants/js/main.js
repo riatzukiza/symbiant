@@ -41,10 +41,11 @@ const {
 let empty = Entity.empty;
 let socket = io("/ants");
 let canvas = document.getElementById("game");
+let canvasb = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 ctx.scale(5, 5);
-const display = (new Layer(canvas));
-let sim = create(Simulation)(display, 30, false);
+let display = create(Display)(120, 120, 5, canvas, canvasb);
+let sim = create(Simulation)(display, 1, false);
 let george = {
   x: 20,
   y: 20
@@ -100,14 +101,18 @@ var start = (function start$(sim) {
   
     return Goal.spawn((Math.floor((Math.random() * (sim.collision.height - 0))) + 0), (Math.floor((Math.random() * (sim.collision.height - 0))) + 0), goals, sim.collision);
   });
-  for (let time = 0;time < 1000;++(time)){
-  randomGoal()};
+  // for (let time = 0;time < 1000;++(time)){
+  // randomGoal()};
   console.log("sim", sim);
   Colony.display = sim.display;
-  Colony.weights = sim.weights;
   Colony.collision = sim.collision;
   Colony.stats = sim.stats;
   Colony.ants = sim.ants;
+  let antiSet = (new Set());
+  let yellers = create(Colony)({
+    x: 20,
+    y: 20
+  }, yellow, antiSet);
   let reds = create(Colony)({
     x: 30,
     y: 60
@@ -115,23 +120,23 @@ var start = (function start$(sim) {
     red:255,
     green:0,
     blue:0
-   }, goals, sim.ants);
-  let yellers = create(Colony)({
-    x: 20,
-    y: 20
-  }, yellow, goals);
+   }, yellers.ants);
   let georges = create(Colony)({
     x: 100,
     y: 100
-  }, white, reds.ants);
+  }, { 
+    red:0,
+    green:0,
+    blue:255
+   }, reds.ants);
   let antiGeorges = create(Colony)({
     x: 100,
     y: 30
   }, { 
-    red:244,
+    red:30,
     green:236,
     blue:231
-   }, georges.ants);
+   }, georges.ants, antiSet);
   let ultraPred = create(Colony)({
     x: 10,
     y: 40
@@ -141,16 +146,20 @@ var start = (function start$(sim) {
     blue:231
    }, goals.union(reds.ants).union(yellers.ants).union(antiGeorges.ants));
   interface(sim);
+  let black = { 
+    red:0,
+    green:0,
+    blue:0
+   };
+  reds.spawn(20);
+  yellers.spawn(20);
+  georges.spawn(20);
+  antiGeorges.spawn(20);
   return sim.start().on("tick", (now, ticks) => {
   	
     
     (function() {
       if ((ticks % Math.round((1000 * Math.random() * Math.sin(ticks)))) === 0) {
-        reds.spawn(10);
-        yellers.spawn(10);
-        georges.spawn(10);
-        antiGeorges.spawn(10);
-        ultraPred.spawn(10);
         return goals.each((goal) => {
         	
           return (function() {
@@ -166,14 +175,18 @@ var start = (function start$(sim) {
         });
       }
     }).call(this);
-    for (let time = 0;time < 5;++(time)){
+    [ reds, yellers, georges, antiGeorges ].each((colony) => {
+    	
+      console.log("rendering colony weights", colony.color);
+      colony.weights.update();
+      return Pheremones.update(colony.weights, colony.display, colony.decay, colony.color);
+    
+    });
+    for (let time = 0;time < 1;++(time)){
     reds.move();
     yellers.move();
     georges.move();
-    antiGeorges.move();
-    ultraPred.move();
-    sim.weights.update();
-    Pheremones.update(sim.weights, sim.display, sim)};
+    antiGeorges.move()};
     display.set(sim.nest.x, sim.nest.y, yellow);
     display.set(georges.nest.x, georges.nest.y, yellow);
     goals.each((goal) => {
@@ -182,6 +195,7 @@ var start = (function start$(sim) {
     
     });
     sim.collision.update();
+    display.render();
     return display.update();
   
   });

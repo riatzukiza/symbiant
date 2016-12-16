@@ -14,18 +14,21 @@
 
 (import ( create extend mixin) "./util")
 (import (State-space) "./state-space")
+(import (Layer) "./layer")
+(const $ (require "jquery/dist/jquery.min.js"))
 
 (type Display
       (property offx 0)
       (property offy 0)
 
-      (init (width height cell-size ctx
-                   (red (State-space (width height)))
-                   (green (State-space (width height)))
-                   (blue (State-space (width height)))))
+      (init (width height cell-size canvas-a canvas-b
 
-      (gmth resize (width height cell-size ctx)
-            (Display.init.call this width height cell-size ctx)
+                   (state (new Layer canvas-a cell-size))
+                   (transition (new Layer canvas-b cell-size)))
+            )
+
+      (gmth resize (width height cell-size canvas)
+            (Display.init.call this width height cell-size canvas)
             this)
 
       (gmth offset (offx offy) (assign this.offx offx this.offy offy))
@@ -46,49 +49,46 @@
             (.transit this (=> (color pos) (color 0 0 0))))
 
 
-      (generic set (mth) (x y color red green blue)
+      (generic set (mth) (x y color transition)
 
                "set the transition value of the pixel at the given x and y."
 
                (assign x (+ x this.offx)
                        y (+ y this.offy))
-               (.set red x y color.red)
-               (.set green x y color.green)
-               (.set blue x y color.blue))
+               (.set transition x y color)
+               )
 
-      (generic set-state (mth) (x y color red green blue)
+      (generic set-state (mth) (x y color state)
 
                (assign x (+ x this.offx)
                        y (+ y this.offy))
                "unsafe, manipulate the state of a pixel at position x y"
+               (.set state x y color)
 
-               (.set-state red x y color.red)
-               (.set-state green x y color.green)
-               (.set-state blue x y color.blue))
+               )
 
-      (generic get (mth) (x y red green blue)
+      (generic get (mth) (x y state)
                "get the state of the pixel at x and y"
                (assign x (+ x this.offx)
                        y (+ y this.offy))
+               (.get state x y))
 
-               (color (.get red x y ) (.get green x y ) (.get blue x y )))
-
-      (generic get-transition (mth) (x y red green blue)
-
+      (generic get-transition (mth) (x y transition)
                "get the transition value of the pixel at x and y. Is not its self unsafe, but it using it directly may
 mean you are trying to do somthing unsafe else where."
                (assign x (+ x this.offx)
                        y (+ y this.offy))
+               (.get transition x y))
 
-               (color (.get-transition red x y ) (.get-transition green x y ) (.get-transition blue x y )))
-
-      (generic update (fluent mth) (red green blue)
+      (generic update (fluent mth) (state transition)
 
                "swap the transition and the state matricies for all red green and blue."
 
-               (.update red)
-               (.update green)
-               (.update blue))
+               (.hide ($ state.canvas))
+               (.show ($ transition.canvas))
+
+               (assign this.state transition
+                       this.transition state))
 
       (generic transit (fluent mth) (f width height red green blue)
                "apply a function for every value in the current state and use its returned value
@@ -98,10 +98,7 @@ for the value at the associated indexes in the transition."
                  (for (let j 0) (< j height) (++ j))
                  (.set this i j)
 
-                 (f (color (red.get i j)
-                           (green.get i j)
-                           (blue.get i j))
-
+                 (f (.get this i j)
                     (position i j))))
 
       (generic each (fluent mth)(f width height cell-size red green blue ctx)
@@ -115,16 +112,9 @@ Does not directly effect either the state or transition"
                  (f (color (red.get i j) (green.get i j) (blue.get i j))
                     (position i j))))
 
-      (generic render (fluent mth) (ctx cell-size)
+      (generic render (fluent mth) (state)
 
                "load the current state into the canvas"
 
-               (let size cell-size)
-
-               (each this ((p-map (red r) (green g) (blue b))
-                           (p-map (x i) (y j)))
-
-
-                     (fill-color r g b)
-                     (ctx.fill-rect (* size i) (* size j) size size))))
+               (.update state)))
 (export Display)

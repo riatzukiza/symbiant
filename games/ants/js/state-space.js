@@ -9,11 +9,11 @@ const {
 const StateSpace = { 
   symbol:Symbol("StateSpace"),
   init( width = this.width,height = this.height,state = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:16:57 */
+    /* eval.sibilant:42:57 */
   
     return 0;
   })),transition = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:16:57 */
+    /* eval.sibilant:42:57 */
   
     return 0;
   })) ){ 
