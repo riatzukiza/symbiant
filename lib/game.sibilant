@@ -1,0 +1,14 @@
+;; We'll call it a Game for now, because this is indeed a special type of
+;; the thing we'd like to further generalized.
+
+;; There will be others, and we will build up more abstractions for working
+;; with them over time
+(type Game
+      (init (name parent sibilant js html app bundle))
+      ;; Should the reload process be its own module?
+      (generic reload (mth) ())
+      (generic bundle (mth) ())
+      (generic compile (mth) ())
+      (generic build (mth) ())
+      (generic watch (mth) ())
+      )

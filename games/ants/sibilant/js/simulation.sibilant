@@ -1,0 +1,127 @@
+(import ( create extend mixin) "./util")
+(import (Event-emitter) "events")
+(import (State-space) "./state-space")
+(import ( Colony Ant each-weight map-weights) "./ant")
+(const fs (require "browserify-fs"))
+(import (Matrix) "./matrix" )
+
+
+
+(specify Simulation (extend Event-emitter.prototype)
+
+         ;; Clear out all this shit from here, it shouldn't be in this module in this way.
+         (property goal {x 100 y 100})
+         (property nest { x 20 y 20})
+
+         (property nests (new Set))
+
+         (property ants (new Set))
+         (property weights ((create State-space) 120 120))
+         (property collision ((create State-space) 120 120))
+
+         ;; This MAYBE belongs here.
+         (property stats (literal
+                          (property returning-ants 0)
+                          (property hunting-ants 0)
+                          (property successful-returns 0)))
+
+         ;; This part of the program should just be a top level object which manages communications between
+         ;; other systems.
+         ;; It should contain *well known* variables.
+         (property weight-constant 0.1)
+
+         (property emission-rate 0.01)
+         (property decay 0.1)
+
+         (init (display fps state (rate (/ 1000 fps)) (ticks 0) (sim this))
+               (assign this.collision.set this.collision.set-state)
+               (Event-emitter.call this))
+
+         (generic start (fluent mth)()
+
+                  (assign this.state true)
+                  (assign this.previous (Date.now))
+
+                  (this.tick))
+
+         (generic toggle (fluent mth) ()
+                  (assign this.state (not this.state))
+                  (when this.state (.start this)))
+
+         (generic stop (fluent mth) () (assign this.state false))
+
+         (generic  tick (fluent mth)(display previous rate)
+
+                   (when this.state
+
+                     (let now (Date.now))
+                     (assign this.elapsed (- now previous))
+
+                     (window.request-animation-frame (-> (this.tick display )))
+
+                     (when (> this.elapsed rate)
+                       (++ this.ticks)
+
+                       (assign this.previous (- now (mod this.elapsed rate)))
+                       (this.emit "tick" now this.ticks))))
+         (generic save (fluent mth) ()
+                  (let storage
+                    {
+                    ants    : [ ]         ,
+                    weights : sim.weights ,
+                    stats   : sim.stats   ,
+                    })
+
+                  (sim.ants.each (=> (ant)
+
+                                     (delete ant.ants )
+                                     (delete ant.sim)
+                                     (delete ant.ant)
+                                     (delete ant.weights)
+                                     (delete ant.collision)
+
+                                     (.push storage.ants ant )))
+
+                  (fs.write-file "./sim.json"
+
+                                 (JSON.stringify storage)
+
+                                 (=> (err)
+                                     (if err (.emit this "error" err))
+                                     (.emit this "save" ))))
+
+         (generic load (fluent mth) (cb)
+                  (.on this "load" (or cb (lambda (sim) sim)))
+                  (fs.read-file "./sim.json"
+                                (=> (err sim-state)
+                                    (if err
+                                        (.emit this "load" this)
+                                        (do
+                                         (let json (JSON.parse sim-state))
+                                         (print "loaded file" json)
+
+                                          (when json.weights
+                                            (assign this.ants
+
+                                                    (new Set (map json.ants (ant)
+                                                                  (assign ant.sim this)
+                                                                  (assign ant.kernel ((create Matrix)
+                                                                                      ant.kernel.array
+                                                                                      ant.kernel.width
+                                                                                      ant.kernel.height))
+                                                                  ((create (extend Ant ant)))))
+
+                                                    this.stats (or json.stats this.stats)
+                                                    this.weights ((create State-space) 120 120
+
+                                                                 ((create Matrix)
+                                                                  json.weights.state.array
+                                                                  json.weights.width
+                                                                  json.weights.height)
+
+                                                                 ((create Matrix)
+                                                                  json.weights.transition.array
+                                                                  json.weights.width
+                                                                  json.weights.height)))
+                                            (.emit this "load" this))))))))
+(export Simulation)

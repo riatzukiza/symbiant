@@ -1,0 +1,4 @@
+(var socket (io "/conways"))
+(on socket "change" ()
+    (print "change ")
+    (.reload location))

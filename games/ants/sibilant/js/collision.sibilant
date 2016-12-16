@@ -1,0 +1,29 @@
+
+;; Collision will be a matrix of id's, where each id is a number
+;; associated with some type of entity.
+
+(import (entity-types) "./entities")
+(import (State-space) "./state-space")
+(import ( create extend mixin) "./util")
+
+(macro flet (name args ...body)
+       `(let @name (=> @args ...@body)))
+
+(specify Collison (extend State-space)
+
+      (generic update (mth) (rules state transition neighborhood )
+
+               ;; Not sure about this.
+               ;; NOT COMMON LISP FLET :D
+               ;; Disclaimer : I have almost no experience writing commonlisp,
+               ;; any similarities of this lisp, to any lisp you're likely fermilar with
+               ;; are totally hallucenations on your part.
+
+               (flet update  (v x y m)
+                 (.update (get entity-types v)
+                          (literal x y)
+                          state
+                          transition
+                          neighborhood))
+
+               (this.transit update)))

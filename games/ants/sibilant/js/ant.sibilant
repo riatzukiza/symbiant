@@ -1,0 +1,281 @@
+
+(import (Entity) "./entity")
+(import (Pheremones) "./pheremons")
+(import (Matrix) "./matrix")
+(import ( create extend mixin) "./util")
+(macro gene (ent value)
+       `(get @ent (quote genetics) (quote @value)))
+(macro mutate (ent values)
+
+       (map (content-of values) (value)
+            `(assign (get @ent (quote genetics) (quote @value))
+                  (+ (get @ent (quote genetics) (quote @value))
+
+                     (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
+
+
+(generic moore-neighborhood (def) (w h (weight 1) (c 0))
+         (let m (allns w h weight))
+         (set m.array (matrix-center w h) c) m)
+
+(def matrix-center (width height )
+  (Math.round (/ (- (* width height) 1) 2)))
+(let empty { id 0 })
+
+(assign Entity.empty empty)
+
+(let choice {x 60 y 60})
+
+(macro collide (ent ...body) `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+
+(macro area (space el-name center size ...@body)
+
+       `(each-weight @space @center
+
+                     (=> (@el-name i j x y)
+                         ...@body)
+                     @size ))
+
+(macro adjacent (matrix value-name center ...body)
+       `(area @matrix @value-name @center 3 ...@body))
+
+(macro if-valid-move (ent ...body )
+       `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+
+(macro each-valid-move (ent space ...rest)
+
+       `(adjacent @space w @ent
+
+                  (let ent (.get collision x y))
+
+                  (if-valid-move
+                   ent
+                   ...@rest
+
+
+                   )))
+
+
+(generic each-weight (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
+
+         "apply a function to every element in a kernel of the weight matrix.
+Values are not changed unless done so explicitly by the function as a side effect."
+
+         (.each-in-sub weights.state
+
+                       (- pos.x rad)
+                       (- pos.y rad)
+
+                       size size (=> (v i j x y )
+
+                                     (f v i j (+ x i) (+ y j)))))
+
+
+
+(export each-weight)
+
+(generic map-weights (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
+
+         "apply a function to every element in a kernel of the weight matrix,
+assigning the weight value to the value returned"
+
+         (each-weight weights pos
+
+          (=> (w i j x y)
+              (.set
+               weights
+
+               (+ x i) (+ y j)
+
+               (f w i j x y)))
+
+          size rad))
+(comment )
+(export map-weights)
+(macro genetics (assigner ...props)
+
+       `(@assigner genetics
+                   (p-map ...@(map props (p)
+                                   (if (literal? p) `( @p (random-signed 1))
+                                       `( @(first (content-of p))
+                                           @(second (content-of p))))))))
+
+
+(macro member (name value)
+       `(set this (quote @name) @value))
+(type Ant
+
+      (property life 500)
+
+      (init ( x y  emitting ants goals (id 1) color nest weights collision display stats (ant this))
+            (genetics  member deviance rate mutation-factor
+                       (find-rate 50)
+                       (return-rate 50)
+                       (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))
+            )
+
+      (generic save (mth) (path genetics life)
+
+               (let storage (literal))
+               (fs.write-file "./sim.json"
+
+                              (JSON.stringify storage)
+
+                              (=> (err)
+                                  (if err (.emit this "error" err))
+                                  (.emit this "save" ))))
+      (generic load (mth) ())
+
+      (generic spawn (mth) (x y color   ants collision)
+
+               "create an ant of the given type at location given,
+if there is not already one present. No ant is created if there is already an ant present."
+
+
+               (let ent (collision.get x y))
+
+               (collide ent
+
+                        (let ant ((create (extend Ant this))  x y ))
+
+                        (.add ants ant)
+                        (.set collision x y ant)))
+
+      (generic *has-discovered-food (mth) ( goals collision ant)
+
+               (let true? false)
+
+               (adjacent  collision spot ant
+                          (when (and  (.has goals spot)
+                                      (< this.life 1000))
+                            (.delete goals spot)
+
+                            (assign true? true)))
+               true?)
+
+      (generic *eat (mth) (stats weights ant)
+
+
+               (assign ant.life (+ ant.life 20)
+                       ant.emitting true)
+
+               (.emit Pheremones ant weights (* (gene ant rate) (gene ant find-rate)) 120))
+
+      (generic *reproduce (mth) (nest ant weights )
+
+               (print "ant has is making babies" )
+
+
+               ;;(.spawn ant nest.x nest.y    )
+               (assign ant.life (/ ant.life 2))
+               (.mutate ant )
+               (.spawn ant nest.x nest.y)
+
+               (.emit Pheremones ant weights (* (gene ant rate) (gene ant return-rate)) 120))
+      (generic mutate (mth) (ant weights nest)
+
+               ;; me think mutations aughta be put into some fancy ass abstraction some where.
+               (.emit Pheremones ant weights (- (gene ant rate)))
+
+               (.dmap (gene ant kernel) (=> (x) (+ x (random-signed 0.2))))
+
+               (mutate ant (return-rate find-rate deviance rate) )
+
+               (assign ant.life Ant.life ))
+
+      (generic *sated (mth) (nest ant collision)
+               (let true? false)
+               (adjacent  collision spot ant
+                          (when (and (= nest.x x) (= nest.y y) (> ant.life Ant.life))
+                            (assign true? true))) true?)
+
+      ;; This is the function we should be calling in most instances to create an ant.
+      ;; Ants should belong to a colony.
+      ;; So there should be a method associated with the colony for creating ants via this method.
+
+
+      (generic choose (mth) (weights collision  (ant this) )
+
+               ;; A choice is a weighted random selection from a collection area.
+               ;; This operator will have specific meaning in the domain of ants.
+
+               (let count 0)
+               (let sum 0)
+               (let done false)
+
+               (when (not (gene ant kernel))
+                 (assign (gene ant kernel)
+                         (moore-neighborhood 3 3 (gene ant deviance)))
+
+                 )
+
+               (each-valid-move  ant weights
+                                 (incr-by count (+ w (gene ant deviance) (.get-cell (gene ant kernel) i j))))
+
+               (let rand (* count (Math.random)))
+
+               ;; Choose randomly from a set of weighted choices
+               ;;(each-weight weights ant choose)
+
+
+               (each-valid-move
+
+                ant weights
+
+                (incr-by sum (+ w (gene ant deviance) (.get-cell (gene ant kernel) i j)))
+
+                (when (and (< rand sum) (not done))
+                  (assign choice.x x choice.y y done true))))
+
+      (generic *die (mth) ( weights ant ants)
+               (.delete ants ant)
+               (.emit Pheremones ant weights (- (* (gene ant rate) (gene ant return-rate))) 120))
+
+      (generic move (mth) ( weights ants   nest collision life emitting (ant this))
+
+               ;; Ants are more likely to choose pheremones over none.
+               ;; but the chance must still exist for the ant to take non marked paths for this to work
+
+               (let x 0)
+               (let y 0)
+
+               (-- ant.life)
+
+               (let random (random-int 0 (/ Ant.life 2)))
+
+               ;; Randomly kill off ants who's lives are
+               ;; below a random threshold between some value and 0
+
+
+               (if (> ant.life random)
+
+                   (do (.choose ant ) (.move.call Entity ant choice.x choice.y  )
+
+                    (if (.*has-discovered-food  ant ) (.*eat ant )
+
+                        (.*sated ant ) (.*reproduce ant)))
+
+                   (.*die ant))
+
+               (.emit Pheremones ant weights (* (gene ant rate) (/ ant.life Ant.life)))))
+
+(export Ant)
+
+(type Colony
+
+      (property id 1)
+
+      (init (nest color (goals (new Set))  (ants (new Set)) stats collision weights display ))
+
+
+      (generic save (mth) ())
+      (generic load (mth) ())
+
+      (generic spawn (mth!) (count  nest )
+
+               (do-times count (.spawn.call Ant this (+ ()nest.x) nest.y )))
+
+      (generic move (mth) (ants )
+               "Process the movement of ever ant in a set of ants, updating weights along the way."
+               (.each ants (=> (ant) (.move ant )))))
+(export Colony )

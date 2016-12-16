@@ -1,0 +1,69 @@
+(let toroidial (=> (a lim) (mod (+ a lim) lim)))
+
+;; Yes, I realize I am not following the ECS thing very precisely, I don't care.
+;; pretty sure this works though, this isn't the typical type of game I don't think.
+;; more like a particle simulation. Maybe I should name them that way, but ehhh...
+;; Systems are sets of related entities. Systems should be responsible for creation
+;; and destruction of their members, as well as passing data around between the.
+
+(type System
+
+      (init (entities weights stats display goals sim nest))
+
+      (generic save (mth) (members)
+
+               (ants.each (=> (ant)
+
+                              (delete ant.members)
+                              (delete ant.sim)
+                              (delete ant.ant)
+
+                              (delete ant.weights)
+                              (delete ant.collision)
+
+                              (.push storage.ants ant ))))
+
+      (generic load (mth) (path)
+               (assign this.entities
+
+                       (new Set (map json.entities (ent)
+                                     (assign ent.system this)
+                                     ((create (extend this.entity-type ant)))))
+
+                       this.stats (or json.stats this.stats)
+
+                       this.weights ((create State-space)
+                                     120 120
+                                     ((create Matrix)
+                                      json.weights.state.array
+                                      json.weights.width
+                                      json.weights.height)
+
+                                     ((create Matrix)
+                                      json.weights.transition.array
+                                      json.weights.width
+                                      json.weights.height))))
+
+      (generic move (mth) (entities  )
+
+               "Process the movement of ever ant in a set of ants, updating weights along the way."
+               (.each entities (=> (ant) (.move ant )))))
+(type Entity
+
+      (init ( x y members sim id system (color (color 255 0 0)) (ent this)))
+
+      (generic load (mth) ())
+
+      (generic move (mth) (x y collision display (ent this))
+
+
+               (.set collision ent.x ent.y Entity.empty)
+
+               (assign ent.x (toroidial x collision.width)
+                       ent.y (toroidial y collision.height))
+
+               (.set collision x y ent)
+
+               (display.set x y  ent.color)))
+
+(export Entity)

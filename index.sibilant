@@ -1,0 +1,173 @@
+"use strict"
+(include "./deps")
+
+(import-namespace defs)
+(import-namespace js)
+
+(const port (or process.env.PORT 8001))
+
+(const express (require "express"))
+(const app (express))
+
+(const chokidar (require "chokidar"))
+
+(const Path (require "path"))
+(const Url (require "url"))
+(const fs (require "fs"))
+
+(const env (or process.env.NODE_ENV "dev"))
+
+(macro import (thing from)
+       `(const (literal ...@(content-of thing)) (require @from)))
+(macro imports (...imports)
+       (map imports (import) `(import ...@(content-of import))))
+
+(import (Path-tree Directory) "./lib/file-system")
+(import (Sibilant)  "./lib/sibilant")
+(import (create extend mixin curry) "./lib/util")
+
+(const http (require "http"))
+(const server (http.Server app))
+
+(const browserify (require "browserify"))
+(const io ((require "socket.io") server))
+
+(server.listen port)
+
+
+(macro lets (...variables)
+       (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
+
+(macro route (method path ...body)
+       `(@method app @path
+                 (=> (req res)
+                     (lets (url (Url.parse req.url))
+
+                           ((literal path
+                                     query
+                                     hash port
+                                     search
+                                     pathname
+                                     auth
+                                     slashes
+                                     href
+                                     protocol
+                                     host) url))
+
+                     (def-promised write (v)
+                       (res.write v success)) ...@body)))
+
+;; When somthing in sibilant/js changes, it will compile straight to its javascript representation into
+;; a mirrored directory
+
+(macro on (emitter event args ...body)
+       `(.on @emitter @event  (=> @args ...@body)))
+(macro once (emitter event args ...body)
+       `(.once @emitter @event  (=> @args ...@body)))
+
+(def add-routes (game bundle)
+  (let html-path (Path.join __dirname "games/" game "/html"))
+
+  (route .get (Path.join "/games/" game "/js/main.js")
+
+         (.pipe (.on (bundle.bundle) "error"
+                     (aprint "bundle err")) res))
+
+  (app.use (Path.join "/games/" game "/play") (express.static html-path)))
+(def comp ((dots args))
+  (=> (x) (.reduce args (=> (value f) (f value)) x)))
+
+(def build (path )
+
+
+  (print "building" path)
+  (let target (pipe path
+                    (.replace  "/sibilant/" "/")
+                    (.replace ".sibilant" ".js")))
+
+  (pipe Sibilant
+        (.from-file path)
+        (.transpile)
+        (.save-file target)))
+
+(def add-to-bundle (bundle game)
+  (=> (file) (bundle.add (Path.join __dirname "games/" game "/js" file))))
+
+(def Set.prototype.each (f)
+  (this.for-each f) this)
+
+
+(def signal-refresh (game connections)
+  (=> (promise)
+      (then promise string
+            (each connections (socket)
+                  (.emit socket "change")))))
+(type Project
+      (init (src target))
+
+      )
+(def initial-build (p src path)
+  (print "initial build of" src path)
+  (pipe (Promise.resolve p)
+        (then-do (each src (name) (build (Path.join  path name))))
+        (then-do (each src (name) (build (Path.join  path name))))))
+
+;; When you have code like this that is difficult to debug in real time, its best to re-write parts of it else where,
+;; and test them independently before trying to use them to replace functionality here.
+;; This code is difficult to debug in real time because it takes a long time to initially start,
+;; as it has to compile its self, then every project it is serving, before it can be known if it has succeeded.
+;; It is always good to have note taking sessions with your code.
+;; Sitting around, reading it. Not changing it, but taking parts of it and
+;; trying things out in a safe space.
+
+(def add-game (game)
+
+  "sets up the middleware and build tools for a game's directory"
+
+  (var bundle (browserify)
+
+       js-path (Path.join __dirname "games/" game "/js"))
+
+  (var dir ((create Directory) js-path))
+
+
+
+
+  ;; When the code changes successfully, I want to signal to the browser to refresh.
+  (add-routes game bundle)
+
+  (pipe (Promise.resolve
+         (when (= env "dev")
+           (var sibilant-path (Path.join __dirname "games/" game "/sibilant/js")
+                namespace (io.of (+ "/" game))
+                connections (new Set))
+
+           (print "attempting to watch" sibilant-path)
+
+           (var source-watcher (chokidar.watch sibilant-path)
+                src ((create Directory) sibilant-path))
+           (once source-watcher "ready" () (print "watching sibilant directories" sibilant-path))
+           (on namespace "connection" (socket)
+
+               (.add connections socket)
+
+               (on socket "disconnect" () (.delete connections socket)))
+
+           ;; When a file being watched for this project changes, we compile the sibilant
+           ;; file to javascript, save it, then we signal to the browser to refresh.
+           (.on source-watcher "change"
+                (comp build (signal-refresh game connections)))
+
+           (on source-watcher "add" (path)
+               (pipe (build path)))
+
+           (initial-build null src sibilant-path )))
+        (then-do (.each  dir (add-to-bundle bundle game)))))
+
+
+(let games ((create Directory) "./games"))
+
+(pipe (.each games add-game)
+      
+      (.then (aprint "all games loaded"))
+      (.catch  (aprint "failed to set up all the games")))

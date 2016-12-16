@@ -1,0 +1,81 @@
+
+(include "./macros/defs")
+(include "./macros/js/index")
+
+(include "./deps")
+
+(import-namespace defs)
+(import-namespace js)
+
+
+(let socket (io "/random-color-field"))
+
+(on socket "change" () (print "change ") (.reload location))
+
+
+(macro all-zero (w h) `(.dmap ((create Matrix) [] @w @h) (lambda () 0) ))
+(macro random-bit  ( ) `(Math.round (Math.random)))
+(macro random-int ( min max)
+       `(Math.floor (* (Math.random) (+ (- @max @min) @min))))
+(import ( create extend mixin) "./util")
+
+;;(import ( Matrix)  "./matrix")
+;;(import (Collison) "./collision" )
+;;(import (Neighborhood) "./neighborhood" )
+
+(import (Display) "./display" )
+
+(const $ (require "jquery/dist/jquery.min.js"))
+
+(let canvas (document.get-element-by-id "game"))
+
+(print "hi")
+
+(let ctx (.get-context canvas "2d"))
+
+(macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
+
+;; (let collision ((create Collision) (.val ($ "#width")) (.val ($ "#height")) ))
+;; (let pheremones ((create Pheremones) (.val ($ "#width")) (.val ($ "#height")) ))
+
+(Display const display ( 60 60 10 ctx))
+
+(print "RANDOMIZING")
+(click "#toggle"
+       (.toggle loop))
+
+(click "#randomize"
+       (display.randomize))
+
+(click "#empty"
+       (display.empty))
+
+(click "#resize"
+
+       (.resize display
+                (.val ($ "#width"))
+                (.val ($ "#height"))
+                (.val ($ "#cell-size")))
+       (.randomize display ))
+
+
+(def draw ()
+  (print "drawing" display)
+  (display.randomize)
+  (display.update)
+  (display.render)
+  (window.request-animation-frame draw))
+
+;; Nest will keep a list of all the ants it has spawned, since the goal of each of its ants
+;; is to report back to the nest about the location of the goal.
+
+;; (let nest ((create Nest) { x : 20, y :20 } collision display pheremons))
+
+;; (let goal ((create Goal) { x : 40, y :40 } collision display pheremons))
+
+
+
+(window.request-animation-frame draw)
+
+;;(collision.empty)
+

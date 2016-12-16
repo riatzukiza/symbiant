@@ -1,0 +1,21 @@
+{
+    "name": "conways-game-of-life",
+    "version": "0.0.1",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "keywords": [],
+    "author": "GitHub",
+    "license": "CC0-1.0",
+    "devDependencies": {
+        "electron": "^1.4.1"
+    },
+    "dependencies": {
+        "sibilant": "*",
+        "chokidar": "^1.6.1",
+        "jamr": "*",
+        "jimp": "^0.2.27",
+        "jquery": "^3.1.1"
+    }
+}

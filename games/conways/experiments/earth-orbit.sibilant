@@ -1,0 +1,62 @@
+(include "./macros/defs")
+(include "./macros/js/index")
+(include "./deps")
+
+(import-namespace defs)
+(import-namespace js)
+
+;;(require! jquery)
+(let canvas (document.get-element-by-id "game"))
+
+(def create-image (src)
+  (let image (new Image))
+  (assign image.src src) image)
+(macro image (name path)
+       `(let @name (create-image @path)))
+
+(image sun "https://mdn.mozillademos.org/files/1456/Canvas_sun.png")
+(image moon "https://mdn.mozillademos.org/files/1443/Canvas_moon.png" )
+(image earth "https://mdn.mozillademos.org/files/1429/Canvas_earth.png")
+
+(def draw ()
+  (def orbit (tx ty image r period)
+    (ctx.rotate (+ (* (/ (* 2 Math.PI) period) (time.get-seconds))
+                   (* (/ (* 2 Math.PI) (* period 1000)) (time.get-milliseconds))))
+    (ctx.translate tx ty)
+    (ctx.drawImage image r r))
+
+  (let ctx (.get-context canvas "2d"))
+
+  (assign ctx.global-composite-operation "destination-over")
+
+  (ctx.clear-rect 0 0 300 300)
+
+  (assign ctx.fill-style "rgba(0,0,0.4)"
+          ctx.stroke-style "rgba(0,153,255,0.4)")
+
+  (ctx.save)
+  (ctx.translate 150 150)
+
+  (let time (new Date))
+
+
+  (orbit 105 0 earth -12 60)
+  (ctx.save)
+  (ctx.fill-rect 0 -12 50 24) ;;shadow
+
+  (orbit 0 28.5 moon -3.5 6)
+  (ctx.restore)
+
+  (ctx.restore)
+
+  ;; Draw orbital line
+  (ctx.begin-path)
+  (ctx.arc 150 150 105 0 (* Math.PI 2) false)
+  (ctx.stroke)
+
+  ;; DRAW THE SUN!
+  (ctx.drawImage sun 0 0 300 300)
+  ;;start over
+  (window.request-animation-frame draw))
+
+(window.request-animation-frame draw)

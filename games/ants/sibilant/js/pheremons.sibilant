@@ -1,0 +1,103 @@
+;; Pheremons is a weight matrix.
+;; Every value in it is a floating point number from 0 to 1.
+;; The values of this matrix influence the decisions of the ants.
+;; Pheremons decay by a fixed amount every tick of the simulation unless
+;; an ant has recently traversed that location.
+;; The result of this is that long paths do not live as long,
+;; so the ants will tend towards the shortest path.
+
+
+(import ( create extend mixin) "./util")
+(import (State-space) "./state-space")
+(import (euclidian-distance) "./math")
+(import (Layer) "./layer")
+
+;;(import (each-weight) "./ant")
+
+(let colors [])
+
+(fn decay-positive (x y v display sim)
+
+    "brings a positive weight closer to zero, "
+
+    (let color (.get display x y))
+
+    (let b (Math.round (* 255 (Math.pow v 0.5) )))
+    (let r (get  color "red"))
+    (let g (get  color "green"))
+
+    (when (> b 255)
+      (assign b (Math.round (/ b 2))
+              g (Math.round (/ b 2)))
+      (when (> b 255)
+        (assign b (Math.round (/ b 2))
+                g (Math.round (/ b 2))
+                r (Math.round (/ b 2)))))
+
+    (assign color.red r color.blue b color.green g)
+
+
+    (display.set x y color)
+
+    (- v  sim.decay ))
+
+(fn decay-negative (x y v display sim)
+
+    "brings a positive weight closer to zero, "
+
+    (let color (.get display x y))
+
+    (let r (get  color "red"))
+    (let b (Math.round (* 255 v)))
+    (let g (Math.round (* 255 v)))
+
+    (when (> b 255)
+
+      (assign b (Math.round (/ b 2))
+              g (Math.round (/ b 2)))
+
+      (when (> b 255)
+
+        (assign b (Math.round (/ b 2))
+                g (Math.round (/ b 2))
+                r (Math.round (/ b 2)))))
+
+    (assign color.red r color.blue b color.green g)
+
+    (display.set x y color)
+    (+ v  sim.decay ))
+
+(generic each-weight (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
+
+         "apply a function to every element in a kernel of the weight matrix.
+Values are not changed unless done so explicitly by the function as a side effect."
+
+         (.each-in-sub weights.state
+
+                       (- pos.x rad)
+                       (- pos.y rad)
+
+                       size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
+(type Pheremones
+
+      (gmth emit  (pos weights rate (r 5 ))
+
+            (area weights w pos r
+
+                      (when (< w 1)
+
+                        (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+
+                        (weights.set x y new-weight))))
+
+      (gmth update (weights display sim)
+
+            (weights.transit
+
+             (=> (v x y)
+
+                 (if (> (Math.abs v) sim.decay)
+                     (if (> v 0) (decay-positive x y v display sim)
+                         (< v 0) (decay-negative x y v display sim)) 0)))))
+
+(export Pheremones)
