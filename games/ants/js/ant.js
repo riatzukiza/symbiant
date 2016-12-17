@@ -19,7 +19,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:43:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));
@@ -292,7 +292,7 @@ const Ant = {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
+      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
       (function() {
         if (ant.life > random) {
           ant.choose();

@@ -56,11 +56,12 @@
 
       (generic move (mth) (x y collision display (ent this))
 
-
                (.set collision ent.x ent.y Entity.empty)
 
                (assign ent.x (toroidial x collision.width)
                        ent.y (toroidial y collision.height))
+
+               ;;(assign ent.color.alpha 1)
 
                (.set collision x y ent)
 

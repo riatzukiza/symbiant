@@ -22,13 +22,13 @@
 
     "brings a positive weight closer to zero, "
 
-    (let pixel (.get display x y))
+    (comment (let pixel (.get display x y))
 
 
-    (blend pixel color v)
+             (blend pixel color v)
 
 
-    (display.set x y pixel)
+             (display.set x y pixel))
 
     (- v  decay ))
 
@@ -40,7 +40,7 @@
   (let r (combine pixel.blue color.blue))
   (let g (combine pixel.green color.green))
 
-  (let a (/ 1 (combine pixel.alpha v)))
+  (let a (combine pixel.alpha v))
 
   (assign pixel.red r
           pixel.blue b
@@ -53,15 +53,15 @@
     "brings a positive weight closer to zero, "
 
 
-    (let pixel  (.get display x y))
-    (let alpha pixel.alpha)
+    (comment (let pixel  (.get display x y))
+             (let alpha pixel.alpha)
 
-    (assign pixel (hexToComplimentary pixel))
-    (assign pixel.alpha alpha)
+             (assign pixel (hexToComplimentary pixel))
+             (assign pixel.alpha alpha)
 
-    (blend  pixel color v)
+             (blend  pixel color v)
 
-    (display.set x y pixel)
+             (display.set x y pixel))
 
     (+ v  decay ))
 

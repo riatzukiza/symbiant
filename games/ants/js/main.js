@@ -45,7 +45,7 @@ let canvasb = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 ctx.scale(5, 5);
 let display = create(Display)(120, 120, 5, canvas, canvasb);
-let sim = create(Simulation)(display, 30, false);
+let sim = create(Simulation)(display, 1, false);
 let george = {
   x: 20,
   y: 20
@@ -181,16 +181,17 @@ var start = (function start$(sim) {
       return Pheremones.update(colony.weights, colony.display, colony.decay, colony.color);
     
     });
-    sim.collision.each((v, x, y) => {
-    	
-      color = display.getTransition(x, y);
-      color.red = Math.round((color.red / 4));
-      color.green = Math.round((color.green / 4));
-      color.blue = Math.round((color.blue / 4));
-      color.alpha = Math.round((color.alpha / 4));
-      return display.set(x, y, color);
-    
-    });
+    // sim.collision.each((v, x, y) => {
+    // 	
+    //   color = display.getTransition(x, y);
+    //   let brightest = Math.max(color.red, color.green, color.blue);
+    //   color.red = Math.round((color.red / 4));
+    //   color.green = Math.round((color.green / 4));
+    //   color.blue = Math.round((color.blue / 4));
+    //   color.alpha = Math.round((color.alpha / 4));
+    //   return display.set(x, y, color);
+    // 
+    // });
     for (let time = 0;time < 2;++(time)){
     reds.move();
     yellers.move();

@@ -19,9 +19,7 @@ let colors = [];
 function decayPositive( x,y,v,display,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
-    let pixel = display.get(x, y);
-    blend(pixel, color, v);
-    display.set(x, y, pixel);
+    // let pixel = display.get(x, y)// blend(pixel, color, v)// display.set(x, y, pixel);
     return (v - decay);
   
  };
@@ -36,7 +34,7 @@ var blend = (function blend$(color, pixel, v) {
   let b = combine(pixel.red, color.red);
   let r = combine(pixel.blue, color.blue);
   let g = combine(pixel.green, color.green);
-  let a = (1 / combine(pixel.alpha, v));
+  let a = combine(pixel.alpha, v);
   pixel.red = r;
   pixel.blue = b;
   pixel.green = g;
@@ -45,12 +43,7 @@ var blend = (function blend$(color, pixel, v) {
 function decayNegative( x,y,v,display,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
-    let pixel = display.get(x, y);
-    let alpha = pixel.alpha;
-    pixel = hexToComplimentary(pixel);
-    pixel.alpha = alpha;
-    blend(pixel, color, v);
-    display.set(x, y, pixel);
+    // let pixel = display.get(x, y)// let alpha = pixel.alpha// pixel = hexToComplimentary(pixel);// pixel.alpha = alpha;// blend(pixel, color, v)// display.set(x, y, pixel);
     return (v + decay);
   
  };

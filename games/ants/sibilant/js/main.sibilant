@@ -35,7 +35,7 @@
 (.scale ctx 5 5)
 
 (Display let display (120 120 5 canvas canvasb))
-(Simulation let sim (display 30 false))
+(Simulation let sim (display 1 false))
 
 (let george { x 20 y 20 })
 
@@ -152,17 +152,19 @@
             (.update colony.weights)
             (.update Pheremones colony.weights colony.display colony.decay colony.color))
 
-      (.each sim.collision (=> (v x y)
 
-                               (assign color (.get-transition display x y))
+      (comment (.each sim.collision (=> (v x y)
 
-                               (assign color.red (Math.round (/ color.red 4))
-                                       color.green (Math.round (/ color.green 4))
+                                (assign color (.get-transition display x y))
+                                (let brightest (Math.max color.red color.green color.blue))
 
-                                       color.blue (Math.round (/ color.blue 4))
-                                       color.alpha (Math.round (/ color.alpha 4)))
+                                (assign color.red (Math.round (/ color.red 4))
+                                        color.green (Math.round (/ color.green 4))
 
-                               (.set display x y color))) 
+                                        color.blue (Math.round (/ color.blue 4))
+                                        color.alpha (Math.round (/ color.alpha 4)))
+
+                                (.set display x y color)))) 
       (do-times 2
 
         ;;(Colony.move georges sim.weights sim.stats sim.display sim.ants sim)
