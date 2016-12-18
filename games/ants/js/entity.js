@@ -68,6 +68,7 @@ const Entity = {
       collision.set(ent.x, ent.y, Entity.empty);
       ent.x = toroidial(x, collision.width);
       ent.y = toroidial(y, collision.height);
+      ent.color.alpha = Math.max(ent.color.blue, ent.color.green, ent.color.red);
       collision.set(x, y, ent);
       return display.set(x, y, ent.color);
     

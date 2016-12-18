@@ -1,6 +1,42 @@
 (include "./macros/jquery")
 (import-namespace jquery)
 
+(import-namespace defs)
+(import-namespace js)
+
+(macro describe-table ( describers ...body)
+                       (const [eachable each-args table-data container]
+                              describers.contents)
+                       `(scoped (var table ($ "<table>"))
+
+                                (let header-row ($ "<tr>"))
+                                ...@(map (content-of table-data) (entry)
+                                         `(.append header-row
+                                                  (.text ($ "<th>" )
+                                                         (quote @(if (literal? entry)
+                                                                     entry
+                                                                     (first entry.contents))))))
+
+                                (.append table header-row)
+                                (each @eachable @each-args
+
+                                      (var row ($ "<tr>" ))
+                                      ...@(map (content-of table-data) (entry)
+                                               `(let @(ternary (literal? entry)
+
+                                                       entry
+                                                       (first entry.contents))
+
+                                                  (scoped
+                                                   (let col-data (.text ($ "<td> " )
+                                                                        @(if (literal? entry)
+                                                                             entry
+                                                                             (second entry.contents))))
+                                                   (.append row col-data) col-data)))
+                                      (.append table row)
+
+                                      ...@body)
+                                (.append @container table)))
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 
@@ -9,7 +45,7 @@
 
 (let context ($ "#container"))
 
-(import (emit-pheremones Ant)
+(import (emit-pheremones Ant Colony)
         "./ant")
 
 (def interface (sim)
@@ -27,14 +63,16 @@
                    ( "top" "1200px")
                    ( "left" "1200px")
                    ("position" "absolute")))
+  (div interface-container {}
+         (panel colonies
+                (describe-table (Colony.colonies (c) ((name c.name) (numbers c.ants.size)) here)
 
-  (panel Controls
+                       (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
+
+                       (on sim "tick" () (.text numbers c.ants.size))))
+
          (sequence here .css
                    ( "margin-top" "600px")
-                   ("z-index" "9999")
-
-                   )
-         (panel colonies)
-
-         ) context)
+                   ("z-index" "9999")))
+  context)
 (export interface)

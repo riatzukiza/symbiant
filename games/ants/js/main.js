@@ -45,7 +45,7 @@ let canvasb = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 ctx.scale(5, 5);
 let display = create(Display)(120, 120, 5, canvas, canvasb);
-let sim = create(Simulation)(display, 1, false);
+let sim = create(Simulation)(display, 60, false);
 let george = {
   x: 20,
   y: 20
@@ -86,42 +86,37 @@ const Goal = {
    }
  };
 Goal.pool = create(Matrix)([], 120, 120).dmap((function(nil, x, y) {
-  /* eval.sibilant:77:15 */
+  /* eval.sibilant:81:15 */
 
   return create(Goal)(x, y);
 }));
 // for (let time = 0;time < 100;++(time)){
 // Ant.spawn(60, 60, georges, sim, 2, 1, -0.2, white)};
 var start = (function start$(sim) {
-  /* start eval.sibilant:89:0 */
+  /* start eval.sibilant:93:0 */
 
   let goals = (new Set());
   var randomGoal = (function randomGoal$() {
-    /* random-goal eval.sibilant:94:2 */
+    /* random-goal eval.sibilant:98:2 */
   
     return Goal.spawn((Math.floor((Math.random() * (sim.collision.height - 0))) + 0), (Math.floor((Math.random() * (sim.collision.height - 0))) + 0), goals, sim.collision);
   });
-  // for (let time = 0;time < 1000;++(time)){
-  // randomGoal()};
+  for (let time = 0;time < 1000;++(time)){
+  randomGoal()};
   console.log("sim", sim);
   Colony.display = sim.display;
   Colony.collision = sim.collision;
   Colony.stats = sim.stats;
   Colony.ants = sim.ants;
-  let antiSet = (new Set());
-  let yellers = create(Colony)({
-    x: 20,
-    y: 20
-  }, yellow, antiSet);
-  let reds = create(Colony)({
+  let reds = create(Colony)("reds", {
     x: 30,
     y: 60
   }, { 
     red:255,
     green:0,
     blue:155
-   }, yellers.ants);
-  let georges = create(Colony)({
+   }, goals);
+  let georges = create(Colony)("georges", {
     x: 100,
     y: 100
   }, { 
@@ -129,37 +124,44 @@ var start = (function start$(sim) {
     green:0,
     blue:255
    }, reds.ants);
-  let antiGeorges = create(Colony)({
-    x: 100,
-    y: 30
-  }, { 
-    red:30,
-    green:236,
-    blue:231
-   }, georges.ants, antiSet);
-  let ultraPred = create(Colony)({
-    x: 10,
-    y: 40
-  }, { 
-    red:30,
-    green:200,
-    blue:231
-   }, goals.union(reds.ants).union(yellers.ants).union(antiGeorges.ants));
+  // let georges = create(Colony)("georges", {
+  //   x: 100,
+  //   y: 100
+  // }, { 
+  //   red:0,
+  //   green:0,
+  //   blue:255
+  //  }, reds.ants)// let yellers = create(Colony)("yellers", {
+  //   x: 20,
+  //   y: 20
+  // }, yellow, goals)// let antiGeorges = create(Colony)("anti-georges", {
+  //   x: 100,
+  //   y: 30
+  // }, { 
+  //   red:30,
+  //   green:236,
+  //   blue:231
+  //  }, georges.ants)// let antiYellers = create(Colony)("anti-yellers", {
+  //   x: 46,
+  //   y: 30
+  // }, { 
+  //   red:30,
+  //   green:24,
+  //   blue:45
+  //  }, yellers.ants);
   interface(sim);
   let black = { 
     red:0,
     green:0,
     blue:0
    };
+  reds.spawn(20);
   return sim.start().on("tick", (now, ticks) => {
   	
-    reds.spawn(2);
-    yellers.spawn(2);
-    georges.spawn(2);
-    antiGeorges.spawn(2);
     
+    display.clear(black, 120);
     (function() {
-      if ((ticks % Math.round((1000 * Math.random() * Math.sin(ticks)))) === 0) {
+      if ((ticks % Math.round((10000 * Math.random() * Math.sin(ticks)))) === 0) {
         return goals.each((goal) => {
         	
           return (function() {
@@ -175,30 +177,14 @@ var start = (function start$(sim) {
         });
       }
     }).call(this);
-    [ reds, yellers, georges, antiGeorges ].each((colony) => {
+    for (let time = 0;time < 2;++(time)){
+    Colony.colonies.each((colony) => {
     	
+      colony.move();
       colony.weights.update();
       return Pheremones.update(colony.weights, colony.display, colony.decay, colony.color);
     
-    });
-    // sim.collision.each((v, x, y) => {
-    // 	
-    //   color = display.getTransition(x, y);
-    //   let brightest = Math.max(color.red, color.green, color.blue);
-    //   color.red = Math.round((color.red / 4));
-    //   color.green = Math.round((color.green / 4));
-    //   color.blue = Math.round((color.blue / 4));
-    //   color.alpha = Math.round((color.alpha / 4));
-    //   return display.set(x, y, color);
-    // 
-    // });
-    for (let time = 0;time < 2;++(time)){
-    reds.move();
-    yellers.move();
-    georges.move();
-    antiGeorges.move()};
-    display.set(sim.nest.x, sim.nest.y, yellow);
-    display.set(georges.nest.x, georges.nest.y, yellow);
+    })};
     goals.each((goal) => {
     	
       return display.set(goal.x, goal.y, green);

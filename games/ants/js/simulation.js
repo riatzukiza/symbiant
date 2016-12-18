@@ -40,7 +40,7 @@ const Simulation = extend(EventEmitter.prototype, {
    },
   weightConstant:0.1,
   emissionRate:0.01,
-  decay:0.1,
+  decay:0.01,
   init( display = this.display,fps = this.fps,state = this.state,rate = (1000 / fps),ticks = 0,sim = this ){ 
     
       this.display = display;this.fps = fps;this.state = state;this.rate = rate;this.ticks = ticks;this.sim = sim;

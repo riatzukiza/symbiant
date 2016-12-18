@@ -118,7 +118,7 @@
                   (click here ...@body)))
 
 (macro counter (name ...body)
-       `(div @name {text (quote @name)}
+       `(div @name {text @name}
              ($element counter "<span>" {} )
              (assign here counter)
              ...@body))

@@ -33,7 +33,9 @@
                        this.stats (or json.stats this.stats)
 
                        this.weights ((create State-space)
+
                                      120 120
+
                                      ((create Matrix)
                                       json.weights.state.array
                                       json.weights.width
@@ -48,6 +50,7 @@
 
                "Process the movement of ever ant in a set of ants, updating weights along the way."
                (.each entities (=> (ant) (.move ant )))))
+
 (type Entity
 
       (init ( x y members sim id system (color (color 255 0 0)) (ent this)))
@@ -61,7 +64,7 @@
                (assign ent.x (toroidial x collision.width)
                        ent.y (toroidial y collision.height))
 
-               ;;(assign ent.color.alpha 1)
+               (assign ent.color.alpha (Math.max ent.color.blue ent.color.green ent.color.red))
 
                (.set collision x y ent)
 

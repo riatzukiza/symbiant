@@ -34,8 +34,7 @@
 
 (def combine (old addi ) (Math.round (+ old addi)))
 
-(def blend (color pixel v)
-
+(def blend (color pixel v) 
   (let b (combine pixel.red color.red))
   (let r (combine pixel.blue color.blue))
   (let g (combine pixel.green color.green))

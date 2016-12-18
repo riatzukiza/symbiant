@@ -32,7 +32,7 @@
          (property weight-constant 0.1)
 
          (property emission-rate 0.01)
-         (property decay 0.1)
+         (property decay 0.01)
 
          (init (display fps state (rate (/ 1000 fps)) (ticks 0) (sim this))
                (assign this.collision.set this.collision.set-state)
