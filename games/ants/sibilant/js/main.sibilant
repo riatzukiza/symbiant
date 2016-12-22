@@ -200,7 +200,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let emission (* (gene ant rate) (gene ant find-rate) (/ ant.life Ant.life)))
                   (.emit Pheremones ant group.weights  emission 120))
          (generic *reproduce (mth) (nest ant group )
-                  (print "ant is making babies" )
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group ant.x ant.y)
