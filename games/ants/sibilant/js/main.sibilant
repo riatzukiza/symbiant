@@ -18,6 +18,7 @@
 (import (Layer) "./layer" )
 (import (interface) "./interface")
 (import (Pheremones) "./pheremons")
+(import (complement) "./color")
 (let george { x 20 y 20 })
 ;; Declare variables
 (let socket (io "/ants"))
@@ -274,6 +275,21 @@ Values are not changed unless done so explicitly by the function as a side effec
          (property entity-type Ant)
          (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
                (Entity-group.init.call this)
+               (assign weights.layer (.get sim.layers))
+               (each weights (w x y)
+                     (.add weights.layer
+                           (literal
+                            x y
+                            (gett weight (.get weights x y))
+                            (gett color (if (> this.weight 1 )
+                                            color
+                                            (complement color)))
+                            (gett r this.color.r)
+                            (gett g this.color.g)
+                            (gett b this.color.b)
+                            (gett a (Math.abs this.weight)))))
+
+               (.move-up World.rendering.entities)
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
                   (let rx (ternary (= (random-bit) 1) 1 -1))
