@@ -204,7 +204,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.emit Pheremones ant group.weights
                          (*   (gene ant rate) (/ ant.life Ant.life)) 120))
          (generic *die (mth) (  ant group collision)
-                  (print this "died")
+                  (print this "died" this.symbol)
                   (.delete group ant)
                   (.remove ant)
                   (.emit Pheremones ant group.weights (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120))
