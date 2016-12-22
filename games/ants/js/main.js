@@ -34,7 +34,7 @@ let george = {
   y: 20
 };
 let socket = io("/ants");
-let sim = create(Simulation)(20, 120, 5);
+let sim = create(Simulation)(60, 120, 5);
 let white = { 
   red:255,
   green:255,
