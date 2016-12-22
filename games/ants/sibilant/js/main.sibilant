@@ -287,7 +287,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett r this.color.red )
                             (gett g this.color.green)
                             (gett b this.color.blue)
-                            (gett a (* 160 this.weight) ))))
+
+                            (gett a (* 5 this.weight) ))))
                (.move-up weights.layer)
 
                (.add colonies this))
@@ -327,7 +328,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (.for-each this f) this)
 (def start (sim)
   (let plants ((create Plant-group) ))
-
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 155) plants ))
   (assign global.sim sim)
   ;;(let line-walker (.spawn Straight-liner 60 60))
   (do-times 100 (.spawn reds))
