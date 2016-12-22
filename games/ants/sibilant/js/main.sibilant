@@ -337,7 +337,6 @@ Values are not changed unless done so explicitly by the function as a side effec
   (on (sim.start)"tick" (now ticks)
 
       (every 60 ticks
-             (print reds)
              (.update plants))
       (do-times 2
         (.update reds))
