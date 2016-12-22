@@ -284,7 +284,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett color (if (>= this.weight 0 )
                                             color
                                             (complement color)))
-                            (gett r this.color.r)
+                            (gett r (let r this.color.r) (print "r" ) r)
                             (gett g this.color.g)
                             (gett b this.color.b)
 
