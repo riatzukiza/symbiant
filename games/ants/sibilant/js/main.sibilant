@@ -223,8 +223,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (assign ant.life Ant.life ))
          (generic *sated (mth) (nest ant collision)
                   (> ant.life Ant.life) )
-         (generic *near-nest (mth) (nest ant collision)
-                  (area-has 10 spot ant collision (and (= nest.x x) (= nest.y y))))
+         (generic *near-nest (mth) (nest ant )
+                  (area-has 10 spot ant World.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
