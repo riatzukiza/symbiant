@@ -294,8 +294,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                (if (= (random-bit) 1)
                    (request-animation-frame
                     (-> (.spawn this.group
-                                (+ pos.x (random-int 0 1) -1)
-                                (+ pos.y (random-int 0 1) -1)))))))
+                                (+ pos.x (random-int 0 2) -1)
+                                (+ pos.y (random-int 0 2) -1)))))))
 (specify Plant-group (extend Entity-group)
          (property entity-type Plant)
          )
