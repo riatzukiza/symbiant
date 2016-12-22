@@ -288,7 +288,11 @@ Values are not changed unless done so explicitly by the function as a side effec
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
-         (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
+         (init (nest color goals (decay 0.1) colonies)
+               (assign this.weights {})
+               (assign this.weights.food (create-weights color)
+                       this.weights.danger (create-weights (complement color))
+                       this.weights.mating (create-weights {red color.green green color.blue blue color.red}))
                (Entity-group.init.call this)
 
                (.add colonies this))
