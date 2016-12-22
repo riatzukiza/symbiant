@@ -331,8 +331,8 @@ Values are not changed unless done so explicitly by the function as a side effec
   (assign global.sim sim)
   ;;(let line-walker (.spawn Straight-liner 60 60))
   (do-times 1000 (.spawn reds))
-  (do-times 100 (.spawn georges))
-  (do-times 1000 (.random plants  ))
+  (do-times 10 (.spawn georges))
+  (do-times 100 (.random plants  ))
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
 
