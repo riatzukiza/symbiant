@@ -158,6 +158,7 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic has (mth) (ent entities)
                   (.has entities ent))
          (generic delete (mth) (ent entities)
+                  (print "deleting" ent)
                   (.delete entities ent)
                   (.delete ent))
          (generic remove (mth) (ent)
