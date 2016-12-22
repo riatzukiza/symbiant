@@ -100,18 +100,12 @@
                          (then branch-name
                                (print "gitting" branch-name)
                                (let compile-branch (+ "compiled-" branch-name))
-                               (def worker (p f done)
-                                 (.then (.resolve Promise (f)) done done))
-                               (def always (p f )
-                                 (.then p
-                                        (=> (result) (worker p f (-> result)))
-                                        (=> (err) (worker p f (-> (throw err))))))
-                               (pipe (shell (git branch [compile-branch]))
-                                     (always
-                                      (-> (shell (git checkout [compile-branch])
-                                                 (git add "." )
-                                                 (git commit "-m" (+ "compiled " path))
-                                                 (git checkout  [branch-name]))))))))
+                               (shell
+                                (git branch [compile-branch])
+                                (git checkout [compile-branch])
+                                (git add "." )
+                                (git commit "-m" (+ "compiled " path))
+                                (git checkout  [branch-name])))))
                (on namespace "connection" (socket)
                    (.add connections socket)
                    (on socket "disconnect" ()

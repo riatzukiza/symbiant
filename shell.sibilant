@@ -4,6 +4,15 @@
 
 (const exec (require "./exec.js"))
 
+(def worker (p f done)
+  (.then (.resolve Promise (f)) done done))
+(def then-always (p f )
+  (.then p
+         (=> (result) (worker p f (-> result)))
+         (=> (err) (worker p f (-> (throw err))))))
+(macro always (p ...body)
+       `(then-always @p (-> ...@body)))
+
 (macro shell-command (...sub-commands)
        `(exec (.join
                [...@(map sub-commands (command)
@@ -13,5 +22,5 @@
                              command
                              `(quote @command))) ] " ")))
 (macro shell (...commands)
-       `(sequence (shell-command ...@(content-of (.pop commands))) then
+       `(sequence (shell-command ...@(content-of (.pop commands))) always
                   ...@(map commands (c) `(result (shell-command ...@ (content-of c))))))
