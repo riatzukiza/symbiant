@@ -281,7 +281,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                            (literal
                             x y
                             (gett weight (.get weights x y))
-                            (gett color (if (> this.weight 1 )
+                            (gett color (if (> this.weight 0 )
                                             color
                                             (complement color)))
                             (gett r this.color.r)
