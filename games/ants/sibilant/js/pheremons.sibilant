@@ -61,7 +61,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                    (if (> v 0) (decay-positive x y v decay )
                        (< v 0) (decay-negative x y v decay ) 0))
                  ;;(print "setting weight value to" emission)
-                 emission))
-            (.update weights)))
+                 emission))))
 
 (export Pheremones)
