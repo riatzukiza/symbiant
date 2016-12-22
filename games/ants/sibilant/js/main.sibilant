@@ -107,6 +107,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             (.add entities ent)
             (.set collision ent.pos ent))
       (gmth delete (ent rendering collision coord entities)
+            (print "deleting" ent "from the world" ent.pos)
             (.delete rendering.entities ent)
             (.delete entities ent)
             (.delete collision ent.pos ))
