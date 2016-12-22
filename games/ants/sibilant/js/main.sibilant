@@ -378,7 +378,6 @@ Values are not changed unless done so explicitly by the function as a side effec
              (.update plants))
       (do-times 2
         (each Colony.colonies (col)
-              (print "updating colonies" col)
               (.update col)))
       (pipe sim.layers
             (.update )
