@@ -46,11 +46,10 @@ Values are not changed unless done so explicitly by the function as a side effec
 
             (area weights.state w pos r
 
-                      (when (< w 1)
 
-                        (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+                  (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
 
-                        (weights.set x y new-weight))))
+                  (weights.set x y new-weight)))
 
       (gmth update (weights decay )
 
