@@ -277,7 +277,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                (Entity-group.init.call this)
                (assign weights.layer (.get sim.layers))
                (each weights (w x y)
-                     (print "building weight render set" (literal x y)) 
                      (.add weights.layer
                            (literal
                             x y
