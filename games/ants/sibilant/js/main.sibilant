@@ -73,6 +73,17 @@ Values are not changed unless done so explicitly by the function as a side effec
                                    (if (literal? p) `( @p (random-float 0 0.5))
                                        `( @(first (content-of p))
                                            @(second (content-of p))))))))
+(def weighted-random-element (collection key)
+  ;; key is the property on the object to use as the weight
+  (let count 0)
+  (each collection (el)
+        (incr-by count (get el key)))
+  (let rand (* count (Math.random)))
+  (let sum 0)
+  (all-of collection el
+          (incr-by sum (get el key))
+          (if (< rand sum)
+              (return el))))
 (macro member (name value)
        `(set this (quote @name) @value))
 (type Collision
@@ -150,7 +161,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                        (random-int 0 world.coord.width))))
 (assign Entity.empty empty)
 (specify Entity-group (extend Entity)
-         (init (entity-type (entities (new Set))))
+         (property groups (new Set))
+         (init (entity-type (entities (new Set)) groups)
+               (.add groups this))
          (generic serialize (mth) (entities)
                   (map (.to-array entities) (ent)
                        (.serialize ent)))
@@ -237,6 +250,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let sated? 1)
+                  
                   (each-valid-move  ant group.weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
