@@ -308,7 +308,7 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic update (mth) (entities weights decay)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
                   (.each this (=> (ant) (.update ant )))
-                  (.update Pheremones this.weights 0.01 )))
+                  (.update Pheremones this.weights 0.1 )))
 (specify Plant (extend Entity)
          (property color green)
          (property life 200)
