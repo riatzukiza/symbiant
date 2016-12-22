@@ -101,11 +101,12 @@
                                (print "gitting" branch-name)
                                (let compile-branch (+ "compiled-" branch-name))
                                (shell
+                                (git stash)
                                 (git branch [compile-branch])
                                 (git checkout [compile-branch])
                                 (git add "." )
                                 (git commit "-m" (+ "compiled " path))
-                                (git checkout  [branch-name])))))
+                                (git checkout  stash)))))
                (on namespace "connection" (socket)
                    (.add connections socket)
                    (on socket "disconnect" ()
