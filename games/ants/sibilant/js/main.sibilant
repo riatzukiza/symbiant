@@ -295,7 +295,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let ry (ternary (= (random-bit) 1) 1 -1))
                   (let ent (.spawn entity-type
                                    (+ this.nest.x (random-int 0 30) rx)
-                                   (+ this.nest.y (random-int 0 30) rx)))
+                                   (+ this.nest.y (random-int 0 30) rx) color))
                   (when ent
                     (assign ent.group this)
                     (this.add ent)
