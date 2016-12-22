@@ -192,13 +192,13 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic *has-discovered-food (mth) ( group collision ant)
                   (let true? false)
                   (area  World.coord spot ant 5
-                         (when (and  (.has group.goals (.get World.collision.entities spot)) (< this.life 1000))
+                         (assign spot (.get World.collision.entities spot))
+                         (when (and  (not true?) (.has group.goals spot) (< this.life 1000))
+                           (assign this._food spot)
                            (assign true? true))) true?)
 
          (generic *eat (mth) ( group ant)
-                  (print "ant eating")
-                  (.delete group.goals spot)
-                  (.set collision x y empty)
+                  (.delete group.goals ant._food)
                   (assign ant.life (+ ant.life Ant.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) (/ ant.life Ant.life)))
                   (.emit Pheremones ant group.weights  emission 120))
