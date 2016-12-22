@@ -294,6 +294,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                (if (= (random-bit) 1)
 
                    (var r (ternary (= (random-bit) 1) 1 -1) )
+                   (print "rando" r)
                    (request-animation-frame
                     (-> (.spawn this.group
                                 (+ pos.x (random-int 0 2) r)
