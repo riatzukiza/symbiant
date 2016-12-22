@@ -98,7 +98,8 @@
                    (pipe (.change this path)
                          (then-do (exec "git branch | grep \* | cut -d ' ' -f2"))
                          (then branch-name
-                               (exec (+ "git checkout -b compiled;"
+                               (exec (+ "git branch compiled-" branch-name ";"
+                                        "git checkout compiled-" branch-name ";"
                                         "git add .;"
                                         "git commit -m 'compiled" path "';"
                                         "git push origin compiled;"
