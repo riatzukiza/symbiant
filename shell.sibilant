@@ -8,10 +8,10 @@
   (.then (.resolve Promise (f)) done done))
 (def then-always (p f )
   (.then p
-         (=> (result) (worker p f (-> result)))
-         (=> (err) (worker p f (-> (throw err))))))
-(macro always (p ...body)
-       `(then-always @p (-> ...@body)))
+         (=> (result) (f result))
+         (=> (err) (f))))
+(macro always (p arg-name ...body)
+       `(then-always @p (@arg-name ...@body)))
 
 (macro shell-command (...sub-commands)
        `(exec (.join
