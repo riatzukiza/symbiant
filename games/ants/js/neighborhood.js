@@ -2,7 +2,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:43:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));

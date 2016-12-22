@@ -9,11 +9,11 @@ const {
 const StateSpace = { 
   symbol:Symbol("StateSpace"),
   init( width = this.width,height = this.height,state = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:42:57 */
+    /* eval.sibilant:16:57 */
   
     return 0;
   })),transition = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:42:57 */
+    /* eval.sibilant:16:57 */
   
     return 0;
   })) ){ 
@@ -34,12 +34,12 @@ const StateSpace = {
    },
   getState( x = this.x,y = this.y,state = this.state ){ 
     
-      return state.getCell(x, y);
+      return state.get(x, y);
     
    },
   getTransition( x = this.x,y = this.y,transition = this.transition ){ 
     
-      return transition.getCell(x, y);
+      return transition.get(x, y);
     
    },
   set( x = this.x,y = this.y,value = this.value,transition = this.transition ){ 
@@ -49,12 +49,12 @@ const StateSpace = {
    },
   setState( x = this.x,y = this.y,value = this.value,state = this.state ){ 
     
-      return state.setCell(x, y, value);
+      return state.set(x, y, value);
     
    },
   setTransition( x = this.x,y = this.y,value = this.value,transition = this.transition ){ 
     
-      return transition.setCell(x, y, value);
+      return transition.set(x, y, value);
     
    },
   eachState( f = this.f,state = this.state ){ 

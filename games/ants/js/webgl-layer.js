@@ -27,7 +27,7 @@ class Layers {
         this._canvas = document.createElement('canvas');
         this._gl = gl = this._canvas.getContext("webgl");
         this.layers = new Array();
-        this.buffer = new Buffer(this._gl);
+        this.buffer = new GlBuffer(this._gl);
         this.data = null;
         this.count = 0;
         this.dirty = true;
@@ -40,13 +40,13 @@ class Layers {
         srcSize += 4;
         this.resize((srcSize * scale) | 0, (srcSize * scale) | 0);
 
-        gl.disable(gl.DEPTH_TEST);
+        //gl.disable(gl.DEPTH_TEST);
         //gl.depthMask(false);
 
 
         gl.enable(gl.BLEND);
-        //gl.blendEquation( gl.FUNC_ADD );
-        gl.blendEquationSeparate(gl.FUNC_ADD, gl.FUNC_REVERSE_SUBTRACT);
+        gl.blendEquation(gl.FUNC_ADD);
+        //gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_REVERSE_SUBTRACT );
         //gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
         gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -139,11 +139,10 @@ class Layers {
         }
 
         let offset = 0;
-        this.layers.reverse().forEach((layer) => {
+        this.layers.forEach((layer) => {
             layer.update(offset, this.data);
             offset += layer.size;
         });
-        this.layers.reverse();
 
         this.buffer.bind().data(this.data).unbind();
 
@@ -224,7 +223,7 @@ class Layer extends Set {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Buffer {
+class GlBuffer {
     constructor(gl, target, type, usage) {
         this._gl = gl;
         this._target = target || gl.ARRAY_BUFFER;

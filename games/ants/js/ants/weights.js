@@ -2,20 +2,13 @@ const {
   create,
   extend,
   mixin
- } = require("./util");
+ } = require("../util");
 const { 
   StateSpace
- } = require("./state-space");
+ } = require("../state-space");
 const { 
   euclidianDistance
- } = require("./math");
-const { 
-  Layer
- } = require("./layer");
-const { 
-  hexToComplimentary
- } = require("./complimentry");
-let colors = [];
+ } = require("../math");
 function decayPositive( x,y,v,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
@@ -23,7 +16,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:25:0 */
+  /* combine eval.sibilant:7:0 */
 
   return Math.round((old + addi));
 });
@@ -44,11 +37,16 @@ function eachWeight( weights = this.weights,pos = this.pos,f = this.f,size = 3,r
     });
   
  };
-const Pheremones = { 
-  symbol:Symbol("Pheremones"),
-  init( rate = this.rate,decay = this.decay,weights = this.weights ){ 
+var fallOff = (function fallOff$(w, rate, x, y, pos) {
+  /* fall-off eval.sibilant:18:0 */
+
+  return (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
+});
+const WeightField = { 
+  symbol:Symbol("WeightField"),
+  init( sim = this.sim,decay = this.decay,weights = create(StateSpace)(sim.width, sim.width) ){ 
     
-      this.rate = rate;this.decay = decay;this.weights = weights;
+      this.sim = sim;this.decay = decay;this.weights = weights;
       return this;
     
    },
@@ -58,12 +56,28 @@ const Pheremones = {
       	
         return (function() {
           if (w < 1) {
-            let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
+            let newWeight = fallOff(w, rate, x, y, pos);
             return weights.set(x, y, newWeight);
           }
         }).call(this);
       
       }, r);
+    
+   },
+  count( ant = this.ant,weights = this.weights ){ 
+    
+      let count = 0;
+      eachWeight(weights, ant, (w, i, j, x, y) => {
+      	
+        let ent = collision.get(x, y);
+        return (function() {
+          if ((!(ent) || ent === empty || ent === 0)) {
+            return count += (w * sated__QUERY * ant.genetics.kernel.getCell(i, j) * ((Ant.life * ant.life) / ant.genetics.deviance));
+          }
+        }).call(this);
+      
+      }, 3);
+      return count;
     
    },
   update( weights = this.weights,decay = this.decay ){ 
@@ -83,4 +97,4 @@ const Pheremones = {
     
    }
  };
-exports.Pheremones = Pheremones;
+exports.WeightField = WeightField;

@@ -24,7 +24,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:43:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));
@@ -32,7 +32,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:32:0 */
+  /* matrix-center eval.sibilant:22:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -69,12 +69,12 @@ exports.mapWeights = mapWeights;
 const Ant = { 
   symbol:Symbol("Ant"),
   life:1000,
-  init( x = this.x,y = this.y,emitting = this.emitting,ants = this.ants,goals = this.goals,id = 1,color = this.color,nest = this.nest,weights = this.weights,collision = this.collision,display = this.display,stats = this.stats,ant = this,life = this.life ){ 
+  init( x = this.x,y = this.y,ants = this.ants,goals = this.goals,id = 1,color = this.color,nest = this.nest,weights = this.weights,collision = this.collision,display = this.display,ant = this,life = this.life ){ 
     
-      this.x = x;this.y = y;this.emitting = emitting;this.ants = ants;this.goals = goals;this.id = id;this.color = color;this.nest = nest;this.weights = weights;this.collision = collision;this.display = display;this.stats = stats;this.ant = ant;this.life = life;
+      this.x = x;this.y = y;this.ants = ants;this.goals = goals;this.id = id;this.color = color;this.nest = nest;this.weights = weights;this.collision = collision;this.display = display;this.ant = ant;this.life = life;
       this.genetics = { 
         deviance:(function() {
-          /* eval.sibilant:49:8 */
+          /* eval.sibilant:43:8 */
         
           let rand = ((Math.random() * (0.1 - 0)) + 0);
           return (0.1 - (rand / 2));
@@ -82,13 +82,13 @@ const Ant = {
         rate:((Math.random() * (0.5 - 0)) + 0),
         mutationFactor:((Math.random() * (0.5 - 0)) + 0),
         findRate:(function() {
-          /* eval.sibilant:49:8 */
+          /* eval.sibilant:43:8 */
         
           let rand = ((Math.random() * (1 - 0)) + 0);
           return (1 - (rand / 2));
         }).call(this),
         returnRate:(function() {
-          /* eval.sibilant:49:8 */
+          /* eval.sibilant:43:8 */
         
           let rand = ((Math.random() * (1 - 0)) + 0);
           return (1 - (rand / 2));
@@ -96,7 +96,7 @@ const Ant = {
         kernel:mooreNeighborhood(3, 3).dmap(() => {
         	
           return (function() {
-            /* eval.sibilant:49:8 */
+            /* eval.sibilant:43:8 */
           
             let rand = ((Math.random() * (1 - 0)) + 0);
             return (1 - (rand / 2));
@@ -107,12 +107,19 @@ const Ant = {
       return this;
     
    },
+  serialize( genetics = this.genetics,life = this.life ){ 
+    
+      return { 
+        genetics,
+        life,
+        x,
+        y
+       };
+    
+   },
   save( path = this.path,genetics = this.genetics,life = this.life ){ 
     
-      let storage = { 
-        
-       };
-      return fs.writeFile("./sim.json", JSON.stringify(storage), (err) => {
+      return fs.writeFile("./sim.json", JSON.stringify(this.serialize()), (err) => {
       	
         (function() {
           if (err) {
@@ -160,10 +167,9 @@ const Ant = {
       return true__QUERY;
     
    },
-  _eat( stats = this.stats,weights = this.weights,ant = this.ant ){ 
+  _eat( weights = this.weights,ant = this.ant ){ 
     
       ant.life = (ant.life + Ant.life);
-      ant.emitting = true;
       let emission = (ant.genetics.rate * ant.genetics.findRate * (ant.life / Ant.life));
       return Pheremones.emit(ant, weights, emission, 120);
     
@@ -191,7 +197,7 @@ const Ant = {
       ant.genetics.kernel.dmap((x) => {
       	
         return (x * (function() {
-          /* eval.sibilant:49:8 */
+          /* eval.sibilant:43:8 */
         
           let rand = ((Math.random() * (0.2 - 0)) + 0);
           return (0.2 - (rand / 2));
@@ -199,22 +205,22 @@ const Ant = {
       
       });
       ant.genetics.returnRate = (ant.genetics.returnRate + (function() {
-        /* eval.sibilant:49:8 */
+        /* eval.sibilant:43:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.findRate = (ant.genetics.findRate + (function() {
-        /* eval.sibilant:49:8 */
+        /* eval.sibilant:43:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.deviance = (ant.genetics.deviance + (function() {
-        /* eval.sibilant:49:8 */
+        /* eval.sibilant:43:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.rate = (ant.genetics.rate + (function() {
-        /* eval.sibilant:49:8 */
+        /* eval.sibilant:43:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
@@ -230,7 +236,7 @@ const Ant = {
   _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
     
       return (function() {
-        /* eval.sibilant:12:8 */
+        /* eval.sibilant:8:8 */
       
         let true__QUERY = false;
         eachWeight(collision, ant, (spot, i, j, x, y) => {
@@ -292,12 +298,12 @@ const Ant = {
       return choice;
     
    },
-  move( weights = this.weights,ants = this.ants,nest = this.nest,collision = this.collision,life = this.life,emitting = this.emitting,ant = this ){ 
+  move( ants = this.ants,nest = this.nest,life = this.life,ant = this ){ 
     
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
+      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
       let sated__QUERY = ant._sated();
       (function() {
         if ((2 * ant.life) > random) {
@@ -323,44 +329,3 @@ const Ant = {
    }
  };
 exports.Ant = Ant;
-const Colony = { 
-  symbol:Symbol("Colony"),
-  id:1,
-  colonies:(new Set()),
-  init( name = this.name,nest = this.nest,color = this.color,goals = (new Set()),ants = (new Set()),stats = this.stats,collision = this.collision,weights = create(StateSpace)(120, 120),display = this.display,decay = 0.1,colonies = this.colonies ){ 
-    
-      this.name = name;this.nest = nest;this.color = color;this.goals = goals;this.ants = ants;this.stats = stats;this.collision = collision;this.weights = weights;this.display = display;this.decay = decay;this.colonies = colonies;
-      colonies.add(this);
-      return this;
-    
-   },
-  save(  ){ 
-    
-   },
-  load(  ){ 
-    
-   },
-  spawn( count = this.count,nest = this.nest,collision = this.collision ){ 
-    
-      console.log("spawning ants at nest", nest);
-      eachWeight(collision, nest, (spot, i, j, x, y) => {
-      	
-        return Ant.spawn.call(this, y, x);
-      
-      }, count);
-      return this;
-    
-   },
-  move( ants = this.ants,weights = this.weights,display = this.display,color = this.color,nest = this.nest ){ 
-    
-      "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      ants.each((ant) => {
-      	
-        return ant.move();
-      
-      });
-      return display.set(nest.x, nest.y, yellow);
-    
-   }
- };
-exports.Colony = Colony;
