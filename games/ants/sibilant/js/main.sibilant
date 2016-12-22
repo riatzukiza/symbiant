@@ -191,6 +191,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
          (generic *has-discovered-food (mth) ( group collision ant)
                   (let true? false)
+                  (print "checking if food is near by")
                   (area  World.coord spot ant 5
                          (when (and  (.has group.goals spot) (< this.life 1000))
                            (print "ant has discovered food?")
