@@ -270,26 +270,26 @@ Values are not changed unless done so explicitly by the function as a side effec
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
                   (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+(def create-weights (color )
+  (let weights ((create State-space) sim.width sim.width))
+  (get weights.layer (.get sim.layers))
+  (each weights (w x y)
+        (.add weights.layer
+              (literal
+               x y
+               (gett weight (.get weights x y))
+               (gett color color)
+               (gett r this.color.red )
+               (gett g this.color.green)
+               (gett b this.color.blue)
+
+               (gett a (* 5 this.weight) ))))
+  (.move-up weights.layer) weights)
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
          (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
                (Entity-group.init.call this)
-               (assign weights.layer (.get sim.layers))
-               (each weights (w x y)
-                     (.add weights.layer
-                           (literal
-                            x y
-                            (gett weight (.get weights x y))
-                            (gett color (if (>= this.weight 0 )
-                                            color
-                                            (complement color)))
-                            (gett r this.color.red )
-                            (gett g this.color.green)
-                            (gett b this.color.blue)
-
-                            (gett a (* 5 this.weight) ))))
-               (.move-up weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
