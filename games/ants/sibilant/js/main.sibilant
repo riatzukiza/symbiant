@@ -193,7 +193,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let true? false)
                   (area  World.coord spot ant 5
                          (print "spot" spot group.goals)
-                         (when (and  (.has group.goals spot) (< this.life 1000))
+                         (when (and  (.has group.goals (.get World.collision.entities spot)) (< this.life 1000))
                            (print "ant has discovered food?")
                            (assign true? true))) true?)
 
