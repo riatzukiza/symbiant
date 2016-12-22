@@ -82,7 +82,9 @@ Values are not changed unless done so explicitly by the function as a side effec
           (incr-by count (memo-map.set el (f el))))
     (var rand (* count (Math.random)) sum 0)
     (let r null)
+    (let entries (.entries collection))
     (until r
+           (let el (get (entries.next) "value"))
            (incr-by sum (memo-map.get el) )
            (when (< rand sum)
              (assign r el) r)) )
