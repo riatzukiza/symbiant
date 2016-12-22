@@ -237,7 +237,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   ;; I think some other function will decide what *weight* is, and call this function accordingly.
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
-                  (let sated? (ternary (.*sated ant) -1 1))
+                  (let sated? 1)
                   (each-valid-move  ant group.weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
