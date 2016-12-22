@@ -160,7 +160,7 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic has (mth) (ent entities)
                   (.has entities ent))
          (generic delete (mth) (ent entities)
-                  ())
+                  (.delete ent))
          (generic remove (mth) (ent)
                   (.delete entities ent))
          (generic each (mth) (f entities)
