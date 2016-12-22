@@ -21,6 +21,7 @@
 (let george { x 20 y 20 })
 ;; Declare variables
 (let socket (io "/ants"))
+
 (Simulation let sim (60 120 5))
 
 (let white (color 255 255 255))
