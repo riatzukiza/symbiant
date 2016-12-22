@@ -159,7 +159,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.add entities ent))
          (generic has (mth) (ent entities)
                   (.has entities ent))
-
          (generic delete (mth) (ent entities)
                   (.delete ent))
          (generic remove (mth) (ent)
@@ -212,7 +211,9 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic *die (mth) (  ant group collision)
                   (print this "died" this.symbol)
                   (.delete group ant)
-                  (.emit Pheremones ant group.weights (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120))
+                  (.emit Pheremones ant group.weights (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120)
+                  (.stop sim)
+                  )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
                   (.emit Pheremones ant group.weights (- (gene ant rate)))
