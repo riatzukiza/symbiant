@@ -73,7 +73,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                    (if (literal? p) `( @p (random-float 0 0.5))
                                        `( @(first (content-of p))
                                            @(second (content-of p))))))))
-(function weighted-random-element (collection f)
+(fn weighted-random-element (collection f)
           ;; key is the property on the object to use as the weight
           (var count 0
                memo-map (new Map))
