@@ -182,7 +182,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.delete ent)
                   )
          (generic remove (mth) (ent)
-                  (assign ent.group null)
                   (.delete entities ent))
          (generic each (mth) (f entities)
                   (.each entities f) this)
