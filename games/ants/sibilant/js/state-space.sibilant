@@ -30,9 +30,9 @@
 
       ;; Setting will then refer to modifications to the transition state, the state that will be.
 
-      (generic set (mth) (x y value transition)
+      (generic set (mth) (x y value state)
 
-               (this.set-transition x y value transition))
+               (this.set-state x y value state))
 
       ;; Same black magic applies here as with get, some times... some times we allow our selves to forget that
       ;; the state isn't supose to change.
