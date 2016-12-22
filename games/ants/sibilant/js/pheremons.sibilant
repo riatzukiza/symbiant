@@ -43,6 +43,7 @@ Values are not changed unless done so explicitly by the function as a side effec
       (init (rate decay weights))
 
       (gmth emit  (pos weights rate (r 5 ))
+            (print "emitting" pos weights rate r)
 
             (area weights.state w pos r
 
