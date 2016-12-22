@@ -106,7 +106,7 @@
                                  (shell
                                   (git add "-A" "." )
                                   (git commit "-m" (+ "compiled " path))
-                                  (git push origin [compile-branch])))
+                                  (git push origin [branch-name])))
 
                            (then-do (assign this._compiling false)))))
                (on namespace "connection" (socket)
