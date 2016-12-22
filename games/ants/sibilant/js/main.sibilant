@@ -334,7 +334,9 @@ Values are not changed unless done so explicitly by the function as a side effec
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
       (every 60 ticks (.update plants))
-      (do-times 2 (.update reds))
+      (do-times 2
+        (print reds.weights)
+        (.update reds))
       (pipe sim.layers
             (.update )
             (.render))))
