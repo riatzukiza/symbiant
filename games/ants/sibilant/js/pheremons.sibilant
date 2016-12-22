@@ -43,24 +43,21 @@ Values are not changed unless done so explicitly by the function as a side effec
       (init (rate decay weights))
 
       (gmth emit  (pos weights rate (r 5 ))
-            ;;(print "emitting" pos weights rate r)
 
             (area weights.state w pos r
 
+                      (when (< w 1)
 
-                  (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
-                  ;;(print "emitting weight" new-weight)
+                        (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
 
-                  (weights.set x y new-weight)))
+                        (weights.set x y new-weight))))
 
       (gmth update (weights decay )
 
             (weights.transit
              (=> (v x y)
-                 (let emission
-                   (if (> v 0) (decay-positive x y v decay )
-                       (< v 0) (decay-negative x y v decay ) 0))
-                 ;;(print "setting weight value to" emission)
-                 emission))))
+                 (if (> v 0) (decay-positive x y v decay )
+                     (< v 0) (decay-negative x y v decay ))))
+            (.update weights)))
 
 (export Pheremones)
