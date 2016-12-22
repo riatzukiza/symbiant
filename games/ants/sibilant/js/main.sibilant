@@ -284,9 +284,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett color (if (>= this.weight 0 )
                                             color
                                             (complement color)))
-                            (gett r (let color this.color)(let r color.r) (print "r" r color) r)
-                            (gett g this.color.g)
-                            (gett b this.color.b)
+                            (gett r (let color this.color)(let r color.red) (print "r" r color) r)
+                            (gett g this.color.green)
+                            (gett b this.color.blue)
 
                             (gett a (let a (* 255 (Math.abs this.weight))) a))))
                ;;(.move-up weights.layer)
