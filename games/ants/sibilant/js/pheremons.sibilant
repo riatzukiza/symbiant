@@ -45,7 +45,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
       (gmth emit  (pos weights rate (r 5 ))
 
-            (area weights w pos r
+            (area weights.state w pos r
 
                       (when (< w 1)
 

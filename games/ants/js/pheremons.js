@@ -54,7 +54,7 @@ const Pheremones = {
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5 ){ 
     
-      return eachInArea(weights, pos, (w, i, j, x, y) => {
+      return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
         return (function() {
           if (w < 1) {
