@@ -81,8 +81,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                (map (.to-array entities) (ent) (.serialize ent)))
 
       (generic move (mth) (ent pos entities)
-               (.delete entities this.pos)
-               (.set entities ent.pos ent))
+               (.delete entities ent.pos)
+               (.set entities pos ent))
 
       (generic check (mth) (x y coord )
                (this.has (.get coord x y)))
