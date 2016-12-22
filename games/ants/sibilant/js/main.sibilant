@@ -190,7 +190,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let true? false)
                   (area  World.coord spot ant 5
                          (assign spot (.get World.collision.entities spot))
-                         (when (and  (not true?) (.has group.goals spot) (< this.life 1000))
+                         (when (and  (not true?) (.has group.goals spot) )
                            (assign this._food spot)
                            (assign true? true))) true?)
 
