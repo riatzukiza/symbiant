@@ -378,8 +378,8 @@ Values are not changed unless done so explicitly by the function as a side effec
       (every 60 ticks
              (.update plants))
       (do-times 2
-        (.update reds)
-        (.update georges))
+        (each Colony.coloniees (col)
+              (.update col)))
       (pipe sim.layers
             (.update )
             (.render))))
