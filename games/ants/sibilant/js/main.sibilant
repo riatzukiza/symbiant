@@ -317,7 +317,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (do-times 100 (.random plants  ))
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
-      (every 120 ticks (.update plants))
+      (every 60 ticks (.update plants))
       (do-times 2 (.update reds))
       (pipe sim.layers
             (.update )
