@@ -198,7 +198,7 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic *eat (mth) ( group ant)
                   (.delete group.goals ant._food)
                   (assign ant.life (+ ant.life 200))
-                  (let emission (* (gene ant rate) (gene ant find-rate) (/ ant.life Ant.life)))
+                  (let emission (* (gene ant rate) (gene ant find-rate) ))
                   (.emit Pheremones ant.pos group.weights  emission 120))
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
