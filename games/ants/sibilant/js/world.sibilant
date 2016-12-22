@@ -35,6 +35,7 @@
             (.add rendering.entities ent)
             (.add entities ent)
             (.set collision ent.pos ent))
+
       (gmth update (entities)
             (print this.rendering)
             (each entities (ent) (.update ent))))
