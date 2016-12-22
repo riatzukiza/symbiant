@@ -271,7 +271,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
                         (if (.*has-discovered-food  ant ) (.*eat ant )
-                            sated? (if (.*near-nest  ant) (.*reproduce ant))))
+                            ))
                       (.*die ant))
                   (.emit Pheremones ant group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
 (specify Colony (extend Entity-group)
