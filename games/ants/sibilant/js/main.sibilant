@@ -202,8 +202,8 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
-                  (.spawn group ant.x ant.y)
-                  (.spawn group (+ 1 ant.x) (+ 1 ant.y))
+                  (.spawn group )
+                  (.spawn group )
                   (.emit Pheremones ant group.weights
                          (*   (gene ant rate) (/ ant.life Ant.life)) 120))
          (generic *die (mth) (  ant group collision)
