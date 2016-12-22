@@ -336,7 +336,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
 
-      (every 120 ticks
+      (every 60 ticks
              (.update plants))
       (do-times 2
         (.update reds))
