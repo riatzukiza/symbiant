@@ -204,10 +204,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.emit Pheremones ant.pos group.weights (* 10  (gene ant rate) (/ ant.life Ant.life)) 120))
+                  (.emit Pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 120))
          (generic *die (mth) (  ant group collision)
                   (.delete group ant)
-                  (.emit Pheremones ant.pos group.weights (* -100 (gene ant rate)  (/ ant.life Ant.life)) 120)
+                  (.emit Pheremones ant.pos group.weights (* -50 (gene ant rate)  (/ ant.life Ant.life)) 120)
                   )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
