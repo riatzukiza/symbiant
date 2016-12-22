@@ -199,21 +199,21 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.delete group.goals ant._food)
                   (assign ant.life (+ ant.life Ant.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) (/ ant.life Ant.life)))
-                  (.emit Pheremones ant.pos group.weights  emission 120))
+                  (.emit Pheremones ant.pos group.weights.food  emission 120))
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.emit Pheremones ant.pos group.weights
+                  (.emit Pheremones ant.pos group.weights.food
                          (*   (gene ant rate) (/ ant.life Ant.life)) 120))
          (generic *die (mth) (  ant group collision)
                   (.delete group ant)
-                  (.emit Pheremones ant.pos group.weights (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120)
+                  (.emit Pheremones ant.pos group.weights.food (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120)
                   )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
-                  (.emit Pheremones ant.pos group.weights (- (gene ant rate)))
+                  (.emit Pheremones ant.pos group.weights.food (- (gene ant rate)))
                   (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
                   (mutate ant (return-rate find-rate deviance rate) )
                   (assign ant.life Ant.life ))
@@ -239,7 +239,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let sated? 1)
-                  (each-valid-move  ant group.weights.state
+                  (each-valid-move  ant group.weights.food.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
                                     ;;(print "calculated deviance" calc-devi)
@@ -247,7 +247,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                                       (.get (gene ant kernel) i j)
                                                       (gene ant deviance))))
                   (let rand (* count (Math.random)))
-                  (each-valid-move ant group.weights.state
+                  (each-valid-move ant group.weights.food.state
                                    (incr-by sum (+ w   sated?
                                                    (.get (gene ant kernel) i j)
                                                    (gene ant deviance)))
@@ -269,7 +269,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                         (if (.*has-discovered-food  ant ) (.*eat ant )
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
-                  (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+                  (.emit Pheremones ant.pos group.weights.food (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
 (def create-weights (color )
   (let weights ((create State-space) sim.width sim.width))
   (get weights.layer (.get sim.layers))
