@@ -173,6 +173,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (map (.to-array entities) (ent)
                        (.serialize ent)))
          (generic add (mth) (ent entities)
+                  (assign ent.group ent)
                   (.add entities ent))
          (generic has (mth) (ent entities)
                   (.has entities ent))
@@ -181,6 +182,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.delete ent)
                   )
          (generic remove (mth) (ent)
+                  (assign ent.group null)
                   (.delete entities ent))
          (generic each (mth) (f entities)
                   (.each entities f) this)
@@ -285,13 +287,15 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                   (if (> (* 0.1 ant.life ) (* 100 (+ 10 random)))
                       (do (print "Fuck you guys, I'll make my own colony, with black jack and hookers." ant.life (* 100 random))
-                          ((create Colony) this.pos (random-color)
-                           (weighted-random-element
-                            Entity-group.groups
-                            (=> (group)
-                                (let total-life 0)
-                                (each group.entities (ent)
-                                      (incr-by total-life ent.life)) total-life)) ))
+                          (let new-colony ((create Colony) this.pos (random-color)
+                                           (weighted-random-element
+                                            Entity-group.groups
+                                            (=> (group)
+                                                (let total-life 0)
+                                                (each group.entities (ent)
+                                                      (incr-by total-life ent.life)) total-life)) ))
+                        (.remove this.group this)
+                        (.add new-colony this))
 
                    (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
