@@ -38,4 +38,5 @@
       (gmth update (entities)
             (print this.rendering)
             (each entities (ent) (.update ent))))
+
 (export World)
