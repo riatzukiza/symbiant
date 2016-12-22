@@ -199,8 +199,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn ant ant.x ant.y)
-                  (.spawn ant (+ 1 ant.x) (+ 1 ant.y)    )
-                  (.emit Pheremones ant group.weights (*   (gene ant rate) (/ ant.life Ant.life)) 120))
+                  (.spawn ant (+ 1 ant.x) (+ 1 ant.y))
+                  (.emit Pheremones ant group.weights
+                         (*   (gene ant rate) (/ ant.life Ant.life)) 120))
          (generic *die (mth) (  ant group collision)
                   (print this "died")
                   (.delete group ant)
