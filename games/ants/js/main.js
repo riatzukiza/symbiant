@@ -34,7 +34,7 @@ let george = {
   y: 20
 };
 let socket = io("/ants");
-let sim = create(Simulation)(1, 120, 5);
+let sim = create(Simulation)(20, 120, 5);
 let white = { 
   red:255,
   green:255,
@@ -62,7 +62,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:41:0 */
+  /* matrix-center eval.sibilant:43:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -476,7 +476,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
     
       return (function() {
-        /* eval.sibilant:27:8 */
+        /* eval.sibilant:29:8 */
       
         let true__QUERY = false;
         eachInArea(collision, ant, (spot, i, j, x, y) => {
@@ -620,13 +620,13 @@ const Plant = extend(Entity, {
    }
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:285:0 */
+  /* Map.prototype.each eval.sibilant:287:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:287:0 */
+  /* start eval.sibilant:289:0 */
 
   let plants = create(EntityGroup)(Plant);
   let reds = create(Colony)({

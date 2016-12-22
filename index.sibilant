@@ -96,7 +96,7 @@
       (generic connect (mth) (namespace connections source-watcher bundle name)
                (on source-watcher "change" (path)
                    (pipe (.change this path)
-                         (then-do (shell-command  git branch | grep \\* | cut "-d" "' '" -f2))
+                         (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" -f2))
                          (then branch-name
                                (print "gitting" branch-name)
                                (let compile-branch (+ "compiled-" branch-name))
