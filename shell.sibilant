@@ -1,7 +1,9 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+
 (const exec (require "./exec.js"))
+
 (macro shell-command (...sub-commands)
        `(exec (.join
                [...@(map sub-commands (command)
@@ -13,8 +15,3 @@
 (macro shell (...commands)
        `(sequence (shell-command ...@(content-of (.pop commands))) then
                   ...@(map commands (c) `(result (shell-command ...@ (content-of c))))))
-(shell (git branch [compile-branch])
-       (git checkout [compile-branch])
-       (git add "." )
-       (git commit "-m" (+ "compiled " path))
-       (git checkout  [branch-name]))
