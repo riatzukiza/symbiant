@@ -301,7 +301,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (let reds ((create Colony) { x 30 y 60} (color 255 0 155) plants ))
   (let line-walker (.spawn Straight-liner 60 60))
   (do-times 1 (.random reds))
-  (do-times 100 (.random plants  ))
+  (do-times 1 (.random plants  ))
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
       (do-times 2 (.update reds))
