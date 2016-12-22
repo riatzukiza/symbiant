@@ -276,7 +276,6 @@ Values are not changed unless done so explicitly by the function as a side effec
          (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
                (Entity-group.init.call this)
                (assign weights.layer (.get sim.layers))
-               (.move-up World.rendering.entities)
                (each weights (w x y)
                      (.add weights.layer
                            (literal
@@ -289,6 +288,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett g this.color.g)
                             (gett b this.color.b)
                             (gett a (* 255 (Math.abs this.weight))))))
+               (.move-down weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
