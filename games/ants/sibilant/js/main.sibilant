@@ -287,7 +287,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett r this.color.r)
                             (gett g this.color.g)
                             (gett b this.color.b)
-                            (gett a (Math.abs this.weight)))))
+                            (gett a (print "getting weight alpha" this.weight)(Math.abs this.weight)))))
 
                (.move-up World.rendering.entities)
                (.add colonies this))
