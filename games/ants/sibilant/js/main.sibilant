@@ -257,7 +257,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let sated? 1)
-                  
+                  (print "ant group" ant.group)
                   (each-valid-move  ant group.weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
