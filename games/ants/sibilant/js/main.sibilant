@@ -22,7 +22,7 @@
 (let george { x 20 y 20 })
 ;; Declare variables
 (let socket (io "/ants"))
-(Simulation let sim (60 120 5))
+(Simulation let sim (1 120 5))
 (let white (color 255 255 255))
 (let green (color 0 255 0))
 (let black (color 0 0 0))
@@ -277,6 +277,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                (Entity-group.init.call this)
                (assign weights.layer (.get sim.layers))
                (each weights (w x y)
+
+
+                     (print "building weight render set" (literal x y)) 
                      (.add weights.layer
                            (literal
                             x y
