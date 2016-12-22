@@ -181,7 +181,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                (++ this.y)))
 (specify Ant (extend Entity)
          (property life 1000)
-         (property color (color 255 0 0))
          (init ( pos world color life (ant this) )
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
