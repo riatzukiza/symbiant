@@ -95,18 +95,20 @@
                ((signal-refresh name connections) (build path)))
       (generic connect (mth) (namespace connections source-watcher bundle name)
                (on source-watcher "change" (path)
-                   (pipe (.change this path)
-                         (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
-                         (then branch-name
-                               (print "gitting" branch-name)
-                               (let compile-branch (+ "compiled-" branch-name))
-                               (shell
-                                (git branch [compile-branch])
-                                (git checkout  [compile-branch])
-                                (git add "-A" "." )
-                                (git commit "-m" (+ "compiled " path))
-                                (git push origin [compile-branch])
-                                (git checkout [branch-name])))))
+                   (unless this._compiling
+                     (assign this._compiling true)
+                     (pipe (.change this path)
+                           (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
+
+                           (then branch-name
+                                 (print "gitting" branch-name)
+                                 (let compile-branch (+ "compiled-" branch-name))
+                                 (shell
+                                  (git add "-A" "." )
+                                  (git commit "-m" (+ "compiled " path))
+                                  (git push origin [compile-branch])))
+
+                           (then-do (assign this._compiling false)))))
                (on namespace "connection" (socket)
                    (.add connections socket)
                    (on socket "disconnect" ()
