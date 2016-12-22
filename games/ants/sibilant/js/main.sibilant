@@ -196,7 +196,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
          (generic *eat (mth) ( group ant)
                   (.delete group.goals ant._food)
-                  (assign ant.life (+ ant.life 200))
+                  (assign ant.life (+ ant.life ant._food.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) 10))
                   (.emit Pheremones ant.pos group.weights  emission 120))
          (generic *reproduce (mth) (nest ant group )
@@ -204,10 +204,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.emit Pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 120))
+                  (.emit Pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group collision)
                   (.delete group ant)
-                  (.emit Pheremones ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 120)
+                  (.emit Pheremones ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
@@ -311,6 +311,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.update Pheremones this.weights 0.01 )))
 (specify Plant (extend Entity)
          (property color green)
+         (property life 200)
          (gmth update (pos system)
                (when (= (random-bit) 1)
 
