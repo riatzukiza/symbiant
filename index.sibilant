@@ -101,9 +101,10 @@
                                (print "gitting" branch-name)
                                (let compile-branch (+ "compiled-" branch-name))
                                (shell
-                                (git add "." )
+                                (git branch [compile-branch])
+                                (git checkout  [compile-branch])
+                                (git add "-A" "." )
                                 (git commit "-m" (+ "compiled " path))
-                                (git checkout "-b" [compile-branch])
                                 (git push origin [compile-branch])
                                 (git checkout [branch-name])))))
                (on namespace "connection" (socket)
