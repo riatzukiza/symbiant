@@ -74,15 +74,18 @@ Values are not changed unless done so explicitly by the function as a side effec
                                        `( @(first (content-of p))
                                            @(second (content-of p))))))))
 (fn weighted-random-element (collection f)
-          ;; key is the property on the object to use as the weight
-          (var count 0
-               memo-map (new Map))
-          (each collection (el)
-                (incr-by count (memo-map.set el (f))))
-          (var rand (* count (Math.random)) sum 0)
-          (loop (all-of collection el (incr-by sum (memo-map.get el)))
-                (if (< rand sum)
-                    (return el))))
+    ;; key is the property on the object to use as the weight
+    (var count 0
+         memo-map (new Map))
+    (each collection (el)
+          (incr-by count (memo-map.set el (f))))
+    (var rand (* count (Math.random)) sum 0)
+    (let r null)
+    (loop (all-of collection el (incr-by sum (memo-map.get el)))
+          (when (< rand sum)
+            (assign r el)
+            (break el)))
+    (return r))
 (def weighted-random-from-prop (collection key)
   (weighted-random-element collection (=> (el) (get el key))))
 (macro member (name value)
