@@ -282,7 +282,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated ant ))
-                  (if (> ant.life (* 10 random))
+                  (if (> ant.life (* 100 random))
                       (do (print "Fuck you guys, I'll make my own colony, with black jack and hookers." ant.life (* 100 random))
                           ((create Colony) this.pos (random-color)
                            (weighted-random-element
