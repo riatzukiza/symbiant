@@ -82,8 +82,7 @@ Values are not changed unless done so explicitly by the function as a side effec
     (var rand (* count (Math.random)) sum 0)
     (loop (collect r null)
           (all-of collection el)
-          (do
-           (incr-by sum (memo-map.get el)))
+          (incr-by sum (memo-map.get el))
           (when (< rand sum)
             (assign r el)
             (return r))))
