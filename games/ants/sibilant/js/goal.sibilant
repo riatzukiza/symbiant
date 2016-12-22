@@ -1,0 +1,40 @@
+(import (Matrix) "./matrix" )
+(import ( create extend mixin) "./util")
+(import (Entity) "./entity")
+(let empty Entity.empty)
+(def make-pool (width ent-type)
+  (.dmap ((create Matrix) [] width width)
+         (lambda (nil x y) ((create ent-type) x y 0 0 0 0))))
+(type Plant
+      (init (pos system))
+      (generic spawn (mth) (x y system (plant this))
+               (let ent (.get system.sim.coord x y))
+               (unless (system.entities.has ent)
+                 (print "spawning plant")
+                 (let data { &x &y
+                   r : system.color.red
+                   g : system.color.green
+                   b : system.color.blue
+                   a : 255 })
+                 (assign this.pos ent)
+                 (system.layer.add  data)
+                 (system.entities.add ent)))
+      (gmth grow (x y system)
+            (if (= (random-bit) 1)
+                (request-animation-frame
+                 (-> (.spawn Plant (+ goal.x (random-int -2 2)) (+ goal.y (random-int -2 2)) system)) 0))))
+(type System
+      (property pool Matrix)
+      (init (color entity-type sim
+                   (pool (make-pool entity-type sim.coord.width))
+                   (entities (new Set))
+                   (layer (sim.layers.get))))
+      (generic build (mth) (entity-type color methods))
+      (generic random (mth) (entity-type sim )
+               (.spawn entity-type
+                       (random-int 0 sim.coord.width)
+                       (random-int 0 sim.coord.width) this ))
+      (generic update (mth) ()))
+(export System)
+;;(specify Plant-system (.build System Plant))
+

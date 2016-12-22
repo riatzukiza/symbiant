@@ -1,0 +1,6 @@
+(import ( create extend mixin) "../util")
+
+(type Collision
+      (generic update (mth) ())
+      (generic check (mth) (x y system )
+               (system.has (.get system.sim.coord x y))))

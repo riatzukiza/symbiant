@@ -1,71 +1,41 @@
-;; Pheremons is a weight matrix.
-;; Every value in it is a floating point number from 0 to 1.
-;; The values of this matrix influence the decisions of the ants.
-;; Pheremons decay by a fixed amount every tick of the simulation unless
-;; an ant has recently traversed that location.
-;; The result of this is that long paths do not live as long,
-;; so the ants will tend towards the shortest path.
-
-
-
-(import ( create extend mixin) "./util")
-(import (State-space) "./state-space")
-(import (euclidian-distance) "./math")
-(import (Layer) "./layer")
-(import (hexToComplimentary) "./complimentry")
-
-;;(import (each-weight) "./ant")
-
-(let colors [])
-
+(import ( create extend mixin) "../util")
+(import (State-space) "../state-space")
+(import (euclidian-distance) "../math")
 (fn decay-positive (x y v decay color)
     "brings a positive weight closer to zero, "
     (- v  decay ))
-
 (def combine (old addi ) (Math.round (+ old addi)))
-
-
 (fn decay-negative (x y v decay color)
-
     "brings a positive weight closer to zero, "
-
     (+ v  decay ))
-
 (generic each-weight (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
-
          "apply a function to every element in a kernel of the weight matrix.
 Values are not changed unless done so explicitly by the function as a side effect."
-
          (.each-in-sub weights.state
-
                        (- pos.x rad)
                        (- pos.y rad)
-
                        size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
-
-(type Pheremones
-
-      (init (rate decay weights))
-
+(def fall-off (w rate x y pos)
+  (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+(type Weight-field
+      (init (sim decay (weights ((create State-space) sim.width sim.width))))
       (gmth emit  (pos weights rate (r 5 ))
-
             (area weights w pos r
-
                       (when (< w 1)
-
-                        (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
-
+                        (let new-weight (fall-off w rate x y pos))
                         (weights.set x y new-weight))))
-
+      (gmth count (ant weights)
+            (let count 0)
+            (each-valid-move  ant weights
+                              (incr-by count (* w  sated?
+                                                (.get-cell (gene ant kernel) i j)
+                                                (/ (* Ant.life ant.life)
+                                                   (gene ant deviance)))))
+            count)
       (gmth update (weights decay )
-
             (weights.transit
-
              (=> (v x y)
-
                  (if (> v 0) (decay-positive x y v decay )
                      (< v 0) (decay-negative x y v decay ))))
-
             (.update weights)))
-
-(export Pheremones)
+(export Weight-field)

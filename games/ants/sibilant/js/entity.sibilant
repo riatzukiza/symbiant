@@ -8,66 +8,28 @@
 
 (type System
 
-      (init (entities weights stats display goals sim nest))
+      (init (entities ))
+      (generic serialize (mth) (entities)
+               (map (.to-array entities) (ent) (.serialize ent)))
+      (generic save (mth) (members))
 
-      (generic save (mth) (members)
-
-               (ants.each (=> (ant)
-
-                              (delete ant.members)
-                              (delete ant.sim)
-                              (delete ant.ant)
-
-                              (delete ant.weights)
-                              (delete ant.collision)
-
-                              (.push storage.ants ant ))))
-
-      (generic load (mth) (path)
-               (assign this.entities
-
-                       (new Set (map json.entities (ent)
-                                     (assign ent.system this)
-                                     ((create (extend this.entity-type ant)))))
-
-                       this.stats (or json.stats this.stats)
-
-                       this.weights ((create State-space)
-
-                                     120 120
-
-                                     ((create Matrix)
-                                      json.weights.state.array
-                                      json.weights.width
-                                      json.weights.height)
-
-                                     ((create Matrix)
-                                      json.weights.transition.array
-                                      json.weights.width
-                                      json.weights.height))))
+      (generic load (mth) (path))
 
       (generic move (mth) (entities  )
-
-               "Process the movement of ever ant in a set of ants, updating weights along the way."
-               (.each entities (=> (ant) (.move ant )))))
+               (.each entities (=> (ent) (.move ent )))))
 
 (type Entity
-
-      (init ( x y members sim id system (color (color 255 0 0)) (ent this)))
-
+      (init (pos color coord (ent this)))
       (generic load (mth) ())
-
-      (generic move (mth) (x y collision display (ent this))
-
-               (.set collision ent.x ent.y Entity.empty)
-
-               (assign ent.x (toroidial x collision.width)
-                       ent.y (toroidial y collision.height))
-
-               (assign ent.color.alpha (Math.max ent.color.blue ent.color.green ent.color.red))
-
-               (.set collision x y ent)
-
-               (display.set x y  ent.color)))
-
+      (generic spawn (mth) (x y goals coord layer  color)
+               (let ent (.get coord x y))
+               (let data { &x &y
+                 r : color.red
+                 g : color.green
+                 b : color.blue
+                 a : 255 })
+               (layer.add  data)
+               (goals.add ent))
+      (generic move (mth) (x y coord (ent this))
+               (assign ent.pos (.get coord x y))))
 (export Entity)

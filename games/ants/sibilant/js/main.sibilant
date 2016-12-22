@@ -1,184 +1,302 @@
 (include "./deps")
-
 (import-namespace defs)
 (import-namespace js)
-
-
+(macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 ;; Libs
 (import (euclidian-distance) "./math")
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 (const fs (require "browserify-fs"))
-
 ;; Types
-
 (import (Matrix) "./matrix" )
 (import (State-space) "./state-space")
 (import (Simulation) "./simulation")
+;;(import (Entity) "./ecs/entity")
 (import (Display) "./display" )
 (import (Layer) "./layer" )
-
-
 (import (interface) "./interface")
 (import (Pheremones) "./pheremons")
-(import (Entity) "./entity")
-
-(import ( Colony Ant each-weight map-weights) "./ant")
-(let empty Entity.empty)
-
-;; Declare variables
-
-(let socket (io "/ants"))
-(let canvas (document.get-element-by-id "game"))
-(let canvasb (document.get-element-by-id "game"))
-(let ctx (.get-context canvas "2d"))
-(.scale ctx 5 5)
-
-(Display let display (120 120 5 canvas canvasb))
-(Simulation let sim (display 60 false))
-
 (let george { x 20 y 20 })
-
-(macro all-zero (w h) `(.dmap ((create Matrix) [] @w @h) (lambda () 0) ))
-(macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
-
-(macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
-
-(macro random-signed (max) `(* (random-sign) (random-float 0 @max)))
-(macro random-signed (max)
-       `(scoped
-         (let rand (random-float 0 @max))
-         (- @max (/ rand 2))))
-(macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
-(macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
-
-(macro do-times (x ...body)
-       `(loop (for (let time 0) (< time @x) (++ time) ...@body)))
-
-
+;; Declare variables
+(let socket (io "/ants"))
+(Simulation let sim (60 120 5))
 (let white (color 255 255 255))
 (let green (color 0 255 0))
+(let black (color 0 0 0))
+(macro area-has (diameter spot center area cond)
+       `(scoped (let true? false)
+           (area  @area @spot @center @diameter
+                  (when @cond (assign true? true)))
+                true?))
+(macro gene (ent value)
+       `(get @ent (quote genetics) (quote @value)))
+(macro mutate (ent values)
+       (map (content-of values) (value)
+            `(assign (get @ent (quote genetics) (quote @value))
+                  (+ (get @ent (quote genetics) (quote @value))
+                     (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
+(generic moore-neighborhood (def) (w h (weight 1) (c 0))
+         (let m (allns w h weight))
+         (set m.array (matrix-center w h) c) m)
+(def matrix-center (width height )
+  (Math.round (/ (- (* width height) 1) 2)))
+(let empty { id 0 })
+(let choice {x 60 y 60})
+(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
+                                  (do ...@body)))
+(macro area (space el-name center size ...body)
+       `(each-in-area @space @center
+                     (=> (@el-name i j x y)
+                         ...@body) @size ))
+(macro adjacent (matrix value-name center ...body)
+       `(area @matrix @value-name @center 3 ...@body))
+(macro if-valid-move (ent ...body )
+       `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+(macro each-valid-move (ent space ...rest)
+       `(adjacent @space w @ent
+                  (let ent (.get collision x y))
+                  (if-valid-move ent ...@rest)))
+(generic each-in-area (fn) (matrix pos f (size 3) (rad (Math.floor (/ size 2))))
+         "apply a function to every element in a kernel of the weight matrix.
+Values are not changed unless done so explicitly by the function as a side effect."
+         (.each-in-sub matrix
+                       (- pos.x rad)
+                       (- pos.y rad)
+                       size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
+(macro genetics (assigner ...props)
+       `(@assigner genetics (p-map ...@(map props (p)
 
-(type Goal
-      (property deviance 1)
-      (property pool Matrix)
-      (property id 3)
+                                   (if (literal? p) `( @p (random-float 0 0.5))
+                                       `( @(first (content-of p))
+                                           @(second (content-of p))))))))
+(macro member (name value)
+       `(set this (quote @name) @value))
+(type Collision
+      (property coord sim.coord)
+      (init ((entities (new Map) ) coord))
+      (generic serialize (mth) (entities)
+               (map (.to-array entities) (ent) (.serialize ent)))
+      (generic move (mth) (entities)
+               (.delete entities this.pos)
+               (.set entities ent.pos ent))
+      (generic check (mth) (x y coord )
+               (this.has (.get coord x y)))
+      (generic set (mth) (pos ent entities)
+               (.set entities pos ent))
+      (generic get (mth) (x y entities coord)
+               (.get entities (.get coord x y)))
+      (generic delete (mth) (key )
+               (.delete this.entities key))
+      (generic has (mth) (pos entities)
+               (.has entities pos)))
+(type Movement (init ()))
+(type Rendering
+      (property entities (.get sim.layers))
+      (property weights []))
+(type World
+      (property collision ((create Collision)))
+      (property coord sim.coord)
+      (property rendering Rendering)
+      (property entities (new Set))
+      (init (collision  coord gl-layer))
+      (gmth add (ent rendering collision coord entities)
+            (.add rendering.entities ent)
+            (.add entities ent)
+            (.set collision ent.pos ent))
+      (gmth remove (ent rendering collision coord entities)
+            (.delete rendering.entities ent)
+            (.delete entities ent)
+            (.delete collision ent.pos ent))
+      (gmth update (entities)
+            (each entities (ent) (.update ent))))
+(macro gett (name ...body)
+       ["get " `(mth @name () ...@body)])
 
-      (init (x y ))
+(macro sett (name val ...body)
+       ["set " `(mth @name (@val) ...@body)])
+(type Entity
+      (property world World)
+      (property collision World.collision)
+      (init (pos world color collision ))
 
-      (generic spawn (mth) (x y goals collision)
-               (let ent (collision.get x y))
+      (gett r  this.color.red)
+      (gett g  this.color.green)
+      (gett b  this.color.blue)
+      (gett a  255)
+      (gett x  this.pos.x)
+      (gett y  this.pos.y)
+      (sett x num (.move this num this.y))
+      (sett y num (.move this this.x num))
 
-               (collide ent
-                        (display.set x y  green)
-                        (let goal (Goal.pool.get-cell x y))
-                        (goals.add goal)
-                        (collision.set x y goal))))
+      (gmth spawn (x y color world collision)
+            (let pos (.get world.coord x y))
+            (unless (collision.has pos )
+              (let ent ((create this) pos world color))
+              (world.add ent) ent))
+      (gmth move (x y world collision)
+            (let pos (.get world.coord x y))
+            (unless (collision.has pos )
+              (assign this.pos pos)))
+      (gmth remove (world)
+            (.remove world this))
+      (generic random (mth) ( world )
+               (.spawn this
+                       (random-int 0 world.coord.width)
+                       (random-int 0 world.coord.width))))
+(assign Entity.empty empty)
+(specify Entity-group (extend Entity)
+         (init (entity-type (entities (new Set))))
+         (generic serialize (mth) (entities)
+                  (map (.to-array entities) (ent)
+                       (.serialize ent)))
+         (generic add (mth) (ent entities)
+                  (.add entities ent))
+         (generic has (mth) (ent entities)
+                  (.has entities ent))
+         (generic delete (mth) (ent) ())
+         (generic each (mth) (f entities)
+                  (.each entities f) this)
+         (generic spawn (fluent mth) (x y color entity-type)
+                  (let ent (.spawn entity-type  x y ))
+                  (when ent
+                    (print "spawn safe, adding to group" ent)
+                      (assign ent.group this)
+                      (this.add ent) ent))
+         (generic update (mth) (entities)
+                  (each entities (ent) (.update ent))))
+;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
+(specify Straight-liner (extend Entity)
+         (property color (color 0 151 116))
+         (gmth update ()
+               (++ this.x)
+               (++ this.y)))
+(specify Ant (extend Entity)
+         (property life 1000)
+         (property color (color 255 0 0))
+         (init ( pos world color life (ant this) )
+               (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
+                          (find-rate (random-signed 1))
+                          (return-rate (random-signed 1))
+                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
+         (generic *has-discovered-food (mth) ( group collision ant)
+                  (let true? false)
+                  (area  World.coord spot ant 5
+                         (when (and  (.has group.goals spot) (< this.life 1000))
+                           (.delete group.goals spot)
+                           (.set collision x y empty)
+                           (assign true? true))) true?)
 
-(assign Goal.pool
-        (.dmap ((create Matrix) [] 120 120)
-
-               (lambda (nil x y)
-
-
-                 ((create Goal) x y)) ))
-
-
-
-(comment (do-times  100 (.spawn Ant 60 60 georges sim 2
-
-                        1 -0.2 white)))
-
-
+         (generic *eat (mth) ( group ant)
+                  (print "ant eating")
+                  (assign ant.life (+ ant.life Ant.life))
+                  (let emission (* (gene ant rate) (gene ant find-rate) (/ ant.life Ant.life)))
+                  (.emit Pheremones ant group.weights  emission 120))
+         (generic *reproduce (mth) (nest ant group )
+                  (print "ant is making babies" )
+                  (assign ant.life (/ ant.life 2))
+                  (.mutate ant )
+                  (.spawn ant ant.x ant.y)
+                  (.spawn ant (+ 1 ant.x) (+ 1 ant.y)    )
+                  (.emit Pheremones ant group.weights (*   (gene ant rate) (/ ant.life Ant.life)) 120))
+         (generic *die (mth) (  ant group collision)
+                  (print this "died")
+                  (.delete group ant)
+                  (.remove ant)
+                  (.emit Pheremones ant group.weights (* -1 (gene ant rate)  (/ ant.life Ant.life)) 120))
+         (generic mutate (mth) (ant group nest)
+                  ;; me think mutations aughta be put into some fancy ass abstraction some where.
+                  (.emit Pheremones ant group.weights (- (gene ant rate)))
+                  (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
+                  (mutate ant (return-rate find-rate deviance rate) )
+                  (assign ant.life Ant.life ))
+         (generic *sated (mth) (nest ant collision)
+                  (> ant.life Ant.life) )
+         (generic *near-nest (mth) (nest ant collision)
+                  (area-has 10 spot ant collision (and (= nest.x x) (= nest.y y))))
+         ;; This is the function we should be calling in most instances to create an ant.
+         ;; Ants should belong to a colony.
+         ;; So there should be a method associated with the colony for creating ants via this method.
+         (generic choose (mth) (group collision  (ant this) )
+                  ;; A choice is a weighted random selection from a collection area.
+                  (let count 0)
+                  (let sum 0)
+                  (let done false)
+                  (let choice {
+                    x ant.x
+                    y ant.y
+                    })
+                  ;; I think this ends up being needed in multiple places.
+                  ;; but in what way?
+                  ;; I think some other function will decide what *weight* is, and call this function accordingly.
+                  (when (not (gene ant kernel))
+                    (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
+                  (let sated? (ternary (.*sated ant) -1 1))
+                  (each-valid-move  ant group.weights.state
+                                    (comment (let calc-devi (/ (* Ant.life ant.life)
+                                                       (gene ant deviance))))
+                                    ;;(print "calculated deviance" calc-devi)
+                                    (incr-by count (+ w  sated?
+                                                      (.get (gene ant kernel) i j)
+                                                      (gene ant deviance))))
+                  (let rand (* count (Math.random)))
+                  (each-valid-move ant group.weights.state
+                                   (incr-by sum (+ w   sated?
+                                                   (.get (gene ant kernel) i j)
+                                                   (gene ant deviance)))
+                                   (when (and (< rand sum) (not done))
+                                     (assign choice.x x choice.y y done true))) choice)
+         (generic update (mth) (  group nest  life  (ant this))
+                  ;; Ants are more likely to choose pheremones over none.
+                  ;; but the chance must still exist for the ant to take non marked paths for this to work
+                  (let x 0)
+                  (let y 0)
+                  (-- ant.life)
+                  (let random (random-int 0 (/ Ant.life 2)))
+                  ;; Randomly kill off ants who's lives are
+                  ;; below a random threshold between some value and 0
+                  (let sated? (.*sated ant ))
+                  (if (> (* 2 ant.life) random)
+                      (do (let choice (.choose ant ))
+                          (.move this choice.x choice.y  )
+                        (if (.*has-discovered-food  ant ) (.*eat ant )
+                            sated? (if (.*near-nest  ant) (.*reproduce ant))))
+                      (.*die ant))
+                  (.emit Pheremones ant group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+(specify Colony (extend Entity-group)
+         (property colonies (new Set) )
+         (property entity-type Ant)
+         (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
+               (Entity-group.init.call this)
+               (.add colonies this))
+         (generic serialize (mth) (ants)
+                  (map (.to-array ants) (ant) (.serialize ant)))
+         (generic update (mth) (entities weights decay)
+                  "Process the movement of ever ant in a set of ants, updating weights along the way."
+                  (.each this (=> (ant) (.update ant )))
+                  (.update Pheremones this.weights 0.1 )))
+(specify Plant (extend Entity)
+         (property color green)
+         (gmth update (pos system)
+               (if (= (random-bit) 1)
+                   (request-animation-frame
+                    (-> (.spawn this
+                                (+ pos.x (random-int -2 2))
+                                (+ pos.y (random-int -2 2))))))))
+(def Map.prototype.each (f)
+  (.for-each this f) this)
 (def start (sim)
-
-
-
-  (let goals (new Set))
-  (def random-goal ()
-    (.spawn Goal
-            (random-int 0 sim.collision.height)
-            (random-int 0 sim.collision.height)
-            goals sim.collision))
-  (do-times 1000 (random-goal))
-
-
-
-  (print "sim" sim )
-
-  (assign Colony.display sim.display
-          Colony.collision sim.collision
-          Colony.stats sim.stats
-          Colony.ants sim.ants)
-
-
-  ;;herbavores
-
-  ;;predators
-
-  (let reds ((create Colony) "reds" { x 30 y 60} (color 255 0 155) goals ))
-  (let georges ((create Colony) "georges" { x 100 y 100} (color 0 0 255 ) reds.ants))
-  (comment (let georges ((create Colony) "georges" { x 100 y 100} (color 0 0 255 ) reds.ants))
-
-           (let yellers ((create Colony) "yellers"{ x 20 y 20} yellow goals ))
-           (let anti-georges ((create Colony) "anti-georges" { x 100 y 30} (color 30 236 231) georges.ants ))
-           (let anti-yellers ((create Colony) "anti-yellers"{ x 46  y 30} (color 30 24 45) yellers.ants )))
-
-
-
-
-
-  (interface sim)
-
-
-  (let black (color 0 0 0))
-
-
-  (reds.spawn 20 )
-
-
-
+  (let plants ((create Entity-group) Plant ))
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 155) plants ))
+  (let line-walker (.spawn Straight-liner 60 60))
+  (do-times 10 (.random reds))
+  (do-times 100 (.random plants  ))
+  ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
-
-
-      (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
-
-      (.clear display black 120)
-      (every (Math.round (* 10000 (Math.random) (Math.sin ticks))) ticks
-
-
-             (each goals (goal)
-                   (if (= (random-bit) 1)
-                       (request-animation-frame
-                        (-> (.spawn Goal
-                                    (+ goal.x (random-int -2 2))
-                                    (+ goal.y (random-int -2 2))
-                                    goals
-                                    sim.collision)) 0))))
-
-
-      (do-times 2
-        (each Colony.colonies (colony)
-
-             (colony.move)
-             (.update colony.weights)
-             (.update Pheremones colony.weights colony.display colony.decay colony.color)))
-
-
-
-
-      (each goals (goal) (display.set goal.x goal.y  green))
-
-
-      (sim.collision.update)
-
-      (display.render)
-
-      (display.update)))
-(let yellow {
-  red 255 green 255 blue 0
-  })
+      (do-times 2 (.update reds))
+      (pipe sim.layers
+            (.update )
+            (.render))))
+(let yellow { red 255 green 255 blue 0 })
 (.load sim  start)
-
 (on socket "change" () (print "change ") (.reload location))
 

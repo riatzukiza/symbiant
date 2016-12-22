@@ -21,11 +21,7 @@
       (property offx 0)
       (property offy 0)
 
-      (init (width height cell-size canvas-a canvas-b
-
-                   (state (new Layer canvas-a cell-size))
-                   (transition (new Layer canvas-b cell-size)))
-            )
+      (init (width height cell-size ))
 
       (gmth resize (width height cell-size canvas)
             (Display.init.call this width height cell-size canvas)
@@ -48,29 +44,30 @@
             "set the display to black"
             (.transit this (=> (color pos) (color 0 0 0))))
 
-
-      (generic set (mth) (x y color transition)
+      (generic set (mth) (pos layers)
 
                "set the transition value of the pixel at the given x and y."
 
-               (assign x (+ x this.offx)
-                       y (+ y this.offy))
-               (.set transition x y color)
-               )
+               (assign pos.x (+ x this.offx)
+                       pos.y (+ y this.offy))
+
+               (.set transition x y color))
 
       (generic set-state (mth) (x y color state)
 
+               "unsafe, manipulate the state of a pixel at position x y"
+
                (assign x (+ x this.offx)
                        y (+ y this.offy))
-               "unsafe, manipulate the state of a pixel at position x y"
-               (.set state x y color)
 
-               )
+               (.set state x y color))
 
       (generic get (mth) (x y state)
                "get the state of the pixel at x and y"
+
                (assign x (+ x this.offx)
                        y (+ y this.offy))
+
                (.get state x y))
 
       (generic get-transition (mth) (x y transition)
