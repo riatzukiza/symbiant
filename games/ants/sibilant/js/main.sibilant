@@ -288,7 +288,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett g this.color.g)
                             (gett b this.color.b)
                             (gett a (* 255 (Math.abs this.weight))))))
-               (.move-down weights.layer)
+               (.move-up weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
