@@ -17,4 +17,4 @@ var thenAlways = (function thenAlways$(p, f) {
   
   });
 });
-thenAlways(thenAlways(thenAlways(thenAlways(exec([ "git", "checkout", [ branchName ].join("") ].join(" ")), result(exec([ "git", "branch", [ compileBranch ].join("") ].join(" ")))), result(exec([ "git", "checkout", [ compileBranch ].join("") ].join(" ")))), result(exec([ "git", "add", "." ].join(" ")))), result(exec([ "git", "commit", "-m", ("compiled " + path) ].join(" "))));
+// thenAlways(thenAlways(thenAlways(thenAlways(exec([ "git", "checkout", [ branchName ].join("") ].join(" ")), result(exec([ "git", "branch", [ compileBranch ].join("") ].join(" ")))), result(exec([ "git", "checkout", [ compileBranch ].join("") ].join(" ")))), result(exec([ "git", "add", "." ].join(" ")))), result(exec([ "git", "commit", "-m", ("compiled " + path) ].join(" "))));

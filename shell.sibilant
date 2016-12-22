@@ -11,7 +11,7 @@
          (=> (result) (f result))
          (=> (err) (f))))
 (macro always (p arg-name ...body)
-       `(then-always @p (@arg-name ...@body)))
+       `(then-always @p (=> (@arg-name) ...@body)))
 
 (macro shell-command (...sub-commands)
        `(exec (.join
@@ -28,9 +28,9 @@
 (macro shell (...commands)
        `(sequence (shell-command ...@(content-of (.pop commands))) always
                   ...@(map commands (c) `(result (shell-command ...@ (content-of c))))))
-(shell
- (git branch [compile-branch])
- (git checkout [compile-branch])
- (git add "." )
- (git commit "-m" (+ "compiled " path))
- (git checkout  [branch-name]))
+(comment (shell
+  (git branch [compile-branch])
+  (git checkout [compile-branch])
+  (git add "." )
+  (git commit "-m" (+ "compiled " path))
+  (git checkout  [branch-name])))
