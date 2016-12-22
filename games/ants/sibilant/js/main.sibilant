@@ -288,7 +288,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett g this.color.green)
                             (gett b this.color.blue)
 
-                            (gett a this.weight ))))
+                            (gett a (* 10 this.weight) ))))
                (.move-up weights.layer)
 
                (.add colonies this))
