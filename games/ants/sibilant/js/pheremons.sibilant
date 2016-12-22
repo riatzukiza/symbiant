@@ -12,7 +12,6 @@
 (import (State-space) "./state-space")
 (import (euclidian-distance) "./math")
 (import (Layer) "./layer")
-(import (hexToComplimentary) "./complimentry")
 
 ;;(import (each-weight) "./ant")
 
