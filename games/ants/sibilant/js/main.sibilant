@@ -275,12 +275,12 @@ Values are not changed unless done so explicitly by the function as a side effec
          (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
                (Entity-group.init.call this)
                (.add colonies this))
-         (generic spawn (fluent mth) (x y color entity-type)
+         (generic spawn (fluent mth) (color entity-type)
                   (let rx (ternary (= (random-bit) 1) 1 -1))
                   (let ry (ternary (= (random-bit) 1) 1 -1))
                   (let ent (.spawn entity-type
-                                   (+ nest.x (random-int 0 30) rx)
-                                   (+ nest.y (random-int 0 30) rx)))
+                                   (+ this.nest.x (random-int 0 30) rx)
+                                   (+ this.nest.y (random-int 0 30) rx)))
                   (when ent
                     (assign ent.group this)
                     (this.add ent)
