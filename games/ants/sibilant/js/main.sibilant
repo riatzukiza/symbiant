@@ -262,8 +262,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let random (random-int 0 (/ Ant.life 2)))
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
-                  (let sated? (.*sated ant ))
-                  (if (> (* 2 ant.life) random)
+                  (let sated? (.*sated ant )) (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
                         (if (.*has-discovered-food  ant ) (.*eat ant )
@@ -272,7 +271,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (.emit Pheremones ant.pos group.weights.food (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
 (def create-weights (color )
   (let weights ((create State-space) sim.width sim.width))
-  (get weights.layer (.get sim.layers))
+  (assign weights.layer (.get sim.layers))
   (each weights (w x y)
         (.add weights.layer
               (literal
