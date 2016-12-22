@@ -27,7 +27,7 @@
 
 
       (gmth find (name parent path (inode this) (target (join path name)))
-            (inode.get target))
+            (inode.get target ))
 
       (gmth remove (name parent path (inode this) (target (join path name)))
             (inode.delete target))

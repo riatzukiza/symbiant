@@ -19,33 +19,36 @@ const fs = require("browserify-fs");
 const { 
   Matrix
  } = require("./matrix");
+const { 
+  Entity
+ } = require("./entity");
+const { 
+  Layers
+ } = require("./webgl-layer");
+const Location = { 
+  symbol:Symbol("Location"),
+  init( x = this.x,y = this.y,layers = [] ){ 
+    
+      this.x = x;this.y = y;this.layers = layers;
+      return this;
+    
+   }
+ };
 const Simulation = extend(EventEmitter.prototype, { 
   symbol:Symbol("Simulation"),
-  goal:{
-    x: 100,
-    y: 100
-  },
-  nest:{
-    x: 20,
-    y: 20
-  },
-  nests:(new Set()),
-  ants:(new Set()),
-  weights:create(StateSpace)(120, 120),
-  collision:create(StateSpace)(120, 120),
-  stats:{ 
-    returningAnts:0,
-    huntingAnts:0,
-    successfulReturns:0
-   },
-  weightConstant:0.1,
-  emissionRate:0.01,
-  decay:0.1,
-  init( display = this.display,fps = this.fps,state = this.state,rate = (1000 / fps),ticks = 0,sim = this ){ 
+  init( fps = this.fps,width = this.width,scale = this.scale,state = false,layers = (new Layers(document.getElementById("stage"), "gl", width, scale)).setBGColor(),coord = create(Matrix)([], width, width).dmap((function(nil, x, y) {
+    /* eval.sibilant:27:34 */
+  
+    return create(Location)(x, y);
+  })),systems = (new Set()),rate = (1000 / fps),ticks = 0,sim = this ){ 
     
-      this.display = display;this.fps = fps;this.state = state;this.rate = rate;this.ticks = ticks;this.sim = sim;
-      this.collision.set = this.collision.setState;
+      this.fps = fps;this.width = width;this.scale = scale;this.state = state;this.layers = layers;this.coord = coord;this.systems = systems;this.rate = rate;this.ticks = ticks;this.sim = sim;
       EventEmitter.call(this);
+      return this;
+    
+   },
+  add( system = this.system ){ 
+    
       return this;
     
    },
@@ -74,7 +77,7 @@ const Simulation = extend(EventEmitter.prototype, {
       return this;
     
    },
-  tick( display = this.display,previous = this.previous,rate = this.rate ){ 
+  tick( previous = this.previous,rate = this.rate ){ 
     
       (function() {
         if (this.state) {
@@ -82,7 +85,7 @@ const Simulation = extend(EventEmitter.prototype, {
           this.elapsed = (now - previous);
           window.requestAnimationFrame(() => {
           	
-            return this.tick(display);
+            return this.tick();
           
           });
           return (function() {
@@ -130,7 +133,7 @@ const Simulation = extend(EventEmitter.prototype, {
   load( cb = this.cb ){ 
     
       this.on("load", (cb || (function(sim) {
-        /* eval.sibilant:95:42 */
+        /* eval.sibilant:92:42 */
       
         return sim;
       })));

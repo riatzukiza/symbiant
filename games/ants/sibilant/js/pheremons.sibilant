@@ -18,71 +18,34 @@
 
 (let colors [])
 
-(fn decay-positive (x y v display decay color)
-
+(fn decay-positive (x y v decay color)
     "brings a positive weight closer to zero, "
-
-    (let pixel (.get display x y))
-
-
-    (blend pixel color v)
-
-
-    (display.set x y pixel)
-
     (- v  decay ))
 
 (def combine (old addi ) (Math.round (+ old addi)))
 
-(def blend (color pixel v)
 
-  (let b (combine pixel.red color.red))
-  (let r (combine pixel.blue color.blue))
-  (let g (combine pixel.green color.green))
-
-  (let a (/ 1 (combine pixel.alpha v)))
-
-  (assign pixel.red r
-          pixel.blue b
-          pixel.green g
-          pixel.alpha a
-          ))
-
-(fn decay-negative (x y v display decay color)
+(fn decay-negative (x y v decay color)
 
     "brings a positive weight closer to zero, "
 
-
-    (let pixel  (.get display x y))
-    (let alpha pixel.alpha)
-
-    (assign pixel (hexToComplimentary pixel))
-    (assign pixel.alpha alpha)
-
-    (blend  pixel color v)
-
-    (display.set x y pixel)
-
     (+ v  decay ))
 
-(generic each-weight (fn) (weights pos f (size 3) (rad (Math.floor (/ size 2))))
-
+(generic each-in-area (fn) (matrix pos f (size 3) (rad (Math.floor (/ size 2))))
          "apply a function to every element in a kernel of the weight matrix.
 Values are not changed unless done so explicitly by the function as a side effect."
-
-         (.each-in-sub weights.state
-
+         (.each-in-sub matrix
                        (- pos.x rad)
                        (- pos.y rad)
-
                        size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
 
 (type Pheremones
 
-      (init ( rate decay color display weights))
+      (init (rate decay weights))
+
       (gmth emit  (pos weights rate (r 5 ))
 
-            (area weights w pos r
+            (area weights.state w pos r
 
                       (when (< w 1)
 
@@ -90,26 +53,12 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                         (weights.set x y new-weight))))
 
-      (gmth update (weights display decay color)
+      (gmth update (weights decay )
 
             (weights.transit
-
              (=> (v x y)
-
-                 (let emission
-                   (if (> v 0) (decay-positive x y v display decay color)
-                       (< v 0) (decay-negative x y v display decay color)))
-
-                 (comment (assign color (.get-transition display x y))
-
-                          (assign color.red (Math.round (/ color.red *))
-                                  color.green (Math.round (/ color.green 4))
-
-                                  color.blue (Math.round (/ color.blue 4))
-                                  color.alpha (Math.round (/ color.alpha 4)))
-
-                          (.set display x y color))
-
-                 emission))))
+                 (if (> v 0) (decay-positive x y v decay )
+                     (< v 0) (decay-negative x y v decay ))))
+            (.update weights)))
 
 (export Pheremones)

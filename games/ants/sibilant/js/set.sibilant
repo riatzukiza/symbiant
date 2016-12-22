@@ -37,7 +37,8 @@
   (loop (collect intersection (new Set))
         (maybe-of set-b elem (.has this elem))
         (.add intersection elem)))
-(def-proto Set difference ()
+
+(def-proto Set difference (set-b)
   (loop (collect difference (new Set this))
         (all-of set-b elem)
         (.delete difference elem)))

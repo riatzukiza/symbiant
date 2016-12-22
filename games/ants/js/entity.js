@@ -5,44 +5,32 @@ let toroidial = (a, lim) => {
 };
 const System = { 
   symbol:Symbol("System"),
-  init( entities = this.entities,weights = this.weights,stats = this.stats,display = this.display,goals = this.goals,sim = this.sim,nest = this.nest ){ 
+  init( entities = this.entities ){ 
     
-      this.entities = entities;this.weights = weights;this.stats = stats;this.display = display;this.goals = goals;this.sim = sim;this.nest = nest;
+      this.entities = entities;
       return this;
     
    },
-  save( members = this.members ){ 
+  serialize( entities = this.entities ){ 
     
-      return ants.each((ant) => {
+      return entities.toArray().map((ent) => {
       	
-        delete ant.members;
-        delete ant.sim;
-        delete ant.ant;
-        delete ant.weights;
-        delete ant.collision;
-        return storage.ants.push(ant);
+        return ent.serialize();
       
       });
     
    },
-  load( path = this.path ){ 
+  save( members = this.members ){ 
     
-      this.entities = (new Set(json.entities.map((ent) => {
-      	
-        ent.system = this;
-        return create(extend(this.entityType, ant))();
-      
-      })));
-      this.stats = (json.stats || this.stats);
-      return this.weights = create(StateSpace)(120, 120, create(Matrix)(json.weights.state.array, json.weights.width, json.weights.height), create(Matrix)(json.weights.transition.array, json.weights.width, json.weights.height));
+   },
+  load( path = this.path ){ 
     
    },
   move( entities = this.entities ){ 
     
-      "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      return entities.each((ant) => {
+      return entities.each((ent) => {
       	
-        return ant.move();
+        return ent.move();
       
       });
     
@@ -50,26 +38,33 @@ const System = {
  };
 const Entity = { 
   symbol:Symbol("Entity"),
-  init( x = this.x,y = this.y,members = this.members,sim = this.sim,id = this.id,system = this.system,color = { 
-    red:255,
-    green:0,
-    blue:0
-   },ent = this ){ 
+  init( pos = this.pos,color = this.color,coord = this.coord,ent = this ){ 
     
-      this.x = x;this.y = y;this.members = members;this.sim = sim;this.id = id;this.system = system;this.color = color;this.ent = ent;
+      this.pos = pos;this.color = color;this.coord = coord;this.ent = ent;
       return this;
     
    },
   load(  ){ 
     
    },
-  move( x = this.x,y = this.y,collision = this.collision,display = this.display,ent = this ){ 
+  spawn( x = this.x,y = this.y,goals = this.goals,coord = this.coord,layer = this.layer,color = this.color ){ 
     
-      collision.set(ent.x, ent.y, Entity.empty);
-      ent.x = toroidial(x, collision.width);
-      ent.y = toroidial(y, collision.height);
-      collision.set(x, y, ent);
-      return display.set(x, y, ent.color);
+      let ent = coord.get(x, y);
+      let data = {
+        x: x,
+        y: y,
+        r: color.red,
+        g: color.green,
+        b: color.blue,
+        a: 255
+      };
+      layer.add(data);
+      return goals.add(ent);
+    
+   },
+  move( x = this.x,y = this.y,coord = this.coord,ent = this ){ 
+    
+      return ent.pos = coord.get(x, y);
     
    }
  };

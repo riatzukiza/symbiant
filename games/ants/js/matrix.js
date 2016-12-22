@@ -28,19 +28,19 @@ const Matrix = {
       return (width * height);
     
    },
-  getCellIndex( x = this.x,y = this.y,width = this.width ){ 
+  getIndex( x = this.x,y = this.y,width = this.width ){ 
     
       return ((x * width) + y);
     
    },
-  getCell( x = this.x,y = this.y,width = this.width,height = this.height,array = this.array ){ 
+  get( x = this.x,y = this.y,width = this.width,height = this.height,array = this.array ){ 
     
       x = ((x + width) % width);
       y = ((y + height) % height);
       return array[((x * width) + y)];
     
    },
-  setCell( x = this.x,y = this.y,value = this.value,width = this.width,height = this.height,array = this.array ){ 
+  set( x = this.x,y = this.y,value = this.value,width = this.width,height = this.height,array = this.array ){ 
     
       x = ((x + width) % width);
       y = ((y + height) % height);
@@ -64,7 +64,7 @@ const Matrix = {
       let r = create(Matrix)([], nw, nh);
       for (let i = 0;i < nw;++(i)){
       for (let j = 0;j < nh;++(j)){
-      r.setCell(i, j, matrix.getCell((i + x), (j + y)))}};
+      r.set(i, j, matrix.get((i + x), (j + y)))}};
       return r;
     
    },
@@ -73,7 +73,7 @@ const Matrix = {
       let m = 0;
       this.eachInSub(x, y, h, w, (val, i, j, x, y) => {
       	
-        return m = (m + (this.getCell(x, y) * B.getCell(x, y)));
+        return m = (m + (this.get(x, y) * B.get(x, y)));
       
       });
       return m;
@@ -84,7 +84,7 @@ const Matrix = {
       let r = this;
       for (let i = 0;i < sw;++(i)){
       for (let j = 0;j < sh;++(j)){
-      f(this.getCell((i + x), (j + y)), i, j, x, y)}};
+      f(this.get((i + x), (j + y)), i, j, x, y)}};
       return r;
     
    },
@@ -93,7 +93,7 @@ const Matrix = {
       let r = this;
       for (let x = 0;x < width;++(x)){
       for (let y = 0;y < height;++(y)){
-      f(matrix.getCell(x, y), x, y, matrix)}};
+      f(matrix.get(x, y), x, y, matrix)}};
       return r;
     
    },
@@ -107,7 +107,7 @@ const Matrix = {
       let r = result;
       matrix.each((v, x, y, matrix) => {
       	
-        return r.setCell(x, y, (f(v, x, y, matrix) || 0));
+        return r.set(x, y, (f(v, x, y, matrix) || 0));
       
       });
       return r;
@@ -123,7 +123,7 @@ const Matrix = {
       let m = 0;
       for (let x = 0;x < width;++(x)){
       for (let y = 0;y < height;++(y)){
-      m = (m + (this.getCell((x + offx), (y + offy)) * B.getCell(x, y)));}};
+      m = (m + (this.get((x + offx), (y + offy)) * B.get(x, y)));}};
       return m;
     
    },
@@ -132,7 +132,7 @@ const Matrix = {
       let m = 0;
       for (let x = 0;x < width;++(x)){
       for (let y = 0;y < height;++(y)){
-      m = (m + (A.getCell(x, y) * B.getCell(x, y)));}};
+      m = (m + (A.get(x, y) * B.get(x, y)));}};
       return m;
     
    },
@@ -143,9 +143,9 @@ const Matrix = {
           let m = create(Matrix)(A.height, B.width);
           for (let r = 0;r < A.width;++(r)){
           for (let c = 0;c < B.height;++(c)){
-          m.setCell(r, c, 0);
+          m.set(r, c, 0);
           for (let i = 0;i < A.height;++(i)){
-          m.addToCell(r, c, (A.getCell(r, i) * self.getCell(i, c)))}}};
+          m.addToCell(r, c, (A.get(r, i) * self.get(i, c)))}}};
           return m;
         ;
       }

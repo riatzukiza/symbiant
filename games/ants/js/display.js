@@ -14,9 +14,9 @@ const Display = {
   symbol:Symbol("Display"),
   offx:0,
   offy:0,
-  init( width = this.width,height = this.height,cellSize = this.cellSize,canvasA = this.canvasA,canvasB = this.canvasB,state = (new Layer(canvasA, cellSize)),transition = (new Layer(canvasB, cellSize)) ){ 
+  init( width = this.width,height = this.height,cellSize = this.cellSize ){ 
     
-      this.width = width;this.height = height;this.cellSize = cellSize;this.canvasA = canvasA;this.canvasB = canvasB;this.state = state;this.transition = transition;
+      this.width = width;this.height = height;this.cellSize = cellSize;
       return this;
     
    },
@@ -65,19 +65,19 @@ const Display = {
       });
     
    },
-  set( x = this.x,y = this.y,color = this.color,transition = this.transition ){ 
+  set( pos = this.pos,layers = this.layers ){ 
     
       "set the transition value of the pixel at the given x and y.";
-      x = (x + this.offx);
-      y = (y + this.offy);
+      pos.x = (x + this.offx);
+      pos.y = (y + this.offy);
       return transition.set(x, y, color);
     
    },
   setState( x = this.x,y = this.y,color = this.color,state = this.state ){ 
     
+      "unsafe, manipulate the state of a pixel at position x y";
       x = (x + this.offx);
       y = (y + this.offy);
-      "unsafe, manipulate the state of a pixel at position x y";
       return state.set(x, y, color);
     
    },

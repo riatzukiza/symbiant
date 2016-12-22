@@ -1,40 +1,78 @@
 (include "./macros/jquery")
 (import-namespace jquery)
 
+(import-namespace defs)
+(import-namespace js)
+
+(macro describe-table ( describers ...body)
+                       (const [eachable each-args table-data container]
+                              describers.contents)
+                       `(scoped (var table ($ "<table>"))
+
+                                (let header-row ($ "<tr>"))
+                                ...@(map (content-of table-data) (entry)
+                                         `(.append header-row
+                                                  (.text ($ "<th>" )
+                                                         (quote @(if (literal? entry)
+                                                                     entry
+                                                                     (first entry.contents))))))
+
+                                (.append table header-row)
+                                (each @eachable @each-args
+
+                                      (var row ($ "<tr>" ))
+                                      ...@(map (content-of table-data) (entry)
+                                               `(let @(ternary (literal? entry)
+
+                                                       entry
+                                                       (first entry.contents))
+
+                                                  (scoped
+                                                   (let col-data (.text ($ "<td> " )
+                                                                        @(if (literal? entry)
+                                                                             entry
+                                                                             (second entry.contents))))
+                                                   (.append row col-data) col-data)))
+                                      (.append table row)
+
+                                      ...@body)
+                                (.append @container table)))
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 
-(let canvasa (document.get-element-by-id "game"))
-(let canvasb (document.get-element-by-id "gameb"))
+;;(let canvasa (document.get-element-by-id "game"))
+;;(let canvasb (document.get-element-by-id "gameb"))
 
-(let context ($ "#container"))
+;;(let context ($ "#container"))
 
-(import (emit-pheremones Ant)
-        "./ant")
+(import (emit-pheremones Ant ) "./ant")
+(import (Colony) "./colony")
 
-(def interface (sim)
+(comment (def interface (sim)
 
-  (assign canvasa.onselectstart (-> false))
-  (assign canvasb.onselectstart (-> false))
-  (sequence ($ canvasa ) .css
-            ("transform" "scale(5)")
-            ( "top" "1200px")
-            ( "left" "1200px")
-            ("position" "absolute"))
+   (assign canvasa.onselectstart (-> false))
+   (assign canvasb.onselectstart (-> false))
+   (sequence ($ canvasa ) .css
+             ("transform" "scale(5)")
+             ( "top" "1200px")
+             ( "left" "1200px")
+             ("position" "absolute"))
 
-  (.hide (sequence ($ canvasb ) .css
-                   ("transform" "scale(5)")
-                   ( "top" "1200px")
-                   ( "left" "1200px")
-                   ("position" "absolute")))
+   (.hide (sequence ($ canvasb ) .css
+                    ("transform" "scale(5)")
+                    ( "top" "1200px")
+                    ( "left" "1200px")
+                    ("position" "absolute")))
+   (div interface-container {}
+        (panel colonies
+               (describe-table (Colony.colonies (c) ((name c.name) (numbers c.ants.size)) here)
 
-  (panel Controls
-         (sequence here .css
-                   ( "margin-top" "600px")
-                   ("z-index" "9999")
+                               (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                   )
-         (panel colonies)
+                               (on sim "tick" () (.text numbers c.ants.size))))
 
-         ) context)
-(export interface)
+        (sequence here .css
+                  ( "margin-top" "600px")
+                  ("z-index" "9999")))
+   context))
+;;(export interface)

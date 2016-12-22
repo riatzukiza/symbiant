@@ -24,7 +24,7 @@
                (let x @x)
                (let y @y)
 
-               (let @el-name (.get-cell @matrix  (+ i @x) (+ j @y) ))
+               (let @el-name (.get @matrix  (+ i @x) (+ j @y) ))
 
                ...@body )))
 
@@ -44,17 +44,17 @@
       (gmth size (height width) (*  width height))
 
 
-      (gmth get-cell-index (x y width)
+      (gmth get-index (x y width)
             (+ (* x width) y ))
 
-      (gmth get-cell (x y  width height array)
+      (gmth get (x y  width height array)
 
             (assign x (mod (+ x width) width))
             (assign y (mod (+ y height) height))
             (get array (+ (* x width) y ))
             )
 
-      (gmth set-cell (x y value width height array)
+      (gmth set (x y value width height array)
             (assign x (mod (+ x width) width))
             (assign y (mod (+ y height) height))
             (set array (+ (* x width) y ) value))
@@ -70,28 +70,28 @@
               (collect r ((create Matrix) [] nw nh))
               (for (let i 0) (< i nw) (++ i))
               (for (let j 0) (< j nh) (++ j)
-                   (.set-cell r  i j (.get-cell matrix (+ i x) (+ j y))))))
+                   (.set r  i j (.get matrix (+ i x) (+ j y))))))
 
       (generic convolve-sub (mth) (B x y (h B.height) (w B.width)) (let m 0)
                (this.each-in-sub
                 x y h w
                 (=> (val i j x y)
-                    (assign m (+ m (* (.get-cell this x y)
-                                      (.get-cell B x y)))))) m)
+                    (assign m (+ m (* (.get this x y)
+                                      (.get B x y)))))) m)
 
       (generic each-in-sub (mth!) (x y sw sh f width height)
                (loop
                  (collect r this)
                  (for (let i 0) (< i sw) (++ i))
                  (for (let j 0) (< j sh) (++ j)
-                      (f  (.get-cell this (+ i x) (+ j y)) i j x y))))
+                      (f  (.get this (+ i x) (+ j y)) i j x y))))
 
       (generic each (mth!) (f (matrix this) width height )
             (loop
               (collect r this)
               (for (let x 0) (< x width) (++ x))
               (for (let y 0) (< y height) (++ y)
-                   (f (.get-cell matrix x y) x y matrix))))
+                   (f (.get matrix x y) x y matrix))))
 
       (gmth dmap (f (matrix this) width height)
             (.map matrix f matrix width height matrix))
@@ -102,7 +102,7 @@
                (loop (collect r result)
                      (.each matrix )
                      (=> (v x y matrix)
-                         (r.set-cell x y (or (f v x y matrix) 0)))))
+                         (r.set x y (or (f v x y matrix) 0)))))
 
       (gmth transit (target f (matrix this) height width)
             (.map matrix f matrix height width target))
@@ -112,13 +112,13 @@
                  (collect m 0)
                  (for (let x 0) (< x width) (++ x))
                  (for (let y 0) (< y height) (++ y))
-                 (assign m (+ m (* (.get-cell this (+ x offx) (+ y offy)) (.get-cell B x y)))))               )
+                 (assign m (+ m (* (.get this (+ x offx) (+ y offy)) (.get B x y)))))               )
       (generic convolve (mth!) (B (A this) height width)
             (loop
               (collect m 0)
               (for (let x 0) (< x width) (++ x))
               (for (let y 0) (< y height) (++ y))
-              (assign m (+ m (* (.get-cell A x y) (.get-cell B x y))))))
+              (assign m (+ m (* (.get A x y) (.get B x y))))))
 
       (generic dot-product (mth!)(B (A this))
             (loop
@@ -126,11 +126,11 @@
               (collect m (Matrix (A.height B.width)))
               (for (let r 0) (< r A.width) (++ r))
               (for (let c 0) (< c B.height) (++ c)
-                   (.set-cell m r c 0))
+                   (.set m r c 0))
               (for (let i 0) (< i A.height) (++ i)
                    (.add-to-cell
                     m r c
 
-                    (* (.get-cell A r i)
-                       (.get-cell self i c)))))))
+                    (* (.get A r i)
+                       (.get self i c)))))))
 (export Matrix)

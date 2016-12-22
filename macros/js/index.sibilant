@@ -27,6 +27,15 @@
 
 (macro const (...rest) `(assignment const ...@rest))
 
+(macro consts ( ...pairs)
+       (as-statement
+        [ "const " (pipe pairs
+
+                         destructure
+
+                         (.map (lambda (pair)  [(first pair) " = " (second pair)]))
+
+                         (interleave ",\n    ")) ]))
 (macro let (...rest) `(assignment let ...@rest))
 ;;(comment "////////////////////////////////////////////////////////////////////////////////////////")
 

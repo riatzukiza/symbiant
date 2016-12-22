@@ -27,7 +27,7 @@ Set.prototype.intersection = function intersection( setB ){
     return intersection;
   
  };
-Set.prototype.difference = function difference(  ){ 
+Set.prototype.difference = function difference( setB ){ 
   
     let difference = (new Set(this));
     for( let elem of setB ) {

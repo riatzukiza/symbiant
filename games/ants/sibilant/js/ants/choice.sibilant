@@ -1,0 +1,23 @@
+(type Choice
+      (generic choose (mth) ( system (ant this) )
+               ;; A choice is a weighted random selection from a collection area.
+               (let sum 0)
+               (let done false)
+               (let choice {
+                 x ant.x
+                 y ant.y
+                 })
+               ;; I think this ends up being needed in multiple places.
+               ;; but in what way?
+               ;; I think some other function will decide what *weight* is, and call this function accordingly.
+               (let sated? (ternary (.*sated ant) -1 1))
+               (let count (.count system.weights ant.pos))
+               (let rand (* count (Math.random)))
+               (each-valid-move ant system.weights.weights
+                                (incr-by sum (* w   sated?
+                                                (.get-cell (gene ant kernel) i j)
+                                                (gene ant deviance)
+                                                (/ (* Ant.life ant.life)
+                                                   (gene ant deviance))))
+                                (when (and (< rand sum) (not done))
+                                  (assign choice.x x choice.y y done true))) choice))

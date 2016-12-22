@@ -20,13 +20,13 @@
                (.get-state this x y state))
 
       (generic get-state (mth) (x y state)
-               (.get-cell state x y))
+               (.get state x y))
 
       ;; except when its not. But that is a whole other basket of worms.
       ;; it is at least a special case such that it requires a specially labeled name,
       ;; and not the privledge of "get".
       (generic get-transition (mth) (x y transition)
-               (.get-cell transition x y))
+               (.get transition x y))
 
       ;; Setting will then refer to modifications to the transition state, the state that will be.
 
@@ -37,12 +37,12 @@
       ;; Same black magic applies here as with get, some times... some times we allow our selves to forget that
       ;; the state isn't supose to change.
       (generic set-state (mth) (x y value state)
-               (.set-cell state x y value))
+               (.set state x y value))
 
       ;; BRB COFFEE
       ;; But normally we remember this.
       (generic set-transition (mth) (x y value transition)
-               (.set-cell transition x y value))
+               (.set transition x y value))
 
       ;; Simply observe every element of the current state
       (generic each-state (mth) (f state)
