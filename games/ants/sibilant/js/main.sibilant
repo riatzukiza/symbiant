@@ -282,16 +282,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated ant ))
-                  (if (> ant.life (* 10 random))
-                      (do ((create Colony) this.pos (random-color)
-                           (weighted-random-element
-                            Entity-group.groups
-                            (=> (group)
-                                (let total-life 0)
-                                (each group.entities (ent)
-                                      (incr-by total-life ent.life)) total-life)) ))
-
-                   (> (* 2 ant.life) random)
+                  (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
                         (if (.*has-discovered-food  ant ) (.*eat ant )
