@@ -328,6 +328,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 (def start (sim)
   (let plants ((create Plant-group) ))
   (let reds ((create Colony) { x 30 y 60} (color 255 0 155) plants ))
+  (let georges ((create Colony) { x 90 y 90} white plants ))
   (assign global.sim sim)
   ;;(let line-walker (.spawn Straight-liner 60 60))
   (do-times 1000 (.spawn reds))
