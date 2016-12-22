@@ -102,12 +102,12 @@
                                (let compile-branch (+ "compiled-" branch-name))
                                (def worker (p f done)
                                  (.then (.resolve Promise (f)) done done))
-                               (def finally (p f )
+                               (def always (p f )
                                  (.then p
                                         (=> (result) (worker p f (-> result)))
                                         (=> (err) (worker p f (-> (throw err))))))
                                (pipe (shell (git branch [compile-branch]))
-                                     (finally
+                                     (always
                                       (-> (git checkout [compile-branch])
                                           (git add "." )
                                           (git commit "-m" (+ "compiled " path))
