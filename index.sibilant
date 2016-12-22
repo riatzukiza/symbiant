@@ -10,6 +10,7 @@
 (const Url (require "url"))
 (const fs (require "fs"))
 (const env (or process.env.NODE_ENV "dev"))
+(const exec (require "./exec.js"))
 (macro import (thing from)
        `(const (literal ...@(content-of thing)) (require @from)))
 (macro imports (...imports)
@@ -95,11 +96,13 @@
       (generic connect (mth) (namespace connections source-watcher bundle name)
                (on source-watcher "change" (path)
                    (pipe (.change this path)
-                         (then-do (exec (+ "git checkout -b compiled;"
-                                           "git add .;"
-                                           "git commit -m 'compiled" path "';"
-                                           "git push origin compiled;"
-                                           "git checkout master")))))
+                         (then-do (exec "git branch | grep \* | cut -d ' ' -f2"))
+                         (then branch-name
+                               (exec (+ "git checkout -b compiled;"
+                                        "git add .;"
+                                        "git commit -m 'compiled" path "';"
+                                        "git push origin compiled;"
+                                        "git checkout " branch-name ";")))))
                (on namespace "connection" (socket)
                    (.add connections socket)
                    (on socket "disconnect" ()
