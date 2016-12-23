@@ -411,11 +411,6 @@ Values are not changed unless done so explicitly by the function as a side effec
 (def interface (sim)
 
   (assign canvas.onselectstart (-> false))
-  (sequence ($ canvas ) .css
-            ("transform" "scale(5)")
-            ( "top" "1200px")
-            ( "left" "1200px")
-            ("position" "absolute"))
 
   (div interface-container {}
        (panel colonies
