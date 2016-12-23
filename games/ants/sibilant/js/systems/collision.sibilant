@@ -1,4 +1,5 @@
 (type Collision
+
       (init (coord (entities (new Map) ) ))
       (generic serialize (mth) (entities)
                (map (.to-array entities) (ent) (.serialize ent)))
