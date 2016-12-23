@@ -11,5 +11,4 @@
                               (+ pos.x (random-int 0 2) rx)
                               (+ pos.y (random-int 0 2) ry) this.color))))))
 (specify Plant-group (extend Entity-group)
-
          (property entity-type Plant))
