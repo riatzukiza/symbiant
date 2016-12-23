@@ -9,3 +9,17 @@ is the newest feature of the simulation. This happens when an ant has become ver
 will choose from the list of entity groups (plants and ants currently) a food group. This decision is probabalistic, based on the sum total life of all entities in the group. Entity groups with a large total life, are more likely to be chosen as food groups for new colonies of ants. The automatic speciation of ants is highly unstable right now, it is currently under going optimizations, because as soon as it happens, the game begins to slow down. This is because the weights that the ants use to make decisions are itterated through one by one to be updated.
 
 Keep posted, highly wip.
+
+# How do I run it?
+
+run this in a a terminal (git bash should work for windows)
+Requires node js
+```bash
+git clone https://github.com/riatzukiza/symbiant.git
+cd symbiants
+npm install
+npm start
+```
+
+If this doesn't work, please submit an issue, I have not tested this on any system aside my own yet, and I would
+appriciate the feed back.
