@@ -284,7 +284,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                         (.add new-colony this)
                         (assign this.color new-colony.color)
 
-                        (do-times 10 (.*reproduce this))
+                        (do-times 5 (.*reproduce this))
                         )
 
                    (> (* 2 ant.life) random)
