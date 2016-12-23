@@ -16,7 +16,6 @@
 
 (import (Display) "./display" )
 (import (Layer) "./layer" )
-(import (interface) "./interface")
 (import (Pheremones) "./pheremons")
 (import (complement) "./color")
 (import (weighted-random-element) "./random")
