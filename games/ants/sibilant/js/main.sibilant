@@ -117,7 +117,7 @@ Values are not changed unless done so explicitly by the function as a side effec
               (assign this.pos pos)))
       (gmth delete (world)
             (.delete world this))
-      (generic random (mth) ( world )
+      (generic random (mth) ( )
                (.spawn this
                        (random-int 0 world.coord.width)
                        (random-int 0 world.coord.width))))
