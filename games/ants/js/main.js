@@ -24,17 +24,20 @@ const {
   Layer
  } = require("./layer");
 const { 
-  interface
- } = require("./interface");
-const { 
   Pheremones
  } = require("./pheremons");
+const { 
+  complement
+ } = require("./color");
+const { 
+  weightedRandomElement
+ } = require("./random");
 let george = {
   x: 20,
   y: 20
 };
 let socket = io("/ants");
-let sim = create(Simulation)(20, 120, 5);
+let sim = create(Simulation)(120, 120, 5);
 let white = { 
   red:255,
   green:255,
@@ -62,7 +65,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:44:0 */
+  /* matrix-center eval.sibilant:45:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -100,10 +103,10 @@ const Collision = {
       });
     
    },
-  move( entities = this.entities ){ 
+  move( ent = this.ent,pos = this.pos,entities = this.entities ){ 
     
-      entities.delete(this.pos);
-      return entities.set(ent.pos, ent);
+      entities.delete(ent.pos);
+      return entities.set(pos, ent);
     
    },
   check( x = this.x,y = this.y,coord = this.coord ){ 
@@ -165,11 +168,11 @@ const World = {
       return collision.set(ent.pos, ent);
     
    },
-  remove( ent = this.ent,rendering = this.rendering,collision = this.collision,coord = this.coord,entities = this.entities ){ 
+  delete( ent = this.ent,rendering = this.rendering,collision = this.collision,coord = this.coord,entities = this.entities ){ 
     
       rendering.entities.delete(ent);
       entities.delete(ent);
-      return collision.delete(ent.pos, ent);
+      return collision.delete(ent.pos);
     
    },
   update( entities = this.entities ){ 
@@ -249,14 +252,15 @@ const Entity = {
       let pos = world.coord.get(x, y);
       return (function() {
         if (!(collision.has(pos))) {
+          collision.move(this, pos);
           return this.pos = pos;
         }
       }).call(this);
     
    },
-  remove( world = this.world ){ 
+  delete( world = this.world ){ 
     
-      return world.remove(this);
+      return world.delete(this);
     
    },
   random( world = this.world ){ 
@@ -268,9 +272,11 @@ const Entity = {
 Entity.empty = empty;
 const EntityGroup = extend(Entity, { 
   symbol:Symbol("EntityGroup"),
-  init( entityType = this.entityType,entities = (new Set()) ){ 
+  groups:(new Set()),
+  init( entityType = this.entityType,entities = (new Set()),groups = this.groups ){ 
     
-      this.entityType = entityType;this.entities = entities;
+      this.entityType = entityType;this.entities = entities;this.groups = groups;
+      groups.add(this);
       return this;
     
    },
@@ -285,6 +291,7 @@ const EntityGroup = extend(Entity, {
    },
   add( ent = this.ent,entities = this.entities ){ 
     
+      ent.group = this;
       return entities.add(ent);
     
    },
@@ -293,9 +300,16 @@ const EntityGroup = extend(Entity, {
       return entities.has(ent);
     
    },
-  delete( ent = this.ent ){ 
+  delete( ent = this.ent,entities = this.entities ){ 
     
-      return null;
+      entities.delete(ent);
+      return ent.delete();
+    
+   },
+  remove( ent = this.ent,entities = this.entities ){ 
+    
+      ent.group = null;
+      return entities.delete(ent);
     
    },
   each( f = this.f,entities = this.entities ){ 
@@ -306,10 +320,9 @@ const EntityGroup = extend(Entity, {
    },
   spawn( x = this.x,y = this.y,color = this.color,entityType = this.entityType ){ 
     
-      let ent = entityType.spawn(x, y);
+      let ent = entityType.spawn(x, y, color);
       (function() {
         if (ent) {
-          console.log("spawn safe, adding to group", ent);
           ent.group = this;
           this.add(ent);
           return ent;
@@ -345,11 +358,6 @@ const StraightLiner = extend(Entity, {
 const Ant = extend(Entity, { 
   symbol:Symbol("Ant"),
   life:1000,
-  color:{ 
-    red:255,
-    green:0,
-    blue:0
-   },
   init( pos = this.pos,world = this.world,color = this.color,life = this.life,ant = this ){ 
     
       this.pos = pos;this.world = world;this.color = color;this.life = life;this.ant = ant;
@@ -393,10 +401,10 @@ const Ant = extend(Entity, {
       let true__QUERY = false;
       eachInArea(World.coord, ant, (spot, i, j, x, y) => {
       	
+        spot = World.collision.entities.get(spot);
         return (function() {
-          if ((group.goals.has(spot) && this.life < 1000)) {
-            group.goals.delete(spot);
-            collision.set(x, y, empty);
+          if ((!(true__QUERY) && group.goals.has(spot))) {
+            this._food = spot;
             return true__QUERY = true;
           }
         }).call(this);
@@ -407,33 +415,30 @@ const Ant = extend(Entity, {
    },
   _eat( group = this.group,ant = this.ant ){ 
     
-      console.log("ant eating");
-      ant.life = (ant.life + Ant.life);
-      let emission = (ant.genetics.rate * ant.genetics.findRate * (ant.life / Ant.life));
-      return Pheremones.emit(ant, group.weights, emission, 120);
+      group.goals.delete(ant._food);
+      ant.life = (ant.life + ant._food.life);
+      let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
+      return Pheremones.emit(ant.pos, group.weights, emission, 20);
     
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
     
-      console.log("ant is making babies");
       ant.life = (ant.life / 2);
       ant.mutate();
-      ant.spawn(ant.x, ant.y);
-      ant.spawn((1 + ant.x), (1 + ant.y));
-      return Pheremones.emit(ant, group.weights, (ant.genetics.rate * (ant.life / Ant.life)), 120);
+      group.spawn();
+      group.spawn();
+      return Pheremones.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group,collision = this.collision ){ 
     
-      console.log(this, "died");
       group.delete(ant);
-      ant.remove();
-      return Pheremones.emit(ant, group.weights, (-1 * ant.genetics.rate * (ant.life / Ant.life)), 120);
+      return Pheremones.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
     
-      Pheremones.emit(ant, group.weights, (ant.genetics.rate));
+      Pheremones.emit(ant.pos, group.weights, (ant.genetics.rate));
       ant.genetics.kernel.dmap((x) => {
       	
         return (x * (function() {
@@ -473,13 +478,13 @@ const Ant = extend(Entity, {
       return ant.life > Ant.life;
     
    },
-  _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
+  _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:30:8 */
+        /* eval.sibilant:31:8 */
       
         let true__QUERY = false;
-        eachInArea(collision, ant, (spot, i, j, x, y) => {
+        eachInArea(World.coord, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -506,14 +511,14 @@ const Ant = extend(Entity, {
           return ant.genetics.kernel = mooreNeighborhood(3, 3, ant.genetics.deviance);
         }
       }).call(this);
-      let sated__QUERY = (ant._sated()) ? -1 : 1;
+      let sated__QUERY = 1;
       eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === empty || ent === 0)) {
             // let calcDevi = ((Ant.life * ant.life) / ant.genetics.deviance);
-            return count += (w + sated__QUERY + ant.genetics.kernel.get(i, j) + ant.genetics.deviance);
+            return count += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
           }
         }).call(this);
       
@@ -524,7 +529,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === empty || ent === 0)) {
-            sum += (w + sated__QUERY + ant.genetics.kernel.get(i, j) + ant.genetics.deviance);
+            sum += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
             return (function() {
               if ((rand < sum && !(done))) {
                 choice.x = x;
@@ -547,7 +552,28 @@ const Ant = extend(Entity, {
       let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
       let sated__QUERY = ant._sated();
       (function() {
-        if ((2 * ant.life) > random) {
+        if ((1 * ant.life) > (100 * (Ant.life + random))) {
+          let newColony = create(Colony)(this.pos, { 
+            red:Math.floor((Math.random() * ((256 - 0) + 0))),
+            green:Math.floor((Math.random() * ((256 - 0) + 0))),
+            blue:Math.floor((Math.random() * ((256 - 0) + 0)))
+           }, weightedRandomElement(EntityGroup.groups, (group) => {
+          	
+            let totalLife = 0;
+            group.entities.each((ent) => {
+            	
+              return totalLife += ent.life;
+            
+            });
+            return totalLife;
+          
+          }));
+          this.group.remove(this);
+          newColony.add(this);
+          for (let time = 0;time < 3;++(time)){
+          this._reproduce()};
+          return this.color = newColony.color;
+        } else if ((2 * ant.life) > random) {
           let choice = ant.choose();
           this.move(choice.x, choice.y);
           return (function() {
@@ -565,7 +591,7 @@ const Ant = extend(Entity, {
           return ant._die();
         }
       }).call(this);
-      return Pheremones.emit(ant, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 7);
+      return Pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 7);
     
    }
  });
@@ -577,7 +603,69 @@ const Colony = extend(EntityGroup, {
     
       this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;
       EntityGroup.init.call(this);
+      weights.layer = sim.layers.get();
+      weights.each((w, x, y) => {
+      	
+        return weights.layer.add({ 
+          x,
+          y,
+          get weight(  ){ 
+            
+              return weights.get(x, y);
+            
+           },
+          get color(  ){ 
+            
+              return (function() {
+                if (this.weight >= 0) {
+                  return color;
+                } else {
+                  return complement(color);
+                }
+              }).call(this);
+            
+           },
+          get r(  ){ 
+            
+              return this.color.red;
+            
+           },
+          get g(  ){ 
+            
+              return this.color.green;
+            
+           },
+          get b(  ){ 
+            
+              return this.color.blue;
+            
+           },
+          get a(  ){ 
+            
+              return Math.abs((160 * this.weight));
+            
+           }
+         });
+      
+      });
+      weights.layer.moveUp();
       colonies.add(this);
+      return this;
+    
+   },
+  spawn( color = this.color,entityType = this.entityType ){ 
+    
+      let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
+      let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
+      let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
+      (function() {
+        if (ent) {
+          ent.group = this;
+          this.add(ent);
+          ent.nest = this.nest;
+          return ent;
+        }
+      }).call(this);
       return this;
     
    },
@@ -598,20 +686,29 @@ const Colony = extend(EntityGroup, {
         return ant.update();
       
       });
-      return Pheremones.update(this.weights, 0.1);
+      return (function() {
+        if (this.entities.size === 0) {
+          return this.colonies.delete(this);
+        } else {
+          return Pheremones.update(this.weights, 0.1);
+        }
+      }).call(this);
     
    }
  });
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
+  life:200,
   update( pos = this.pos,system = this.system ){ 
     
       return (function() {
         if (Math.round(Math.random()) === 1) {
+          var rx = (Math.round(Math.random()) === 1) ? 1 : -1;
+          var ry = (Math.round(Math.random()) === 1) ? 1 : -1;
           return requestAnimationFrame(() => {
           	
-            return this.spawn((pos.x + Math.floor((Math.random() * ((2 - -2) + -2)))), (pos.y + Math.floor((Math.random() * ((2 - -2) + -2)))));
+            return this.group.spawn((pos.x + Math.floor((Math.random() * ((2 - 0) + 0))) + rx), (pos.y + Math.floor((Math.random() * ((2 - 0) + 0))) + ry), this.color);
           
           });
         }
@@ -619,33 +716,47 @@ const Plant = extend(Entity, {
     
    }
  });
+const PlantGroup = extend(EntityGroup, { 
+  symbol:Symbol("PlantGroup"),
+  entityType:Plant
+ });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:288:0 */
+  /* Map.prototype.each eval.sibilant:353:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:290:0 */
+  /* start eval.sibilant:355:0 */
 
-  let plants = create(EntityGroup)(Plant);
+  let plants = create(PlantGroup)();
   let reds = create(Colony)({
     x: 30,
     y: 60
   }, { 
     red:255,
     green:0,
-    blue:155
+    blue:0
    }, plants);
-  let lineWalker = StraightLiner.spawn(60, 60);
-  for (let time = 0;time < 10;++(time)){
-  reds.random()};
+  global.sim = sim;
   for (let time = 0;time < 100;++(time)){
+  reds.spawn()};
+  for (let time = 0;time < 1000;++(time)){
   plants.random()};
+  interface(sim);
   return sim.start().on("tick", (now, ticks) => {
   	
+    (function() {
+      if ((ticks % 5) === 0) {
+        return plants.update();
+      }
+    }).call(this);
     for (let time = 0;time < 2;++(time)){
-    reds.update()};
+    Colony.colonies.each((col) => {
+    	
+      return col.update();
+    
+    })};
     return sim.layers.update().render();
   
   });
@@ -655,6 +766,87 @@ let yellow = {
   green: 255,
   blue: 0
 };
+let canvas = sim.layers.canvas;
+let context = $("#container");
+var interface = (function interface$(sim) {
+  /* interface eval.sibilant:412:0 */
+
+  canvas.onselectstart = () => {
+  	
+    return false;
+  
+  };
+  let interfaceContainer = (function(context) {
+    /* macros/jquery.sibilant:14:9 */
+  
+    var here = $("<div>", {  });
+    context.append(here);
+    context = here;
+    let colonies = (function(context) {
+      /* macros/jquery.sibilant:14:9 */
+    
+      var here = $("<div>", {
+        class: "panel",
+        id: "colonies"
+      });
+      context.append(here);
+      context = here;
+      let heading = (function(context) {
+        /* macros/jquery.sibilant:14:9 */
+      
+        var here = $("<b>", {
+          text: "colonies",
+          class: "bordered"
+        });
+        context.append(here);
+        context = here;
+        return here;
+      })(context);
+      ;
+      (function() {
+        /* eval.sibilant:377:24 */
+      
+        var table = $("<table>");
+        let headerRow = $("<tr>");
+        headerRow.append($("<th>").text("name"));
+        headerRow.append($("<th>").text("numbers"));
+        table.append(headerRow);
+        Colony.colonies.each((c) => {
+        	
+          var row = $("<tr>");
+          let name = (function() {
+            /* eval.sibilant:397:50 */
+          
+            let colData = $("<td> ").text(c.name);
+            row.append(colData);
+            return colData;
+          }).call(this);
+          let numbers = (function() {
+            /* eval.sibilant:397:50 */
+          
+            let colData = $("<td> ").text(c.entities.size);
+            row.append(colData);
+            return colData;
+          }).call(this);
+          table.append(row);
+          name.css("color", ("rgb(" + [ c.color.red, c.color.green, c.color.blue ].join(",") + ")"));
+          return sim.on("tick", () => {
+          	
+            return numbers.text(c.entities.size);
+          
+          });
+        
+        });
+        return here.append(table);
+      }).call(this);
+      return here;
+    })(context);
+    ;
+    return here;
+  })(context);
+  ;
+  return context;
+});
 sim.load(start);
 socket.on("change", () => {
 	

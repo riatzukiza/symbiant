@@ -176,7 +176,7 @@ class Layer extends Set {
     }
     delete(value) {
         this.lset.decEntityCount()
-        return super.add(value);
+        return super.delete(value);
     }
     clear() {
         this.lset.clearEntityCount(this.size);

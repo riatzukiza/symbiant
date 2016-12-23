@@ -42,9 +42,9 @@ const StateSpace = {
       return transition.get(x, y);
     
    },
-  set( x = this.x,y = this.y,value = this.value,transition = this.transition ){ 
+  set( x = this.x,y = this.y,value = this.value,state = this.state ){ 
     
-      return this.setTransition(x, y, value, transition);
+      return this.setState(x, y, value, state);
     
    },
   setState( x = this.x,y = this.y,value = this.value,state = this.state ){ 

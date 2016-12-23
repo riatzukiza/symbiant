@@ -12,9 +12,6 @@ const {
 const { 
   Layer
  } = require("./layer");
-const { 
-  hexToComplimentary
- } = require("./complimentry");
 let colors = [];
 function decayPositive( x,y,v,decay,color ){ 
   
@@ -23,7 +20,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:25:0 */
+  /* combine eval.sibilant:24:0 */
 
   return Math.round((old + addi));
 });

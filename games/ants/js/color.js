@@ -92,7 +92,7 @@ module.exports.RGB2HSV = RGB2HSV;
  * @param  [String] hex : hex value  
  * @return [String] : complimentary color as hex value
  */
-function hexToComplimentary(rgb){
+function complement(rgb){
 
     // Convert hex to rgb
     // Credit to Denis http://stackoverflow.com/a/36253499/4939630
@@ -160,14 +160,13 @@ function hexToComplimentary(rgb){
     b = Math.round(b * 255);
 
     // Convert r b and g values to hex
-    rgb = b | (g << 8) | (r << 16); 
     return {
         red:r,
         green:g,
         blue:b
     }
 }
-module.exports.hexToComplimentary = hexToComplimentary;
+module.exports.complement = complement;
 /**
  * Original Work
  * http://www.paintassistant.com/rybrgb.html
