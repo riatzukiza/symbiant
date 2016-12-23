@@ -54,7 +54,7 @@ const {
 //       })(context);
 //       ;
 //       (function() {
-//         /* eval.sibilant:362:24 */
+//         /* eval.sibilant:10:24 */
 //       
 //         var table = $("<table>");
 //         let headerRow = $("<tr>");
@@ -65,14 +65,14 @@ const {
 //         	
 //           var row = $("<tr>");
 //           let name = (function() {
-//             /* eval.sibilant:382:50 */
+//             /* eval.sibilant:30:50 */
 //           
 //             let colData = $("<td> ").text(c.name);
 //             row.append(colData);
 //             return colData;
 //           }).call(this);
 //           let numbers = (function() {
-//             /* eval.sibilant:382:50 */
+//             /* eval.sibilant:30:50 */
 //           
 //             let colData = $("<td> ").text(c.ants.size);
 //             row.append(colData);

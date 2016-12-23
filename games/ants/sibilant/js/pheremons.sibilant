@@ -23,13 +23,11 @@
 
 (def combine (old addi ) (Math.round (+ old addi)))
 
-
 (fn decay-negative (x y v decay color)
 
     "brings a positive weight closer to zero, "
 
     (+ v  decay ))
-
 (generic each-in-area (fn) (matrix pos f (size 3) (rad (Math.floor (/ size 2))))
          "apply a function to every element in a kernel of the weight matrix.
 Values are not changed unless done so explicitly by the function as a side effect."
@@ -38,10 +36,12 @@ Values are not changed unless done so explicitly by the function as a side effec
                        (- pos.y rad)
                        size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
 
+(macro area (space el-name center size ...body)
+       `(each-in-area @space @center
+                      (=> (@el-name i j x y)
+                          ...@body) @size ))
 (type Pheremones
-
       (init (rate decay weights))
-
       (gmth emit  (pos weights rate (r 5 ))
 
             (area weights.state w pos r

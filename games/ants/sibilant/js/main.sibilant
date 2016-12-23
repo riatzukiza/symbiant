@@ -76,8 +76,10 @@
 
 (let empty { id 0 })
 (let choice {x 60 y 60})
+
 (macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
                                   (do ...@body)))
+
 (macro area (space el-name center size ...body)
        `(each-in-area @space @center
                      (=> (@el-name i j x y)
@@ -126,7 +128,6 @@ Values are not changed unless done so explicitly by the function as a side effec
 (import (Entity-group) "./ecs/group")
 (import (Ant) "./entities/ant")
 
-(print "ANT" Ant)
 
 ;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
 
