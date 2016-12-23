@@ -1,8 +1,6 @@
 (import ( create extend mixin) "../util")
-(import (World) "../world")
 (type Entity
-      (property world World)
-      (property collision World.collision)
+      (property collision world.collision)
       (init (pos world color collision ))
 
       (gett r  this.color.red)
@@ -14,7 +12,7 @@
       (sett x num (.move this num this.y))
       (sett y num (.move this this.x num))
 
-      (gmth spawn (x y color world collision)
+      (gmth spawn (x y color collision)
             (let pos (.get world.coord x y))
             (unless (collision.has pos )
               (let ent ((create this) pos world color))
@@ -26,7 +24,7 @@
               (assign this.pos pos)))
       (gmth delete (world)
             (.delete world this))
-      (generic random (mth) ( world )
+      (generic random (mth) ( )
                (.spawn this
                        (random-int 0 world.coord.width)
                        (random-int 0 world.coord.width))))
