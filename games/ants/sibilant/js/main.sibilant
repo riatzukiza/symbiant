@@ -79,30 +79,14 @@ Values are not changed unless done so explicitly by the function as a side effec
 
 (macro member (name value)
        `(set this (quote @name) @value))
-(type Collision
-      (property coord sim.coord)
-      (init ((entities (new Map) ) coord))
-      (generic serialize (mth) (entities)
-               (map (.to-array entities) (ent) (.serialize ent)))
-      (generic move (mth) (ent pos entities)
-               (.delete entities ent.pos)
-               (.set entities pos ent))
-      (generic check (mth) (x y coord )
-               (this.has (.get coord x y)))
-      (generic set (mth) (pos ent entities)
-               (.set entities pos ent))
-      (generic get (mth) (x y entities coord)
-               (.get entities (.get coord x y)))
-      (generic delete (mth) (key )
-               (.delete this.entities key))
-      (generic has (mth) (pos entities)
-               (.has entities pos)))
+(import (Collision) "./systems/collision")
+
 (type Movement (init ()))
 (type Rendering
       (property entities (.get sim.layers))
       (property weights []))
 (type World
-      (property collision ((create Collision)))
+      (property collision ((create Collision) sim.coord))
       (property coord sim.coord)
       (property rendering Rendering)
       (property entities (new Set))
