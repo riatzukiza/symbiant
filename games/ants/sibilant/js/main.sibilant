@@ -273,6 +273,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                   (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
                       (do (let new-colony ((create Colony) this.pos (random-color)
+
                                            (weighted-random-element
                                             Entity-group.groups
                                             (=> (group)
@@ -360,7 +361,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (interface sim)
   (on (sim.start)"tick" (now ticks)
 
-      (every 10 ticks (.update plants))
+      (every 5 ticks (.update plants))
       (do-times 2
         (each Colony.colonies (col)
               (.update col)))
