@@ -1,9 +1,7 @@
+(import (Collision) "./collision")
 (type World
-      (property collision ((create Collision)))
-      (property coord sim.coord)
-      (property rendering Rendering)
       (property entities (new Set))
-      (init (collision  coord gl-layer))
+      (init (coord rendering (collision ((create Collision) coord)) ))
       (gmth add (ent rendering collision coord entities)
             (.add rendering.entities ent)
             (.add entities ent)
