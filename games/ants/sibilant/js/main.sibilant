@@ -404,11 +404,12 @@ Values are not changed unless done so explicitly by the function as a side effec
                                       ...@body)
                                 (.append @container table)))
 
+
+(let canvas (document.get-element-by-id "game"))
 (def interface (sim)
 
-  (assign canvasa.onselectstart (-> false))
-  (assign canvasb.onselectstart (-> false))
-  (sequence ($ canvasa ) .css
+  (assign canvas.onselectstart (-> false))
+  (sequence ($ canvas ) .css
             ("transform" "scale(5)")
             ( "top" "1200px")
             ( "left" "1200px")
