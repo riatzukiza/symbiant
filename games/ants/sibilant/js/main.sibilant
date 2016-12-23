@@ -80,34 +80,19 @@ Values are not changed unless done so explicitly by the function as a side effec
 (macro member (name value)
        `(set this (quote @name) @value))
 (import (Collision) "./systems/collision")
-
-(type Movement (init ()))
+(import (World) "./systems/world")
 (type Rendering
       (property entities (.get sim.layers))
       (property weights []))
-(type World
-      (property collision ((create Collision) sim.coord))
-      (property coord sim.coord)
-      (property rendering Rendering)
-      (property entities (new Set))
-      (init (collision  coord gl-layer))
-      (gmth add (ent rendering collision coord entities)
-            (.add rendering.entities ent)
-            (.add entities ent)
-            (.set collision ent.pos ent))
-      (gmth delete (ent rendering collision coord entities)
-            (.delete rendering.entities ent)
-            (.delete entities ent)
-            (.delete collision ent.pos ))
-      (gmth update (entities)
-            (each entities (ent) (.update ent))))
+
+
+(const world ((create World) sim.coord Rendering))
 (macro gett (name ...body)
        ["get " `(mth @name () ...@body)])
 
 (macro sett (name val ...body)
        ["set " `(mth @name (@val) ...@body)])
 (type Entity
-      (property world World)
       (property collision World.collision)
       (init (pos world color collision ))
 
