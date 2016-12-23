@@ -1,4 +1,5 @@
 (import (Collision) "./collision")
+(import (create) "../util")
 (type World
       (property entities (new Set))
       (init (coord rendering (collision ((create Collision) coord)) ))
