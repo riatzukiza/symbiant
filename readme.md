@@ -25,4 +25,4 @@ If this doesn't work, please submit an issue, I have not tested this on any syst
 appriciate the feed back.
 # Examples
 More to go here soon, for now have a few screen shots
-![]
+![early stage of sim](https://raw.githubusercontent.com/riatzukiza/symbiant/master/images/early-sim.png)
