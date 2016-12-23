@@ -41,8 +41,6 @@
                      (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
 (macro random-bit () `(Math.round (Math.random)))
 
-(def matrix-center (width height )
-  (Math.round (/ (- (* width height) 1) 2)))
 (let empty { id 0 })
 (let choice {x 60 y 60})
 (macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
