@@ -283,7 +283,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                         (.remove this.group this)
                         (.add new-colony this)
                         (assign this.color new-colony.color)
-                        (do-times 20 (.*reproduce this))
+
+                        (do-times 10 (.*reproduce this))
                         )
 
                    (> (* 2 ant.life) random)
@@ -312,7 +313,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett b this.color.blue)
 
                             (gett a (Math.abs (* 160 this.weight)) ))))
-               ;;(.move-up weights.layer)
+               (.move-up weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
