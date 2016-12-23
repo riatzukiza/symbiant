@@ -76,10 +76,8 @@
 
 (let empty { id 0 })
 (let choice {x 60 y 60})
-
 (macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
                                   (do ...@body)))
-
 (macro area (space el-name center size ...body)
        `(each-in-area @space @center
                      (=> (@el-name i j x y)
@@ -124,120 +122,10 @@ Values are not changed unless done so explicitly by the function as a side effec
 (macro sett (name val ...body)
        ["set " `(mth @name (@val) ...@body)])
 (import (Entity) "./ecs/entity")
-(assign Entity.empty empty)
 (import (Entity-group) "./ecs/group")
-(generic moore-neighborhood (def) (w h (weight 1) (c 0))
-         (let m (allns w h weight))
-         (set m.array (matrix-center w h) c) m)
-(def matrix-center (width height )
-  (Math.round (/ (- (* width height) 1) 2)))
-(specify Ant (extend Entity)
-         (property life 1000)
-         (init ( pos color life (ant this) )
-               (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
-                          (find-rate (random-signed 1))
-                          (return-rate (random-signed 1))
-                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
-         (generic *has-discovered-food (mth) ( group collision ant)
-                  (let true? false)
-                  (area  world.coord spot ant 5
-                         (assign spot (.get world.collision.entities spot))
-                         (when (and  (not true?) (.has group.goals spot) )
-                           (assign this._food spot)
-                           (assign true? true))) true?)
+(import (Ant) "./entities/ant")
 
-         (generic *eat (mth) ( group ant)
-                  (.delete group.goals ant._food)
-                  (assign ant.life (+ ant.life ant._food.life))
-                  (let emission (* (gene ant rate) (gene ant find-rate) 10))
-                  (.emit Pheremones ant.pos group.weights  emission 20))
-         (generic *reproduce (mth) (nest ant group )
-                  (assign ant.life (/ ant.life 2))
-                  (.mutate ant )
-                  (.spawn group )
-                  (.spawn group )
-                  (.emit Pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
-         (generic *die (mth) (  ant group collision)
-                  (.delete group ant)
-                  (.emit Pheremones ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
-                  )
-         (generic mutate (mth) (ant group nest)
-                  ;; me think mutations aughta be put into some fancy ass abstraction some where.
-                  (.emit Pheremones ant.pos group.weights (- (gene ant rate)))
-                  (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
-                  (mutate ant (return-rate find-rate deviance rate) )
-                  (assign ant.life Ant.life ))
-         (generic *sated (mth) (nest ant collision)
-                  (> ant.life Ant.life) )
-         (generic *near-nest (mth) (nest ant )
-                  (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
-         ;; This is the function we should be calling in most instances to create an ant.
-         ;; Ants should belong to a colony.
-         ;; So there should be a method associated with the colony for creating ants via this method.
-         (generic choose (mth) (group collision  (ant this) )
-                  ;; A choice is a weighted random selection from a collection area.
-                  (let count 0)
-                  (let sum 0)
-                  (let done false)
-                  (let choice {
-                    x ant.x
-                    y ant.y
-                    })
-                  ;; I think this ends up being needed in multiple places.
-                  ;; but in what way?
-                  ;; I think some other function will decide what *weight* is, and call this function accordingly.
-                  (when (not (gene ant kernel))
-                    (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
-                  (let sated? 1)
-                  (each-valid-move  ant group.weights.state
-                                    (comment (let calc-devi (/ (* Ant.life ant.life)
-                                                       (gene ant deviance))))
-                                    ;;(print "calculated deviance" calc-devi)
-                                    (incr-by count (* w  sated?
-                                                      (/ ant.life Ant.life)
-                                                      (.get (gene ant kernel) i j)
-                                                      (gene ant deviance))))
-                  (let rand (* count (Math.random)))
-                  (each-valid-move ant group.weights.state
-                                   (incr-by sum (* w   sated?
-                                                   (/ ant.life Ant.life)
-                                                   (.get (gene ant kernel) i j)
-                                                   (gene ant deviance)))
-                                   (when (and (< rand sum) (not done))
-                                     (assign choice.x x choice.y y done true))) choice)
-         (generic update (mth) (  group nest  life  (ant this))
-                  ;; Ants are more likely to choose pheremones over none.
-                  ;; but the chance must still exist for the ant to take non marked paths for this to work
-                  (let x 0)
-                  (let y 0)
-                  (-- ant.life)
-                  (let random (random-int 0 (/ Ant.life 2)))
-                  ;; Randomly kill off ants who's lives are
-                  ;; below a random threshold between some value and 0
-                  (let sated? (.*sated ant ))
-
-                  (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
-                      (do (let new-colony ((create Colony) this.pos (random-color)
-
-                                           (weighted-random-element
-                                            Entity-group.groups
-                                            (=> (group)
-                                                (let total-life 0)
-                                                (each group.entities (ent)
-                                                      (incr-by total-life ent.life)) total-life)) ))
-                        (.remove this.group this)
-                        (.add new-colony this)
-                        (do-times 3 (.*reproduce this))
-                        (assign this.color new-colony.color))
-
-                   (> (* 2 ant.life) random)
-                      (do (let choice (.choose ant ))
-                          (.move this choice.x choice.y  )
-                        (if (.*has-discovered-food  ant ) (.*eat ant )
-                            sated? (if (.*near-nest  ant) (.*reproduce ant))))
-                      (.*die ant))
-                  (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
-
+(assign Entity.empty empty)
 
 ;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
 
@@ -312,7 +200,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
       (every 5 ticks (.update plants))
       (do-times 2
-
+        (each Colony.colonies (col)
               (.update col)))
       (pipe sim.layers
             (.update )
@@ -331,8 +219,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                               (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                              (on sim "tick" () (.text numbers c.entities.size)))) 
-       )
+                              (on sim "tick" () (.text numbers c.entities.size)))))
   context)
 
 (.load sim  start)
