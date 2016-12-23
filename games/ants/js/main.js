@@ -65,7 +65,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:45:0 */
+  /* matrix-center eval.sibilant:47:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -721,13 +721,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:353:0 */
+  /* Map.prototype.each eval.sibilant:355:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:355:0 */
+  /* start eval.sibilant:357:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -769,7 +769,7 @@ let yellow = {
 let canvas = sim.layers.canvas;
 let context = $("#container");
 var interface = (function interface$(sim) {
-  /* interface eval.sibilant:412:0 */
+  /* interface eval.sibilant:414:0 */
 
   canvas.onselectstart = () => {
   	
@@ -804,7 +804,7 @@ var interface = (function interface$(sim) {
       })(context);
       ;
       (function() {
-        /* eval.sibilant:377:24 */
+        /* eval.sibilant:379:24 */
       
         var table = $("<table>");
         let headerRow = $("<tr>");
@@ -815,14 +815,14 @@ var interface = (function interface$(sim) {
         	
           var row = $("<tr>");
           let name = (function() {
-            /* eval.sibilant:397:50 */
+            /* eval.sibilant:399:50 */
           
             let colData = $("<td> ").text(c.name);
             row.append(colData);
             return colData;
           }).call(this);
           let numbers = (function() {
-            /* eval.sibilant:397:50 */
+            /* eval.sibilant:399:50 */
           
             let colData = $("<td> ").text(c.entities.size);
             row.append(colData);

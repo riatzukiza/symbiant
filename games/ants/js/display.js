@@ -43,9 +43,9 @@ const Display = {
       return this.transit((color, pos) => {
       	
         return { 
-          red:Math.floor((Math.random() * ((256 - 0) + 0))),
-          green:Math.floor((Math.random() * ((256 - 0) + 0))),
-          blue:Math.floor((Math.random() * ((256 - 0) + 0)))
+          red:(Math.floor((Math.random() * (256 - 0))) + 0),
+          green:(Math.floor((Math.random() * (256 - 0))) + 0),
+          blue:(Math.floor((Math.random() * (256 - 0))) + 0)
          };
       
       });

@@ -2,7 +2,8 @@
 (import (World) "../world")
 (type Entity
       (property world World)
-      (init (pos world color))
+      (property collision World.collision)
+      (init (pos world color collision ))
 
       (gett r  this.color.red)
       (gett g  this.color.green)
@@ -13,17 +14,18 @@
       (sett x num (.move this num this.y))
       (sett y num (.move this this.x num))
 
-      (gmth spawn (x y color world)
+      (gmth spawn (x y color world collision)
             (let pos (.get world.coord x y))
-            (unless (world.collision.has pos )
+            (unless (collision.has pos )
               (let ent ((create this) pos world color))
               (world.add ent) ent))
-
-      (gmth move (x y world)
+      (gmth move (x y world collision)
             (let pos (.get world.coord x y))
-            (unless (world.collision.has pos )
+            (unless (collision.has pos )
+              (.move collision this pos)
               (assign this.pos pos)))
-
+      (gmth delete (world)
+            (.delete world this))
       (generic random (mth) ( world )
                (.spawn this
                        (random-int 0 world.coord.width)

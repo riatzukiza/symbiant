@@ -2,6 +2,8 @@ Set.prototype.isSuperset = function isSuperset( subset ){
   allMust(this.has(elem))
  };
 Set.prototype.union = function union( setB ){ 
+  (function() {
+    /* macros/js/index.sibilant:82:8 */
   
     let union = (new Set(this));
     for( let elem of setB ) {
@@ -10,9 +12,11 @@ Set.prototype.union = function union( setB ){
     
     };
     return union;
-  
+  }).call(this)
  };
 Set.prototype.intersection = function intersection( setB ){ 
+  (function() {
+    /* macros/js/index.sibilant:82:8 */
   
     let intersection = (new Set());
     for( let elem of setB ) {
@@ -25,9 +29,11 @@ Set.prototype.intersection = function intersection( setB ){
     
     };
     return intersection;
-  
+  }).call(this)
  };
 Set.prototype.difference = function difference( setB ){ 
+  (function() {
+    /* macros/js/index.sibilant:82:8 */
   
     let difference = (new Set(this));
     for( let elem of setB ) {
@@ -36,7 +42,7 @@ Set.prototype.difference = function difference( setB ){
     
     };
     return difference;
-  
+  }).call(this)
  };
 Set.prototype.toArray = function toArray(  ){ 
   [ ...this ]

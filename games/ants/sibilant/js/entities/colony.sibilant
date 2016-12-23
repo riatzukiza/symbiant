@@ -1,0 +1,41 @@
+(specify Colony (extend Entity-group)
+         (property colonies (new Set) )
+         (property entity-type Ant)
+         (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
+               (Entity-group.init.call this)
+               (assign weights.layer (.get sim.layers))
+               (each weights (w x y)
+                     (.add weights.layer
+                           (literal
+                            x y
+                            (gett weight (.get weights x y))
+                            (gett color (if (>= this.weight 0 )
+                                            color
+                                            (complement color)))
+                            (gett r this.color.red )
+                            (gett g this.color.green)
+                            (gett b this.color.blue)
+
+                            (gett a (Math.abs (* 160 this.weight)) ))))
+               (.move-up weights.layer)
+
+               (.add colonies this))
+         (generic spawn (fluent mth) (color entity-type)
+                  (let rx (ternary (= (random-bit) 1) 1 -1))
+                  (let ry (ternary (= (random-bit) 1) 1 -1))
+                  (let ent (.spawn entity-type
+                                   (+ this.nest.x (random-int 0 30) rx)
+                                   (+ this.nest.y (random-int 0 30) rx) color))
+                  (when ent
+                    (assign ent.group this)
+                    (this.add ent)
+                    (assign ent.nest this.nest)
+                    ent))
+         (generic serialize (mth) (ants)
+                  (map (.to-array ants) (ant) (.serialize ant)))
+         (generic update (mth) (entities weights decay)
+                  "Process the movement of ever ant in a set of ants, updating weights along the way."
+                  (.each this (=> (ant) (.update ant )))
+                  (if (= this.entities.size 0)
+                      (.delete this.colonies this)
+                      (.update Pheremones this.weights 0.1 ))))
