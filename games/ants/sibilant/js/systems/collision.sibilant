@@ -16,3 +16,5 @@
                (.delete this.entities key))
       (generic has (mth) (pos entities)
                (.has entities pos)))
+
+(export Collision)
