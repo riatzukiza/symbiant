@@ -359,7 +359,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
 
-      (every 30 ticks
+      (every 10 ticks
              (.update plants))
       (do-times 2
         (each Colony.colonies (col)
