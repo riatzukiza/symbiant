@@ -1,6 +1,39 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+(macro describe-table ( describers ...body)
+                       (const [eachable each-args table-data container]
+                              describers.contents)
+                       `(scoped (var table ($ "<table>"))
+
+                                (let header-row ($ "<tr>"))
+                                ...@(map (content-of table-data) (entry)
+                                         `(.append header-row
+                                                  (.text ($ "<th>" )
+                                                         (quote @(if (literal? entry)
+                                                                     entry
+                                                                     (first entry.contents))))))
+
+                                (.append table header-row)
+                                (each @eachable @each-args
+
+                                      (var row ($ "<tr>" ))
+                                      ...@(map (content-of table-data) (entry)
+                                               `(let @(ternary (literal? entry)
+
+                                                       entry
+                                                       (first entry.contents))
+
+                                                  (scoped
+                                                   (let col-data (.text ($ "<td> " )
+                                                                        @(if (literal? entry)
+                                                                             entry
+                                                                             (second entry.contents))))
+                                                   (.append row col-data) col-data)))
+                                      (.append table row)
+
+                                      ...@body)
+                                (.append @container table)))
 (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 ;; Libs
 (import (euclidian-distance) "./math")
@@ -175,39 +208,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 (let yellow { red 255 green 255 blue 0 })
 
 
-(macro describe-table ( describers ...body)
-                       (const [eachable each-args table-data container]
-                              describers.contents)
-                       `(scoped (var table ($ "<table>"))
 
-                                (let header-row ($ "<tr>"))
-                                ...@(map (content-of table-data) (entry)
-                                         `(.append header-row
-                                                  (.text ($ "<th>" )
-                                                         (quote @(if (literal? entry)
-                                                                     entry
-                                                                     (first entry.contents))))))
-
-                                (.append table header-row)
-                                (each @eachable @each-args
-
-                                      (var row ($ "<tr>" ))
-                                      ...@(map (content-of table-data) (entry)
-                                               `(let @(ternary (literal? entry)
-
-                                                       entry
-                                                       (first entry.contents))
-
-                                                  (scoped
-                                                   (let col-data (.text ($ "<td> " )
-                                                                        @(if (literal? entry)
-                                                                             entry
-                                                                             (second entry.contents))))
-                                                   (.append row col-data) col-data)))
-                                      (.append table row)
-
-                                      ...@body)
-                                (.append @container table)))
 
 
 (let canvas sim.layers.canvas)
