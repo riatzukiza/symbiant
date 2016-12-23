@@ -195,6 +195,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (assign global.sim sim)
   (do-times 100 (.spawn reds))
   (do-times 1000 (.random plants  ))
+  (print "REDS!" reds)
   (interface sim)
   (on (sim.start)"tick" (now ticks)
 
