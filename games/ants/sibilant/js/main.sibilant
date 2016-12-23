@@ -406,6 +406,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
 
 (let canvas sim.layers.canvas)
+(let context ($ "#container"))
 
 (def interface (sim)
 
