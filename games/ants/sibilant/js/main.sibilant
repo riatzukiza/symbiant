@@ -419,11 +419,11 @@ Values are not changed unless done so explicitly by the function as a side effec
 
   (div interface-container {}
        (panel colonies
-              (describe-table (Colony.colonies (c) ((name c.name) (numbers c.ants.size)) here)
+              (describe-table (Colony.colonies (c) ((name c.name) (numbers c.entities.size)) here)
 
                               (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                              (on sim "tick" () (.text numbers c.ants.size))))
+                              (on sim "tick" () (.text numbers c.entities.size))))
 
        (sequence here .css
                  ( "margin-top" "600px")
