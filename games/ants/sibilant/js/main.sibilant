@@ -93,7 +93,8 @@ Values are not changed unless done so explicitly by the function as a side effec
 (macro sett (name val ...body)
        ["set " `(mth @name (@val) ...@body)])
 (type Entity
-      (property collision World.collision)
+      (property collision world.collision)
+      (property world world)
       (init (pos world color collision ))
 
       (gett r  this.color.red)
