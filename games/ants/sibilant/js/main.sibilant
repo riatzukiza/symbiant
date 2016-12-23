@@ -405,7 +405,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                 (.append @container table)))
 
 
-(let canvas (document.get-element-by-id "game"))
+(let canvas sim.layers.canvas)
 
 (def interface (sim)
 
@@ -416,11 +416,6 @@ Values are not changed unless done so explicitly by the function as a side effec
             ( "left" "1200px")
             ("position" "absolute"))
 
-  (.hide (sequence ($ canvasb ) .css
-                   ("transform" "scale(5)")
-                   ( "top" "1200px")
-                   ( "left" "1200px")
-                   ("position" "absolute")))
   (div interface-container {}
        (panel colonies
               (describe-table (Colony.colonies (c) ((name c.name) (numbers c.ants.size)) here)
