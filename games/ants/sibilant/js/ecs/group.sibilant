@@ -1,4 +1,5 @@
 (import ( create extend mixin) "../util")
+(import (Entity) "./entity")
 (specify Entity-group (extend Entity)
          (property groups (new Set))
          (init (entity-type (entities (new Set)) groups)
