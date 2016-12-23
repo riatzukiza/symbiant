@@ -12,3 +12,4 @@
             (.delete collision ent.pos ))
       (gmth update (entities)
             (each entities (ent) (.update ent))))
+(export World)
