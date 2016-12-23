@@ -1,4 +1,5 @@
 (import ( create extend mixin) "../util")
+(import (Entity) "./entity")
 (type Entity
       (property collision world.collision)
       (init (pos world color collision ))
