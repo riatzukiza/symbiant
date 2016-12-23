@@ -19,6 +19,7 @@
 (import (interface) "./interface")
 (import (Pheremones) "./pheremons")
 (import (complement) "./color")
+(import (weighted-random-element) "./random")
 (let george { x 20 y 20 })
 ;; Declare variables
 (let socket (io "/ants"))
