@@ -39,6 +39,7 @@
             `(assign (get @ent (quote genetics) (quote @value))
                   (+ (get @ent (quote genetics) (quote @value))
                      (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
+(macro random-bit () `(Math.round (Math.random)))
 (generic moore-neighborhood (def) (w h (weight 1) (c 0))
          (let m (allns w h weight))
          (set m.array (matrix-center w h) c) m)
