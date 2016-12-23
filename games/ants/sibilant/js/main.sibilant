@@ -272,7 +272,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated ant ))
 
-                  (if (> (* 1 ant.life ) (* 10 (+ Ant.life random)))
+                  (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
                       (do (let new-colony ((create Colony) this.pos (random-color)
                                            (weighted-random-element
                                             Entity-group.groups
