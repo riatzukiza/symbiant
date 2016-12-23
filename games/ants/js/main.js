@@ -85,56 +85,9 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
     });
   
  };
-const Collision = { 
-  symbol:Symbol("Collision"),
-  coord:sim.coord,
-  init( entities = (new Map()),coord = this.coord ){ 
-    
-      this.entities = entities;this.coord = coord;
-      return this;
-    
-   },
-  serialize( entities = this.entities ){ 
-    
-      return entities.toArray().map((ent) => {
-      	
-        return ent.serialize();
-      
-      });
-    
-   },
-  move( ent = this.ent,pos = this.pos,entities = this.entities ){ 
-    
-      entities.delete(ent.pos);
-      return entities.set(pos, ent);
-    
-   },
-  check( x = this.x,y = this.y,coord = this.coord ){ 
-    
-      return this.has(coord.get(x, y));
-    
-   },
-  set( pos = this.pos,ent = this.ent,entities = this.entities ){ 
-    
-      return entities.set(pos, ent);
-    
-   },
-  get( x = this.x,y = this.y,entities = this.entities,coord = this.coord ){ 
-    
-      return entities.get(coord.get(x, y));
-    
-   },
-  delete( key = this.key ){ 
-    
-      return this.entities.delete(key);
-    
-   },
-  has( pos = this.pos,entities = this.entities ){ 
-    
-      return entities.has(pos);
-    
-   }
- };
+const { 
+  Collision
+ } = require("./systems/collision");
 const Movement = { 
   symbol:Symbol("Movement"),
   init(  ){ 
@@ -151,7 +104,7 @@ const Rendering = {
  };
 const World = { 
   symbol:Symbol("World"),
-  collision:create(Collision)(),
+  collision:create(Collision)(sim.coord),
   coord:sim.coord,
   rendering:Rendering,
   entities:(new Set()),
@@ -721,13 +674,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:354:0 */
+  /* Map.prototype.each eval.sibilant:338:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:356:0 */
+  /* start eval.sibilant:340:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -769,7 +722,7 @@ let yellow = {
 let canvas = sim.layers.canvas;
 let context = $("#container");
 var interface = (function interface$(sim) {
-  /* interface eval.sibilant:413:0 */
+  /* interface eval.sibilant:397:0 */
 
   canvas.onselectstart = () => {
   	
@@ -804,7 +757,7 @@ var interface = (function interface$(sim) {
       })(context);
       ;
       (function() {
-        /* eval.sibilant:378:24 */
+        /* eval.sibilant:362:24 */
       
         var table = $("<table>");
         let headerRow = $("<tr>");
@@ -815,14 +768,14 @@ var interface = (function interface$(sim) {
         	
           var row = $("<tr>");
           let name = (function() {
-            /* eval.sibilant:398:50 */
+            /* eval.sibilant:382:50 */
           
             let colData = $("<td> ").text(c.name);
             row.append(colData);
             return colData;
           }).call(this);
           let numbers = (function() {
-            /* eval.sibilant:398:50 */
+            /* eval.sibilant:382:50 */
           
             let colData = $("<td> ").text(c.entities.size);
             row.append(colData);
