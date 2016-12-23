@@ -311,7 +311,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                             (gett b this.color.blue)
 
                             (gett a (Math.abs (* 160 this.weight)) ))))
-               ;;(.move-up weights.layer)
+               (.move-up weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
