@@ -113,4 +113,5 @@
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
                   (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+
 (export Ant)
