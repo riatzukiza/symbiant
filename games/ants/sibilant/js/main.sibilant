@@ -359,9 +359,8 @@ Values are not changed unless done so explicitly by the function as a side effec
   ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
 
-      (every 10 ticks
-             (.update plants))
       (do-times 2
+        (.update plants)
         (each Colony.colonies (col)
               (.update col)))
       (pipe sim.layers
