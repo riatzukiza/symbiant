@@ -165,8 +165,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
          (generic *has-discovered-food (mth) ( group collision ant)
                   (let true? false)
-                  (area  World.coord spot ant 5
-                         (assign spot (.get World.collision.entities spot))
+                  (area  world.coord spot ant 5
+                         (assign spot (.get world.collision.entities spot))
                          (when (and  (not true?) (.has group.goals spot) )
                            (assign this._food spot)
                            (assign true? true))) true?)
@@ -195,7 +195,7 @@ Values are not changed unless done so explicitly by the function as a side effec
          (generic *sated (mth) (nest ant collision)
                   (> ant.life Ant.life) )
          (generic *near-nest (mth) (nest ant )
-                  (area-has 10 spot ant World.coord (and (= nest.x x) (= nest.y y))))
+                  (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
