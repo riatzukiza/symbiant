@@ -98,11 +98,6 @@ Values are not changed unless done so explicitly by the function as a side effec
 (assign Entity.empty empty)
 
 ;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
-(specify Straight-liner (extend Entity)
-         (property color (color 0 151 116))
-         (gmth update ()
-               (++ this.x)
-               (++ this.y)))
 (specify Ant (extend Entity)
          (property life 1000)
          (init ( pos world color life (ant this) )
