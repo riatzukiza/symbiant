@@ -282,10 +282,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                                                       (incr-by total-life ent.life)) total-life)) ))
                         (.remove this.group this)
                         (.add new-colony this)
-                        (assign this.color new-colony.color)
-
-                        (do-times 5 (.*reproduce this))
-                        )
+                        (do-times 3 (.*reproduce this))
+                        (assign this.color new-colony.color))
 
                    (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
