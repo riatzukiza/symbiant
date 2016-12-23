@@ -3,15 +3,12 @@ const {
   extend,
   mixin
  } = require("../util");
-const { 
-  World
- } = require("../world");
 const Entity = { 
   symbol:Symbol("Entity"),
-  world:World,
-  init( pos = this.pos,world = this.world,color = this.color ){ 
+  collision:world.collision,
+  init( pos = this.pos,world = this.world,color = this.color,collision = this.collision ){ 
     
-      this.pos = pos;this.world = world;this.color = color;
+      this.pos = pos;this.world = world;this.color = color;this.collision = collision;
       return this;
     
    },
@@ -55,11 +52,11 @@ const Entity = {
       return this.move(this.x, num);
     
    },
-  spawn( x = this.x,y = this.y,color = this.color,world = this.world ){ 
+  spawn( x = this.x,y = this.y,color = this.color,collision = this.collision ){ 
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (!(world.collision.has(pos))) {
+        if (!(collision.has(pos))) {
           let ent = create(this)(pos, world, color);
           world.add(ent);
           return ent;
@@ -67,17 +64,23 @@ const Entity = {
       }).call(this);
     
    },
-  move( x = this.x,y = this.y,world = this.world ){ 
+  move( x = this.x,y = this.y,collision = this.collision ){ 
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (!(world.collision.has(pos))) {
+        if (!(collision.has(pos))) {
+          collision.move(this, pos);
           return this.pos = pos;
         }
       }).call(this);
     
    },
-  random( world = this.world ){ 
+  delete(  ){ 
+    
+      return world.delete(this);
+    
+   },
+  random(  ){ 
     
       return this.spawn(Math.floor((Math.random() * ((world.coord.width - 0) + 0))), Math.floor((Math.random() * ((world.coord.width - 0) + 0))));
     

@@ -122,10 +122,11 @@ Values are not changed unless done so explicitly by the function as a side effec
 (macro sett (name val ...body)
        ["set " `(mth @name (@val) ...@body)])
 (import (Entity) "./ecs/entity")
+(assign Entity.empty empty)
 (import (Entity-group) "./ecs/group")
 (import (Ant) "./entities/ant")
 
-(assign Entity.empty empty)
+(print "ANT" Ant)
 
 ;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
 
@@ -200,17 +201,12 @@ Values are not changed unless done so explicitly by the function as a side effec
 
       (every 5 ticks (.update plants))
       (do-times 2
-        (each Colony.colonies (col)
+
               (.update col)))
       (pipe sim.layers
             (.update )
             (.render))))
 (let yellow { red 255 green 255 blue 0 })
-
-
-
-
-
 (let canvas sim.layers.canvas)
 (let context ($ "#container"))
 
