@@ -1,3 +1,4 @@
+(import ( create extend mixin) "../util")
 (specify Entity-group (extend Entity)
          (property groups (new Set))
          (init (entity-type (entities (new Set)) groups)
@@ -26,3 +27,4 @@
                       (this.add ent) ent))
          (generic update (mth) (entities)
                   (each entities (ent) (.update ent))))
+(export Entity-group)
