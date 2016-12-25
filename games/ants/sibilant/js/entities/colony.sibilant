@@ -42,3 +42,4 @@
                   (if (= this.entities.size 0)
                       (.delete this.colonies this)
                       (.update Pheremones this.weights 0.1 ))))
+(export Colony)

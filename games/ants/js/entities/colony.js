@@ -108,3 +108,4 @@ const Colony = extend(EntityGroup, {
     
    }
  });
+exports.Colony = Colony;
