@@ -99,13 +99,12 @@
                      (assign this._compiling true)
                      (pipe (.change this path)
                            (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
-
                            (then branch-name
                                  (print "gitting" branch-name)
                                  (let compile-branch (+ "compiled-" branch-name))
                                  (shell
                                   (git add "-A" "." )
-                                  (git commit "-m" (+ "compiled " path))
+                                  (git commit "-m" (+"'" "compiled " path "'"))
                                   (git push origin [branch-name])))
 
                            (then-do (assign this._compiling false)))))

@@ -1,0 +1,78 @@
+"use strict"
+(include "./deps")
+(import-namespace defs)
+(import-namespace js)
+
+(macro import (thing from)
+       `(const (literal ...@(content-of thing)) (require @from)))
+(macro lets (...variables)
+       (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
+(macro route (method path ...body)
+       `(@method app @path
+                 (=> (req res)
+                     (lets (url (Url.parse req.url))
+
+                           ((literal path
+                                     query
+                                     hash port
+                                     search
+                                     pathname
+                                     auth
+                                     slashes
+                                     href
+                                     protocol
+                                     host) url))
+                     (def-promised write (v)
+                       (res.write v success)) ...@body)))
+
+(const http (require "http"))
+(const express (require "express"))
+(const Path (require "path"))
+(const Url (require "url"))
+(import (create extend mixin curry) "./lib/util")
+(const browserify (require "browserify"))
+(import (Directory) "./lib/file-system")
+(const (literal auto-compile)(require "./auto-compile"))
+
+(const port (or process.env.PORT 8001))
+(const app (express))
+
+
+(const server (http.Server app))
+(const io ((require "socket.io") server))
+(server.listen port)
+(def add-routes (game bundle)
+  (let html-path (Path.join __dirname "games/" game "/html"))
+  (route .get (Path.join "/games/" game "/js/main.js")
+         (.pipe (.on (bundle.bundle) "error"
+                     (aprint "bundle err")) res))
+  (app.use (Path.join "/games/" game "/play") (express.static html-path)))
+(def bulk-bundle (dir bundle)
+  (print "bulk add on" dir.path)
+  (each  dir (name)
+         (then (.find dir name) node
+               (unless (= name "includes")
+                 (if (= node.symbol Directory.symbol)
+                     (bulk-bundle node bundle)
+                     (do
+                      (print "adding" node.path "to bundle")
+                      (bundle.add node.path)))))))
+
+(def add-game (game)
+  "sets up the middleware and build tools for a game's directory"
+
+  (var bundle (browserify)
+       js-path (Path.join __dirname "games/" game "/js"))
+
+  (var dir ((create Directory) js-path))
+
+  (add-routes game bundle)
+
+  (pipe (Promise.resolve (auto-compile game bundle io))
+        (then-do (bulk-bundle dir bundle))))
+
+(let games ((create Directory) "./games"))
+
+(pipe (.each games add-game)
+      (.then (aprint "all games loaded"))
+      (.catch  (aprint "failed to set up all the games")))

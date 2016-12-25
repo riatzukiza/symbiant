@@ -1,55 +1,42 @@
 (import (Pheremones) "./pheremons")
-
-;;(import (Entity) "./entity")
-
+(import (Entity) "./entity")
 (import (  Ant each-weight map-weights) "./ant")
 (import ( create extend mixin) "./util")
 (import (State-space) "./state-space")
 
 (let yellow { red 255 green 255 blue 0 })
-(type Location (init (x y (layers []))))
 
-(def make-pool (width ent-type)
-  (.dmap ((create Matrix) [] width width)
-         (lambda (nil x y)
-           ((create ent-type) x y 0 0 0 0))))
-(def make-layers ()
-  (.setBG-color (new Layers (.get-element-by-id document "stage") "gl" width scale)))
-(type Weight-field
-      (property fields (new Set))
-      (init ( coordinate-plane color layers (layer (.get layers))))
-      (gmth get (x y))
-      (gmth set (x y w))
-      (gmth clear ())
-      (gmth fill (v)))
-(type Entity
-      (init (x y r g b system))
-      (getter a () (return (.get this.field this.x this.y))))
-(type Collision (init (layer)))
-(type Layer-manager
-      (init ((layers (make-layers))
-             ;; collision is the top layer to be rendered.
-             (collision (.get layers ))
-             (coordinate-plane (make-pool Location))))
-      (gmth add (color)))
 (type Colony
+
       (property id 1)
       (property colonies (new Set) )
-      (init (name nest color coordinate-plane
-                  (goals (new Set))
-                  (ants (new Set) )
-                  (decay 0.1)
-                  colonies)
+
+      (init (name nest color (goals (new Set))  (ants (new Set) )
+
+                  stats collision
+
+                  (weights ((create State-space) 120 120))
+
+                  display (decay 0.1) colonies) 
+
             (.add colonies this))
+
       (generic serialize (mth) (ants)
                (map (.to-array ants) (ant) (.serialize ant)))
       (generic save (mth) () ((create File)))
       (generic load (mth) ())
-      (generic add (fluent mth) (count  nest collision)
-               (area collision spot nest count
-                     (.spawn.call Ant this x y)))
-      (generic move (mth) (ants weights color nest decay)
+
+      (generic spawn (fluent mth) (count  nest collision)
+
+               (print "spawning ants at nest" nest)
+               (area collision spot nest count (.spawn.call Ant this x y)))
+
+      (generic move (mth) (ants weights display color nest)
+
                "Process the movement of ever ant in a set of ants, updating weights along the way."
+
                (.each ants (=> (ant) (.move ant )))
-               (.update Pheremones weights decay )))
-(export Colony)
+
+               (display.set nest.x nest.y  yellow)))
+
+(export Colony )

@@ -26,6 +26,7 @@
 
       (gmth from-file (path)
             "create a new sibilant container from a newly created file container"
+            (print "loading from file" path)
             (let  file ((create File) path))
             (let sib (.from Sibilant file))
             (assign sib.file file) sib)

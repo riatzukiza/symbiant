@@ -15,6 +15,7 @@ const {
 const { 
   StateSpace
  } = require("./state-space");
+console.log(File);
 let yellow = {
   red: 255,
   green: 255,
@@ -32,7 +33,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:22:0 */
+  /* matrix-center eval.sibilant:33:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -153,7 +154,7 @@ const Ant = {
   _hasDiscoveredFood( goals = this.goals,collision = this.collision,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachWeight(collision, ant, (spot, i, j, x, y) => {
+      eachInArea(collision, ant, (spot, i, j, x, y) => {
       	
         return (function() {
           if ((goals.has(spot) && this.life < 1000)) {
@@ -236,10 +237,10 @@ const Ant = {
   _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
     
       return (function() {
-        /* eval.sibilant:8:8 */
+        /* eval.sibilant:13:8 */
       
         let true__QUERY = false;
-        eachWeight(collision, ant, (spot, i, j, x, y) => {
+        eachInArea(collision, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -267,7 +268,7 @@ const Ant = {
         }
       }).call(this);
       let sated__QUERY = (ant._sated()) ? -1 : 1;
-      eachWeight(weights, ant, (w, i, j, x, y) => {
+      eachInArea(weights, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -278,7 +279,7 @@ const Ant = {
       
       }, 3);
       let rand = (count * Math.random());
-      eachWeight(weights, ant, (w, i, j, x, y) => {
+      eachInArea(weights, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -298,7 +299,7 @@ const Ant = {
       return choice;
     
    },
-  move( ants = this.ants,nest = this.nest,life = this.life,ant = this ){ 
+  move( weights = this.weights,ants = this.ants,nest = this.nest,collision = this.collision,life = this.life,ant = this ){ 
     
       let x = 0;
       let y = 0;
