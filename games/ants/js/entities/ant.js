@@ -72,7 +72,7 @@ const Ant = extend(Entity, {
       return this;
     
    },
-  _hasDiscoveredFood( group = this.group,collision = this.collision,ant = this.ant ){ 
+  _hasDiscoveredFood( group = this.group,ant = this.ant ){ 
     
       let true__QUERY = false;
       eachInArea(world.coord, ant, (spot, i, j, x, y) => {
@@ -106,7 +106,7 @@ const Ant = extend(Entity, {
       return Pheremones.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
-  _die( ant = this.ant,group = this.group,collision = this.collision ){ 
+  _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
       return Pheremones.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
@@ -149,7 +149,7 @@ const Ant = extend(Entity, {
       return ant.life = Ant.life;
     
    },
-  _sated( nest = this.nest,ant = this.ant,collision = this.collision ){ 
+  _sated( nest = this.nest,ant = this.ant ){ 
     
       return ant.life > Ant.life;
     
@@ -173,7 +173,7 @@ const Ant = extend(Entity, {
       }).call(this);
     
    },
-  choose( group = this.group,collision = this.collision,ant = this ){ 
+  choose( group = this.group,ant = this ){ 
     
       let count = 0;
       let sum = 0;

@@ -15,7 +15,7 @@
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
-         (generic *has-discovered-food (mth) ( group collision ant)
+         (generic *has-discovered-food (mth) ( group  ant)
                   (let true? false)
                   (area  world.coord spot ant 5
                          (assign spot (.get world.collision.entities spot))
@@ -34,7 +34,7 @@
                   (.spawn group )
                   (.spawn group )
                   (.emit Pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
-         (generic *die (mth) (  ant group collision)
+         (generic *die (mth) (  ant group )
                   (.delete group ant)
                   (.emit Pheremones ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
@@ -44,14 +44,14 @@
                   (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
                   (mutate ant (return-rate find-rate deviance rate) )
                   (assign ant.life Ant.life ))
-         (generic *sated (mth) (nest ant collision)
+         (generic *sated (mth) (nest ant )
                   (> ant.life Ant.life) )
          (generic *near-nest (mth) (nest ant )
                   (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
-         (generic choose (mth) (group collision  (ant this) )
+         (generic choose (mth) (group   (ant this) )
                   ;; A choice is a weighted random selection from a collection area.
                   (let count 0)
                   (let sum 0)
