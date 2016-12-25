@@ -7,9 +7,12 @@
          (set m.array (matrix-center w h) c) m)
 (def matrix-center (width height )
   (Math.round (/ (- (* width height) 1) 2)))
+
 (import (each-in-area) "../area")
+
 (specify Ant (extend Entity)
          (property life 1000)
+         (property collision world.collision)
          (init ( pos color life (ant this) )
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
@@ -51,7 +54,7 @@
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
-         (generic choose (mth) (group   (ant this) )
+         (generic choose (mth) (group collision  (ant this) )
                   ;; A choice is a weighted random selection from a collection area.
                   (let count 0)
                   (let sum 0)

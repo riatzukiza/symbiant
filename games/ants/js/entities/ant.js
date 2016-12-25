@@ -34,6 +34,7 @@ const {
 const Ant = extend(Entity, { 
   symbol:Symbol("Ant"),
   life:1000,
+  collision:world.collision,
   init( pos = this.pos,color = this.color,life = this.life,ant = this ){ 
     
       this.pos = pos;this.color = color;this.life = life;this.ant = ant;
@@ -173,7 +174,7 @@ const Ant = extend(Entity, {
       }).call(this);
     
    },
-  choose( group = this.group,ant = this ){ 
+  choose( group = this.group,collision = this.collision,ant = this ){ 
     
       let count = 0;
       let sum = 0;
