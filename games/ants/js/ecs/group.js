@@ -6,6 +6,9 @@ const {
 const { 
   Entity
  } = require("./entity");
+const { 
+  eachInArea
+ } = require("../area");
 const EntityGroup = extend(Entity, { 
   symbol:Symbol("EntityGroup"),
   groups:(new Set()),
