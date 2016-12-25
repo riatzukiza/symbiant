@@ -162,6 +162,7 @@ const Colony = extend(EntityGroup, {
       let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
       (function() {
         if (ent) {
+          console.log("adding entity to ent group");
           ent.group = this;
           this.add(ent);
           ent.nest = this.nest;
@@ -220,13 +221,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:190:0 */
+  /* Map.prototype.each eval.sibilant:191:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:192:0 */
+  /* start eval.sibilant:193:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
