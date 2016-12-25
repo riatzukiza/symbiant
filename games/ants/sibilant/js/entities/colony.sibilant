@@ -1,3 +1,6 @@
+(import (Entity-group) "../group")
+(import (Ant) "./ant")
+(import (State-space) "../state-space")
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
