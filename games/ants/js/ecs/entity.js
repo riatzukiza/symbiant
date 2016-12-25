@@ -57,7 +57,7 @@ const Entity = {
       return (function() {
         if (!(world.collision.has(pos))) {
           console.log("spawned", this.symbol);
-          let ent = create(this)(pos, world, color);
+          let ent = create(this)(pos, color);
           world.add(ent);
           return ent;
         }

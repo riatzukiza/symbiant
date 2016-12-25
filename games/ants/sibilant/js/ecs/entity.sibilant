@@ -14,7 +14,7 @@
             (let pos (.get world.coord x y))
             (unless (world.collision.has pos )
               (print "spawned" this.symbol)
-              (let ent ((create this) pos world color))
+              (let ent ((create this) pos color))
               (world.add ent) ent))
 
       (gmth move (x y )
