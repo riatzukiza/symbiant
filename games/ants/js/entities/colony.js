@@ -1,6 +1,6 @@
 const { 
   EntityGroup
- } = require("../group");
+ } = require("../ecs/group");
 const { 
   Ant
  } = require("./ant");

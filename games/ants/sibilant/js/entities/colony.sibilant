@@ -1,4 +1,4 @@
-(import (Entity-group) "../group")
+(import (Entity-group) "../ecs/group")
 (import (Ant) "./ant")
 (import (State-space) "../state-space")
 (specify Colony (extend Entity-group)
