@@ -7,6 +7,7 @@
          (set m.array (matrix-center w h) c) m)
 (def matrix-center (width height )
   (Math.round (/ (- (* width height) 1) 2)))
+
 (specify Ant (extend Entity)
          (property life 1000)
          (init ( pos color life (ant this) )

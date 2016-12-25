@@ -154,7 +154,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:64:8 */
+        /* eval.sibilant:65:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, ant, (spot, i, j, x, y) => {
