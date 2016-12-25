@@ -201,6 +201,7 @@ Values are not changed unless done so explicitly by the function as a side effec
       (every 5 ticks (.update plants))
       (do-times 2
         (each Colony.colonies (col)
+              (print "ants?")
               (.update col)))
       (pipe sim.layers
             (.update )

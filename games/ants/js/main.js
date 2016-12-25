@@ -252,6 +252,7 @@ var start = (function start$(sim) {
     for (let time = 0;time < 2;++(time)){
     Colony.colonies.each((col) => {
     	
+      console.log("ants?");
       return col.update();
     
     })};
