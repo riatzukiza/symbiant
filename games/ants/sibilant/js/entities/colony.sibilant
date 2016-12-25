@@ -1,6 +1,8 @@
 (import (Entity-group) "../ecs/group")
 (import (Ant) "./ant")
 (import (State-space) "../state-space")
+(import ( create extend mixin) "../util")
+
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)

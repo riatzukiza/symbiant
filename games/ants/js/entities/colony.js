@@ -7,6 +7,11 @@ const {
 const { 
   StateSpace
  } = require("../state-space");
+const { 
+  create,
+  extend,
+  mixin
+ } = require("../util");
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
