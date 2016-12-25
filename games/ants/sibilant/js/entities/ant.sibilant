@@ -1,5 +1,6 @@
 (import ( create extend mixin) "../util")
 (import (Entity) "../ecs/entity")
+(import (Entity-group) "../ecs/group")
 (import (Matrix) "../matrix" )
 (import (Pheremones) "../pheremons")
 (import (Colony) "./colony")

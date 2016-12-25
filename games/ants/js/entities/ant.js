@@ -7,6 +7,9 @@ const {
   Entity
  } = require("../ecs/entity");
 const { 
+  EntityGroup
+ } = require("../ecs/group");
+const { 
   Matrix
  } = require("../matrix");
 const { 
@@ -30,7 +33,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:10:0 */
+  /* matrix-center eval.sibilant:11:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
