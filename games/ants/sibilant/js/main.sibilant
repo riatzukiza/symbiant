@@ -198,7 +198,6 @@ Values are not changed unless done so explicitly by the function as a side effec
   ;;(interface sim)
 
   (print Colony.colonies)
-  (print world )
   (on (sim.start) "tick" (now ticks)
       (every 5 ticks (.update plants))
       (do-times 2

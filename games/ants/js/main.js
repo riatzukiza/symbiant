@@ -246,7 +246,6 @@ var start = (function start$(sim) {
   for (let time = 0;time < 1000;++(time)){
   plants.random()};
   console.log(Colony.colonies);
-  console.log(world);
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
