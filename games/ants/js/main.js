@@ -64,17 +64,6 @@ let choice = {
   x: 60,
   y: 60
 };
-function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad = Math.floor((size / 2)) ){ 
-  
-    "apply a function to every element in a kernel of the weight matrix.\n" +
-    "Values are not changed unless done so explicitly by the function as a side effect.";
-    return matrix.eachInSub((pos.x - rad), (pos.y - rad), size, size, (v, i, j, x, y) => {
-    	
-      return f(v, i, j, (x + i), (y + j));
-    
-    });
-  
- };
 const { 
   Collision
  } = require("./systems/collision");
@@ -221,13 +210,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:191:0 */
+  /* Map.prototype.each eval.sibilant:175:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:193:0 */
+  /* start eval.sibilant:177:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
