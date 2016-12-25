@@ -272,7 +272,7 @@ const Ant = {
       	
         let ent = collision.get(x, y);
         return (function() {
-          if ((!(ent) || ent === empty || ent === 0)) {
+          if ((!(ent) || ent === 0)) {
             return count += (w * sated__QUERY * ant.genetics.kernel.getCell(i, j) * ((Ant.life * ant.life) / ant.genetics.deviance));
           }
         }).call(this);
@@ -283,7 +283,7 @@ const Ant = {
       	
         let ent = collision.get(x, y);
         return (function() {
-          if ((!(ent) || ent === empty || ent === 0)) {
+          if ((!(ent) || ent === 0)) {
             sum += (w * sated__QUERY * ant.genetics.kernel.getCell(i, j) * ant.genetics.deviance * ((Ant.life * ant.life) / ant.genetics.deviance));
             return (function() {
               if ((rand < sum && !(done))) {

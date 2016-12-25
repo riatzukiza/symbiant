@@ -72,6 +72,7 @@
                   (each-valid-move  ant group.weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
+
                                     ;;(print "calculated deviance" calc-devi)
                                     (incr-by count (* w  sated?
                                                       (/ ant.life Ant.life)
