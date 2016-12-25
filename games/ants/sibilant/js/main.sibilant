@@ -186,8 +186,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                 (+ pos.y (random-int 0 2) ry) this.color))))))
 
 (specify Plant-group (extend Entity-group)
-         (property entity-type Plant)
-         )
+         (property entity-type Plant))
 (def Map.prototype.each (f)
   (.for-each this f) this)
 (def start (sim)
