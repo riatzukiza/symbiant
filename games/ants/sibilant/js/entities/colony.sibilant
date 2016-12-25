@@ -3,6 +3,8 @@
 (import (State-space) "../state-space")
 (import ( create extend mixin) "../util")
 
+(print "ant" Ant)
+
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
