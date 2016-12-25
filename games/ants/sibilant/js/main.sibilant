@@ -1,6 +1,8 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+(let socket (io "/ants"))
+(on socket "change" () (print "change ") (.reload location))
 (macro describe-table ( describers ...body)
                        (const [eachable each-args table-data container]
                               describers.contents)
@@ -54,7 +56,6 @@
 (import (weighted-random-element) "./random")
 (let george { x 20 y 20 })
 ;; Declare variables
-(let socket (io "/ants"))
 (Simulation let sim (120 120 5))
 (let white (color 255 255 255))
 (let green (color 0 255 0))
@@ -195,10 +196,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (assign global.sim sim)
   (do-times 100 (.spawn reds))
   (do-times 1000 (.random plants  ))
-
-  (print "REDS!" reds)
-
-  (interface sim)
+  ;;(interface sim)
   (on (sim.start)"tick" (now ticks)
 
       (every 5 ticks (.update plants))
@@ -208,4 +206,6 @@ Values are not changed unless done so explicitly by the function as a side effec
       (pipe sim.layers
             (.update )
             (.render))))
+
 (let yellow { red 255 green 255 blue 0 })
+(.load sim  start)
