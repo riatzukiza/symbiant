@@ -28,6 +28,9 @@ var matrixCenter = (function matrixCenter$(width, height) {
 
   return Math.round((((width * height) - 1) / 2));
 });
+const { 
+  eachInArea
+ } = require("../area");
 const Ant = extend(Entity, { 
   symbol:Symbol("Ant"),
   life:1000,
