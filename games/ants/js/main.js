@@ -151,7 +151,6 @@ const Colony = extend(EntityGroup, {
       let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
       (function() {
         if (ent) {
-          console.log("adding entity to ent group", this.entities);
           ent.group = this;
           this.add(ent);
           ent.nest = this.nest;
@@ -173,7 +172,6 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      console.log("updating colony", this);
       this.each((ant) => {
       	
         return ant.update();
@@ -210,13 +208,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:175:0 */
+  /* Map.prototype.each eval.sibilant:173:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:177:0 */
+  /* start eval.sibilant:175:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -232,7 +230,6 @@ var start = (function start$(sim) {
   reds.spawn()};
   for (let time = 0;time < 1000;++(time)){
   plants.random()};
-  console.log(Colony.colonies);
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
@@ -243,7 +240,6 @@ var start = (function start$(sim) {
     for (let time = 0;time < 2;++(time)){
     Colony.colonies.each((col) => {
     	
-      console.log("ants?");
       return col.update();
     
     })};
