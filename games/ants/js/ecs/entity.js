@@ -5,7 +5,6 @@ const {
  } = require("../util");
 const Entity = { 
   symbol:Symbol("Entity"),
-  collision:world.collision,
   init( pos = this.pos,world = this.world,color = this.color,collision = this.collision ){ 
     
       this.pos = pos;this.world = world;this.color = color;this.collision = collision;
@@ -52,11 +51,12 @@ const Entity = {
       return this.move(this.x, num);
     
    },
-  spawn( x = this.x,y = this.y,color = this.color,collision = this.collision ){ 
+  spawn( x = this.x,y = this.y,color = this.color ){ 
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (!(collision.has(pos))) {
+        if (!(world.collision.has(pos))) {
+          console.log("couldn't spawn");
           let ent = create(this)(pos, world, color);
           world.add(ent);
           return ent;
@@ -64,12 +64,12 @@ const Entity = {
       }).call(this);
     
    },
-  move( x = this.x,y = this.y,collision = this.collision ){ 
+  move( x = this.x,y = this.y ){ 
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (!(collision.has(pos))) {
-          collision.move(this, pos);
+        if (!(world.collision.has(pos))) {
+          world.collision.move(this, pos);
           return this.pos = pos;
         }
       }).call(this);
