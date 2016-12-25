@@ -162,7 +162,7 @@ const Colony = extend(EntityGroup, {
       let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
       (function() {
         if (ent) {
-          console.log("adding entity to ent group");
+          console.log("adding entity to ent group", this.entities);
           ent.group = this;
           this.add(ent);
           ent.nest = this.nest;

@@ -159,7 +159,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                    (+ this.nest.x (random-int 0 30) rx)
                                    (+ this.nest.y (random-int 0 30) rx) color))
                   (when ent
-                    (print "adding entity to ent group")
+                    (print "adding entity to ent group" this.entities)
                     (assign ent.group this)
                     (this.add ent)
                     (assign ent.nest this.nest)
