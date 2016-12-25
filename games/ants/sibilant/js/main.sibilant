@@ -80,7 +80,7 @@
 (macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
                                   (do ...@body)))
 (macro if-valid-move (ent ...body )
-       `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+       `(when (or (not @ent) (= @ent 0)) ...@body))
 
 (macro genetics (assigner ...props)
        `(@assigner genetics (p-map ...@(map props (p)
