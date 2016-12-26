@@ -132,7 +132,10 @@
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
-         (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
+         (init (nest color goals (decay 0.1) colonies
+
+                     (weights ((create State-space) sim.width sim.width))
+                     (pheremones ((create Pheremones) decay weights (.get sim.layers))))
                (Entity-group.init.call this)
 
                (.add colonies this))

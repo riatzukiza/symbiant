@@ -289,56 +289,10 @@ const Colony = extend(EntityGroup, {
   symbol:Symbol("Colony"),
   colonies:(new Set()),
   entityType:Ant,
-  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,weights = create(StateSpace)(sim.width, sim.width) ){ 
+  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,weights = create(StateSpace)(sim.width, sim.width),pheremones = create(Pheremones)(decay, weights, sim.layers.get()) ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;
+      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;this.pheremones = pheremones;
       EntityGroup.init.call(this);
-      weights.layer = sim.layers.get();
-      weights.each((w, x, y) => {
-      	
-        return weights.layer.add({ 
-          x,
-          y,
-          get weight(  ){ 
-            
-              return weights.get(x, y);
-            
-           },
-          get color(  ){ 
-            
-              return (function() {
-                if (this.weight >= 0) {
-                  return color;
-                } else {
-                  return complement(color);
-                }
-              }).call(this);
-            
-           },
-          get r(  ){ 
-            
-              return this.color.red;
-            
-           },
-          get g(  ){ 
-            
-              return this.color.green;
-            
-           },
-          get b(  ){ 
-            
-              return this.color.blue;
-            
-           },
-          get a(  ){ 
-            
-              return Math.abs((160 * this.weight));
-            
-           }
-         });
-      
-      });
-      weights.layer.moveUp();
       colonies.add(this);
       return this;
     
