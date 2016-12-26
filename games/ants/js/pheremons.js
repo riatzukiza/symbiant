@@ -128,6 +128,21 @@ const RunIndexPoint = {
       return this.value === n === 0;
     
    },
+  before__QUERY( i = this.i,start = this.start ){ 
+    
+      return i <= start;
+    
+   },
+  after__QUERY( i = this.i,end = this.end ){ 
+    
+      return i >= end;
+    
+   },
+  between__QUERY( i = this.i,start = this.start,end = this.end ){ 
+    
+      return (i >= start && i <= end);
+    
+   },
   each( callback = this.callback,start = this.start,end = this.end,array = this.array ){ 
     (function() {
       /* macros/js/index.sibilant:82:8 */
@@ -160,6 +175,32 @@ const RunIndexedArray = {
       return this;
     
    },
+  push( v = this.v ){ 
+    
+   },
+  pop( v = this.v ){ 
+    
+   },
+  search( i = this.i,left = 0,right = (indexes.length - 1),m = Math.floor(((left + right) / 2)) ){ 
+    
+      let t = indexes[m];
+      return (function() {
+        if (t.between__QUERY(i)) {
+          return t;
+        } else if (t.after__QUERY(i)) {
+          return this.search(i, left, (m - 1) = );
+        } else if (t.before__QUERY(i)) {
+          return this.search(i, (m + 1) = right);
+        }
+      }).call(this);
+    
+   },
+  set( i = this.i,v = this.v ){ 
+    
+   },
+  get( i = this.i ){ 
+    
+   },
   each( f = this.f,indexes = this.indexes ){ 
     
       return indexes.each((run) => {
@@ -171,6 +212,9 @@ const RunIndexedArray = {
         }).call(this);
       
       });
+    
+   },
+  map( f = this.f,indexes = this.indexes ){ 
     
    }
  };
@@ -198,14 +242,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$26 = undefined;
+          var while$27 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$26 = (function() {
+            while$27 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$26;
+          return while$27;
         }).call(this);
         return (function() {
           if (w < 1) {
