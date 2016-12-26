@@ -3,7 +3,6 @@
 (import (Entity-group) "../ecs/group")
 (import (Matrix) "../matrix" )
 (import (Pheremones) "../pheremons")
-(import (Colony) "./colony")
 (import (weighted-random-element) "../random")
 (generic moore-neighborhood (def) (w h (weight 1) (c 0))
          (let m (allns w h weight))
@@ -125,3 +124,5 @@
                   (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
 
 (export Ant)
+
+(import (Colony) "./colony")
