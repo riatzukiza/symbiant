@@ -208,14 +208,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let weights = null;
-      (function() {
-        if (ant._sated()) {
-          return weights = group.matingWeights;
-        } else {
-          return weights = group.foodWeights;
-        }
-      }).call(this);
-      eachInArea(weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(this.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -227,7 +220,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(this.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
