@@ -41,57 +41,62 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
     });
   
  };
+var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
+  /* add-mixing-layer eval.sibilant:42:0 */
+
+  weights.layer = layer;
+  weights.each((w, x, y) => {
+  	
+    return layer.add({ 
+      x,
+      y,
+      get weight(  ){ 
+        
+          return weights.get(x, y);
+        
+       },
+      get color(  ){ 
+        
+          return (function() {
+            if (this.weight >= 0) {
+              return color;
+            } else {
+              return complement(color);
+            }
+          }).call(this);
+        
+       },
+      get r(  ){ 
+        
+          return this.color.red;
+        
+       },
+      get g(  ){ 
+        
+          return this.color.green;
+        
+       },
+      get b(  ){ 
+        
+          return this.color.blue;
+        
+       },
+      get a(  ){ 
+        
+          return Math.abs((160 * this.weight));
+        
+       }
+     });
+  
+  });
+  return layer.moveUp();
+});
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( rate = this.rate,decay = this.decay,weights = this.weights,layer = this.layer ){ 
+  init( decay = this.decay,weights = this.weights,layer = this.layer ){ 
     
-      this.rate = rate;this.decay = decay;this.weights = weights;this.layer = layer;
-      this.layer = layer;
-      weights.each((w, x, y) => {
-      	
-        return weights.layer.add({ 
-          x,
-          y,
-          get weight(  ){ 
-            
-              return weights.get(x, y);
-            
-           },
-          get color(  ){ 
-            
-              return (function() {
-                if (this.weight >= 0) {
-                  return color;
-                } else {
-                  return complement(color);
-                }
-              }).call(this);
-            
-           },
-          get r(  ){ 
-            
-              return this.color.red;
-            
-           },
-          get g(  ){ 
-            
-              return this.color.green;
-            
-           },
-          get b(  ){ 
-            
-              return this.color.blue;
-            
-           },
-          get a(  ){ 
-            
-              return Math.abs((160 * this.weight));
-            
-           }
-         });
-      
-      });
-      weights.layer.moveUp();
+      this.decay = decay;this.weights = weights;this.layer = layer;
+      addMixingLayer(this, weights, layer);
       return this;
     
    },
