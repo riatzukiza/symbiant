@@ -241,7 +241,7 @@ const RunIndexedArray = {
    }
  };
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:116:0 */
+  /* memoize eval.sibilant:118:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -286,14 +286,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$35 = undefined;
+          var while$36 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$35 = (function() {
+            while$36 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$35;
+          return while$36;
         }).call(this);
         return (function() {
           if (w < 1) {
