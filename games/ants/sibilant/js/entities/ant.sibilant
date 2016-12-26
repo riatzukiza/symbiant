@@ -81,7 +81,7 @@
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let weights null)
-                  (each-valid-move  ant this.seeking.state
+                  (each-valid-move  ant this.seeking.weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
                                     ;;(print "calculated deviance" calc-devi)
@@ -90,7 +90,7 @@
                                                       (.get (gene ant kernel) i j)
                                                       (gene ant deviance))))
                   (let rand (* count (Math.random)))
-                  (each-valid-move ant this.seeking.state
+                  (each-valid-move ant this.seeking.weights.state
                                    (incr-by sum (* w   sated?
                                                    (/ ant.life Ant.life)
                                                    (.get (gene ant kernel) i j)
