@@ -142,7 +142,7 @@
                      (food-weights ((create Pheremones) color decay (.get sim.layers)))
 
                      (mating-weights ((create Pheremones)
-                                      (color (/ 2 color.red) (/ 2 color.green) (/ 2 color.blue))
+                                      (color 0 (/ 2 color.green) (/ 2 color.blue))
                                       decay (.get sim.layers))))
                (Entity-group.init.call this)
 

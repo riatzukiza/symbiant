@@ -304,7 +304,7 @@ const Colony = extend(EntityGroup, {
   colonies:(new Set()),
   entityType:Ant,
   init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay, sim.layers.get()),matingWeights = create(Pheremones)({ 
-    red:(2 / color.red),
+    red:0,
     green:(2 / color.green),
     blue:(2 / color.blue)
    }, decay, sim.layers.get()) ){ 
