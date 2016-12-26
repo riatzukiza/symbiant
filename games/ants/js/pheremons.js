@@ -133,22 +133,28 @@ const Pheremones = {
       };
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
-        let coord = world.coord.get(x, y);
-        let lastTimeVisited = this.decaying.get(coord);
-        let now = sim.ticks;
-        let debt = (now - lastTimeVisited);
-        let t = 0;
         (function() {
-          var while$7 = undefined;
-          while ((!(t === debt) && !(w === 0))) {
-            while$7 = (function() {
-              ++(t);
-              return w = decay(coord, w);
+          if (w < 1) {
+            let coord = world.coord.get(x, y);
+            let lastTimeVisited = this.decaying.get(coord);
+            let now = sim.ticks;
+            let debt = (now - lastTimeVisited);
+            let t = 0;
+            (function() {
+              var while$8 = undefined;
+              while ((!(t === debt) && !(w === 0))) {
+                while$8 = (function() {
+                  ++(t);
+                  return w = decay(coord, w);
+                }).call(this);
+              };
+              return while$8;
             }).call(this);
-          };
-          return while$7;
+            this.decaying.set(coord, now);
+            let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
+            return weights.set(x, y, newWeight);
+          }
         }).call(this);
-        this.decaying.set(coord, now);
         let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
         return weights.set(x, y, newWeight);
       

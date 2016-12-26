@@ -72,21 +72,29 @@ Values are not changed unless done so explicitly by the function as a side effec
                                (do 0))))
             (area weights.state w pos r
 
-                  (let coord (.get world.coord x y))
-                  (let last-time-visited (this.decaying.get coord))
-                  (let now sim.ticks)
-                  (let debt (- now last-time-visited))
-                  (let t 0)
+                  (when (< w 1)
 
-                  (while (and (not (= t debt))
-                              (not (= w 0)))
-                         (++ t)
-                         (assign w (decay coord w)))
-                  (.set this.decaying coord now)
+                    (let coord (.get world.coord x y))
+                    (let last-time-visited (this.decaying.get coord))
+                    (let now sim.ticks)
+                    (let debt (- now last-time-visited))
+                    (let t 0)
+                    (while (and (not (= t debt))
+                                (not (= w 0)))
+                           (++ t)
+                           (assign w (decay coord w)))
+                    (.set this.decaying coord now)
+
+
+                    (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+
+                    (weights.set x y new-weight))
+
 
                   (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
 
-                  (weights.set x y new-weight)))
+                  (weights.set x y new-weight)
+                  ))
 
       (gmth update (weights  decay  decaying)
 
