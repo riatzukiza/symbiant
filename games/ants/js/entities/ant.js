@@ -253,7 +253,7 @@ const Ant = extend(Entity, {
        }, weightedRandomElement(EntityGroup.groups, sumGroupsLife));
       this.group.remove(this);
       newColony.add(this);
-      for (let time = 0;time < 3;++(time)){
+      for (let time = 0;time < 10;++(time)){
       this._reproduce()};
       return this.color = newColony.color;
     
