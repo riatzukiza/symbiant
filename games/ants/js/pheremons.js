@@ -139,14 +139,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$14 = undefined;
+          var while$15 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$14 = (function() {
+            while$15 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$14;
+          return while$15;
         }).call(this);
         (function() {
           if (w < 1) {
@@ -159,11 +159,6 @@ const Pheremones = {
         return weights.set(x, y, newWeight);
       
       }, r);
-    
-   },
-  update( weights = this.weights,decay = this.decay,decaying = this.decaying ){ 
-    
-      return weights.update();
     
    }
  };
