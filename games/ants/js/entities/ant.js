@@ -85,7 +85,7 @@ const Ant = extend(Entity, {
   _hasDiscoveredFood( group = this.group,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachWeight(world.coord, ant, (spot, i, j, x, y) => {
+      eachInArea(world.coord, ant, (spot, i, j, x, y) => {
       	
         spot = world.collision.entities.get(spot);
         return (function() {
@@ -170,7 +170,7 @@ const Ant = extend(Entity, {
         /* eval.sibilant:65:8 */
       
         let true__QUERY = false;
-        eachWeight(world.coord, ant, (spot, i, j, x, y) => {
+        eachInArea(world.coord, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -198,7 +198,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let sated__QUERY = 1;
-      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -210,7 +210,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
