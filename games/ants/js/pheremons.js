@@ -59,9 +59,9 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
         
           return (function() {
             if (this.weight >= 0) {
-              return color;
+              return entity.color;
             } else {
-              return complement(color);
+              return complement(entity.color);
             }
           }).call(this);
         
@@ -93,9 +93,9 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
 });
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( decay = this.decay,weights = this.weights,layer = this.layer ){ 
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer ){ 
     
-      this.decay = decay;this.weights = weights;this.layer = layer;
+      this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;
       addMixingLayer(this, weights, layer);
       return this;
     

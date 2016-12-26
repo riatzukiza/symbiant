@@ -48,8 +48,8 @@ Values are not changed unless done so explicitly by the function as a side effec
                x y
                (gett weight (.get weights x y))
                (gett color (if (>= this.weight 0 )
-                               color
-                               (complement color)))
+                               entity.color
+                               (complement entity.color)))
                (gett r this.color.red )
                (gett g this.color.green)
                (gett b this.color.blue)
@@ -57,7 +57,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                (gett a (Math.abs (* 160 this.weight)) ))))
   (.move-up layer))
 (type Pheremones
-      (init (decay weights layer)
+      (init (color decay weights layer)
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer))
       (gmth emit  (pos weights rate (r 5 ))
