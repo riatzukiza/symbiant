@@ -113,6 +113,9 @@ Values are not changed unless done so explicitly by the function as a side effec
       (generic each (fluent mth) (f indexes)
                (indexes.each (=> (run) (if run.value (.each run f)))))
       (gmth map (f indexes)))
+(def memoize (f)
+  (let cache (.map (new Array f.length) (-> (new Map))))
+  (=> ((dots args)) (if (.every cache (=> (cache i) (cache.has (get args i)))))))
 (type Pheremones
       (init (color decay  layer (decaying (new Map))
 

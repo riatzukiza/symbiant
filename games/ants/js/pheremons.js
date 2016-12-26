@@ -240,6 +240,28 @@ const RunIndexedArray = {
     
    }
  };
+var memoize = (function memoize$(f) {
+  /* memoize eval.sibilant:116:0 */
+
+  let cache = (new Array(f.length)).map(() => {
+  	
+    return (new Map());
+  
+  });
+  return (...args) => {
+  	
+    return (function() {
+      {
+        return cache.every((cache, i) => {
+        	
+          return cache.has(args[i]);
+        
+        });
+      }
+    }).call(this);
+  
+  };
+});
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
   init( color = this.color,decay = this.decay,layer = this.layer,decaying = (new Map()),weights = create(StateSpace)(sim.width, sim.width) ){ 
@@ -264,14 +286,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$34 = undefined;
+          var while$35 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$34 = (function() {
+            while$35 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$34;
+          return while$35;
         }).call(this);
         return (function() {
           if (w < 1) {
