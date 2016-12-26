@@ -85,13 +85,13 @@
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
                                     ;;(print "calculated deviance" calc-devi)
-                                    (incr-by count (* w  sated?
+                                    (incr-by count (* w
                                                       (/ ant.life Ant.life)
                                                       (.get (gene ant kernel) i j)
                                                       (gene ant deviance))))
                   (let rand (* count (Math.random)))
                   (each-valid-move ant this.seeking.weights.state
-                                   (incr-by sum (* w   sated?
+                                   (incr-by sum (* w
                                                    (/ ant.life Ant.life)
                                                    (.get (gene ant kernel) i j)
                                                    (gene ant deviance)))
