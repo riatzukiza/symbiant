@@ -138,11 +138,15 @@ var start = (function start$(sim) {
         return plants.update();
       }
     }).call(this);
-    Colony.colonies.each((col) => {
-    	
-      return col.update();
-    
-    });
+    (function() {
+      if ((ticks % 5) === 0) {
+        return Colony.colonies.each((col) => {
+        	
+          return col.update();
+        
+        });
+      }
+    }).call(this);
     return sim.layers.update().render();
   
   });
