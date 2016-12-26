@@ -208,7 +208,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let weights = null;
-      eachInArea(this.weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(this.seeking.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -220,7 +220,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(this.weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(this.seeking.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -322,6 +322,7 @@ const Colony = extend(EntityGroup, {
       (function() {
         if (ent) {
           ent.group = this;
+          ent.seeking = this.foodWeights;
           this.add(ent);
           ent.nest = this.nest;
           return ent;
