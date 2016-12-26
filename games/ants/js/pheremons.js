@@ -117,13 +117,18 @@ var decay = (function decay$(coord, v, decay) {
 });
 const RunIndexPoint = { 
   symbol:Symbol("RunIndexPoint"),
-  init( array = this.array,value = this.value,start = this.start,end = this.end ){ 
+  init( array = this.array,value = this.value,start = this.start,end = this.end,prev = this.prev ){ 
     
-      this.array = array;this.value = value;this.start = start;this.end = end;
+      this.array = array;this.value = value;this.start = start;this.end = end;this.prev = prev;
+      (function() {
+        if (prev) {
+          return prev.next = this;
+        }
+      }).call(this);
       return this;
     
    },
-  run__QUERY( n = this.n ){ 
+  has( n = this.n ){ 
     
       return this.value === n === 0;
     
@@ -159,14 +164,14 @@ const RunIndexedArray = {
   init( array = this.array,indexes = [] ){ 
     
       this.array = array;this.indexes = indexes;
-      let run = create(RunIndexPoint)(array, false, 0, 0);
+      let run = create(RunIndexPoint)(array, false, 0, 0, null, null);
       array.each((el, i) => {
       	
         return (function() {
-          if (run.run__QUERY(el)) {
+          if (run.has(el)) {
             return ++(run.end);
           } else {
-            run = create(RunIndexPoint)(array, !(run.value), i, i);
+            run = create(RunIndexPoint)(array, !(run.value), i, i, run);
             return indexes.push(run);
           }
         }).call(this);
@@ -197,7 +202,20 @@ const RunIndexedArray = {
       }).call(this);
     
    },
-  set( i = this.i,v = this.v ){ 
+  set( i = this.i,v = this.v,array = this.array ){ 
+    
+      let t = search(this, i);
+      return (function() {
+        if (t.has(v)) {
+          return array[i] = v;
+        } else {
+          return (function() {
+            {
+              return i === t.prev.start;
+            }
+          }).call(this);
+        }
+      }).call(this);
     
    },
   get( i = this.i ){ 
@@ -205,7 +223,7 @@ const RunIndexedArray = {
    },
   each( f = this.f,indexes = this.indexes ){ 
     
-      return indexes.each((run) => {
+      indexes.each((run) => {
       	
         return (function() {
           if (run.value) {
@@ -214,6 +232,7 @@ const RunIndexedArray = {
         }).call(this);
       
       });
+      return this;
     
    },
   map( f = this.f,indexes = this.indexes ){ 
@@ -244,14 +263,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$31 = undefined;
+          var while$32 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$31 = (function() {
+            while$32 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$31;
+          return while$32;
         }).call(this);
         return (function() {
           if (w < 1) {
