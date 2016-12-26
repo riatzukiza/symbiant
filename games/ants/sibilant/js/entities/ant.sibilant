@@ -61,6 +61,7 @@
                   (if sated? (assign this.seeking this.group.mating-weights)
                       (assign this.seeking this.group.food-weights))
                   sated?)
+
          (generic *near-nest (mth) (nest ant )
                   (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
