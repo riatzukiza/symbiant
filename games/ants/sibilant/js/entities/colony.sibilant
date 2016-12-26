@@ -3,6 +3,8 @@
 (import (State-space) "../state-space")
 (import ( create extend mixin) "../util")
 
+(macro if-valid-move (ent ...body )
+       `(when (or (not @ent) (= @ent 0)) ...@body))
 (print "ant" Ant)
 
 (specify Colony (extend Entity-group)
