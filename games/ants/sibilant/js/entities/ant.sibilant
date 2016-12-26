@@ -2,7 +2,7 @@
 (import (Entity) "../ecs/entity")
 (import (Entity-group) "../ecs/group")
 (import (Matrix) "../matrix" )
-(import (Food-Weights) "../pheremons")
+(import (Pheremones) "../pheremons")
 (import (weighted-random-element) "../random")
 (import (State-space) "../state-space")
 (import (complement) "../color")

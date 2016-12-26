@@ -13,7 +13,7 @@ const {
   Matrix
  } = require("../matrix");
 const { 
-  Food_Weights
+  Pheremones
  } = require("../pheremons");
 const { 
   weightedRandomElement
