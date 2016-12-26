@@ -26,13 +26,6 @@
                   (if-valid-move
                    ent
                    ...@rest)))
-(macro area (space el-name center size ...@body)
-
-       `(each-weight @space @center
-
-                     (=> (@el-name i j x y)
-                         ...@body)
-                     @size ))
 (macro all-zero (w h) `(.dmap ((create Matrix) (new Float32Array (* @w @h)) @w @h) (lambda () 0) ))
 (macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
 
