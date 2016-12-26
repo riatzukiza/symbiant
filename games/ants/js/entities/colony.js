@@ -2,9 +2,6 @@ const {
   EntityGroup
  } = require("../ecs/group");
 const { 
-  Ant
- } = require("./ant");
-const { 
   StateSpace
  } = require("../state-space");
 const { 
@@ -115,3 +112,6 @@ const Colony = extend(EntityGroup, {
    }
  });
 exports.Colony = Colony;
+const { 
+  Ant
+ } = require("./ant");

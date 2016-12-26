@@ -1,5 +1,4 @@
 (import (Entity-group) "../ecs/group")
-(import (Ant) "./ant")
 (import (State-space) "../state-space")
 (import ( create extend mixin) "../util")
 
@@ -49,3 +48,5 @@
                       (.delete this.colonies this)
                       (.update Pheremones this.weights 0.1 ))))
 (export Colony)
+
+(import (Ant) "./ant")
