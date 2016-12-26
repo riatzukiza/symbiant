@@ -24,7 +24,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:25:0 */
+  /* combine eval.sibilant:26:0 */
 
   return Math.round((old + addi));
 });
@@ -46,7 +46,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
   
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
-  /* add-mixing-layer eval.sibilant:45:0 */
+  /* add-mixing-layer eval.sibilant:46:0 */
 
   weights.layer = layer;
   weights.each((w, x, y) => {
@@ -96,7 +96,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:63:0 */
+  /* decay eval.sibilant:64:0 */
 
   let { 
     x,
@@ -264,14 +264,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$33 = undefined;
+          var while$34 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$33 = (function() {
+            while$34 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$33;
+          return while$34;
         }).call(this);
         return (function() {
           if (w < 1) {
