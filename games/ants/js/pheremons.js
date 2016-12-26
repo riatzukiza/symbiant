@@ -167,19 +167,19 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$20 = undefined;
+          var while$21 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$20 = (function() {
+            while$21 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$20;
+          return while$21;
         }).call(this);
         return (function() {
           if (w < 1) {
             this.decaying.set(coord, now);
-            let k = ("" + w + i + j);
+            let k = ("" + w + i + j + rate);
             let newWeight = 0;
             (function() {
               if (this.cache.has(k)) {
