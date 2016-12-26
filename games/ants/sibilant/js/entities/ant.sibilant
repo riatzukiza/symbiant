@@ -45,10 +45,11 @@
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.emit this.group.food-weights ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
+                  (.emit this.group.mating-weights ant.pos group.mating-weights.weights
+                         (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
                   (.delete group ant)
-                  (.emit this.group.food-weights ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
+                  (.emit this.seeking ant.pos this.seeking.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.

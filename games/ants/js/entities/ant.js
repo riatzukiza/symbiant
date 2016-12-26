@@ -116,13 +116,13 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
-      return this.group.foodWeights.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
-      return this.group.foodWeights.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
