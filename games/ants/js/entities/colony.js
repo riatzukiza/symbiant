@@ -9,6 +9,9 @@ const {
   extend,
   mixin
  } = require("../util");
+const { 
+  Ant
+ } = require("./ant");
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
@@ -111,6 +114,3 @@ const Colony = extend(EntityGroup, {
    }
  });
 exports.Colony = Colony;
-const { 
-  Ant
- } = require("./ant");

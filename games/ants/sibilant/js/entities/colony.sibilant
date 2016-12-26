@@ -5,6 +5,7 @@
 (macro if-valid-move (ent ...body )
        `(when (or (not @ent) (= @ent 0)) ...@body))
 
+(import (Ant) "./ant")
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
@@ -48,4 +49,3 @@
                       (.update Pheremones this.weights 0.1 ))))
 (export Colony)
 
-(import (Ant) "./ant")
