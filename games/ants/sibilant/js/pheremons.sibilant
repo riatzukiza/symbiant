@@ -36,6 +36,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                        (- pos.y rad)
                        size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
 
+
 (macro area (space el-name center size ...body)
        `(each-in-area @space @center
                       (=> (@el-name i j x y)
@@ -64,8 +65,18 @@ Values are not changed unless done so explicitly by the function as a side effec
           (if (> v 0) (decay-positive x y v decay )
               (< v 0) (decay-negative x y v decay ))
           (do 0)))
+;; used to index non-empty runs of data in an array
+(type Run-index-point
+      (init (array start end))
+      (generic each (mth!) (callback start end array)
+               (loop (collect r this)
+                     (for (let i start) (< start end) (++i))
+                     (callback (get array i) i))))
+(type Run-indexed-array
+      (init (array (indexes []))
+            ))
 (type Pheremones
-      (init (color decay weights layer (decaying (new Map)))
+      (init (color decay weights layer (decaying []))
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
             (each world.coord (pos x y)
@@ -89,10 +100,8 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                     (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
 
-                    (weights.set x y new-weight))
-
-
-                  )))
+                    (weights.set x y new-weight))))
+      (gmth update (weights decaying)))
 
 
 (export Pheremones)

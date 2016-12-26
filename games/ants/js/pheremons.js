@@ -45,7 +45,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
   
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
-  /* add-mixing-layer eval.sibilant:43:0 */
+  /* add-mixing-layer eval.sibilant:44:0 */
 
   weights.layer = layer;
   weights.each((w, x, y) => {
@@ -95,7 +95,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:61:0 */
+  /* decay eval.sibilant:62:0 */
 
   let { 
     x,
@@ -115,9 +115,37 @@ var decay = (function decay$(coord, v, decay) {
     }
   }).call(this);
 });
+const RunIndexPoint = { 
+  symbol:Symbol("RunIndexPoint"),
+  init( array = this.array,start = this.start,end = this.end ){ 
+    
+      this.array = array;this.start = start;this.end = end;
+      return this;
+    
+   },
+  each( callback = this.callback,start = this.start,end = this.end,array = this.array ){ 
+    (function() {
+      /* macros/js/index.sibilant:82:8 */
+    
+      let r = this;
+      for (let i = start;start < end;++(i)){
+      callback(array[i], i)};
+      return r;
+    }).call(this)
+   }
+ };
+const RunIndexedArray = { 
+  symbol:Symbol("RunIndexedArray"),
+  init( array = this.array,indexes = [] ){ 
+    
+      this.array = array;this.indexes = indexes;
+      return this;
+    
+   }
+ };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = [] ){ 
     
       this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
       addMixingLayer(this, weights, layer);
@@ -139,14 +167,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$16 = undefined;
+          var while$17 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$16 = (function() {
+            while$17 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$16;
+          return while$17;
         }).call(this);
         return (function() {
           if (w < 1) {
@@ -157,6 +185,9 @@ const Pheremones = {
         }).call(this);
       
       }, r);
+    
+   },
+  update( weights = this.weights,decaying = this.decaying ){ 
     
    }
  };
