@@ -33,7 +33,7 @@
                      (=> (@el-name i j x y)
                          ...@body)
                      @size ))
-(macro all-zero (w h) `(.dmap ((create Matrix) [] @w @h) (lambda () 0) ))
+(macro all-zero (w h) `(.dmap ((create Matrix) (new Float32Array (* @w @h)) @w @h) (lambda () 0) ))
 (macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
