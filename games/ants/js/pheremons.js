@@ -12,6 +12,9 @@ const {
 const { 
   Layer
  } = require("./layer");
+const { 
+  complement
+ } = require("./color");
 let colors = [];
 function decayPositive( x,y,v,decay,color ){ 
   
@@ -20,7 +23,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:23:0 */
+  /* combine eval.sibilant:24:0 */
 
   return Math.round((old + addi));
 });
@@ -42,7 +45,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
   
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
-  /* add-mixing-layer eval.sibilant:42:0 */
+  /* add-mixing-layer eval.sibilant:43:0 */
 
   weights.layer = layer;
   weights.each((w, x, y) => {
