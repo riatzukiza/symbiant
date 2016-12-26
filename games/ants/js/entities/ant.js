@@ -107,7 +107,7 @@ const Ant = extend(Entity, {
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
       let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
-      return this.group.foodWeights.emit(ant.pos, group.weights, emission, 20);
+      return this.group.foodWeights.emit(ant.pos, group.weights, emission, sim.width);
     
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
