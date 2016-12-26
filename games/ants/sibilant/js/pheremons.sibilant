@@ -81,9 +81,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                               (not (= w 0)))
                          (++ t)
                          (assign w (decay coord w)))
-                  (.set this.decaying coord now)
                   (when (< w 1)
 
+                    (.set this.decaying coord now)
 
 
                     (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
