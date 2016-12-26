@@ -151,7 +151,8 @@ const RunIndexedArray = {
           if (run.run__QUERY(el)) {
             return ++(run.end);
           } else {
-            return indexes.push(run = create(RunIndexPoint)(array, !(run.value), i, i););
+            run = create(RunIndexPoint)(array, !(run.value), i, i);
+            return indexes.push(run);
           }
         }).call(this);
       
@@ -197,14 +198,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$25 = undefined;
+          var while$26 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$25 = (function() {
+            while$26 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$25;
+          return while$26;
         }).call(this);
         return (function() {
           if (w < 1) {

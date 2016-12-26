@@ -81,7 +81,9 @@ Values are not changed unless done so explicitly by the function as a side effec
             (.each array (=> (el i)
                              (if (.run? run el)
                                  (++ run.end)
-                                 (indexes.push (assign run ((create Run-index-point) array (not run.value) i i )))))))
+                                 (do
+                                  (assign run ((create Run-index-point) array (not run.value) i i ))
+                                  (indexes.push run))))))
       (gmth each (f indexes)
             (indexes.each (=> (run) (if run.value (.each run f))))))
 (type Pheremones
