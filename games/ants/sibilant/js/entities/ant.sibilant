@@ -81,14 +81,17 @@
                   (let cache (new Map))
                   (each-valid-move  ant group.weights.state
                                     ;;(print "calculated deviance" calc-devi)
-                                    (incr-by count (* w  sated?
-                                                      (/ ant.life Ant.life)
-                                                      (.get (gene ant kernel) i j)
-                                                      (gene ant deviance)))
-                                    (.set cache ent count))
+                                    (let v (* w  sated?
+                                              (/ ant.life Ant.life)
+                                              (.get (gene ant kernel) i j)
+                                              (gene ant deviance)))
+                                    (.set cache ent v)
+                                    (incr-by count v))
                   (let rand (* count (Math.random)))
+                  (weighted-random-element )
                   (each-valid-move ant group.weights.state
-                                   (when (and (< rand (.get cache ent)) (not done))
+                                   (incr-by sum (.get cache ent))
+                                   (when (and (< rand sum) (not done))
                                      (assign choice.x x choice.y y done true))) choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
