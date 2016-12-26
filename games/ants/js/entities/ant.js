@@ -341,8 +341,6 @@ const Colony = extend(EntityGroup, {
         if (this.entities.size === 0) {
           console.log("colonly has died");
           return this.colonies.delete(this);
-        } else {
-          return this.pheremones.update(this.weights, 0.1);
         }
       }).call(this);
     

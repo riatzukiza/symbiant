@@ -157,8 +157,8 @@
          (generic update (mth) (entities weights decay)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
                   (.each this (=> (ant) (.update ant )))
-                  (if (= this.entities.size 0)
-                      (do (print "colonly has died")(.delete this.colonies this))
-                      (.update this.pheremones this.weights 0.1 ))))
+                  (when (= this.entities.size 0)
+                    (print "colonly has died")
+                    (.delete this.colonies this))))
 (export Colony)
 
