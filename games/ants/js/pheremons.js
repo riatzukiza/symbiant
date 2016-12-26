@@ -145,7 +145,6 @@ const RunIndexedArray = {
  };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  cache:(new Map()),
   init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
     
       this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
@@ -168,28 +167,19 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$22 = undefined;
+          var while$23 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$22 = (function() {
+            while$23 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$22;
+          return while$23;
         }).call(this);
         return (function() {
           if (w < 1) {
             this.decaying.set(coord, now);
-            let k = ("" + w + i + j + rate);
-            let newWeight = 0;
-            (function() {
-              if (this.cache.has(k)) {
-                return newWeight = this.cache.get(k);
-              } else {
-                newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
-                return this.cache.set(k, newWeight);
-              }
-            }).call(this);
+            let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
             return weights.set(x, y, newWeight);
           }
         }).call(this);

@@ -76,7 +76,6 @@ Values are not changed unless done so explicitly by the function as a side effec
       (init (array (indexes []))
             ))
 (type Pheremones
-      (property cache (new Map))
       (init (color decay weights layer (decaying (new Map)))
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
@@ -97,12 +96,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (when (< w 1)
 
                     (.set this.decaying coord now)
-                    (let k (+ "" w i j rate))
-                    (let new-weight 0)
-                    (if (.has this.cache k )
-                        (assign new-weight (.get this.cache k))
-                        (do (assign new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
-                            (.set this.cache k new-weight)))
+
+
+                    (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+
                     (weights.set x y new-weight)))))
 
 
