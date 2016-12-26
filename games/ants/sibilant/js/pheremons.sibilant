@@ -94,9 +94,9 @@ Values are not changed unless done so explicitly by the function as a side effec
       (gmth pop (v))
       (gmth search (i  (left 0) (right (- indexes.length 1)) (m (Math.floor (/ (+ left right) 2)) indexes))
             (let t (get indexes m))
-            (if (.between? t i) t
-                (.after? t i) (.search this i left (assignment! (- m 1)))
-                (.before? t i) (.search this i (assignment! (+ m 1) right))))
+            (if (.after? t i) (.search this i left (assignment! (- m 1)))
+                (.before? t i) (.search this i (assignment! (+ m 1) right))
+                (.between? t i) t))
       (gmth set (i v ))
       (gmth get (i))
       (gmth each (f indexes)

@@ -185,12 +185,12 @@ const RunIndexedArray = {
     
       let t = indexes[m];
       return (function() {
-        if (t.between__QUERY(i)) {
-          return t;
-        } else if (t.after__QUERY(i)) {
+        if (t.after__QUERY(i)) {
           return this.search(i, left, (m - 1) = );
         } else if (t.before__QUERY(i)) {
           return this.search(i, (m + 1) = right);
+        } else if (t.between__QUERY(i)) {
+          return t;
         }
       }).call(this);
     
@@ -242,14 +242,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$27 = undefined;
+          var while$28 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$27 = (function() {
+            while$28 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$27;
+          return while$28;
         }).call(this);
         return (function() {
           if (w < 1) {
