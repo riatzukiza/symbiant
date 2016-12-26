@@ -102,7 +102,7 @@ const Pheremones = {
       addMixingLayer(this, weights, layer);
       world.coord.each((pos, x, y) => {
       	
-        return decaying.set(post, sim.ticks);
+        return decaying.set(pos, sim.ticks);
       
       });
       return this;
@@ -141,13 +141,13 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$1 = undefined;
+          var while$2 = undefined;
           while ((!(t === debt) && !(w === 0))) {
-            while$1 = (function() {
+            while$2 = (function() {
               return w = decay(coord);
             }).call(this);
           };
-          return while$1;
+          return while$2;
         }).call(this);
         let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
         return weights.set(x, y, newWeight);

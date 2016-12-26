@@ -62,7 +62,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
             (each world.coord (pos x y)
-                  (.set decaying post sim.ticks)))
+                  (.set decaying pos sim.ticks)))
       (gmth emit  (pos weights rate (r 5 ))
             (let decay (=> (pos)
                            (let v (.get weights pos.x pos.y))
