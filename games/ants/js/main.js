@@ -139,7 +139,7 @@ var start = (function start$(sim) {
       }
     }).call(this);
     (function() {
-      if ((ticks % 5) === 0) {
+      if ((ticks % 2) === 0) {
         return Colony.colonies.each((col) => {
         	
           return col.update();
