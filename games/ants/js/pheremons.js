@@ -96,38 +96,28 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
 });
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Set()) ){ 
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
     
       this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
       addMixingLayer(this, weights, layer);
+      world.coord.each((pos, x, y) => {
+      	
+        return decaying.set(post, sim.ticks);
+      
+      });
       return this;
     
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5 ){ 
     
-      return eachInArea(weights.state, pos, (w, i, j, x, y) => {
-      	
-        return (function() {
-          if (w < 1) {
-            this.decaying.add(world.coord.get(x, y));
-            let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
-            return weights.set(x, y, newWeight);
-          }
-        }).call(this);
-      
-      }, r);
-    
-   },
-  update( weights = this.weights,decay = this.decay,decaying = this.decaying ){ 
-    
-      decaying.each((pos) => {
+      let decay = (pos) => {
       	
         let v = weights.get(pos.x, pos.y);
         let { 
           x,
           y
          } = pos;
-        return weights.set(pos.x, pos.y, (function() {
+        return (function() {
           if (decay < Math.abs(v)) {
             return (function() {
               if (v > 0) {
@@ -140,9 +130,33 @@ const Pheremones = {
             decaying.delete(pos);
             return 0;
           }
-        }).call(this));
+        }).call(this);
       
-      });
+      };
+      return eachInArea(weights.state, pos, (w, i, j, x, y) => {
+      	
+        let coord = world.coord.get(x, y);
+        let lastTimeVisited = this.decaying.get(coord);
+        let now = sim.ticks;
+        let debt = (now - lastTimeVisited);
+        let t = 0;
+        (function() {
+          var while$1 = undefined;
+          while ((!(t === debt) && !(w === 0))) {
+            while$1 = (function() {
+              return w = decay(coord);
+            }).call(this);
+          };
+          return while$1;
+        }).call(this);
+        let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
+        return weights.set(x, y, newWeight);
+      
+      }, r);
+    
+   },
+  update( weights = this.weights,decay = this.decay,decaying = this.decaying ){ 
+    
       return weights.update();
     
    }

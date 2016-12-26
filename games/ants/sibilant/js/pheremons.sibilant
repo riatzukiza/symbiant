@@ -58,32 +58,37 @@ Values are not changed unless done so explicitly by the function as a side effec
                (gett a (Math.abs (* 160 this.weight)) ))))
   (.move-up layer))
 (type Pheremones
-      (init (color decay weights layer (decaying (new Set)))
+      (init (color decay weights layer (decaying (new Map)))
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
-            )
+            (each world.coord (pos x y)
+                  (.set decaying post sim.ticks)))
       (gmth emit  (pos weights rate (r 5 ))
-
+            (let decay (=> (pos)
+                           (let v (.get weights pos.x pos.y))
+                           (let (literal x y) pos)
+                           (if (< decay (Math.abs v))
+                               (if (> v 0) (decay-positive x y v decay )
+                                   (< v 0) (decay-negative x y v decay ))
+                               (do (.delete decaying pos) 0))))
             (area weights.state w pos r
 
-                      (when (< w 1)
-                        (this.decaying.add (.get world.coord x y))
+                  (let coord (.get world.coord x y))
+                  (let last-time-visited (this.decaying.get coord))
+                  (let now sim.ticks)
+                  (let debt (- now last-time-visited))
+                  (let t 0)
 
-                        (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+                  (while (and (not (= t debt))
+                              (not (= w 0)))
+                         (assign w (decay coord)))
 
-                        (weights.set x y new-weight))))
+                  (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+
+                  (weights.set x y new-weight)))
 
       (gmth update (weights  decay  decaying)
 
-            (decaying.each
-             (=> (pos)
-                 (let v (.get weights pos.x pos.y))
-                 (let (literal x y) pos)
-                 (.set weights pos.x pos.y
-                       (if (< decay (Math.abs v))
-                           (if (> v 0) (decay-positive x y v decay )
-                               (< v 0) (decay-negative x y v decay ))
-                           (do (.delete decaying pos) 0)))))
             (.update weights)))
 
 
