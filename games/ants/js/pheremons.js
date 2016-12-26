@@ -145,7 +145,7 @@ const RunIndexedArray = {
  };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = [] ){ 
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
     
       this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
       addMixingLayer(this, weights, layer);
@@ -167,14 +167,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$17 = undefined;
+          var while$18 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$17 = (function() {
+            while$18 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$17;
+          return while$18;
         }).call(this);
         return (function() {
           if (w < 1) {
@@ -185,9 +185,6 @@ const Pheremones = {
         }).call(this);
       
       }, r);
-    
-   },
-  update( weights = this.weights,decaying = this.decaying ){ 
     
    }
  };
