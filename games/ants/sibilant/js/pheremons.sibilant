@@ -60,4 +60,5 @@ Values are not changed unless done so explicitly by the function as a side effec
                      (< v 0) (decay-negative x y v decay ))))
             (.update weights)))
 
+
 (export Pheremones)

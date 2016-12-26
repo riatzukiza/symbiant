@@ -1,17 +1,7 @@
-const { 
-  create,
-  extend,
-  mixin
- } = require("./util");
-const { 
-  StateSpace
- } = require("./state-space");
-const { 
-  euclidianDistance
- } = require("./math");
-const { 
-  Layer
- } = require("./layer");
+var create(extend, mixin) = require("./util")["create(extend, mixin)"];
+var StateSpace() = require("./state-space")["StateSpace()"];
+var euclidianDistance() = require("./math")["euclidianDistance()"];
+var Layer() = require("./layer")["Layer()"];
 let colors = [];
 function decayPositive( x,y,v,decay,color ){ 
   

@@ -32,7 +32,7 @@
 (import (create extend mixin curry) "./lib/util")
 (const browserify (require "browserify"))
 (import (Directory) "./lib/file-system")
-(const (literal auto-compile)(require "./auto-compile"))
+(import (auto-compile)(require "./auto-compile"))
 
 (const port (or process.env.PORT 8001))
 (const app (express))

@@ -1,14 +1,6 @@
-const { 
-  create,
-  extend,
-  mixin
- } = require("./util");
-const { 
-  StateSpace
- } = require("./state-space");
-const { 
-  Layer
- } = require("./layer");
+var create(extend, mixin) = require("./util")["create(extend, mixin)"];
+var StateSpace() = require("./state-space")["StateSpace()"];
+var Layer() = require("./layer")["Layer()"];
 const $ = require("jquery/dist/jquery.min.js");
 const Display = { 
   symbol:Symbol("Display"),

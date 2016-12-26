@@ -1,11 +1,5 @@
-const { 
-  create,
-  extend,
-  mixin
- } = require("./util");
-const { 
-  StateSpace
- } = require("./state-space");
+var create(extend, mixin) = require("./util")["create(extend, mixin)"];
+var StateSpace() = require("./state-space")["StateSpace()"];
 // const Display = { 
 //   symbol:Symbol("Display"),
 //   init( width = this.width,height = this.height,cellSize = this.cellSize,ctx = this.ctx,imageData = ctx.getImageData() ){ 

@@ -1,19 +1,10 @@
-const { 
-  create,
-  extend,
-  mixin
- } = require("./util");
+var create(extend, mixin) = require("./util")["create(extend, mixin)"];
 const $ = require("jquery/dist/jquery.min.js");
 let canvasa = document.getElementById("game");
 let canvasb = document.getElementById("gameb");
 let context = $("#container");
-const { 
-  emitPheremones,
-  Ant
- } = require("./ant");
-const { 
-  Colony
- } = require("./colony");
+var emitPheremones(Ant) = require("./ant")["emitPheremones(Ant)"];
+var Colony() = require("./colony")["Colony()"];
 var interface = (function interface$(sim) {
   /* interface eval.sibilant:51:0 */
 
