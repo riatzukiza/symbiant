@@ -214,7 +214,6 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      weightedRandomElement();
       eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);

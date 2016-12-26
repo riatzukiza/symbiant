@@ -87,7 +87,6 @@
                                                       (gene ant deviance)))
                                     (.set cache ent count))
                   (let rand (* count (Math.random)))
-                  (weighted-random-element )
                   (each-valid-move ant group.weights.state
                                    (when (and (< rand (.get cache ent)) (not done))
                                      (assign choice.x x choice.y y done true))) choice)
