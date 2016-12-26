@@ -44,7 +44,7 @@ let george = {
   y: 20
 };
 let sim = create(Simulation)(120, 120, 5);
-sim.global = sim;
+global.sim = sim;
 let white = { 
   red:255,
   green:255,
