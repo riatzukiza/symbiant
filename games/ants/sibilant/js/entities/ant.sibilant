@@ -2,7 +2,7 @@
 (import (Entity) "../ecs/entity")
 (import (Entity-group) "../ecs/group")
 (import (Matrix) "../matrix" )
-(import (Pheremones) "../pheremons")
+(import (Food-Weights) "../pheremons")
 (import (weighted-random-element) "../random")
 (import (State-space) "../state-space")
 (import (complement) "../color")
@@ -39,20 +39,20 @@
                   (.delete group.goals ant._food)
                   (assign ant.life (+ ant.life ant._food.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) 10))
-                  (.emit this.group.pheremones ant.pos group.weights  emission 20))
+                  (.emit this.group.food-weights ant.pos group.weights  emission 20))
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.emit this.group.pheremones ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
+                  (.emit this.group.food-weights ant.pos group.weights (* 100  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
                   (.delete group ant)
-                  (.emit this.group.pheremones ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
+                  (.emit this.group.food-weights ant.pos group.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
          (generic mutate (mth) (ant group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
-                  (.emit this.group.pheremones ant.pos group.weights (- (gene ant rate)))
+                  (.emit this.group.food-weights ant.pos group.weights (- (gene ant rate)))
                   (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
                   (mutate ant (return-rate find-rate deviance rate) )
                   (assign ant.life Ant.life ))
@@ -107,7 +107,7 @@
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
          (generic update (mth) (  group nest  life  (ant this))
-                  ;; Ants are more likely to choose pheremones over none.
+                  ;; Ants are more likely to choose food-weights over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work
                   (let x 0)
                   (let y 0)
@@ -126,7 +126,7 @@
                         (if (.*has-discovered-food  ant ) (.*eat ant )
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
-                  (.emit this.group.pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 20)))
+                  (.emit this.group.food-weights ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 20)))
 
 
 (export Ant)
@@ -137,7 +137,7 @@
          (init (nest color goals (decay 0.1) colonies
 
                      (weights ((create State-space) sim.width sim.width))
-                     (pheremones ((create Pheremones) color decay weights (.get sim.layers))))
+                     (food-weights ((create Pheremones) color decay weights (.get sim.layers))))
                (Entity-group.init.call this)
 
                (.add colonies this))

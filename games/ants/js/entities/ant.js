@@ -13,7 +13,7 @@ const {
   Matrix
  } = require("../matrix");
 const { 
-  Pheremones
+  Food_Weights
  } = require("../pheremons");
 const { 
   weightedRandomElement
@@ -107,7 +107,7 @@ const Ant = extend(Entity, {
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
       let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
-      return this.group.pheremones.emit(ant.pos, group.weights, emission, 20);
+      return this.group.foodWeights.emit(ant.pos, group.weights, emission, 20);
     
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
@@ -116,18 +116,18 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
-      return this.group.pheremones.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.foodWeights.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
-      return this.group.pheremones.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.foodWeights.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
     
-      this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate));
+      this.group.foodWeights.emit(ant.pos, group.weights, (ant.genetics.rate));
       ant.genetics.kernel.dmap((x) => {
       	
         return (x * (function() {
@@ -287,7 +287,7 @@ const Ant = extend(Entity, {
           return ant._die();
         }
       }).call(this);
-      return this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 20);
+      return this.group.foodWeights.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 20);
     
    }
  });
@@ -296,9 +296,9 @@ const Colony = extend(EntityGroup, {
   symbol:Symbol("Colony"),
   colonies:(new Set()),
   entityType:Ant,
-  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,weights = create(StateSpace)(sim.width, sim.width),pheremones = create(Pheremones)(color, decay, weights, sim.layers.get()) ){ 
+  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,weights = create(StateSpace)(sim.width, sim.width),foodWeights = create(Pheremones)(color, decay, weights, sim.layers.get()) ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;this.pheremones = pheremones;
+      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;this.foodWeights = foodWeights;
       EntityGroup.init.call(this);
       colonies.add(this);
       return this;
