@@ -1,8 +1,17 @@
-var create(extend, mixin) = require("./util")["create(extend, mixin)"];
-var StateSpace() = require("./state-space")["StateSpace()"];
-var euclidianDistance() = require("./math")["euclidianDistance()"];
-var Layer() = require("./layer")["Layer()"];
-let colors = [];
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
+const { 
+  
+ } = require("./state-space");
+const { 
+  
+ } = require("./math");
+const { 
+  
+ } = require("./layer");
 function decayPositive( x,y,v,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
@@ -10,7 +19,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:24:0 */
+  /* combine eval.sibilant:23:0 */
 
   return Math.round((old + addi));
 });
