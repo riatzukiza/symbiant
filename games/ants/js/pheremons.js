@@ -123,6 +123,10 @@ const Pheremones = {
       decaying.each((pos) => {
       	
         let v = weights.get(pos.x, pos.y);
+        let { 
+          x,
+          y
+         } = pos;
         return weights.set(pos.x, pos.y, (function() {
           if (decay < Math.abs(v)) {
             return (function() {

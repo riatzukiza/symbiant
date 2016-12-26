@@ -78,6 +78,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             (decaying.each
              (=> (pos)
                  (let v (.get weights pos.x pos.y))
+                 (let (literal x y) pos)
                  (.set weights pos.x pos.y
                        (if (< decay (Math.abs v))
                            (if (> v 0) (decay-positive x y v decay )
