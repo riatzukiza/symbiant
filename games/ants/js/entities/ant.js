@@ -122,7 +122,7 @@ const Ant = extend(Entity, {
   _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
-      return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), sim.width);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
@@ -284,7 +284,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
-                } else if (Math.random() > 0.99999999) {
+                } else if (Math.random() > 0.99999) {
                   return ant._formNewColony();
                 }
               }).call(this);
