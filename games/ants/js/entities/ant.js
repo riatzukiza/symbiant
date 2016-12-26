@@ -107,7 +107,7 @@ const Ant = extend(Entity, {
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
       let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
-      return this.group.foodWeights.emit(ant.pos, group.weights, emission, sim.width);
+      return this.group.foodWeights.emit(ant.pos, group.weights, emission, 20);
     
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
@@ -116,13 +116,13 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
-      return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), sim.width);
+      return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
-      return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), sim.width);
+      return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
@@ -284,7 +284,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
-                } else if (Math.random() > 0.99999) {
+                } else if (Math.random() > 0.9999) {
                   return ant._formNewColony();
                 }
               }).call(this);
