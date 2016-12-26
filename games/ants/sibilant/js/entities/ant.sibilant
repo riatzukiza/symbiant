@@ -5,6 +5,7 @@
 (import (Pheremones) "../pheremons")
 (import (weighted-random-element) "../random")
 (import (State-space) "../state-space")
+(import (complement) "../color")
 
 (generic moore-neighborhood (def) (w h (weight 1) (c 0))
          (let m (allns w h weight))

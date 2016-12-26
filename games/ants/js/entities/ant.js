@@ -21,6 +21,9 @@ const {
 const { 
   StateSpace
  } = require("../state-space");
+const { 
+  complement
+ } = require("../color");
 var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, weight = 1, c = 0) {
   /* moore-neighborhood deps.sibilant:61:8 */
 
@@ -33,7 +36,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:13:0 */
+  /* matrix-center eval.sibilant:14:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -167,7 +170,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:65:8 */
+        /* eval.sibilant:69:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, ant, (spot, i, j, x, y) => {
@@ -240,9 +243,9 @@ const Ant = extend(Entity, {
       (function() {
         if ((1 * ant.life) > (100 * (Ant.life + random))) {
           let newColony = create(Colony)(this.pos, { 
-            red:(Math.floor((Math.random() * (256 - 0))) + 0),
-            green:(Math.floor((Math.random() * (256 - 0))) + 0),
-            blue:(Math.floor((Math.random() * (256 - 0))) + 0)
+            red:Math.floor((Math.random() * ((256 - 0) + 0))),
+            green:Math.floor((Math.random() * ((256 - 0) + 0))),
+            blue:Math.floor((Math.random() * ((256 - 0) + 0)))
            }, weightedRandomElement(EntityGroup.groups, (group) => {
           	
             let totalLife = 0;
