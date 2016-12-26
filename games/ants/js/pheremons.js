@@ -100,6 +100,7 @@ const Pheremones = {
     
       this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;
       addMixingLayer(this, weights, layer);
+      decaying((new Set()));
       return this;
     
    },
@@ -109,6 +110,7 @@ const Pheremones = {
       	
         return (function() {
           if (w < 1) {
+            this.decaying.set(world.coord.get(x, y));
             let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
             return weights.set(x, y, newWeight);
           }
@@ -117,11 +119,12 @@ const Pheremones = {
       }, r);
     
    },
-  update( weights = this.weights,decay = this.decay ){ 
+  update( weights = this.weights,decay = this.decay,decaying = this.decaying ){ 
     
-      weights.transit((v, x, y) => {
+      decaying.each((pos) => {
       	
-        return (function() {
+        let v = weights.get(pos.x, pos.y);
+        return weights.set(pos.x, pos.y, (function() {
           if (decay < Math.abs(v)) {
             return (function() {
               if (v > 0) {
@@ -131,9 +134,10 @@ const Pheremones = {
               }
             }).call(this);
           } else {
+            decaying.delete(pos);
             return 0;
           }
-        }).call(this);
+        }).call(this));
       
       });
       return weights.update();
