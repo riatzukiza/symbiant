@@ -11,6 +11,9 @@
 (def matrix-center (width height )
   (Math.round (/ (- (* width height) 1) 2)))
 
+(macro if-valid-move (ent ...body )
+       `(when (or (not @ent) (= @ent 0)) ...@body))
+
 (import (each-in-area) "../area")
 
 (specify Ant (extend Entity)
