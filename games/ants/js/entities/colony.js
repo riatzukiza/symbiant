@@ -9,7 +9,6 @@ const {
   extend,
   mixin
  } = require("../util");
-console.log("ant", Ant);
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
