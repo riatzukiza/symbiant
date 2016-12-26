@@ -140,13 +140,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$4 = undefined;
+          var while$5 = undefined;
           while ((!(t === debt) && !(w === 0))) {
-            while$4 = (function() {
+            while$5 = (function() {
+              ++(t);
               return w = decay(coord);
             }).call(this);
           };
-          return while$4;
+          return while$5;
         }).call(this);
         let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
         return weights.set(x, y, newWeight);
