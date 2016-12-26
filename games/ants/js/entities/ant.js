@@ -284,6 +284,8 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
+                } else if (Math.random() > 0.9995) {
+                  return ant._formNewColony();
                 }
               }).call(this);
             } else if (ant._hasDiscoveredFood()) {
@@ -304,8 +306,8 @@ const Colony = extend(EntityGroup, {
   colonies:(new Set()),
   entityType:Ant,
   init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay, sim.layers.get()),matingWeights = create(Pheremones)({ 
-    red:0,
-    green:0,
+    red:color.red,
+    green:color.green,
     blue:255
    }, decay, sim.layers.get()) ){ 
     

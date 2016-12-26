@@ -125,7 +125,10 @@
                   (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
-                        (if sated? (if (.*near-nest  ant) (.*reproduce ant))
+                        (if sated? (if (.*near-nest  ant)
+                                       (.*reproduce ant)
+                                       (> (Math.random) 0.9995)
+                                       (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
                             (.*eat ant )))
                       (.*die ant))
@@ -143,7 +146,7 @@
                      (food-weights ((create Pheremones) color decay (.get sim.layers)))
 
                      (mating-weights ((create Pheremones)
-                                      (color 0 0 255)
+                                      (color color.red color.green 255)
                                       decay (.get sim.layers))))
                (Entity-group.init.call this)
 
