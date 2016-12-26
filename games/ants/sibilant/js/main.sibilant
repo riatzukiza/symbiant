@@ -107,6 +107,7 @@
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Ant) "./entities/ant")
+
 (import (Colony) "./entities/colony")
 
 (assign Entity.empty empty)

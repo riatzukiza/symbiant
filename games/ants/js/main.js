@@ -87,7 +87,7 @@ const {
  } = require("./entities/ant");
 const { 
   Colony
- } = require("./entities/ant");
+ } = require("./entities/colony");
 Entity.empty = empty;
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
@@ -110,13 +110,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:132:0 */
+  /* Map.prototype.each eval.sibilant:133:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:134:0 */
+  /* start eval.sibilant:135:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
