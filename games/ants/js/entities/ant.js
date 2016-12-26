@@ -280,14 +280,14 @@ const Ant = extend(Entity, {
           let choice = ant.choose();
           this.move(choice.x, choice.y);
           return (function() {
-            if (ant._hasDiscoveredFood()) {
-              return ant._eat();
-            } else if (sated__QUERY) {
+            if (sated__QUERY) {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
                 }
               }).call(this);
+            } else if (ant._hasDiscoveredFood()) {
+              return ant._eat();
             }
           }).call(this);
         } else {
