@@ -78,21 +78,18 @@
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let sated? 1)
+                  (let cache (new Map))
                   (each-valid-move  ant group.weights.state
-                                    (comment (let calc-devi (/ (* Ant.life ant.life)
-                                                       (gene ant deviance))))
                                     ;;(print "calculated deviance" calc-devi)
                                     (incr-by count (* w  sated?
                                                       (/ ant.life Ant.life)
                                                       (.get (gene ant kernel) i j)
-                                                      (gene ant deviance))))
+                                                      (gene ant deviance)))
+                                    (.set cache ent count))
                   (let rand (* count (Math.random)))
+                  (weighted-random-element )
                   (each-valid-move ant group.weights.state
-                                   (incr-by sum (* w   sated?
-                                                   (/ ant.life Ant.life)
-                                                   (.get (gene ant kernel) i j)
-                                                   (gene ant deviance)))
-                                   (when (and (< rand sum) (not done))
+                                   (when (and (< rand (.get cache ent)) (not done))
                                      (assign choice.x x choice.y y done true))) choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
