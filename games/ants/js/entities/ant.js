@@ -107,7 +107,7 @@ const Ant = extend(Entity, {
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
       let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
-      return group.pheremones.emit(ant.pos, group.weights, emission, 20);
+      return this.group.pheremones.emit(ant.pos, group.weights, emission, 20);
     
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
@@ -116,18 +116,18 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
-      return group.pheremones.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.pheremones.emit(ant.pos, group.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group ){ 
     
       group.delete(ant);
-      return group.pheremones.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.pheremones.emit(ant.pos, group.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   mutate( ant = this.ant,group = this.group,nest = this.nest ){ 
     
-      group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate));
+      this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate));
       ant.genetics.kernel.dmap((x) => {
       	
         return (x * (function() {
@@ -286,7 +286,7 @@ const Ant = extend(Entity, {
           return ant._die();
         }
       }).call(this);
-      return group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 7);
+      return this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 7);
     
    }
  });
@@ -340,7 +340,7 @@ const Colony = extend(EntityGroup, {
         if (this.entities.size === 0) {
           return this.colonies.delete(this);
         } else {
-          return group.pheremones.update(this.weights, 0.1);
+          return this.pheremones.update(this.weights, 0.1);
         }
       }).call(this);
     
