@@ -76,8 +76,8 @@ Values are not changed unless done so explicitly by the function as a side effec
       (init (array (indexes []))
             ))
 (type Pheremones
-      (init (color decay weights layer (decaying (new Map))
-                   (cache (new Map)))
+      (property cache (new Map))
+      (init (color decay weights layer (decaying (new Map)))
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
             (each world.coord (pos x y)

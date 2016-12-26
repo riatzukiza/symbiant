@@ -145,9 +145,10 @@ const RunIndexedArray = {
  };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()),cache = (new Map()) ){ 
+  cache:(new Map()),
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
     
-      this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;this.cache = cache;
+      this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
       addMixingLayer(this, weights, layer);
       world.coord.each((pos, x, y) => {
       	
@@ -167,14 +168,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$21 = undefined;
+          var while$22 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$21 = (function() {
+            while$22 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$21;
+          return while$22;
         }).call(this);
         return (function() {
           if (w < 1) {
