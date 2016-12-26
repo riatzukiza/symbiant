@@ -1,3 +1,4 @@
+const R = require("ramda");
 const { 
   create,
   extend,
@@ -23,7 +24,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:24:0 */
+  /* combine eval.sibilant:25:0 */
 
   return Math.round((old + addi));
 });
@@ -45,7 +46,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
   
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
-  /* add-mixing-layer eval.sibilant:44:0 */
+  /* add-mixing-layer eval.sibilant:45:0 */
 
   weights.layer = layer;
   weights.each((w, x, y) => {
@@ -95,7 +96,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:62:0 */
+  /* decay eval.sibilant:63:0 */
 
   let { 
     x,
@@ -263,14 +264,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$32 = undefined;
+          var while$33 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$32 = (function() {
+            while$33 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$32;
+          return while$33;
         }).call(this);
         return (function() {
           if (w < 1) {

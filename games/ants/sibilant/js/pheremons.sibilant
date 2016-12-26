@@ -7,6 +7,7 @@
 ;; so the ants will tend towards the shortest path.
 
 
+(const R (require "ramda"))
 (import { create extend mixin} "./util")
 (import {State-space} "./state-space")
 (import {euclidian-distance} "./math")
