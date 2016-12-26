@@ -138,12 +138,11 @@ var start = (function start$(sim) {
         return plants.update();
       }
     }).call(this);
-    for (let time = 0;time < 2;++(time)){
     Colony.colonies.each((col) => {
     	
       return col.update();
     
-    })};
+    });
     return sim.layers.update().render();
   
   });

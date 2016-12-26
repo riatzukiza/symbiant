@@ -145,9 +145,8 @@
 
   (on (sim.start) "tick" (now ticks)
       (every 5 ticks (.update plants))
-      (do-times 2
-        (each Colony.colonies (col)
-              (.update col)))
+      (each Colony.colonies (col)
+            (.update col))
       (pipe sim.layers
             (.update )
             (.render))))
