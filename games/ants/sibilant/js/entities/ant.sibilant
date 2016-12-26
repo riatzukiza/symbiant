@@ -134,6 +134,7 @@
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
+
          (init (nest color goals (decay 0.1) colonies
 
                      (weights ((create State-space) sim.width sim.width))
