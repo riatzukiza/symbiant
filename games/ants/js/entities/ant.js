@@ -267,7 +267,7 @@ const Ant = extend(Entity, {
       let sated__QUERY = ant._sated();
       (function() {
         if ((1 * ant.life) > (100 * (Ant.life + random))) {
-          return formNewColony();
+          return ant._formNewColony();
         } else if ((2 * ant.life) > random) {
           let choice = ant.choose();
           this.move(choice.x, choice.y);

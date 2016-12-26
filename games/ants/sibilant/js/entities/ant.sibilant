@@ -118,7 +118,7 @@
                   (let sated? (.*sated ant ))
 
                   (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
-                      (form-new-colony)
+                      (.*form-new-colony ant)
 
                    (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
