@@ -8,13 +8,13 @@
 
 
 (import { create extend mixin} "./util")
-(import State-space "./state-space")
-(import euclidian-distance "./math")
-(import  Layer "./layer"
+(import {State-space} "./state-space")
+(import {euclidian-distance} "./math")
+(import {Layer} "./layer")
 
-         ;;(import (each-weight) "./ant")
+;;(import (each-weight) "./ant")
 
-         (let colors []))
+(let colors [])
 
 (fn decay-positive (x y v decay color)
     "brings a positive weight closer to zero, "

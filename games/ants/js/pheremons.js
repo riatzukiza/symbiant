@@ -4,14 +4,15 @@ const {
   mixin
  } = require("./util");
 const { 
-  
+  StateSpace
  } = require("./state-space");
 const { 
-  
+  euclidianDistance
  } = require("./math");
 const { 
-  
+  Layer
  } = require("./layer");
+let colors = [];
 function decayPositive( x,y,v,decay,color ){ 
   
     "brings a positive weight closer to zero, ";
