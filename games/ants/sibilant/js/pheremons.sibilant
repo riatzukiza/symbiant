@@ -97,7 +97,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (when (< w 1)
 
                     (.set this.decaying coord now)
-                    (let k (+ "" w x y))
+                    (let k (+ "" w i j))
                     (let new-weight 0)
                     (if (.has this.cache k )
                         (assign new-weight (.get this.cache k))
