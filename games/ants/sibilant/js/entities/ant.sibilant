@@ -88,7 +88,6 @@
                                     (.set cache ent v)
                                     (incr-by count v))
                   (let rand (* count (Math.random)))
-                  (weighted-random-element )
                   (each-valid-move ant group.weights.state
                                    (incr-by sum (.get cache ent))
                                    (when (and (< rand sum) (not done))
