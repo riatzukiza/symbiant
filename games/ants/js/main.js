@@ -134,7 +134,7 @@ var start = (function start$(sim) {
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
-      if ((ticks % 20) === 0) {
+      if ((ticks % 60) === 0) {
         return plants.update();
       }
     }).call(this);
