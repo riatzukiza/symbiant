@@ -108,29 +108,29 @@ const Pheremones = {
       return this;
     
    },
+  decay( coord = this.coord,v = this.v,decay = this.decay ){ 
+    
+      let { 
+        x,
+        y
+       } = coord;
+      return (function() {
+        if (decay < Math.abs(v)) {
+          return (function() {
+            if (v > 0) {
+              return decayPositive(x, y, v, decay);
+            } else if (v < 0) {
+              return decayNegative(x, y, v, decay);
+            }
+          }).call(this);
+        } else {
+          return 0;
+        }
+      }).call(this);
+    
+   },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying ){ 
     
-      let decay = (pos, v) => {
-      	
-        let { 
-          x,
-          y
-         } = pos;
-        return (function() {
-          if (decay < Math.abs(v)) {
-            return (function() {
-              if (v > 0) {
-                return decayPositive(x, y, v, decay);
-              } else if (v < 0) {
-                return decayNegative(x, y, v, decay);
-              }
-            }).call(this);
-          } else {
-            return 0;
-          }
-        }).call(this);
-      
-      };
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
         let coord = world.coord.get(x, y);
@@ -139,14 +139,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$10 = undefined;
+          var while$11 = undefined;
           while ((!(t === debt) && !(w === 0))) {
-            while$10 = (function() {
+            while$11 = (function() {
               ++(t);
-              return w = decay(coord, w);
+              return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$10;
+          return while$11;
         }).call(this);
         (function() {
           if (w < 1) {

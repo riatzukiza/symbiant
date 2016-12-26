@@ -63,13 +63,14 @@ Values are not changed unless done so explicitly by the function as a side effec
             (add-mixing-layer this weights layer)
             (each world.coord (pos x y)
                   (.set decaying pos sim.ticks)))
+
+      (gmth decay  (coord v decay)
+            (let (literal x y) coord)
+            (if (< decay (Math.abs v))
+                (if (> v 0) (decay-positive x y v decay )
+                    (< v 0) (decay-negative x y v decay ))
+                (do 0)))
       (gmth emit  (pos weights rate (r 5 ) decaying)
-            (let decay (=> (pos v)
-                           (let (literal x y) pos)
-                           (if (< decay (Math.abs v))
-                               (if (> v 0) (decay-positive x y v decay )
-                                   (< v 0) (decay-negative x y v decay ))
-                               (do 0))))
             (area weights.state w pos r
 
                   (let coord (.get world.coord x y))
@@ -80,7 +81,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (while (and (not (= t debt))
                               (not (= w 0)))
                          (++ t)
-                         (assign w (decay coord w)))
+                         (assign w (decay coord w rate)))
                   (when (< w 1)
 
                     (.set this.decaying coord now)
