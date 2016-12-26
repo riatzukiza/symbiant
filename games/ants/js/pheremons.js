@@ -96,11 +96,10 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
 });
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer ){ 
+  init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Set()) ){ 
     
-      this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;
+      this.color = color;this.decay = decay;this.weights = weights;this.layer = layer;this.decaying = decaying;
       addMixingLayer(this, weights, layer);
-      decaying((new Set()));
       return this;
     
    },

@@ -58,10 +58,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                (gett a (Math.abs (* 160 this.weight)) ))))
   (.move-up layer))
 (type Pheremones
-      (init (color decay weights layer)
+      (init (color decay weights layer (decaying (new Set)))
             ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
             (add-mixing-layer this weights layer)
-            (decaying (new Set)))
+            )
       (gmth emit  (pos weights rate (r 5 ))
 
             (area weights.state w pos r
