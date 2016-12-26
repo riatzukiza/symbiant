@@ -144,7 +144,7 @@
   ;;(interface sim)
 
   (on (sim.start) "tick" (now ticks)
-      (every 60 ticks (.update plants))
+      (every 10 ticks (.update plants))
       (each Colony.colonies (col)
             (.update col))
       (pipe sim.layers
