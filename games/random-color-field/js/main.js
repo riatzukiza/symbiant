@@ -5,13 +5,19 @@ socket.on("change", () => {
   return location.reload();
 
 });
-var create(extend, mixin) = require("./util")["create(extend, mixin)"];
-var Display() = require("./display")["Display()"];
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
+const { 
+  Display
+ } = require("./display");
 const $ = require("jquery/dist/jquery.min.js");
 let canvas = document.getElementById("game");
 console.log("hi");
 let ctx = canvas.getContext("2d");
-Display(const, display, 60(60, 10, ctx));
+const display = create(Display)(60, 60, 10, ctx);
 console.log("RANDOMIZING");
 $("#toggle").click((function(e) {
   /* eval.sibilant:11:22 */

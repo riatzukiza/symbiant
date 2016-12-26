@@ -1,10 +1,19 @@
-var create(extend, mixin) = require("./util")["create(extend, mixin)"];
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
 const $ = require("jquery/dist/jquery.min.js");
 let canvasa = document.getElementById("game");
 let canvasb = document.getElementById("gameb");
 let context = $("#container");
-var emitPheremones(Ant) = require("./ant")["emitPheremones(Ant)"];
-var Colony() = require("./colony")["Colony()"];
+const { 
+  emitPheremones,
+  Ant
+ } = require("./ant");
+const { 
+  Colony
+ } = require("./colony");
 var interface = (function interface$(sim) {
   /* interface eval.sibilant:51:0 */
 
@@ -48,7 +57,7 @@ var interface = (function interface$(sim) {
       })(context);
       ;
       (function() {
-        /* eval.sibilant:9:24 */
+        /* eval.sibilant:12:24 */
       
         var table = $("<table>");
         let headerRow = $("<tr>");
@@ -59,14 +68,14 @@ var interface = (function interface$(sim) {
         	
           var row = $("<tr>");
           let name = (function() {
-            /* eval.sibilant:29:50 */
+            /* eval.sibilant:32:50 */
           
             let colData = $("<td> ").text(c.name);
             row.append(colData);
             return colData;
           }).call(this);
           let numbers = (function() {
-            /* eval.sibilant:29:50 */
+            /* eval.sibilant:32:50 */
           
             let colData = $("<td> ").text(c.ants.size);
             row.append(colData);

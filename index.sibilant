@@ -118,6 +118,7 @@
              (dir ((create Directory) js-path)))))
 (def auto-compile (game bundle)
   (when (= env "dev")
+    (print "env is dev")
     (let compiler ((create Auto-compiler) game bundle))
     (.connect compiler )))
 (def bulk-bundle (dir bundle)

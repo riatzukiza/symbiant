@@ -1,8 +1,14 @@
-var create(extend, mixin) = require("./util")["create(extend, mixin)"];
-var StateSpace() = require("./state-space")["StateSpace()"];
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
+const { 
+  StateSpace
+ } = require("./state-space");
 const Display = { 
   symbol:Symbol("Display"),
-  init( width = this.width,height = this.height,cellSize = this.cellSize,ctx = this.ctx,red = StateSpace(width(height)),green = StateSpace(width(height)),blue = StateSpace(width(height)) ){ 
+  init( width = this.width,height = this.height,cellSize = this.cellSize,ctx = this.ctx,red = create(StateSpace)(width, height),green = create(StateSpace)(width, height),blue = create(StateSpace)(width, height) ){ 
     
       this.width = width;this.height = height;this.cellSize = cellSize;this.ctx = ctx;this.red = red;this.green = green;this.blue = blue;
       return this;

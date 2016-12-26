@@ -2,6 +2,7 @@
 (import (Event-emitter) "events")
 (import (State-space) "./state-space")
 (import ( Colony Ant each-weight map-weights) "./ant")
+
 (const fs (require "browserify-fs"))
 (import (Matrix) "./matrix" )
 (import (Entity) "./entity" )
