@@ -18,6 +18,9 @@ const {
 const { 
   weightedRandomElement
  } = require("../random");
+const { 
+  StateSpace
+ } = require("../state-space");
 var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, weight = 1, c = 0) {
   /* moore-neighborhood deps.sibilant:61:8 */
 
@@ -30,7 +33,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:10:0 */
+  /* matrix-center eval.sibilant:13:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -279,12 +282,6 @@ const Ant = extend(Entity, {
    }
  });
 exports.Ant = Ant;
-const { 
-  EntityGroup
- } = require("../ecs/group");
-const { 
-  StateSpace
- } = require("../state-space");
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
