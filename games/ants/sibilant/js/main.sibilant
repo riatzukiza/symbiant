@@ -59,7 +59,7 @@
 (import (weighted-random-element) "./random")
 (let george { x 20 y 20 })
 ;; Declare variables
-(Simulation let sim (240 240 5))
+(Simulation let sim (240 240 2))
 (assign global.sim sim)
 (let white (color 255 255 255))
 (let green (color 0 255 0))
