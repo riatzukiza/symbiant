@@ -135,7 +135,7 @@
          (init (nest color goals (decay 0.1) colonies
 
                      (weights ((create State-space) sim.width sim.width))
-                     (pheremones ((create Pheremones) decay weights (.get sim.layers))))
+                     (pheremones ((create Pheremones) color decay weights (.get sim.layers))))
                (Entity-group.init.call this)
 
                (.add colonies this))
