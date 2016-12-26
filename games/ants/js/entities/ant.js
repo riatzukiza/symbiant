@@ -164,7 +164,14 @@ const Ant = extend(Entity, {
    },
   _sated( nest = this.nest,ant = this.ant ){ 
     
-      return ant.life > Ant.life;
+      let sated__QUERY = ant.life > Ant.life;
+      return (function() {
+        if (sated__QUERY) {
+          return this.seeking = this.group.matingWeights;
+        } else {
+          return this.seeking = this.group.foodWeights;
+        }
+      }).call(this);
     
    },
   _nearNest( nest = this.nest,ant = this.ant ){ 
@@ -200,8 +207,15 @@ const Ant = extend(Entity, {
           return ant.genetics.kernel = mooreNeighborhood(3, 3, ant.genetics.deviance);
         }
       }).call(this);
-      let sated__QUERY = 1;
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      let weights = null;
+      (function() {
+        if (ant._sated()) {
+          return weights = group.matingWeights;
+        } else {
+          return weights = group.foodWeights;
+        }
+      }).call(this);
+      eachInArea(weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -213,7 +227,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      eachInArea(weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -266,10 +280,9 @@ const Ant = extend(Entity, {
       --(ant.life);
       let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
       let sated__QUERY = ant._sated();
+      // (1 * ant.life) > (100 * (Ant.life + random));
       (function() {
-        if ((1 * ant.life) > (100 * (Ant.life + random))) {
-          return ant._formNewColony();
-        } else if ((2 * ant.life) > random) {
+        if ((2 * ant.life) > random) {
           let choice = ant.choose();
           this.move(choice.x, choice.y);
           return (function() {
@@ -287,7 +300,7 @@ const Ant = extend(Entity, {
           return ant._die();
         }
       }).call(this);
-      return this.group.foodWeights.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 20);
+      return this.seeking.emit(ant.pos, this.seeking.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 20);
     
    }
  });
@@ -296,9 +309,13 @@ const Colony = extend(EntityGroup, {
   symbol:Symbol("Colony"),
   colonies:(new Set()),
   entityType:Ant,
-  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,weights = create(StateSpace)(sim.width, sim.width),foodWeights = create(Pheremones)(color, decay, weights, sim.layers.get()) ){ 
+  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay, sim.layers.get()),matingWeights = create(Pheremones)({ 
+    red:(2 / color.red),
+    green:(2 / color.green),
+    blue:(2 / color.blue)
+   }, decay, sim.layers.get()) ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.weights = weights;this.foodWeights = foodWeights;
+      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;
       EntityGroup.init.call(this);
       colonies.add(this);
       return this;

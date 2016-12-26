@@ -57,7 +57,10 @@
                   (mutate ant (return-rate find-rate deviance rate) )
                   (assign ant.life Ant.life ))
          (generic *sated (mth) (nest ant )
-                  (> ant.life Ant.life) )
+                  (let sated? (> ant.life Ant.life))
+                  (if sated? (assign this.seeking this.group.mating-weights)
+                      (assign this.seeking this.group.food-weights))
+                  )
          (generic *near-nest (mth) (nest ant )
                   (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
@@ -77,8 +80,12 @@
                   ;; I think some other function will decide what *weight* is, and call this function accordingly.
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
-                  (let sated? 1)
-                  (each-valid-move  ant group.weights.state
+                  (let weights null)
+                  (if (ant.*sated)
+                      (assign weights group.mating-weights)
+                      (assign weights group.food-weights)
+                      )
+                  (each-valid-move  ant weights.state
                                     (comment (let calc-devi (/ (* Ant.life ant.life)
                                                        (gene ant deviance))))
                                     ;;(print "calculated deviance" calc-devi)
@@ -87,7 +94,7 @@
                                                       (.get (gene ant kernel) i j)
                                                       (gene ant deviance))))
                   (let rand (* count (Math.random)))
-                  (each-valid-move ant group.weights.state
+                  (each-valid-move ant weights.state
                                    (incr-by sum (* w   sated?
                                                    (/ ant.life Ant.life)
                                                    (.get (gene ant kernel) i j)
@@ -116,17 +123,14 @@
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated ant ))
-
-                  (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
-                      (.*form-new-colony ant)
-
-                   (> (* 2 ant.life) random)
+                  (comment (> (* 1 ant.life ) (* 100 (+ Ant.life random))))
+                  (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
                         (if (.*has-discovered-food  ant ) (.*eat ant )
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
-                  (.emit this.group.food-weights ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 20)))
+                  (.emit this.seeking ant.pos this.seeking.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 20)))
 
 
 (export Ant)
@@ -137,8 +141,11 @@
 
          (init (nest color goals (decay 0.1) colonies
 
-                     (weights ((create State-space) sim.width sim.width))
-                     (food-weights ((create Pheremones) color decay weights (.get sim.layers))))
+                     (food-weights ((create Pheremones) color decay (.get sim.layers)))
+
+                     (mating-weights ((create Pheremones)
+                                      (color (/ 2 color.red) (/ 2 color.green) (/ 2 color.blue))
+                                      decay (.get sim.layers))))
                (Entity-group.init.call this)
 
                (.add colonies this))
