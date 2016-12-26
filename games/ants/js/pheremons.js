@@ -94,6 +94,27 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   });
   return layer.moveUp();
 });
+var decay = (function decay$(coord, v, decay) {
+  /* decay eval.sibilant:61:0 */
+
+  let { 
+    x,
+    y
+   } = coord;
+  return (function() {
+    if (decay < Math.abs(v)) {
+      return (function() {
+        if (v > 0) {
+          return decayPositive(x, y, v, decay);
+        } else if (v < 0) {
+          return decayNegative(x, y, v, decay);
+        }
+      }).call(this);
+    } else {
+      return 0;
+    }
+  }).call(this);
+});
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
   init( color = this.color,decay = this.decay,weights = this.weights,layer = this.layer,decaying = (new Map()) ){ 
@@ -108,27 +129,6 @@ const Pheremones = {
       return this;
     
    },
-  decay( coord = this.coord,v = this.v,decay = this.decay ){ 
-    
-      let { 
-        x,
-        y
-       } = coord;
-      return (function() {
-        if (decay < Math.abs(v)) {
-          return (function() {
-            if (v > 0) {
-              return decayPositive(x, y, v, decay);
-            } else if (v < 0) {
-              return decayNegative(x, y, v, decay);
-            }
-          }).call(this);
-        } else {
-          return 0;
-        }
-      }).call(this);
-    
-   },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying ){ 
     
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
@@ -139,14 +139,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$12 = undefined;
+          var while$13 = undefined;
           while ((!(t === debt) && !(w === 0))) {
-            while$12 = (function() {
+            while$13 = (function() {
               ++(t);
-              return w = this.decay(coord, w, rate);
+              return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$12;
+          return while$13;
         }).call(this);
         (function() {
           if (w < 1) {
