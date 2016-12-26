@@ -40,7 +40,23 @@ Values are not changed unless done so explicitly by the function as a side effec
                       (=> (@el-name i j x y)
                           ...@body) @size ))
 (type Pheremones
-      (init (rate decay weights))
+      (init (rate decay weights layer)
+            ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
+            (assign this.layer layer)
+            (each weights (w x y)
+                  (.add weights.layer
+                        (literal
+                         x y
+                         (gett weight (.get weights x y))
+                         (gett color (if (>= this.weight 0 )
+                                         color
+                                         (complement color)))
+                         (gett r this.color.red )
+                         (gett g this.color.green)
+                         (gett b this.color.blue)
+
+                         (gett a (Math.abs (* 160 this.weight)) ))))
+            (.move-up weights.layer))
       (gmth emit  (pos weights rate (r 5 ))
 
             (area weights.state w pos r
@@ -55,8 +71,12 @@ Values are not changed unless done so explicitly by the function as a side effec
 
             (weights.transit
              (=> (v x y)
-                 (if (> v 0) (decay-positive x y v decay )
-                     (< v 0) (decay-negative x y v decay ))))
+                 (if (< decay (Math.abs v))
+                     (if (> v 0) (decay-positive x y v decay )
+                         (< v 0) (decay-negative x y v decay ))
+                     (do
+
+                      0))))
             (.update weights)))
 
 

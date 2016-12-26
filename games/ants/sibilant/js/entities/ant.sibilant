@@ -134,21 +134,6 @@
          (property entity-type Ant)
          (init (nest color goals (decay 0.1) colonies (weights ((create State-space) sim.width sim.width)))
                (Entity-group.init.call this)
-               (assign weights.layer (.get sim.layers))
-               (each weights (w x y)
-                     (.add weights.layer
-                           (literal
-                            x y
-                            (gett weight (.get weights x y))
-                            (gett color (if (>= this.weight 0 )
-                                            color
-                                            (complement color)))
-                            (gett r this.color.red )
-                            (gett g this.color.green)
-                            (gett b this.color.blue)
-
-                            (gett a (Math.abs (* 160 this.weight)) ))))
-               (.move-up weights.layer)
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)

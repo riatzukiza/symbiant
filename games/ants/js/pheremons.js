@@ -43,9 +43,55 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
  };
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( rate = this.rate,decay = this.decay,weights = this.weights ){ 
+  init( rate = this.rate,decay = this.decay,weights = this.weights,layer = this.layer ){ 
     
-      this.rate = rate;this.decay = decay;this.weights = weights;
+      this.rate = rate;this.decay = decay;this.weights = weights;this.layer = layer;
+      this.layer = layer;
+      weights.each((w, x, y) => {
+      	
+        return weights.layer.add({ 
+          x,
+          y,
+          get weight(  ){ 
+            
+              return weights.get(x, y);
+            
+           },
+          get color(  ){ 
+            
+              return (function() {
+                if (this.weight >= 0) {
+                  return color;
+                } else {
+                  return complement(color);
+                }
+              }).call(this);
+            
+           },
+          get r(  ){ 
+            
+              return this.color.red;
+            
+           },
+          get g(  ){ 
+            
+              return this.color.green;
+            
+           },
+          get b(  ){ 
+            
+              return this.color.blue;
+            
+           },
+          get a(  ){ 
+            
+              return Math.abs((160 * this.weight));
+            
+           }
+         });
+      
+      });
+      weights.layer.moveUp();
       return this;
     
    },
@@ -68,10 +114,16 @@ const Pheremones = {
       weights.transit((v, x, y) => {
       	
         return (function() {
-          if (v > 0) {
-            return decayPositive(x, y, v, decay);
-          } else if (v < 0) {
-            return decayNegative(x, y, v, decay);
+          if (decay < Math.abs(v)) {
+            return (function() {
+              if (v > 0) {
+                return decayPositive(x, y, v, decay);
+              } else if (v < 0) {
+                return decayNegative(x, y, v, decay);
+              }
+            }).call(this);
+          } else {
+            return 0;
           }
         }).call(this);
       
