@@ -109,7 +109,7 @@ const Pheremones = {
       	
         return (function() {
           if (w < 1) {
-            this.decaying.set(world.coord.get(x, y));
+            this.decaying.add(world.coord.get(x, y));
             let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
             return weights.set(x, y, newWeight);
           }

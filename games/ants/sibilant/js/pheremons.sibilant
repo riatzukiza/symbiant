@@ -67,7 +67,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             (area weights.state w pos r
 
                       (when (< w 1)
-                        (this.decaying.set (.get world.coord x y))
+                        (this.decaying.add (.get world.coord x y))
 
                         (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
 
