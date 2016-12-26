@@ -85,7 +85,7 @@ const Ant = extend(Entity, {
   _hasDiscoveredFood( group = this.group,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+      eachWeight(world.coord, ant, (spot, i, j, x, y) => {
       	
         spot = world.collision.entities.get(spot);
         return (function() {
@@ -170,7 +170,7 @@ const Ant = extend(Entity, {
         /* eval.sibilant:65:8 */
       
         let true__QUERY = false;
-        eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+        eachWeight(world.coord, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -198,11 +198,11 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let sated__QUERY = 1;
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
-          if ((!(ent) || ent === 0)) {
+          if ((!(ent) || ent === empty || ent === 0)) {
             // let calcDevi = ((Ant.life * ant.life) / ant.genetics.deviance);
             return count += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
           }
@@ -210,11 +210,11 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
-          if ((!(ent) || ent === 0)) {
+          if ((!(ent) || ent === empty || ent === 0)) {
             sum += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
             return (function() {
               if ((rand < sum && !(done))) {
@@ -240,9 +240,9 @@ const Ant = extend(Entity, {
       (function() {
         if ((1 * ant.life) > (100 * (Ant.life + random))) {
           let newColony = create(Colony)(this.pos, { 
-            red:Math.floor((Math.random() * ((256 - 0) + 0))),
-            green:Math.floor((Math.random() * ((256 - 0) + 0))),
-            blue:Math.floor((Math.random() * ((256 - 0) + 0)))
+            red:(Math.floor((Math.random() * (256 - 0))) + 0),
+            green:(Math.floor((Math.random() * (256 - 0))) + 0),
+            blue:(Math.floor((Math.random() * (256 - 0))) + 0)
            }, weightedRandomElement(EntityGroup.groups, (group) => {
           	
             let totalLife = 0;
