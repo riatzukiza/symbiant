@@ -94,6 +94,18 @@
                                                    (gene ant deviance)))
                                    (when (and (< rand sum) (not done))
                                      (assign choice.x x choice.y y done true))) choice)
+         (generic *form-new-colony (mth) ()
+                  (let sum-groups-life (=> (group)
+                                           (let total-life 0)
+                                           (each group.entities (ent)
+                                                 (incr-by total-life ent.life)) total-life))
+                  (let new-colony ((create Colony) this.pos (random-color)
+
+                                      (weighted-random-element Entity-group.groups sum-groups-life) ))
+                  (.remove this.group this)
+                  (.add new-colony this)
+                  (do-times 3 (.*reproduce this))
+                  (assign this.color new-colony.color))
          (generic update (mth) (  group nest  life  (ant this))
                   ;; Ants are more likely to choose pheremones over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work
@@ -106,18 +118,7 @@
                   (let sated? (.*sated ant ))
 
                   (if (> (* 1 ant.life ) (* 100 (+ Ant.life random)))
-                      (do (let new-colony ((create Colony) this.pos (random-color)
-
-                                           (weighted-random-element
-                                            Entity-group.groups
-                                            (=> (group)
-                                                (let total-life 0)
-                                                (each group.entities (ent)
-                                                      (incr-by total-life ent.life)) total-life)) ))
-                        (.remove this.group this)
-                        (.add new-colony this)
-                        (do-times 3 (.*reproduce this))
-                        (assign this.color new-colony.color))
+                      (form-new-colony)
 
                    (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
@@ -126,6 +127,7 @@
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
                   (.emit Pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+
 
 (export Ant)
 

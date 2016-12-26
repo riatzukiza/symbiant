@@ -233,6 +233,31 @@ const Ant = extend(Entity, {
       return choice;
     
    },
+  _formNewColony(  ){ 
+    
+      let sumGroupsLife = (group) => {
+      	
+        let totalLife = 0;
+        group.entities.each((ent) => {
+        	
+          return totalLife += ent.life;
+        
+        });
+        return totalLife;
+      
+      };
+      let newColony = create(Colony)(this.pos, { 
+        red:Math.floor((Math.random() * ((256 - 0) + 0))),
+        green:Math.floor((Math.random() * ((256 - 0) + 0))),
+        blue:Math.floor((Math.random() * ((256 - 0) + 0)))
+       }, weightedRandomElement(EntityGroup.groups, sumGroupsLife));
+      this.group.remove(this);
+      newColony.add(this);
+      for (let time = 0;time < 3;++(time)){
+      this._reproduce()};
+      return this.color = newColony.color;
+    
+   },
   update( group = this.group,nest = this.nest,life = this.life,ant = this ){ 
     
       let x = 0;
@@ -242,26 +267,7 @@ const Ant = extend(Entity, {
       let sated__QUERY = ant._sated();
       (function() {
         if ((1 * ant.life) > (100 * (Ant.life + random))) {
-          let newColony = create(Colony)(this.pos, { 
-            red:Math.floor((Math.random() * ((256 - 0) + 0))),
-            green:Math.floor((Math.random() * ((256 - 0) + 0))),
-            blue:Math.floor((Math.random() * ((256 - 0) + 0)))
-           }, weightedRandomElement(EntityGroup.groups, (group) => {
-          	
-            let totalLife = 0;
-            group.entities.each((ent) => {
-            	
-              return totalLife += ent.life;
-            
-            });
-            return totalLife;
-          
-          }));
-          this.group.remove(this);
-          newColony.add(this);
-          for (let time = 0;time < 3;++(time)){
-          this._reproduce()};
-          return this.color = newColony.color;
+          return formNewColony();
         } else if ((2 * ant.life) > random) {
           let choice = ant.choose();
           this.move(choice.x, choice.y);
