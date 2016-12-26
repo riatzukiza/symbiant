@@ -160,5 +160,6 @@
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.delete this.colonies this))))
+
 (export Colony)
 

@@ -28,7 +28,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:36:57 */
+    /* eval.sibilant:37:57 */
   
     return weight;
   }));
@@ -88,7 +88,7 @@ const Ant = extend(Entity, {
   _hasDiscoveredFood( group = this.group,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+      eachWeight(world.coord, ant, (spot, i, j, x, y) => {
       	
         spot = world.collision.entities.get(spot);
         return (function() {
@@ -173,7 +173,7 @@ const Ant = extend(Entity, {
         /* eval.sibilant:69:8 */
       
         let true__QUERY = false;
-        eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+        eachWeight(world.coord, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -201,7 +201,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let sated__QUERY = 1;
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -213,7 +213,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -264,7 +264,7 @@ const Ant = extend(Entity, {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
+      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
       let sated__QUERY = ant._sated();
       (function() {
         if ((1 * ant.life) > (100 * (Ant.life + random))) {
@@ -308,7 +308,7 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
+      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), (this.nest.y + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), color);
       (function() {
         if (ent) {
           ent.group = this;
