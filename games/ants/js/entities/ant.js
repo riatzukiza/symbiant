@@ -251,6 +251,7 @@ const Ant = extend(Entity, {
         green:Math.floor((Math.random() * ((256 - 0) + 0))),
         blue:Math.floor((Math.random() * ((256 - 0) + 0)))
        }, weightedRandomElement(EntityGroup.groups, sumGroupsLife));
+      console.log("creating new colony", newColony);
       this.group.remove(this);
       newColony.add(this);
       for (let time = 0;time < 10;++(time)){

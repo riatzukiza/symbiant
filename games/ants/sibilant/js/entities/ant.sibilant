@@ -101,6 +101,7 @@
                                                  (incr-by total-life ent.life)) total-life))
                   (let new-colony ((create Colony) this.pos (random-color)
                                       (weighted-random-element Entity-group.groups sum-groups-life) ))
+                  (print "creating new colony" new-colony)
                   (.remove this.group this)
                   (.add new-colony this)
                   (do-times 10 (.*reproduce this))
