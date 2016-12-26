@@ -64,8 +64,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             (each world.coord (pos x y)
                   (.set decaying pos sim.ticks)))
       (gmth emit  (pos weights rate (r 5 ) decaying)
-            (let decay (=> (pos)
-                           (let v (.get weights pos.x pos.y))
+            (let decay (=> (pos v)
                            (let (literal x y) pos)
                            (if (< decay (Math.abs v))
                                (if (> v 0) (decay-positive x y v decay )
@@ -82,7 +81,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (while (and (not (= t debt))
                               (not (= w 0)))
                          (++ t)
-                         (assign w (decay coord)))
+                         (assign w (decay coord w)))
                   (.set this.decaying coord now)
 
                   (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))

@@ -110,9 +110,8 @@ const Pheremones = {
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying ){ 
     
-      let decay = (pos) => {
+      let decay = (pos, v) => {
       	
-        let v = weights.get(pos.x, pos.y);
         let { 
           x,
           y
@@ -140,14 +139,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$6 = undefined;
+          var while$7 = undefined;
           while ((!(t === debt) && !(w === 0))) {
-            while$6 = (function() {
+            while$7 = (function() {
               ++(t);
-              return w = decay(coord);
+              return w = decay(coord, w);
             }).call(this);
           };
-          return while$6;
+          return while$7;
         }).call(this);
         this.decaying.set(coord, now);
         let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
