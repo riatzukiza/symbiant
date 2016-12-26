@@ -43,7 +43,7 @@ let george = {
   x: 20,
   y: 20
 };
-let sim = create(Simulation)(120, 240, 5);
+let sim = create(Simulation)(120, 240, 2);
 global.sim = sim;
 let white = { 
   red:255,
