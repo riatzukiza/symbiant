@@ -70,7 +70,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                            (if (< decay (Math.abs v))
                                (if (> v 0) (decay-positive x y v decay )
                                    (< v 0) (decay-negative x y v decay ))
-                               (do (.delete decaying pos) 0))))
+                               (do 0))))
             (area weights.state w pos r
 
                   (let coord (.get world.coord x y))
