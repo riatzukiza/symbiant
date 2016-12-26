@@ -191,6 +191,8 @@ const RunIndexedArray = {
           return this.search(i, (m + 1) = right);
         } else if (t.between__QUERY(i)) {
           return t;
+        } else {
+          throw (new Error("this is not supose to happen, binary search failed fataly"))
         }
       }).call(this);
     
@@ -242,14 +244,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$28 = undefined;
+          var while$29 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$28 = (function() {
+            while$29 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$28;
+          return while$29;
         }).call(this);
         return (function() {
           if (w < 1) {
