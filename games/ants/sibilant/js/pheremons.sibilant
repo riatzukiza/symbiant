@@ -67,14 +67,23 @@ Values are not changed unless done so explicitly by the function as a side effec
           (do 0)))
 ;; used to index non-empty runs of data in an array
 (type Run-index-point
-      (init (array start end))
+      (init (array value start end ))
+      (generic run? (mth) (n)
+               ;; (n == 0) == false ;;case where given 0, and the run is negative.
+               (= this.value (= n 0)))
       (generic each (mth!) (callback start end array)
                (loop (collect r this)
                      (for (let i start) (< start end) (++i))
                      (callback (get array i) i))))
 (type Run-indexed-array
       (init (array (indexes []))
-            ))
+            (let run ((create Run-index-point) array false 0 0 ))
+            (.each array (=> (el i)
+                             (if (.run? run el)
+                                 (++ run.end)
+                                 (indexes.push (assign run ((create Run-index-point) array (not run.value) i i )))))))
+      (gmth each (f indexes)
+            (indexes.each (=> (run) (if run.value (.each run f))))))
 (type Pheremones
       (init (color decay  layer (decaying (new Map))
 

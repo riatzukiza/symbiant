@@ -117,10 +117,15 @@ var decay = (function decay$(coord, v, decay) {
 });
 const RunIndexPoint = { 
   symbol:Symbol("RunIndexPoint"),
-  init( array = this.array,start = this.start,end = this.end ){ 
+  init( array = this.array,value = this.value,start = this.start,end = this.end ){ 
     
-      this.array = array;this.start = start;this.end = end;
+      this.array = array;this.value = value;this.start = start;this.end = end;
       return this;
+    
+   },
+  run__QUERY( n = this.n ){ 
+    
+      return this.value === n === 0;
     
    },
   each( callback = this.callback,start = this.start,end = this.end,array = this.array ){ 
@@ -139,7 +144,32 @@ const RunIndexedArray = {
   init( array = this.array,indexes = [] ){ 
     
       this.array = array;this.indexes = indexes;
+      let run = create(RunIndexPoint)(array, false, 0, 0);
+      array.each((el, i) => {
+      	
+        return (function() {
+          if (run.run__QUERY(el)) {
+            return ++(run.end);
+          } else {
+            return indexes.push(run = create(RunIndexPoint)(array, !(run.value), i, i););
+          }
+        }).call(this);
+      
+      });
       return this;
+    
+   },
+  each( f = this.f,indexes = this.indexes ){ 
+    
+      return indexes.each((run) => {
+      	
+        return (function() {
+          if (run.value) {
+            return run.each(f);
+          }
+        }).call(this);
+      
+      });
     
    }
  };
@@ -167,14 +197,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$24 = undefined;
+          var while$25 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$24 = (function() {
+            while$25 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$24;
+          return while$25;
         }).call(this);
         return (function() {
           if (w < 1) {
