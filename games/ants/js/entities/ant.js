@@ -201,15 +201,13 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let sated__QUERY = 1;
-      let cache = (new Map());
       eachInArea(group.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            let v = (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
-            cache.set(ent, v);
-            return count += v;
+            // let calcDevi = ((Ant.life * ant.life) / ant.genetics.deviance);
+            return count += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
           }
         }).call(this);
       
@@ -220,7 +218,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            sum += cache.get(ent);
+            sum += (w * sated__QUERY * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
             return (function() {
               if ((rand < sum && !(done))) {
                 choice.x = x;
