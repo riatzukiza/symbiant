@@ -7,7 +7,6 @@
 ;; so the ants will tend towards the shortest path.
 
 
-
 (import ( create extend mixin) "./util")
 (import (State-space) "./state-space")
 (import (euclidian-distance) "./math")

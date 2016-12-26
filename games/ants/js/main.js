@@ -5,18 +5,40 @@ socket.on("change", () => {
   return location.reload();
 
 });
-var euclidianDistance() = require("./math")["euclidianDistance()"];
-var create(extend, mixin) = require("./util")["create(extend, mixin)"];
+const { 
+  euclidianDistance
+ } = require("./math");
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
 const $ = require("jquery/dist/jquery.min.js");
 const fs = require("browserify-fs");
-var Matrix() = require("./matrix")["Matrix()"];
-var StateSpace() = require("./state-space")["StateSpace()"];
-var Simulation() = require("./simulation")["Simulation()"];
-var Display() = require("./display")["Display()"];
-var Layer() = require("./layer")["Layer()"];
-var Pheremones() = require("./pheremons")["Pheremones()"];
-var complement() = require("./color")["complement()"];
-var weightedRandomElement() = require("./random")["weightedRandomElement()"];
+const { 
+  Matrix
+ } = require("./matrix");
+const { 
+  StateSpace
+ } = require("./state-space");
+const { 
+  Simulation
+ } = require("./simulation");
+const { 
+  Display
+ } = require("./display");
+const { 
+  Layer
+ } = require("./layer");
+const { 
+  Pheremones
+ } = require("./pheremons");
+const { 
+  complement
+ } = require("./color");
+const { 
+  weightedRandomElement
+ } = require("./random");
 let george = {
   x: 20,
   y: 20
@@ -42,17 +64,28 @@ let choice = {
   x: 60,
   y: 60
 };
-var Collision() = require("./systems/collision")["Collision()"];
-var World() = require("./systems/world")["World()"];
+const { 
+  Collision
+ } = require("./systems/collision");
+const { 
+  World
+ } = require("./systems/world");
 const Rendering = { 
   symbol:Symbol("Rendering"),
   entities:sim.layers.get(),
   weights:[]
  };
 global.world = create(World)(sim.coord, Rendering);
-var Entity() = require("./ecs/entity")["Entity()"];
-var EntityGroup() = require("./ecs/group")["EntityGroup()"];
-var Ant(Colony) = require("./entities/ant")["Ant(Colony)"];
+const { 
+  Entity
+ } = require("./ecs/entity");
+const { 
+  EntityGroup
+ } = require("./ecs/group");
+const { 
+  Ant,
+  Colony
+ } = require("./entities/ant");
 Entity.empty = empty;
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
@@ -64,7 +97,7 @@ const Plant = extend(Entity, {
         if (Math.round(Math.random()) === 1) {
           var rx = (Math.round(Math.random()) === 1) ? 1 : -1;
           var ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-          return this.group.spawn((pos.x + (Math.floor((Math.random() * (2 - 0))) + 0) + rx), (pos.y + (Math.floor((Math.random() * (2 - 0))) + 0) + ry), this.color);
+          return this.group.spawn((pos.x + Math.floor((Math.random() * ((2 - 0) + 0))) + rx), (pos.y + Math.floor((Math.random() * ((2 - 0) + 0))) + ry), this.color);
         }
       }).call(this);
     
@@ -75,13 +108,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:132:0 */
+  /* Map.prototype.each eval.sibilant:135:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:134:0 */
+  /* start eval.sibilant:137:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({

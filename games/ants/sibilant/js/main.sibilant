@@ -1,6 +1,9 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+
+(macro import (thing from)
+       `(const (literal ...@(content-of thing)) (require @from)))
 (let socket (io "/ants"))
 (on socket "change" () (print "change ") (.reload location))
 (macro describe-table ( describers ...body)
