@@ -2,7 +2,6 @@
 (import (Matrix) "./matrix")
 
 (type State-space
-
       (init (width height
                    (state (all-zero height width)) ;; The current, immutable, state of this section of the simulation.
                    (transition (all-zero height width))) ;; The swap space used to generate the next state of the simulation
