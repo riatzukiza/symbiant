@@ -126,7 +126,7 @@
                         (if (.*has-discovered-food  ant ) (.*eat ant )
                             sated? (if (.*near-nest  ant) (.*reproduce ant))))
                       (.*die ant))
-                  (.emit this.group.pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 7)))
+                  (.emit this.group.pheremones ant.pos group.weights (* (gene ant rate) (* 0.1 (/ ant.life Ant.life))) 20)))
 
 
 (export Ant)

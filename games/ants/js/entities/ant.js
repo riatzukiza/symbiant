@@ -287,7 +287,7 @@ const Ant = extend(Entity, {
           return ant._die();
         }
       }).call(this);
-      return this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 7);
+      return this.group.pheremones.emit(ant.pos, group.weights, (ant.genetics.rate * (0.1 * (ant.life / Ant.life))), 20);
     
    }
  });
