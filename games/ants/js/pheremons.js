@@ -214,8 +214,8 @@ const RunIndexedArray = {
               --(t.prev.end);
               return --(t.start);
             } else if (i === t.next.start) {
-              --(t.prev.end);
-              return --(t.start);
+              ++(t.prev.end);
+              return ++(t.start);
             }
           }).call(this);
         }
@@ -289,14 +289,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$3 = undefined;
+          var while$4 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$3 = (function() {
+            while$4 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$3;
+          return while$4;
         }).call(this);
         return (function() {
           if (w < 1) {
