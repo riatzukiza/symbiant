@@ -162,9 +162,9 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         w = decay(coord, w, (debt * rate));
+        this.decaying.set(coord, now);
         return (function() {
           if (w < 1) {
-            this.decaying.set(coord, now);
             let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
             return weights.set(x, y, newWeight);
           }

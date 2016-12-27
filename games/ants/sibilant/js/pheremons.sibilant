@@ -89,9 +89,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let debt (- now last-time-visited))
                   (let t 0)
                   (assign w (decay coord w (* debt rate)))
+                  (.set this.decaying coord now)
                   (when (< w 1)
 
-                    (.set this.decaying coord now)
 
 
                     (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
