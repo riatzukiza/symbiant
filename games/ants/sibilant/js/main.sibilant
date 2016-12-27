@@ -52,7 +52,6 @@
 
 ;;(import (Entity) "./ecs/entity")
 
-(import (Layer) "./layer" )
 (import (Pheremones) "./pheremons")
 (import (complement) "./color")
 (import (weighted-random-element) "./random")
