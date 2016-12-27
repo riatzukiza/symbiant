@@ -7,11 +7,7 @@
                                   (do ...@body)))
 
 (macro area (space el-name center size ...body)
-
-       `( @space @center
-
-                     (=> (@el-name i j x y)
-                         ...@body) @size ))
+       `(each-in-area @space @center (=> (@el-name i j x y) ...@body) @size ))
 
 (macro adjacent (matrix value-name center ...body)
        `(area @matrix @value-name @center 3 ...@body))
