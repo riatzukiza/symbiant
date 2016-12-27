@@ -1,8 +1,0 @@
-
-(type Genetics
-      (generic mutate (mth) (ant weights nest)
-               ;; me think mutations aughta be put into some fancy ass abstraction some where.
-               (.emit Weight-field ant weights (- (gene ant rate)))
-               (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
-               (mutate ant (return-rate find-rate deviance rate) )
-               (assign ant.life Ant.life )))
