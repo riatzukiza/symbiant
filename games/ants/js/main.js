@@ -25,9 +25,6 @@ const {
   Simulation
  } = require("./simulation");
 const { 
-  Display
- } = require("./display");
-const { 
   Layer
  } = require("./layer");
 const { 
@@ -109,13 +106,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:136:0 */
+  /* Map.prototype.each eval.sibilant:135:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:138:0 */
+  /* start eval.sibilant:137:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({

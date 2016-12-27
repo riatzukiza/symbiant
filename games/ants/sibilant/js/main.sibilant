@@ -52,7 +52,6 @@
 
 ;;(import (Entity) "./ecs/entity")
 
-(import (Display) "./display" )
 (import (Layer) "./layer" )
 (import (Pheremones) "./pheremons")
 (import (complement) "./color")
