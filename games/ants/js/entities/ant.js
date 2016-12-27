@@ -36,7 +36,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:14:0 */
+  /* matrix-center eval.sibilant:15:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -133,7 +133,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:38:8 */
+        /* eval.sibilant:37:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, ant, (spot, i, j, x, y) => {
