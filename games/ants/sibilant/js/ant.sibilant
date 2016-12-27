@@ -3,7 +3,10 @@
 (import (Matrix) "./matrix")
 (import ( create extend mixin) "./util")
 (import (State-space) "./state-space")
-
+(macro random-signed (max)
+       `(scoped
+         (let rand (random-float 0 @max))
+         (- @max (/ rand 2))))
 
 (let yellow {
   red 255 green 255 blue 0
