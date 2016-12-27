@@ -156,4 +156,3 @@ let yellow = {
   green: 255,
   blue: 0
 };
-const List = require("../../list.js");

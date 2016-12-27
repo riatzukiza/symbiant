@@ -143,6 +143,7 @@
   (do-times 100 (.random plants  ))
   ;;(interface sim)
 
+
   (on (sim.start) "tick" (now ticks)
       (every 120 ticks (.update plants))
       (every 2 ticks (each Colony.colonies (col) (.update col)))
