@@ -27,6 +27,7 @@ let choose = ((tlayer) => (clayer) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Layers {
     constructor(p, id, srcSize, scale, gl) {
+        console.trace("CREATED A LAYERS")
         this._parent = p;
         this._canvas = document.createElement('canvas');
         this._gl = gl = this._canvas.getContext("webgl");

@@ -39,6 +39,9 @@
 
                                       ...@body)
                                 (.append @container table)))
+(macro do-times (n ...body)
+       `(for (let i 0) (< i @n) (++ i)
+             ...@body))
 (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 ;; Libs
 (import (euclidian-distance) "./math")

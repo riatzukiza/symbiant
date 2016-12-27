@@ -103,13 +103,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:134:0 */
+  /* Map.prototype.each eval.sibilant:137:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:136:0 */
+  /* start eval.sibilant:139:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -121,9 +121,9 @@ var start = (function start$(sim) {
     blue:0
    }, plants);
   global.sim = sim;
-  for (let time = 0;time < 10;++(time)){
+  for (let i = 0;i < 10;++(i)){
   reds.spawn()};
-  for (let time = 0;time < 100;++(time)){
+  for (let i = 0;i < 100;++(i)){
   plants.random()};
   return sim.start().on("tick", (now, ticks) => {
   	

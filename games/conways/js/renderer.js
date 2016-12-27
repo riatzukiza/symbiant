@@ -65,11 +65,7 @@ var matrixCenter = (function matrixCenter$(width, height) {
 var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, weight = 1, c = 0) {
   /* moore-neighborhood deps.sibilant:61:8 */
 
-  let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:36:57 */
-  
-    return weight;
-  }));
+  let m = allns(w, h, weight);
   m.array[matrixCenter(w, h)] = c;
   return m;
 });

@@ -49,11 +49,7 @@ const {
 //     
 //    },
 //   set( x = this.x,y = this.y,color = this.color,imageData = this.imageData,width = this.width,height = this.height,cellSize = this.cellSize ){ 
-//     "set the transition value of the pixel at the given x and y."// for (let time = 0;time < (cellSize * cellSize);++(time)){
-//     // imageData[((x * width * time) + y + 0)] = color.red;;
-//     // imageData[((x * width * time) + y + 1)] = color.green;;
-//     // imageData[((x * width * time) + y + 2)] = color.blue;;
-//     // imageData[((x * width * time) + y + 3)] = 0;}
+//     "set the transition value of the pixel at the given x and y."// doTimes((cellSize * cellSize), imageData[((x * width * time) + y + 0)] = color.red;, imageData[((x * width * time) + y + 1)] = color.green;, imageData[((x * width * time) + y + 2)] = color.blue;, imageData[((x * width * time) + y + 3)] = 0;)
 //    },
 //   get( x = this.x,y = this.y,wdith = this.wdith,height = this.height ){ 
 //     imageData[((x * width) + y + 0)]imageData[((x * width) + y + 1)]imageData[((x * width) + y + 2)]imageData[((x * width) + y + 3)]
