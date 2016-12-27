@@ -103,13 +103,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:105:0 */
+  /* Map.prototype.each eval.sibilant:104:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:107:0 */
+  /* start eval.sibilant:106:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
