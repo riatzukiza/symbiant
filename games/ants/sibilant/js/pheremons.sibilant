@@ -61,11 +61,11 @@ Values are not changed unless done so explicitly by the function as a side effec
                (gett a (Math.abs (* 160 this.weight)) ))))
   (.move-up layer))
 
-(def decay  (coord v decay)
+(def decay  (coord v decay )
       (let (literal x y) coord)
       (if (< decay (Math.abs v))
-          (if (> v 0) (decay-positive x y v decay )
-              (< v 0) (decay-negative x y v decay ))
+          (if (> v 0) (- v decay)
+              (< v 0) (+ v decay))
           (do 0)))
 ;; used to index non-empty runs of data in an array
 (def memoize (f)
@@ -88,9 +88,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let now sim.ticks)
                   (let debt (- now last-time-visited))
                   (let t 0)
-                  (while (and (< t debt) (not (= w 0)))
-                         (++ t)
-                         (assign w (decay coord w rate)))
+                  (assign w (decay coord w (* debt rate)))
                   (when (< w 1)
 
                     (.set this.decaying coord now)

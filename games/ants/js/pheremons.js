@@ -106,9 +106,9 @@ var decay = (function decay$(coord, v, decay) {
     if (decay < Math.abs(v)) {
       return (function() {
         if (v > 0) {
-          return decayPositive(x, y, v, decay);
+          return (v - decay);
         } else if (v < 0) {
-          return decayNegative(x, y, v, decay);
+          return (v + decay);
         }
       }).call(this);
     } else {
@@ -161,16 +161,7 @@ const Pheremones = {
         let now = sim.ticks;
         let debt = (now - lastTimeVisited);
         let t = 0;
-        (function() {
-          var while$2 = undefined;
-          while ((t < debt && !(w === 0))) {
-            while$2 = (function() {
-              ++(t);
-              return w = decay(coord, w, rate);
-            }).call(this);
-          };
-          return while$2;
-        }).call(this);
+        w = decay(coord, w, (debt * rate));
         return (function() {
           if (w < 1) {
             this.decaying.set(coord, now);
