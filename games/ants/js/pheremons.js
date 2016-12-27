@@ -170,7 +170,7 @@ const RunIndexedArray = {
       	
         return (function() {
           if (run.has(el)) {
-            return ++(run.end);
+            return run.end = i;
           } else {
             run = create(RunIndexPoint)(array, !(run.value), i, i, run);
             return indexes.push(run);
@@ -206,13 +206,16 @@ const RunIndexedArray = {
   set( i = this.i,v = this.v,array = this.array ){ 
     
       let t = search(this, i);
+      array[i] = v;
       return (function() {
         if (t.has(v)) {
-          return array[i] = v;
-        } else {
           return (function() {
-            {
-              return i === t.prev.start;
+            if (i === t.prev.end) {
+              --(t.prev.end);
+              return --(t.start);
+            } else if (i === t.next.start) {
+              --(t.prev.end);
+              return --(t.start);
             }
           }).call(this);
         }
@@ -241,7 +244,7 @@ const RunIndexedArray = {
    }
  };
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:118:0 */
+  /* memoize eval.sibilant:121:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -286,14 +289,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$36 = undefined;
+          var while$3 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$36 = (function() {
+            while$3 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$36;
+          return while$3;
         }).call(this);
         return (function() {
           if (w < 1) {
