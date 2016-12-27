@@ -9,6 +9,47 @@
 (macro do-times (n ...body)
        `(for (let i 0) (< i @n) (++ i)
              ...@body))
+
+(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
+                                  (do ...@body)))
+
+
+(macro area (space el-name center size ...@body)
+
+       `(each-weight @space @center
+
+                     (=> (@el-name i j x y)
+                         ...@body) @size ))
+
+(macro adjacent (matrix value-name center ...body)
+       `(area @matrix @value-name @center 3 ...@body))
+
+(macro if-valid-move (ent ...body )
+       `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
+
+(macro each-valid-move (ent space ...rest)
+
+       `(adjacent @space w @ent
+
+                  (let ent (.get collision x y))
+
+                  (if-valid-move
+                   ent
+                   ...@rest)))
+(macro all-zero (w h) `(.dmap ((create Matrix) (new Float32Array (* @w @h)) @w @h) (lambda () 0) ))
+(macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
+
+(macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
+
+(macro random-signed (max)
+       `(scoped
+         (let rand (random-float 0 @max))
+         (- @max (/ rand 2))))
+(macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
+(macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
+
+(macro do-times (x ...body)
+       `(loop (for (let time 0) (< time @x) (++ time) ...@body)))
 (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
 ;; Libs
 (import (euclidian-distance) "./math")

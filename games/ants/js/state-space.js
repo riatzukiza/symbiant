@@ -8,12 +8,12 @@ const {
  } = require("./matrix");
 const StateSpace = { 
   symbol:Symbol("StateSpace"),
-  init( width = this.width,height = this.height,state = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:16:57 */
+  init( width = this.width,height = this.height,state = create(Matrix)((new Float32Array((height * width))), height, width).dmap((function() {
+    /* eval.sibilant:39:83 */
   
     return 0;
-  })),transition = create(Matrix)([], height, width).dmap((function() {
-    /* eval.sibilant:16:57 */
+  })),transition = create(Matrix)((new Float32Array((height * width))), height, width).dmap((function() {
+    /* eval.sibilant:39:83 */
   
     return 0;
   })) ){ 

@@ -57,7 +57,7 @@ var interface = (function interface$(sim) {
       })(context);
       ;
       (function() {
-        /* eval.sibilant:12:24 */
+        /* eval.sibilant:10:8 */
       
         var table = $("<table>");
         let headerRow = $("<tr>");
@@ -68,14 +68,14 @@ var interface = (function interface$(sim) {
         	
           var row = $("<tr>");
           let name = (function() {
-            /* eval.sibilant:32:50 */
+            /* eval.sibilant:30:34 */
           
             let colData = $("<td> ").text(c.name);
             row.append(colData);
             return colData;
           }).call(this);
           let numbers = (function() {
-            /* eval.sibilant:32:50 */
+            /* eval.sibilant:30:34 */
           
             let colData = $("<td> ").text(c.ants.size);
             row.append(colData);

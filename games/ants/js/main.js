@@ -92,7 +92,7 @@ const Plant = extend(Entity, {
         if (Math.round(Math.random()) === 1) {
           var rx = (Math.round(Math.random()) === 1) ? 1 : -1;
           var ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-          return this.group.spawn((pos.x + Math.floor((Math.random() * ((2 - 0) + 0))) + rx), (pos.y + Math.floor((Math.random() * ((2 - 0) + 0))) + ry), this.color);
+          return this.group.spawn((pos.x + (Math.floor((Math.random() * (2 - 0))) + 0) + rx), (pos.y + (Math.floor((Math.random() * (2 - 0))) + 0) + ry), this.color);
         }
       }).call(this);
     
@@ -103,13 +103,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:104:0 */
+  /* Map.prototype.each eval.sibilant:145:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:106:0 */
+  /* start eval.sibilant:147:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -121,9 +121,9 @@ var start = (function start$(sim) {
     blue:0
    }, plants);
   global.sim = sim;
-  for (let i = 0;i < 10;++(i)){
+  for (let time = 0;time < 10;++(time)){
   reds.spawn()};
-  for (let i = 0;i < 100;++(i)){
+  for (let time = 0;time < 100;++(time)){
   plants.random()};
   return sim.start().on("tick", (now, ticks) => {
   	
