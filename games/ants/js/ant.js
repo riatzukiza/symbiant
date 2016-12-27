@@ -15,7 +15,6 @@ const {
 const { 
   StateSpace
  } = require("./state-space");
-console.log(File);
 let yellow = {
   red: 255,
   green: 255,
@@ -25,7 +24,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:36:57 */
+    /* eval.sibilant:40:57 */
   
     return weight;
   }));
@@ -33,7 +32,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:33:0 */
+  /* matrix-center eval.sibilant:32:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -75,7 +74,7 @@ const Ant = {
       this.x = x;this.y = y;this.ants = ants;this.goals = goals;this.id = id;this.color = color;this.nest = nest;this.weights = weights;this.collision = collision;this.display = display;this.ant = ant;this.life = life;
       this.genetics = { 
         deviance:(function() {
-          /* eval.sibilant:46:8 */
+          /* eval.sibilant:45:8 */
         
           let rand = ((Math.random() * (0.1 - 0)) + 0);
           return (0.1 - (rand / 2));
@@ -83,13 +82,13 @@ const Ant = {
         rate:((Math.random() * (0.5 - 0)) + 0),
         mutationFactor:((Math.random() * (0.5 - 0)) + 0),
         findRate:(function() {
-          /* eval.sibilant:46:8 */
+          /* eval.sibilant:45:8 */
         
           let rand = ((Math.random() * (1 - 0)) + 0);
           return (1 - (rand / 2));
         }).call(this),
         returnRate:(function() {
-          /* eval.sibilant:46:8 */
+          /* eval.sibilant:45:8 */
         
           let rand = ((Math.random() * (1 - 0)) + 0);
           return (1 - (rand / 2));
@@ -97,7 +96,7 @@ const Ant = {
         kernel:mooreNeighborhood(3, 3).dmap(() => {
         	
           return (function() {
-            /* eval.sibilant:46:8 */
+            /* eval.sibilant:45:8 */
           
             let rand = ((Math.random() * (1 - 0)) + 0);
             return (1 - (rand / 2));
@@ -154,7 +153,7 @@ const Ant = {
   _hasDiscoveredFood( goals = this.goals,collision = this.collision,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachInArea(collision, ant, (spot, i, j, x, y) => {
+      eachWeight(collision, ant, (spot, i, j, x, y) => {
       	
         return (function() {
           if ((goals.has(spot) && this.life < 1000)) {
@@ -198,7 +197,7 @@ const Ant = {
       ant.genetics.kernel.dmap((x) => {
       	
         return (x * (function() {
-          /* eval.sibilant:46:8 */
+          /* eval.sibilant:45:8 */
         
           let rand = ((Math.random() * (0.2 - 0)) + 0);
           return (0.2 - (rand / 2));
@@ -206,22 +205,22 @@ const Ant = {
       
       });
       ant.genetics.returnRate = (ant.genetics.returnRate + (function() {
-        /* eval.sibilant:46:8 */
+        /* eval.sibilant:45:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.findRate = (ant.genetics.findRate + (function() {
-        /* eval.sibilant:46:8 */
+        /* eval.sibilant:45:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.deviance = (ant.genetics.deviance + (function() {
-        /* eval.sibilant:46:8 */
+        /* eval.sibilant:45:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
       }).call(this));ant.genetics.rate = (ant.genetics.rate + (function() {
-        /* eval.sibilant:46:8 */
+        /* eval.sibilant:45:8 */
       
         let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
         return (ant.genetics.mutationFactor - (rand / 2));
@@ -237,10 +236,10 @@ const Ant = {
   _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
     
       return (function() {
-        /* eval.sibilant:13:8 */
+        /* eval.sibilant:12:8 */
       
         let true__QUERY = false;
-        eachInArea(collision, ant, (spot, i, j, x, y) => {
+        eachWeight(collision, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -268,7 +267,7 @@ const Ant = {
         }
       }).call(this);
       let sated__QUERY = (ant._sated()) ? -1 : 1;
-      eachInArea(weights, ant, (w, i, j, x, y) => {
+      eachWeight(weights, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -279,7 +278,7 @@ const Ant = {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(weights, ant, (w, i, j, x, y) => {
+      eachWeight(weights, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -304,7 +303,7 @@ const Ant = {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
+      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
       let sated__QUERY = ant._sated();
       (function() {
         if ((2 * ant.life) > random) {

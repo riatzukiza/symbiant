@@ -4,7 +4,6 @@
 (import ( create extend mixin) "./util")
 (import (State-space) "./state-space")
 
-(print File)
 
 (let yellow {
   red 255 green 255 blue 0
