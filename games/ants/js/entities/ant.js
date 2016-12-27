@@ -28,7 +28,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:36:57 */
+    /* eval.sibilant:40:57 */
   
     return weight;
   }));
@@ -36,7 +36,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:15:0 */
+  /* matrix-center eval.sibilant:16:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -51,14 +51,34 @@ const Ant = extend(Entity, {
     
       this.pos = pos;this.color = color;this.life = life;this.ant = ant;
       this.genetics = { 
-        deviance:randomSigned(0.1),
-        rate:randomFloat(0, 0.5),
-        mutationFactor:randomFloat(0, 0.5),
-        findRate:randomSigned(1),
-        returnRate:randomSigned(1),
+        deviance:(function() {
+          /* eval.sibilant:7:8 */
+        
+          let rand = ((Math.random() * (0.1 - 0)) + 0);
+          return (0.1 - (rand / 2));
+        }).call(this),
+        rate:((Math.random() * (0.5 - 0)) + 0),
+        mutationFactor:((Math.random() * (0.5 - 0)) + 0),
+        findRate:(function() {
+          /* eval.sibilant:7:8 */
+        
+          let rand = ((Math.random() * (1 - 0)) + 0);
+          return (1 - (rand / 2));
+        }).call(this),
+        returnRate:(function() {
+          /* eval.sibilant:7:8 */
+        
+          let rand = ((Math.random() * (1 - 0)) + 0);
+          return (1 - (rand / 2));
+        }).call(this),
         kernel:mooreNeighborhood(3, 3).dmap(() => {
         	
-          return randomSigned(1);
+          return (function() {
+            /* eval.sibilant:7:8 */
+          
+            let rand = ((Math.random() * (1 - 0)) + 0);
+            return (1 - (rand / 2));
+          }).call(this);
         
         })
        };
@@ -68,7 +88,7 @@ const Ant = extend(Entity, {
   _hasDiscoveredFood( group = this.group,ant = this.ant ){ 
     
       let true__QUERY = false;
-      eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+      eachWeight(world.coord, ant, (spot, i, j, x, y) => {
       	
         spot = world.collision.entities.get(spot);
         return (function() {
@@ -110,10 +130,35 @@ const Ant = extend(Entity, {
       this.group.foodWeights.emit(ant.pos, group.weights, (ant.genetics.rate));
       ant.genetics.kernel.dmap((x) => {
       	
-        return (x * randomSigned(0.2));
+        return (x * (function() {
+          /* eval.sibilant:7:8 */
+        
+          let rand = ((Math.random() * (0.2 - 0)) + 0);
+          return (0.2 - (rand / 2));
+        }).call(this));
       
       });
-      ant.genetics.returnRate = (ant.genetics.returnRate + randomSigned(ant.genetics.mutationFactor));ant.genetics.findRate = (ant.genetics.findRate + randomSigned(ant.genetics.mutationFactor));ant.genetics.deviance = (ant.genetics.deviance + randomSigned(ant.genetics.mutationFactor));ant.genetics.rate = (ant.genetics.rate + randomSigned(ant.genetics.mutationFactor));
+      ant.genetics.returnRate = (ant.genetics.returnRate + (function() {
+        /* eval.sibilant:7:8 */
+      
+        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
+        return (ant.genetics.mutationFactor - (rand / 2));
+      }).call(this));ant.genetics.findRate = (ant.genetics.findRate + (function() {
+        /* eval.sibilant:7:8 */
+      
+        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
+        return (ant.genetics.mutationFactor - (rand / 2));
+      }).call(this));ant.genetics.deviance = (ant.genetics.deviance + (function() {
+        /* eval.sibilant:7:8 */
+      
+        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
+        return (ant.genetics.mutationFactor - (rand / 2));
+      }).call(this));ant.genetics.rate = (ant.genetics.rate + (function() {
+        /* eval.sibilant:7:8 */
+      
+        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
+        return (ant.genetics.mutationFactor - (rand / 2));
+      }).call(this));
       return ant.life = Ant.life;
     
    },
@@ -133,10 +178,10 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:37:8 */
+        /* eval.sibilant:17:8 */
       
         let true__QUERY = false;
-        eachInArea(world.coord, ant, (spot, i, j, x, y) => {
+        eachWeight(world.coord, ant, (spot, i, j, x, y) => {
         	
           return (function() {
             if ((nest.x === x && nest.y === y)) {
@@ -164,7 +209,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let weights = null;
-      eachInArea(this.seeking.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(this.seeking.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -176,7 +221,7 @@ const Ant = extend(Entity, {
       
       }, 3);
       let rand = (count * Math.random());
-      eachInArea(this.seeking.weights.state, ant, (w, i, j, x, y) => {
+      eachWeight(this.seeking.weights.state, ant, (w, i, j, x, y) => {
       	
         let ent = collision.get(x, y);
         return (function() {
@@ -210,14 +255,14 @@ const Ant = extend(Entity, {
       
       };
       let newColony = create(Colony)(this.pos, { 
-        red:Math.floor((Math.random() * ((256 - 0) + 0))),
-        green:Math.floor((Math.random() * ((256 - 0) + 0))),
-        blue:Math.floor((Math.random() * ((256 - 0) + 0)))
+        red:(Math.floor((Math.random() * (256 - 0))) + 0),
+        green:(Math.floor((Math.random() * (256 - 0))) + 0),
+        blue:(Math.floor((Math.random() * (256 - 0))) + 0)
        }, weightedRandomElement(EntityGroup.groups, sumGroupsLife));
       console.log("creating new colony", newColony);
       this.group.remove(this);
       newColony.add(this);
-      for (let i = 0;i < 10;++(i)){
+      for (let time = 0;time < 10;++(time)){
       this._reproduce()};
       return this.color = newColony.color;
     
@@ -227,7 +272,7 @@ const Ant = extend(Entity, {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
+      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
       let sated__QUERY = ant._sated();
       // (1 * ant.life) > (100 * (Ant.life + random));
       (function() {
@@ -279,7 +324,7 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
+      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), (this.nest.y + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), color);
       (function() {
         if (ent) {
           ent.group = this;
