@@ -51,34 +51,14 @@ const Ant = extend(Entity, {
     
       this.pos = pos;this.color = color;this.life = life;this.ant = ant;
       this.genetics = { 
-        deviance:(function() {
-          /* eval.sibilant:36:8 */
-        
-          let rand = ((Math.random() * (0.1 - 0)) + 0);
-          return (0.1 - (rand / 2));
-        }).call(this),
-        rate:((Math.random() * (0.5 - 0)) + 0),
-        mutationFactor:((Math.random() * (0.5 - 0)) + 0),
-        findRate:(function() {
-          /* eval.sibilant:36:8 */
-        
-          let rand = ((Math.random() * (1 - 0)) + 0);
-          return (1 - (rand / 2));
-        }).call(this),
-        returnRate:(function() {
-          /* eval.sibilant:36:8 */
-        
-          let rand = ((Math.random() * (1 - 0)) + 0);
-          return (1 - (rand / 2));
-        }).call(this),
+        deviance:randomSigned(0.1),
+        rate:randomFloat(0, 0.5),
+        mutationFactor:randomFloat(0, 0.5),
+        findRate:randomSigned(1),
+        returnRate:randomSigned(1),
         kernel:mooreNeighborhood(3, 3).dmap(() => {
         	
-          return (function() {
-            /* eval.sibilant:36:8 */
-          
-            let rand = ((Math.random() * (1 - 0)) + 0);
-            return (1 - (rand / 2));
-          }).call(this);
+          return randomSigned(1);
         
         })
        };
@@ -130,35 +110,10 @@ const Ant = extend(Entity, {
       this.group.foodWeights.emit(ant.pos, group.weights, (ant.genetics.rate));
       ant.genetics.kernel.dmap((x) => {
       	
-        return (x * (function() {
-          /* eval.sibilant:36:8 */
-        
-          let rand = ((Math.random() * (0.2 - 0)) + 0);
-          return (0.2 - (rand / 2));
-        }).call(this));
+        return (x * randomSigned(0.2));
       
       });
-      ant.genetics.returnRate = (ant.genetics.returnRate + (function() {
-        /* eval.sibilant:36:8 */
-      
-        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
-        return (ant.genetics.mutationFactor - (rand / 2));
-      }).call(this));ant.genetics.findRate = (ant.genetics.findRate + (function() {
-        /* eval.sibilant:36:8 */
-      
-        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
-        return (ant.genetics.mutationFactor - (rand / 2));
-      }).call(this));ant.genetics.deviance = (ant.genetics.deviance + (function() {
-        /* eval.sibilant:36:8 */
-      
-        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
-        return (ant.genetics.mutationFactor - (rand / 2));
-      }).call(this));ant.genetics.rate = (ant.genetics.rate + (function() {
-        /* eval.sibilant:36:8 */
-      
-        let rand = ((Math.random() * (ant.genetics.mutationFactor - 0)) + 0);
-        return (ant.genetics.mutationFactor - (rand / 2));
-      }).call(this));
+      ant.genetics.returnRate = (ant.genetics.returnRate + randomSigned(ant.genetics.mutationFactor));ant.genetics.findRate = (ant.genetics.findRate + randomSigned(ant.genetics.mutationFactor));ant.genetics.deviance = (ant.genetics.deviance + randomSigned(ant.genetics.mutationFactor));ant.genetics.rate = (ant.genetics.rate + randomSigned(ant.genetics.mutationFactor));
       return ant.life = Ant.life;
     
    },
@@ -178,7 +133,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:67:8 */
+        /* eval.sibilant:38:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, ant, (spot, i, j, x, y) => {
@@ -262,7 +217,7 @@ const Ant = extend(Entity, {
       console.log("creating new colony", newColony);
       this.group.remove(this);
       newColony.add(this);
-      for (let time = 0;time < 10;++(time)){
+      for (let i = 0;i < 10;++(i)){
       this._reproduce()};
       return this.color = newColony.color;
     
@@ -301,6 +256,9 @@ const Ant = extend(Entity, {
    }
  });
 exports.Ant = Ant;
+const { 
+  EventEmitter
+ } = require("events");
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
@@ -309,9 +267,9 @@ const Colony = extend(EntityGroup, {
     red:color.red,
     green:color.green,
     blue:255
-   }, decay, sim.layers.get()) ){ 
+   }, decay, sim.layers.get()),event = (new EventEmitter()) ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;
+      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;this.event = event;
       EntityGroup.init.call(this);
       colonies.add(this);
       return this;
@@ -328,6 +286,7 @@ const Colony = extend(EntityGroup, {
           ent.seeking = this.foodWeights;
           this.add(ent);
           ent.nest = this.nest;
+          this.event.emit("spawn", ent);
           return ent;
         }
       }).call(this);
@@ -354,6 +313,7 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
+          this.event.emit("extinct");
           sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }

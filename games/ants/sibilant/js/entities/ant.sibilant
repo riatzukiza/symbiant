@@ -137,6 +137,7 @@
 
 (export Ant)
 
+(import (Event-emitter) "events")
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
@@ -147,7 +148,8 @@
 
                      (mating-weights ((create Pheremones)
                                       (color color.red color.green 255)
-                                      decay (.get sim.layers))))
+                                      decay (.get sim.layers)))
+                     (event (new Event-emitter)))
                (Entity-group.init.call this)
 
                (.add colonies this))
@@ -162,7 +164,9 @@
                     (assign ent.seeking this.food-weights)
                     (this.add ent)
                     (assign ent.nest this.nest)
-                    ent))
+                    (.emit this.event "spawn" ent)
+                    ent
+                    ))
 
          (generic serialize (mth) (ants)
                   (map (.to-array ants) (ant) (.serialize ant)))
@@ -172,6 +176,7 @@
                   (.each this (=> (ant) (.update ant )))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
+                    (.emit this.event "extinct")
                     (.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
