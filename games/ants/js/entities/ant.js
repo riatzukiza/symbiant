@@ -28,7 +28,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:30:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));
@@ -178,7 +178,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest,ant = this.ant ){ 
     
       return (function() {
-        /* eval.sibilant:69:8 */
+        /* eval.sibilant:67:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, ant, (spot, i, j, x, y) => {
@@ -272,7 +272,7 @@ const Ant = extend(Entity, {
       let x = 0;
       let y = 0;
       --(ant.life);
-      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
+      let random = Math.floor((Math.random() * (((Ant.life / 2) - 0) + 0)));
       let sated__QUERY = ant._sated();
       // (1 * ant.life) > (100 * (Ant.life + random));
       (function() {
@@ -284,7 +284,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
-                } else if (Math.random() > 0.9999) {
+                } else if ((group.colonies < 30 && Math.random() > 0.9999)) {
                   return ant._formNewColony();
                 }
               }).call(this);
@@ -321,7 +321,7 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), (this.nest.y + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), color);
+      let ent = entityType.spawn((this.nest.x + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), (this.nest.y + Math.floor((Math.random() * ((30 - 0) + 0))) + rx), color);
       (function() {
         if (ent) {
           ent.group = this;
@@ -354,6 +354,7 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
+          sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }
       }).call(this);

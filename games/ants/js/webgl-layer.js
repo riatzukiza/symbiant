@@ -20,6 +20,10 @@ void main(void)
 {
     gl_FragColor = vColor;
 }`;
+let choose = ((tlayer) => (clayer) => {
+    if (clayer.zindex > tlayer.zindex) clayer.zindex--;
+    return tlayer != clayer;
+})
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Layers {
     constructor(p, id, srcSize, scale, gl) {
@@ -104,7 +108,9 @@ class Layers {
         gl.viewport(0, 0, width, height);
         return this;
     }
-
+    remove(layer) {
+        this.layers = this.layers.filter(choose(layer));
+    }
     incEntityCount() {
         this.dirty = true;
         this.count++;

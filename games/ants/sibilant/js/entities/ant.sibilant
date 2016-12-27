@@ -127,7 +127,7 @@
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
-                                       (> (Math.random) 0.9999)
+                                       (and (< group.colonies 30)(> (Math.random) 0.9999))
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
                             (.*eat ant )))
@@ -170,6 +170,7 @@
                   (.each this (=> (ant) (.update ant )))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
+                    (.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
 
