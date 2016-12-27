@@ -163,8 +163,10 @@
                     (this.add ent)
                     (assign ent.nest this.nest)
                     ent))
+
          (generic serialize (mth) (ants)
                   (map (.to-array ants) (ant) (.serialize ant)))
+
          (generic update (mth) (entities weights decay)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
                   (.each this (=> (ant) (.update ant )))
