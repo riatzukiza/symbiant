@@ -32,7 +32,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:35:0 */
+  /* matrix-center eval.sibilant:37:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -236,7 +236,7 @@ const Ant = {
   _nearNest( nest = this.nest,ant = this.ant,collision = this.collision ){ 
     
       return (function() {
-        /* eval.sibilant:15:8 */
+        /* eval.sibilant:17:8 */
       
         let true__QUERY = false;
         eachWeight(collision, ant, (spot, i, j, x, y) => {
