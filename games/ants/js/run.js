@@ -107,9 +107,8 @@ const RunIndexedArray = {
             }
           }).call(this);
         } else {
-          let run = create(Run)(array, v === 0, i, i, this);
-          prev.end = (i - 1);
-          return null;
+          let run = create(Run)(array, v === 0, i, i, this, this.next);
+          return prev.end = (i - 1);
         }
       }).call(this);
     
