@@ -162,14 +162,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$6 = undefined;
+          var while$2 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$6 = (function() {
+            while$2 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$6;
+          return while$2;
         }).call(this);
         return (function() {
           if (w < 1) {
