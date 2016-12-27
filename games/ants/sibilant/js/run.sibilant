@@ -1,7 +1,8 @@
 (const List (require "./list"))
 (type Run
-      (init (array value start end prev )
-            (if prev (assign prev.next this)))
+      (init (array value start end prev next)
+            (if prev (assign prev.next this))
+            (if next (assign next.prev this)))
 
       (generic has (mth) (n)
                ;; (n == 0) == false ;;case where given 0, and the run is negative.
@@ -47,6 +48,7 @@
                         (++ t.start)))
                 (do (let run ((create Run) array (= v 0) i i this))
                     (assign prev.end (- i 1))
+                  ()
                   )))
       (gmth get (i))
       (generic each (fluent mth) (f indexes)

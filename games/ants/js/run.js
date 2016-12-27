@@ -1,12 +1,17 @@
 const List = require("./list");
 const Run = { 
   symbol:Symbol("Run"),
-  init( array = this.array,value = this.value,start = this.start,end = this.end,prev = this.prev ){ 
+  init( array = this.array,value = this.value,start = this.start,end = this.end,prev = this.prev,next = this.next ){ 
     
-      this.array = array;this.value = value;this.start = start;this.end = end;this.prev = prev;
+      this.array = array;this.value = value;this.start = start;this.end = end;this.prev = prev;this.next = next;
       (function() {
         if (prev) {
           return prev.next = this;
+        }
+      }).call(this);
+      (function() {
+        if (next) {
+          return next.prev = this;
         }
       }).call(this);
       return this;
@@ -103,7 +108,8 @@ const RunIndexedArray = {
           }).call(this);
         } else {
           let run = create(Run)(array, v === 0, i, i, this);
-          return prev.end = (i - 1);
+          prev.end = (i - 1);
+          return null;
         }
       }).call(this);
     
