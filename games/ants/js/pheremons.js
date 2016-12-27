@@ -11,9 +11,6 @@ const {
   euclidianDistance
  } = require("./math");
 const { 
-  Layer
- } = require("./layer");
-const { 
   complement
  } = require("./color");
 let colors = [];
@@ -24,7 +21,7 @@ function decayPositive( x,y,v,decay,color ){
   
  };
 var combine = (function combine$(old, addi) {
-  /* combine eval.sibilant:26:0 */
+  /* combine eval.sibilant:25:0 */
 
   return Math.round((old + addi));
 });
@@ -46,7 +43,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
   
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
-  /* add-mixing-layer eval.sibilant:46:0 */
+  /* add-mixing-layer eval.sibilant:45:0 */
 
   weights.layer = layer;
   weights.each((w, x, y) => {
@@ -96,7 +93,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:64:0 */
+  /* decay eval.sibilant:63:0 */
 
   let { 
     x,
@@ -117,7 +114,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:71:0 */
+  /* memoize eval.sibilant:70:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
