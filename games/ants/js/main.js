@@ -156,3 +156,4 @@ let yellow = {
   green: 255,
   blue: 0
 };
+sim.load(start);

@@ -143,7 +143,6 @@
   (do-times 100 (.random plants  ))
   ;;(interface sim)
 
-
   (on (sim.start) "tick" (now ticks)
       (every 120 ticks (.update plants))
       (every 2 ticks (each Colony.colonies (col) (.update col)))
@@ -152,4 +151,4 @@
             (.render))))
 
 (let yellow { red 255 green 255 blue 0 })
-
+(.load sim  start)
