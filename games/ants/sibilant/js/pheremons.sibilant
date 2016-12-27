@@ -87,7 +87,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (let last-time-visited (this.decaying.get coord))
                   (let now sim.ticks)
                   (let debt (- now last-time-visited))
-                  (let t 0)
                   (assign w (decay coord w (* debt rate)))
                   (.set this.decaying coord now)
                   (when (< w 1)

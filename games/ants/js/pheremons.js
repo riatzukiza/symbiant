@@ -160,7 +160,6 @@ const Pheremones = {
         let lastTimeVisited = this.decaying.get(coord);
         let now = sim.ticks;
         let debt = (now - lastTimeVisited);
-        let t = 0;
         w = decay(coord, w, (debt * rate));
         this.decaying.set(coord, now);
         return (function() {
