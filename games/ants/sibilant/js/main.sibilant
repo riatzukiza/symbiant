@@ -45,6 +45,7 @@
        `(scoped
          (let rand (random-float 0 @max))
          (- @max (/ rand 2))))
+
 (macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
 
