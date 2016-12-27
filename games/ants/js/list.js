@@ -38,6 +38,7 @@ const List = {
     length: 0,
     head: null,
     tail: null,
+    Node,
 
     init(...items) {
         [this.length, this.head, this.tail] = [0, null, null];
@@ -59,10 +60,10 @@ const List = {
 
     // item based operations //////////////////////////////////////////////////
     push(item) {
-        return this.pushNode(create(Node)(this, item, null, null)).item;
+        return this.pushNode(create(this.Node)(this, item, null, null)).item;
     },
     unshift(item) {
-        return this.unshiftNode(create(Node)(this, item, null, null)).item;
+        return this.unshiftNode(create(this.Node)(this, item, null, null)).item;
     },
     pop() {
         return this.popNode().item;
@@ -71,7 +72,7 @@ const List = {
         return this.shiftNode().item;
     },
     insert(item, predicate) {
-        return this.insertNode(create(Node)(this, item, null, null), predicate).item;
+        return this.insertNode(create(this.Node)(this, item, null, null), predicate).item;
     },
     remove(item) {
         let node = this.head;
@@ -87,7 +88,7 @@ const List = {
 
     // Node based operations //////////////////////////////////////////////////
     node(item) {
-        return create(Node)(this, item, null, null);
+        return create(this.Node)(this, item, null, null);
     },
     pushNode(node) {
         if (!this.empty) this.tail = this.tail.next = node.bind(this, null, this.tail);

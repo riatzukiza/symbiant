@@ -1,3 +1,8 @@
+const { 
+  create,
+  extend,
+  mixin
+ } = require("./util");
 const List = require("./list");
 const Run = { 
   symbol:Symbol("Run"),
@@ -48,6 +53,33 @@ const Run = {
     }).call(this)
    }
  };
+const RunList = extend(List, { 
+  symbol:Symbol("RunList"),
+  init( array = this.array,indexes = [] ){ 
+    
+      this.array = array;this.indexes = indexes;
+      let run = create(Run)(array, false, 0, 0, null, null);
+      array.each((el, i) => {
+      	
+        return (function() {
+          if (run.has(el)) {
+            return run.end = i;
+          } else {
+            run = create(Run)(array, !(run.value), i, i, run);
+            return indexes.push(run);
+          }
+        }).call(this);
+      
+      });
+      return this;
+    
+   },
+  push( v = this.v ){ 
+    
+      return null;
+    
+   }
+ });
 const RunIndexedArray = { 
   symbol:Symbol("RunIndexedArray"),
   init( array = this.array,indexes = [] ){ 
@@ -107,8 +139,19 @@ const RunIndexedArray = {
             }
           }).call(this);
         } else {
-          let run = create(Run)(array, v === 0, i, i, this, this.next);
-          return prev.end = (i - 1);
+          let run = create(Run)(array, v === 0, i, i, t, t.next);
+          t.prev.end = (i - 1);
+          run.next.start = (i + 1);
+          (function() {
+            if (run.prev.end < run.prev.start) {
+              return run.prev = run.prev.prev;
+            }
+          }).call(this);
+          return (function() {
+            if (run.next.end < run.next.start) {
+              return run.next = run.next.next;
+            }
+          }).call(this);
         }
       }).call(this);
     
