@@ -151,5 +151,4 @@
             (.render))))
 
 (let yellow { red 255 green 255 blue 0 })
-(const List (require "../../list.js"))
 
