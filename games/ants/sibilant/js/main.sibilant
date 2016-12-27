@@ -6,39 +6,7 @@
        `(const (literal ...@(content-of thing)) (require @from)))
 (let socket (io "/ants"))
 (on socket "change" () (print "change ") (.reload location))
-(macro describe-table ( describers ...body)
-                       (const [eachable each-args table-data container]
-                              describers.contents)
-                       `(scoped (var table ($ "<table>"))
 
-                                (let header-row ($ "<tr>"))
-                                ...@(map (content-of table-data) (entry)
-                                         `(.append header-row
-                                                  (.text ($ "<th>" )
-                                                         (quote @(if (literal? entry)
-                                                                     entry
-                                                                     (first entry.contents))))))
-
-                                (.append table header-row)
-                                (each @eachable @each-args
-
-                                      (var row ($ "<tr>" ))
-                                      ...@(map (content-of table-data) (entry)
-                                               `(let @(ternary (literal? entry)
-
-                                                       entry
-                                                       (first entry.contents))
-
-                                                  (scoped
-                                                   (let col-data (.text ($ "<td> " )
-                                                                        @(if (literal? entry)
-                                                                             entry
-                                                                             (second entry.contents))))
-                                                   (.append row col-data) col-data)))
-                                      (.append table row)
-
-                                      ...@body)
-                                (.append @container table)))
 (macro do-times (n ...body)
        `(for (let i 0) (< i @n) (++ i)
              ...@body))
