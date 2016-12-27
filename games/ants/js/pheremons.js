@@ -116,8 +116,8 @@ var decay = (function decay$(coord, v, decay) {
     }
   }).call(this);
 });
-const RunIndexPoint = { 
-  symbol:Symbol("RunIndexPoint"),
+const Run = { 
+  symbol:Symbol("Run"),
   init( array = this.array,value = this.value,start = this.start,end = this.end,prev = this.prev ){ 
     
       this.array = array;this.value = value;this.start = start;this.end = end;this.prev = prev;
@@ -165,14 +165,14 @@ const RunIndexedArray = {
   init( array = this.array,indexes = [] ){ 
     
       this.array = array;this.indexes = indexes;
-      let run = create(RunIndexPoint)(array, false, 0, 0, null, null);
+      let run = create(Run)(array, false, 0, 0, null, null);
       array.each((el, i) => {
       	
         return (function() {
           if (run.has(el)) {
             return run.end = i;
           } else {
-            run = create(RunIndexPoint)(array, !(run.value), i, i, run);
+            run = create(Run)(array, !(run.value), i, i, run);
             return indexes.push(run);
           }
         }).call(this);
@@ -214,10 +214,13 @@ const RunIndexedArray = {
               --(t.prev.end);
               return --(t.start);
             } else if (i === t.next.start) {
-              ++(t.prev.end);
+              ++(t.next.start);
               return ++(t.start);
             }
           }).call(this);
+        } else {
+          let run = create(Run)(array, v === 0, i, i, this);
+          return this.end = i;
         }
       }).call(this);
     
@@ -244,7 +247,7 @@ const RunIndexedArray = {
    }
  };
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:121:0 */
+  /* memoize eval.sibilant:123:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -289,14 +292,14 @@ const Pheremones = {
         let debt = (now - lastTimeVisited);
         let t = 0;
         (function() {
-          var while$4 = undefined;
+          var while$5 = undefined;
           while ((t < debt && !(w === 0))) {
-            while$4 = (function() {
+            while$5 = (function() {
               ++(t);
               return w = decay(coord, w, rate);
             }).call(this);
           };
-          return while$4;
+          return while$5;
         }).call(this);
         return (function() {
           if (w < 1) {

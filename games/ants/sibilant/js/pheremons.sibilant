@@ -68,7 +68,7 @@ Values are not changed unless done so explicitly by the function as a side effec
               (< v 0) (decay-negative x y v decay ))
           (do 0)))
 ;; used to index non-empty runs of data in an array
-(type Run-index-point
+(type Run
       (init (array value start end prev )
             (if prev (assign prev.next this)))
 
@@ -87,12 +87,12 @@ Values are not changed unless done so explicitly by the function as a side effec
                      (callback (get array i) i))))
 (type Run-indexed-array
       (init (array (indexes []))
-            (let run ((create Run-index-point) array false 0 0 null null))
+            (let run ((create Run) array false 0 0 null null))
             (.each array (=> (el i)
                              (if (.has run el)
                                  (assign run.end i)
                                  (do
-                                  (assign run ((create Run-index-point) array (not run.value) i i run))
+                                  (assign run ((create Run) array (not run.value) i i run))
                                   (indexes.push run))))))
       (gmth push (v))
       (gmth pop (v))
@@ -112,8 +112,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                     (do (-- t.prev.end)
                         (-- t.start))
                     (= i t.next.start)
-                    (do (++ t.prev.end)
-                        (++ t.start)))))
+                    (do (++ t.next.start)
+                        (++ t.start)))
+                (do (let run ((create Run) array (= v 0) i i this))
+                    (assign this.end i))))
       (gmth get (i))
       (generic each (fluent mth) (f indexes)
                (indexes.each (=> (run) (if run.value (.each run f)))))
