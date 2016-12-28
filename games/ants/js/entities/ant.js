@@ -122,6 +122,7 @@ const Ant = extend(Entity, {
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
     
+      console.log("ant make babies", ant);
       ant.life = (ant.life / 2);
       ant.mutate();
       group.spawn();
@@ -222,7 +223,7 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:97:18 */
+        /* total-weight eval.sibilant:98:18 */
       
         return (ant.genetics.deviance + 1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
