@@ -269,7 +269,6 @@ const Ant = extend(Entity, {
       --(ant.life);
       let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
       let sated__QUERY = ant._sated();
-      // (1 * ant.life) > (100 * (Ant.life + random));
       (function() {
         if ((2 * ant.life) > random) {
           let choice = ant.choose();
@@ -353,7 +352,7 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
-          this.event.emit("extinct");
+          this.event.emit("extinct", this);
           sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }

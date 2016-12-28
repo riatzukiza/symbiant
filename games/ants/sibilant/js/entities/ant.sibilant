@@ -122,7 +122,6 @@
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated ant ))
-                  (comment (> (* 1 ant.life ) (* 100 (+ Ant.life random))))
                   (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (.move this choice.x choice.y  )
@@ -177,7 +176,7 @@
                   (.each this (=> (ant) (.update ant )))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
-                    (.emit this.event "extinct")
+                    (.emit this.event "extinct" this)
                     (.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
