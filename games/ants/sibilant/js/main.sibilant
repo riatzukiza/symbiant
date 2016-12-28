@@ -49,20 +49,18 @@
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Colony) "./entities/ant")
+(import (World) "./systems/world")
 
 ;;(import (Entity) "./ecs/entity")
 ;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
 ;; one thing, I can break down these functions into smaller functions and attempt to observe where patterns emerge.
 
-(let george { x 20 y 20 })
 ;; Declare variables
 (Simulation let sim (120 120 5))
 (assign global.sim sim)
-(let white (color 255 255 255))
 (let green (color 0 255 0))
-(let black (color 0 0 0))
+(let yellow { red 255 green 255 blue 0 })
 
-(import (World) "./systems/world")
 (type Rendering
       (property entities (.get sim.layers))
       (property weights []))
@@ -99,5 +97,4 @@
             (.update )
             (.render))))
 
-(let yellow { red 255 green 255 blue 0 })
 (.load sim  start)

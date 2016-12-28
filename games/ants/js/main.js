@@ -23,30 +23,21 @@ const {
 const { 
   Colony
  } = require("./entities/ant");
-let george = {
-  x: 20,
-  y: 20
-};
+const { 
+  World
+ } = require("./systems/world");
 let sim = create(Simulation)(120, 120, 5);
 global.sim = sim;
-let white = { 
-  red:255,
-  green:255,
-  blue:255
- };
 let green = { 
   red:0,
   green:255,
   blue:0
  };
-let black = { 
-  red:0,
-  green:0,
-  blue:0
- };
-const { 
-  World
- } = require("./systems/world");
+let yellow = {
+  red: 255,
+  green: 255,
+  blue: 0
+};
 const Rendering = { 
   symbol:Symbol("Rendering"),
   entities:sim.layers.get(),
@@ -74,13 +65,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:85:0 */
+  /* Map.prototype.each eval.sibilant:83:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:87:0 */
+  /* start eval.sibilant:85:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -116,9 +107,4 @@ var start = (function start$(sim) {
   
   });
 });
-let yellow = {
-  red: 255,
-  green: 255,
-  blue: 0
-};
 sim.load(start);
