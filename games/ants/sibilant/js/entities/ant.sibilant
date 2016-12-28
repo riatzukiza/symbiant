@@ -186,8 +186,9 @@
                   (let update (=> (ant) (.update ant )))
                   (let has (=> (entities) (=> (ant) (.has entities ant))))
                   (assign this.ants (pipe
+                                     this.ants
                                      (.map update)
-                                     (.filter this.ants (has entities))))
+                                     (.filter  (has entities))))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
