@@ -17,7 +17,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(30, 120, 5);
+let sim = create(Simulation)(120, 120, 5);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
@@ -99,7 +99,7 @@ var start = (function start$(sim) {
         return plants.update();
       }
     }).call(this);
-    for (let time = 0;time < 10;++(time)){
+    for (let time = 0;time < 1;++(time)){
     Colony.colonies.each((col) => {
     	
       return col.update();
