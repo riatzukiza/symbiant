@@ -150,6 +150,7 @@ const Pheremones = {
    },
   update( decaying = this.decaying,id = this.id,dec = this.dec,weights = this.weights ){ 
     
+      console.log("updating weights");
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
         let w = decay(coord, coord.layers[id], dec);
