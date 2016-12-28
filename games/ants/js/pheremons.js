@@ -148,11 +148,11 @@ const Pheremones = {
       return this;
     
    },
-  update( decaying = this.decaying,id = this.id,decay = this.decay ){ 
+  update( decaying = this.decaying,id = this.id,dec = this.dec ){ 
     
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
-        let w = decay(coord, coord.layers[id], decay);
+        let w = decay(coord, coord.layers[id], dec);
         weights.set(x, y, w);
         return (function() {
           if (w <= 0) {
