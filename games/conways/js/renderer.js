@@ -66,7 +66,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   /* moore-neighborhood deps.sibilant:61:8 */
 
   let m = create(Matrix)([], w, h).dmap((function() {
-    /* eval.sibilant:40:57 */
+    /* eval.sibilant:36:57 */
   
     return weight;
   }));
@@ -144,8 +144,8 @@ const Neighborhood = {
  };
 const Game = { 
   symbol:Symbol("Game"),
-  init( width = $("#width").val(),height = $("#height").val(),cellSize = $("#cell-size").val(),state = this.randomize(),transition = create(Matrix)((new Float32Array((height * width))), height, width).dmap((function() {
-    /* eval.sibilant:39:83 */
+  init( width = $("#width").val(),height = $("#height").val(),cellSize = $("#cell-size").val(),state = this.randomize(),transition = create(Matrix)([], height, width).dmap((function() {
+    /* eval.sibilant:16:57 */
   
     return 0;
   })),running = false,neighborhood = create(Neighborhood)($("#n-width").val(), $("#n-height").val(), $("#n-weight").val()),living = 0,generation = 0 ){ 

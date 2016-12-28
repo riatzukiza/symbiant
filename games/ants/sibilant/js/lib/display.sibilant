@@ -1,0 +1,117 @@
+;; Display will be a matrix of color values.
+
+;; we first update the content of the matrix, then we render them
+;; to the canvas
+
+(macro position (x y) `(p-map (x @x) (y @y)))
+
+
+(macro color (r g b) `(p-map (red @r) (green @g) (blue @b)))
+
+(macro fill-color (r g b) `(assign ctx.fill-style (+ "rgb(" @r "," @g "," @b ")")))
+(macro random-color ()
+       `(color (random-int 0 256) (random-int 0 256) (random-int 0 256)))
+
+(import ( create extend mixin) "./util")
+(import (State-space) "./state-space")
+(import (Layer) "./layer")
+(const $ (require "jquery/dist/jquery.min.js"))
+
+(type Display
+      (property offx 0)
+      (property offy 0)
+
+      (init (width height cell-size ))
+
+      (gmth resize (width height cell-size canvas)
+            (Display.init.call this width height cell-size canvas)
+            this)
+
+      (gmth offset (offx offy) (assign this.offx offx this.offy offy))
+      (gmth pan (x y)
+
+            (incr-by this.offx x
+                     this.offy y))
+      (gmth randomize ()
+            "generate a random field of pixels for the display"
+            (.transit this
+                      (=> (color pos)
+                          (color (random-int 0 256)
+                                 (random-int 0 256)
+                                 (random-int 0 256)))))
+
+      (gmth clear ()
+            "set the display to black"
+            (.transit this (=> (color pos) (color 0 0 0))))
+
+      (generic set (mth) (pos layers)
+
+               "set the transition value of the pixel at the given x and y."
+
+               (assign pos.x (+ x this.offx)
+                       pos.y (+ y this.offy))
+
+               (.set transition x y color))
+
+      (generic set-state (mth) (x y color state)
+
+               "unsafe, manipulate the state of a pixel at position x y"
+
+               (assign x (+ x this.offx)
+                       y (+ y this.offy))
+
+               (.set state x y color))
+
+      (generic get (mth) (x y state)
+               "get the state of the pixel at x and y"
+
+               (assign x (+ x this.offx)
+                       y (+ y this.offy))
+
+               (.get state x y))
+
+      (generic get-transition (mth) (x y transition)
+               "get the transition value of the pixel at x and y. Is not its self unsafe, but it using it directly may
+mean you are trying to do somthing unsafe else where."
+               (assign x (+ x this.offx)
+                       y (+ y this.offy))
+               (.get transition x y))
+
+      (generic update (fluent mth) (state transition)
+
+               "swap the transition and the state matricies for all red green and blue."
+
+               (.hide ($ state.canvas))
+               (.show ($ transition.canvas))
+
+               (assign this.state transition
+                       this.transition state))
+
+      (generic transit (fluent mth) (f width height red green blue)
+               "apply a function for every value in the current state and use its returned value
+for the value at the associated indexes in the transition."
+               (loop
+                 (for (let i 0) (< i width) (++ i))
+                 (for (let j 0) (< j height) (++ j))
+                 (.set this i j)
+
+                 (f (.get this i j)
+                    (position i j))))
+
+      (generic each (fluent mth)(f width height cell-size red green blue ctx)
+               "apply a function for every value in the current state.
+Does not directly effect either the state or transition"
+
+               (loop
+                 (for (let i 0) (< i width) (++ i))
+                 (for (let j 0) (< j height) (++ j))
+
+                 (f (color (red.get i j) (green.get i j) (blue.get i j))
+                    (position i j))))
+
+      (generic render (fluent mth) (state)
+
+               "load the current state into the canvas"
+
+               (.update state)))
+(export Display)

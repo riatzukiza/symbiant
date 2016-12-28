@@ -17,6 +17,8 @@
 (import (Simulation) "./simulation")
 
 ;;(import (Entity) "./ecs/entity")
+;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
+;; one thing, I can break down these functions into smaller functions and attempt to observe where patterns emerge.
 
 (import (Pheremones) "./pheremons")
 (import (complement) "./color")

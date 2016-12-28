@@ -1,0 +1,100 @@
+;; Pheremons is a weight matrix.
+;; Every value in it is a floating point number from 0 to 1.
+;; The values of this matrix influence the decisions of the ants.
+;; Pheremons decay by a fixed amount every tick of the simulation unless
+;; an ant has recently traversed that location.
+;; The result of this is that long paths do not live as long,
+;; so the ants will tend towards the shortest path.
+
+
+(const R (require "ramda"))
+(import { create extend mixin} "./util")
+
+(import {State-space} "./state-space")
+(import {euclidian-distance} "./math")
+(import {complement} "./color")
+
+;;(import (each-weight) "./ant")
+
+(let colors [])
+
+(fn decay-positive (x y v decay color)
+    "brings a positive weight closer to zero, "
+    (- v  decay ))
+
+(def combine (old addi ) (Math.round (+ old addi)))
+
+(fn decay-negative (x y v decay color)
+
+    "brings a positive weight closer to zero, "
+
+    (+ v  decay ))
+(generic each-in-area (fn) (matrix pos f (size 3) (rad (Math.floor (/ size 2))))
+         "apply a function to every element in a kernel of the weight matrix.
+Values are not changed unless done so explicitly by the function as a side effect."
+         (.each-in-sub matrix
+                       (- pos.x rad)
+                       (- pos.y rad)
+                       size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
+
+
+(macro area (space el-name center size ...body)
+       `(each-in-area @space @center
+                      (=> (@el-name i j x y)
+                          ...@body) @size ))
+(def add-mixing-layer (entity weights layer)
+
+  (assign weights.layer layer)
+  (each weights (w x y)
+        (.add layer
+              (literal
+               x y
+               (gett weight (.get weights x y))
+               (gett color (if (>= this.weight 0 )
+                               entity.color
+                               (complement entity.color)))
+               (gett r this.color.red )
+               (gett g this.color.green)
+               (gett b this.color.blue)
+
+               (gett a (Math.abs (* 160 this.weight)) ))))
+  (.move-up layer))
+
+(def decay  (coord v decay )
+      (let (literal x y) coord)
+      (if (< decay (Math.abs v))
+          (if (> v 0) (- v decay)
+              (< v 0) (+ v decay))
+          (do 0)))
+;; used to index non-empty runs of data in an array
+(def memoize (f)
+  (let cache (.map (new Array f.length) (-> (new Map))))
+  (=> ((dots args)) (if (.every cache (=> (cache i) (cache.has (get args i)))))))
+(type Pheremones
+      (init (color decay  layer (decaying (new Map))
+
+                   (weights ((create State-space) sim.width sim.width)))
+            ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
+            (add-mixing-layer this weights layer)
+            (each world.coord (pos x y)
+                  (.set decaying pos sim.ticks)))
+
+      (gmth emit  (pos weights rate (r 5 ) decaying)
+            (area weights.state w pos r
+
+                  (let coord (.get world.coord x y))
+                  (let last-time-visited (this.decaying.get coord))
+                  (let now sim.ticks)
+                  (let debt (- now last-time-visited))
+                  (assign w (decay coord w (* debt rate)))
+                  (.set this.decaying coord now)
+                  (when (< w 1)
+
+
+
+                    (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
+
+                    (weights.set x y new-weight)))))
+
+
+(export Pheremones)
