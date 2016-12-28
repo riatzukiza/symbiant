@@ -95,7 +95,7 @@ var start = (function start$(sim) {
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
-      if ((ticks % 300) === 0) {
+      if ((ticks % 30) === 0) {
         return plants.update();
       }
     }).call(this);
