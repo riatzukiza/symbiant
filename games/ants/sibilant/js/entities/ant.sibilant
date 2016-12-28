@@ -177,6 +177,7 @@
                   (.update mating-weights)
                   (.update food-weights)
                   (when (= this.entities.size 0)
+
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
                     (.remove sim.layers this.layer)
