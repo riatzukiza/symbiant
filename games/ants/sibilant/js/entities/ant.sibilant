@@ -130,7 +130,7 @@
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
-                                       (> (Math.random) 0.999)
+                                       (and (< group.colonies.size 30) (> (Math.random) 0.999))
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
                             (.*eat ant )))

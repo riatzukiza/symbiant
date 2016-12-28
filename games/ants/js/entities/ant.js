@@ -294,7 +294,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
-                } else if (Math.random() > 0.999) {
+                } else if ((group.colonies.size < 30 && Math.random() > 0.999)) {
                   return ant._formNewColony();
                 }
               }).call(this);
