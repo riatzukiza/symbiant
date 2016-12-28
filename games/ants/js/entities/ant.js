@@ -322,9 +322,9 @@ const Colony = extend(EntityGroup, {
     red:color.red,
     green:color.green,
     blue:255
-   }, decay, sim.layers.get()),event = (new EventEmitter()) ){ 
+   }, decay, sim.layers.get()),event = (new EventEmitter()),ants = [] ){ 
     
-      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;this.event = event;
+      this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;this.event = event;this.ants = ants;
       EntityGroup.init.call(this);
       colonies.add(this);
       return this;
@@ -342,6 +342,7 @@ const Colony = extend(EntityGroup, {
           this.add(ent);
           ent.nest = this.nest;
           this.event.emit("spawn", ent);
+          this.ants.push(ent);
           return ent;
         }
       }).call(this);
@@ -360,9 +361,10 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      this.each((ant) => {
+      this.ants = this.ants.filter((ant) => {
       	
-        return ant.update();
+        ant.update();
+        return entities.has(ant);
       
       });
       return (function() {

@@ -152,7 +152,8 @@
                      (mating-weights ((create Pheremones)
                                       (color color.red color.green 255)
                                       decay (.get sim.layers)))
-                     (event (new Event-emitter)))
+                     (event (new Event-emitter))
+                     (ants []))
                (Entity-group.init.call this)
 
                (.add colonies this))
@@ -168,6 +169,7 @@
                     (this.add ent)
                     (assign ent.nest this.nest)
                     (.emit this.event "spawn" ent)
+                    (.push this.ants ent)
                     ent
                     ))
 
@@ -176,7 +178,9 @@
 
          (generic update (mth) (entities weights decay mating-weights food-weights)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
-                  (.each this (=> (ant) (.update ant )))
+                  (assign this.ants (.filter this.ants (=> (ant)
+                                                           (.update ant )
+                                                           (.has entities ant))))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
