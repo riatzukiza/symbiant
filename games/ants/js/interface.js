@@ -4,8 +4,6 @@ const {
   mixin
  } = require("./util");
 const $ = require("jquery/dist/jquery.min.js");
-let canvasa = document.getElementById("game");
-let canvasb = document.getElementById("gameb");
 let context = $("#container");
 const { 
   emitPheremones,
@@ -15,20 +13,8 @@ const {
   Colony
  } = require("./colony");
 var interface = (function interface$(sim) {
-  /* interface eval.sibilant:51:0 */
+  /* interface eval.sibilant:48:0 */
 
-  canvasa.onselectstart = () => {
-  	
-    return false;
-  
-  };
-  canvasb.onselectstart = () => {
-  	
-    return false;
-  
-  };
-  $(canvasa).css("transform", "scale(5)").css("top", "1200px").css("left", "1200px").css("position", "absolute");
-  $(canvasb).css("transform", "scale(5)").css("top", "1200px").css("left", "1200px").css("position", "absolute").hide();
   let interfaceContainer = (function(context) {
     /* macros/jquery.sibilant:14:9 */
   

@@ -40,9 +40,6 @@
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 
-(let canvasa (document.get-element-by-id "game"))
-(let canvasb (document.get-element-by-id "gameb"))
-
 (let context ($ "#container"))
 
 (import (emit-pheremones Ant ) "./ant")
@@ -50,19 +47,6 @@
 
 (def interface (sim)
 
-  (assign canvasa.onselectstart (-> false))
-  (assign canvasb.onselectstart (-> false))
-  (sequence ($ canvasa ) .css
-            ("transform" "scale(5)")
-            ( "top" "1200px")
-            ( "left" "1200px")
-            ("position" "absolute"))
-
-  (.hide (sequence ($ canvasb ) .css
-                   ("transform" "scale(5)")
-                   ( "top" "1200px")
-                   ( "left" "1200px")
-                   ("position" "absolute")))
   (div interface-container {}
          (panel colonies
                 (describe-table (Colony.colonies (c) ((name c.name) (numbers c.ants.size)) here)
