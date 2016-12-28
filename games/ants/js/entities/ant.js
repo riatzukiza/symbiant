@@ -237,6 +237,7 @@ const Ant = extend(Entity, {
         }).call(this);
       
       }, 3);
+      console.log("choice", choice);
       return choice;
     
    },
