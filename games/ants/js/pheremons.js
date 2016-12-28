@@ -141,9 +141,9 @@ const Pheremones = {
   init( color = this.color,decay = this.decay,layer = this.layer,decaying = {
     waiting: [],
     marked: (new Set())
-  },weights = create(StateSpace)(sim.width, sim.width),id = this.id ){ 
+  },weights = create(StateSpace)(sim.width, sim.width),id = this.id,lastUpdate = 0 ){ 
     
-      this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;
+      this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
       addMixingLayer(this, weights, layer);
       return this;
@@ -151,9 +151,11 @@ const Pheremones = {
    },
   update( decaying = this.decaying,id = this.id,dec = this.decay,weights = this.weights ){ 
     
+      let debt = (sim.ticks - this.lastUpdate);
+      this.lastUpdate = sim.ticks;
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
-        let w = decay(coord, coord.layers[id], dec);
+        let w = decay(coord, coord.layers[id], (debt * dec));
         coord.layers[id] = w;
         weights.set(coord.x, coord.y, w);
         return (function() {
