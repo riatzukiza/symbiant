@@ -125,6 +125,7 @@ const Ant = extend(Entity, {
       console.log("ant make babies", ant);
       ant.life = (ant.life / 2);
       ant.mutate();
+      group.spawn();
       this.group.matingWeights.update();
       return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
@@ -221,7 +222,7 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:96:18 */
+        /* total-weight eval.sibilant:97:18 */
       
         return (ant.genetics.deviance + 1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
@@ -339,7 +340,7 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), (this.nest.y + (Math.floor((Math.random() * (30 - 0))) + 0) + rx), color);
+      let ent = entityType.spawn((this.nest.x + ((Math.floor((Math.random() * (30 - 1))) + 1) * rx)), (this.nest.y + ((Math.floor((Math.random() * (30 - 1))) + 1) * ry)), color);
       (function() {
         if (ent) {
           ent.group = this;
