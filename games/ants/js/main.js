@@ -96,7 +96,7 @@ var start = (function start$(sim) {
       }
     }).call(this);
     (function() {
-      if ((ticks % 4) === 0) {
+      if ((ticks % 1) === 0) {
         return Colony.colonies.each((col) => {
         	
           return col.update();
