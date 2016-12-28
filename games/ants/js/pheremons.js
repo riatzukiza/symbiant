@@ -150,8 +150,6 @@ const Pheremones = {
    },
   update( decaying = this.decaying,id = this.id,dec = this.decay,weights = this.weights ){ 
     
-      return console.log("updating", this.decaying.waiting);
-    
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying,id = this.id ){ 
     

@@ -78,7 +78,7 @@ Values are not changed unless done so explicitly by the function as a side effec
             (add-mixing-layer this weights layer))
 
       (gmth update (decaying id (dec this.decay) weights)
-            (print "updating" this.decaying.waiting)
+            ;;(print "updating" this.decaying.waiting)
             )
 
       (gmth emit  (pos weights rate (r 5 ) decaying id)
