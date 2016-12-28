@@ -182,7 +182,7 @@
                   (assign this.ants (.filter this.ants (=> (ant)
                                                            (.update ant )
                                                            (let has? (.has entities ant))
-                                                           (print "removing ant?" has? ant))))
+                                                           (print "removing ant?" has? ant) has?)))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
