@@ -87,9 +87,10 @@ Values are not changed unless done so explicitly by the function as a side effec
                                  (print "filtering coord" coord w)
 
                                  (if (<= w 0)
-                                     (do (print "done decaying" coord)(.delete decaying.marked coord) false) true)))))
+                                     (do (print "done decaying" coord id)(.delete decaying.marked coord) false) true)))))
 
       (gmth emit  (pos weights rate (r 5 ) decaying id)
+            (print "emitting" id)
             (area weights.state w pos r
 
                   (let coord (.get world.coord x y))
