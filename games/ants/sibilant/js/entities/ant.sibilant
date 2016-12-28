@@ -43,7 +43,6 @@
                   (.delete group.goals ant._food)
                   (assign ant.life (+ ant.life ant._food.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) 10))
-                  (print "eating" emission)
                   (.emit this.group.food-weights ant.pos group.weights  emission 20))
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
