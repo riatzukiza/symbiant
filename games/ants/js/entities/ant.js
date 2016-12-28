@@ -244,7 +244,7 @@ const Ant = extend(Entity, {
           if ((!(ent) || ent === 0)) {
             sum += totalWeight(w, i, j);
             return (function() {
-              if ((rand < sum && !(done))) {
+              if ((rand <= sum && !(done))) {
                 choice.x = x;
                 choice.y = y;
                 return done = true;
@@ -256,7 +256,7 @@ const Ant = extend(Entity, {
       }, 3);
       (function() {
         if ((choice.x === ant.x && choice.y === ant.y)) {
-          return console.log("ant chose the same spot ");
+          return console.log("ant chose the same spot");
         }
       }).call(this);
       return choice;

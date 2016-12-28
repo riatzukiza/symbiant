@@ -101,10 +101,10 @@
                   (let rand (* count (Math.random)))
                   (each-valid-move ant this.seeking.weights.state
                                    (incr-by sum (total-weight w i j))
-                                   (when (and (< rand sum) (not done))
+                                   (when (and (<= rand sum) (not done))
                                      (assign choice.x x choice.y y done true)))
                   (if (and (= choice.x ant.x) (= choice.y ant.y))
-                      (print "ant chose the same spot "))
+                      (print "ant chose the same spot"))
                   choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
