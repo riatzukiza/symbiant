@@ -42,9 +42,10 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
     });
   
  };
-var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
+var addMixingLayer = (function addMixingLayer$(entity, weights) {
   /* add-mixing-layer eval.sibilant:44:0 */
 
+  let layer.apply(this, get.concat([ sim.layers ])) = ;
   weights.layer = layer;
   weights.each((w, x, y) => {
   	
@@ -93,7 +94,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:62:0 */
+  /* decay eval.sibilant:63:0 */
 
   let { 
     x,
@@ -114,7 +115,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:69:0 */
+  /* memoize eval.sibilant:70:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -138,12 +139,12 @@ var memoize = (function memoize$(f) {
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
   id:0,
-  init( color = this.color,decay = this.decay,layer.apply(this, get.concat([ sim.layers ])) = ,decaying = {
+  init( color = this.color,decay = this.decay,decaying = {
     waiting: [],
     marked: (new Set())
   },weights = create(StateSpace)(sim.width, sim.width),id = this.id,lastUpdate = 0 ){ 
     
-      this.color = color;this.decay = decay;this["layer.apply(this, get.concat([ sim.layers ]))"] = layer.apply(this, get.concat([ sim.layers ]));this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
+      this.color = color;this.decay = decay;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
       addMixingLayer(this, weights, layer);
       return this;

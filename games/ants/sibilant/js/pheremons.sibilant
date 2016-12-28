@@ -41,7 +41,8 @@ Values are not changed unless done so explicitly by the function as a side effec
        `(each-in-area @space @center
                       (=> (@el-name i j x y)
                           ...@body) @size ))
-(def add-mixing-layer (entity weights layer)
+(def add-mixing-layer (entity weights )
+  (let layer(.get sim.layers))
 
   (assign weights.layer layer)
   (each weights (w x y)
@@ -71,7 +72,7 @@ Values are not changed unless done so explicitly by the function as a side effec
   (=> ((dots args)) (if (.every cache (=> (cache i) (cache.has (get args i)))))))
 (type Pheremones
       (property id 0)
-      (init (color decay  (layer(.get sim.layers))
+      (init (color decay  
                    (decaying { waiting [] marked (new Set) })
                    (weights ((create State-space) sim.width sim.width)) id (last-update 0))
             (++ Pheremones.id)
