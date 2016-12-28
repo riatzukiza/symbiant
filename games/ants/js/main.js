@@ -99,16 +99,12 @@ var start = (function start$(sim) {
         return plants.update();
       }
     }).call(this);
-    (function() {
-      if ((ticks % 1) === 0) {
-        return for (let time = 0;time < 10;++(time)){
-        Colony.colonies.each((col) => {
-        	
-          return col.update();
-        
-        })};
-      }
-    }).call(this);
+    for (let time = 0;time < 10;++(time)){
+    Colony.colonies.each((col) => {
+    	
+      return col.update();
+    
+    })};
     return sim.layers.update().render();
   
   });
