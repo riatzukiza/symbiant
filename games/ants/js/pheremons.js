@@ -137,32 +137,43 @@ var memoize = (function memoize$(f) {
 });
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
-  init( color = this.color,decay = this.decay,layer = this.layer,decaying = (new Map()),weights = create(StateSpace)(sim.width, sim.width) ){ 
+  id:0,
+  init( color = this.color,decay = this.decay,layer = this.layer,decaying = {
+    waiting: [],
+    marked: (new Set())
+  },weights = create(StateSpace)(sim.width, sim.width),id = ++(this.id) ){ 
     
-      this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;
+      this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;
       addMixingLayer(this, weights, layer);
-      world.coord.each((pos, x, y) => {
-      	
-        return decaying.set(pos, sim.ticks);
-      
-      });
       return this;
     
    },
-  emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying ){ 
+  update( decaying = this.decaying ){ 
+    
+      return decaying.waiting.each((coord) => {
+      	
+        return w = decay(coord, w, rate);
+      
+      });
+    
+   },
+  emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying,id = this.id ){ 
     
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
         let coord = world.coord.get(x, y);
-        let lastTimeVisited = this.decaying.get(coord);
         let now = sim.ticks;
         let debt = (now - lastTimeVisited);
-        w = decay(coord, w, (debt * rate));
-        this.decaying.set(coord, now);
+        (function() {
+          if (!(decaying.marked.has(coord))) {
+            decaying.marked.add(coord);
+            decaying.waiting.push(coord);
+            return coord.layers[id] = 0;
+          }
+        }).call(this);
         return (function() {
           if (w < 1) {
-            let newWeight = (w + (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2))));
-            return weights.set(x, y, newWeight);
+            return coord.layers[id] += (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
           }
         }).call(this);
       

@@ -70,30 +70,29 @@ Values are not changed unless done so explicitly by the function as a side effec
   (let cache (.map (new Array f.length) (-> (new Map))))
   (=> ((dots args)) (if (.every cache (=> (cache i) (cache.has (get args i)))))))
 (type Pheremones
-      (init (color decay  layer (decaying (new Map))
+      (property id 0)
+      (init (color decay  layer
+                   (decaying { waiting [] marked (new Set) })
+                   (weights ((create State-space) sim.width sim.width))
+                   (id (++ this.id )))
+            (add-mixing-layer this weights layer))
 
-                   (weights ((create State-space) sim.width sim.width)))
-            ;; having these over here is progress in seperating out the weighty code, but it still entangles rendering.
-            (add-mixing-layer this weights layer)
-            (each world.coord (pos x y)
-                  (.set decaying pos sim.ticks)))
-
-      (gmth emit  (pos weights rate (r 5 ) decaying)
+      (gmth update (decaying )
+            (.each decaying.waiting (=> (coord) (assign w (decay coord w rate))))
+            )
+      (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
 
                   (let coord (.get world.coord x y))
-                  (let last-time-visited (this.decaying.get coord))
                   (let now sim.ticks)
                   (let debt (- now last-time-visited))
-                  (assign w (decay coord w (* debt rate)))
-                  (.set this.decaying coord now)
-                  (when (< w 1)
-
-
-
-                    (let new-weight (+ w (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))
-
-                    (weights.set x y new-weight)))))
+                  (unless (.has decaying.marked coord)
+                    (.add decaying.marked coord)
+                    (.push decaying.waiting coord)
+                    (set coord.layers id 0))
+                  (if (< w 1)
+                      (incr-by (get coord.layers id)
+                               (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2))))))))
 
 
 (export Pheremones)
