@@ -133,7 +133,6 @@ const Ant = extend(Entity, {
    },
   _die( ant = this.ant,group = this.group ){ 
     
-      console.log("die", ant);
       group.delete(ant);
       return this.seeking.emit(ant.pos, this.seeking.weights, (-10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
@@ -223,7 +222,7 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:98:18 */
+        /* total-weight eval.sibilant:97:18 */
       
         return (ant.genetics.deviance + 1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
