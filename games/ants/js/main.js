@@ -35,7 +35,14 @@ const {
 const { 
   Colony
  } = require("./entities/ant");
-let green = color(0, 255, 0);
+let green = { 
+  red,
+  0,
+  green,
+  255,
+  blue,
+  0
+ };
 let yellow = {
   red: 255,
   green: 255,
@@ -62,19 +69,26 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:89:0 */
+  /* Map.prototype.each eval.sibilant:91:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:91:0 */
+  /* start eval.sibilant:93:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
     x: 30,
     y: 60
-  }, color(255, 0, 0), plants);
+  }, { 
+    red,
+    255,
+    green,
+    0,
+    blue,
+    0
+   }, plants);
   global.sim = sim;
   for (let time = 0;time < 10;++(time)){
   reds.spawn()};

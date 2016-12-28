@@ -63,6 +63,8 @@
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Colony) "./entities/ant")
+(macro color (r g b)
+       `(literal red @r green @g blue @b))
 ;;(import (Entity) "./ecs/entity")
 ;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
 ;; one thing, I can break down these functions into smaller functions and attempt to observe where patterns emerge.
