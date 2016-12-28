@@ -50,14 +50,14 @@
                   (assign ant.life (+ ant.life ant._food.life))
                   (let emission (* (gene ant rate) (gene ant find-rate) 10))
 
-                  (.update food-weights)
+                  (.update this.group.food-weights)
                   (.emit this.group.food-weights ant.pos group.weights  emission 20))
          (generic *reproduce (mth) (nest ant group )
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group )
                   (.spawn group )
-                  (.update mating-weights)
+                  (.update this.group.mating-weights)
                   (.emit this.group.mating-weights ant.pos group.mating-weights.weights
                          (* 10  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
