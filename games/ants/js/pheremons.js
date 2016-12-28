@@ -138,12 +138,12 @@ var memoize = (function memoize$(f) {
 const Pheremones = { 
   symbol:Symbol("Pheremones"),
   id:0,
-  init( color = this.color,decay = this.decay,layer = this.layer,decaying = {
+  init( color = this.color,decay = this.decay,layer.apply(this, get.concat([ sim.layers ])) = ,decaying = {
     waiting: [],
     marked: (new Set())
   },weights = create(StateSpace)(sim.width, sim.width),id = this.id,lastUpdate = 0 ){ 
     
-      this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
+      this.color = color;this.decay = decay;this["layer.apply(this, get.concat([ sim.layers ]))"] = layer.apply(this, get.concat([ sim.layers ]));this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
       addMixingLayer(this, weights, layer);
       return this;
