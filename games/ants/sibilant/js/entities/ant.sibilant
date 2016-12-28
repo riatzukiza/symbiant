@@ -183,12 +183,17 @@
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
                   ;;(let has (R.invoker 1 "has"))
                   ;;(assign this.ants ((R.pipe (R.filter (has R.__ entities)) (R.map update)) this.ants))
-                  (let update (=> (ant) (.update ant )))
-                  (let has (=> (entities) (=> (ant) (.has entities ant))))
-                  (assign this.ants (pipe
-                                     this.ants
-                                     (.map update)
-                                     (.filter  (has entities))))
+
+                  (comment (let update (=> (ant) (.update ant )))
+                           (let has (=> (entities) (=> (ant) (.has entities ant))))
+                           (assign this.ants (pipe
+                                              this.ants
+                                              (.map update)
+                                              (.filter  (has entities)))))
+                  (assign this.ants (.filter this.ants (=> (ant)
+                                                           (.update ant )
+                                                           (let has? (.has entities ant))
+                                                           (unless has? (print "removing ant?" has? ant)) has?)))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
