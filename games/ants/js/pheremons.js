@@ -150,22 +150,7 @@ const Pheremones = {
    },
   update( decaying = this.decaying,id = this.id,dec = this.decay,weights = this.weights ){ 
     
-      console.log("updating", this.decaying.waiting);
-      return // this.decaying.waiting = decaying.waiting.filter((coord) => {
-      // 	
-      //   let w = decay(coord, coord.layers[id], dec);
-      //   coord.layers[id] = w;
-      //   weights.set(coord.x, coord.y, w);
-      //   return (function() {
-      //     if (w <= 0) {
-      //       decaying.marked.delete(coord);
-      //       return false;
-      //     } else {
-      //       return true;
-      //     }
-      //   }).call(this);
-      // 
-      // });
+      return console.log("updating", this.decaying.waiting);
     
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying,id = this.id ){ 

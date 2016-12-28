@@ -79,16 +79,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
       (gmth update (decaying id (dec this.decay) weights)
             (print "updating" this.decaying.waiting)
-            (comment (assign this.decaying.waiting
-                     (.filter decaying.waiting
-                              (=> (coord)
-                                  (let w (decay coord  (get coord.layers id) dec))
-                                  (set coord.layers id w)
-                                  (weights.set coord.x coord.y w)
-
-                                  (if (<= w 0)
-                                      (do
-                                       (.delete decaying.marked coord) false) true))))))
+            )
 
       (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
