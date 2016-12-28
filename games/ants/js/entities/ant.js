@@ -339,10 +339,14 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + ((Math.floor((Math.random() * (30 - 1))) + 1) * rx)), (this.nest.y + ((Math.floor((Math.random() * (30 - 1))) + 1) * ry)), color);
+      let x = (this.nest.x + ((Math.floor((Math.random() * (30 - 1))) + 1) * rx));
+      let y = (this.nest.y + ((Math.floor((Math.random() * (30 - 1))) + 1) * ry));
+      let pos = world.coord.get(x, y);
       console.log("TRYING TO SPAWN", ent);
       (function() {
-        if (ent) {
+        if (!(world.collision.has(pos))) {
+          let ent = create(this)(pos, color);
+          world.add(ent);
           ent.group = this;
           ent.seeking = this.foodWeights;
           this.add(ent);
