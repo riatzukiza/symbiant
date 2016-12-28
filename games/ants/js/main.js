@@ -94,11 +94,7 @@ var start = (function start$(sim) {
   interface(sim, Colony);
   return sim.start().on("tick", (now, ticks) => {
   	
-    (function() {
-      if ((ticks % 120) === 0) {
-        return plants.update();
-      }
-    }).call(this);
+    plants.update();
     for (let time = 0;time < 1;++(time)){
     Colony.colonies.each((col) => {
     	
