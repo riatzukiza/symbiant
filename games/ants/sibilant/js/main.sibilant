@@ -68,6 +68,7 @@
 ;;(import (Entity) "./ecs/entity")
 ;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
 ;; one thing, I can break down these functions into smaller functions and attempt to observe where patterns emerge.
+;; I need to keep the hand written js files seperate from the results of the compiler so I can better manage them.
 
 (let green (color 0 255 0))
 (let yellow { red 255 green 255 blue 0 })
