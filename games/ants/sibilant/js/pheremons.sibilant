@@ -73,8 +73,8 @@ Values are not changed unless done so explicitly by the function as a side effec
       (property id 0)
       (init (color decay  layer
                    (decaying { waiting [] marked (new Set) })
-                   (weights ((create State-space) sim.width sim.width))
-                   (id (++ this.id )))
+                   (weights ((create State-space) sim.width sim.width)) id)
+            (++ Pheremones.id)
             (add-mixing-layer this weights layer))
 
       (gmth update (decaying id (dec this.decay) weights)
@@ -86,12 +86,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                                  (weights.set coord.x coord.y w)
 
                                  (if (<= w 0)
-                                     (do
-                                      (.delete decaying.marked coord) false) true)))))
-
+                                     (do (.delete decaying.marked coord) false) true)))))
       (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
-
                   (let coord (.get world.coord x y))
                   (unless (.has decaying.marked coord)
                     (.add decaying.marked coord)

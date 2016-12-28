@@ -141,9 +141,10 @@ const Pheremones = {
   init( color = this.color,decay = this.decay,layer = this.layer,decaying = {
     waiting: [],
     marked: (new Set())
-  },weights = create(StateSpace)(sim.width, sim.width),id = ++(this.id) ){ 
+  },weights = create(StateSpace)(sim.width, sim.width),id = this.id ){ 
     
       this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;
+      ++(Pheremones.id);
       addMixingLayer(this, weights, layer);
       return this;
     
