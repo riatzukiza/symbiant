@@ -147,7 +147,7 @@
 
          (init (nest color goals (decay 0.1) colonies
 
-                     (food-weights ((create Pheremones) color decay (.get sim.layers)))
+                     (food-weights ((create Pheremones) color decay ))
 
                      (mating-weights ((create Pheremones) (color color.red color.green 255) decay ))
                      (event (new Event-emitter))
