@@ -55,12 +55,12 @@ const Entity = {
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (!(world.collision.has(pos))) {
-          let ent = create(this)(pos, color);
-          world.add(ent);
-          return ent;
+        if (world.collision.has) {
+          return pos;
         }
-      }).call(this);
+      }).call(this)(false, let ent = create(this)(pos, color);
+      world.add(ent);
+      return ent;);
     
    },
   move( x = this.x,y = this.y ){ 
@@ -81,7 +81,7 @@ const Entity = {
    },
   random(  ){ 
     
-      return this.spawn(Math.floor((Math.random() * ((world.coord.width - 0) + 0))), Math.floor((Math.random() * ((world.coord.width - 0) + 0))));
+      return this.spawn((Math.floor((Math.random() * (world.coord.width - 0))) + 0), (Math.floor((Math.random() * (world.coord.width - 0))) + 0));
     
    }
  };
