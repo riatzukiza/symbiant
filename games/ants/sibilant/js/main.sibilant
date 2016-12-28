@@ -46,12 +46,13 @@
 (const $ (require "jquery/dist/jquery.min.js"))
 ;; Globals
 (import (World) "./systems/world")
-(assign global.world ((create World) sim.coord Rendering))
+(import (Simulation) "./simulation")
+
 (Simulation let sim (120 120 5))
 (assign global.sim sim)
+(assign global.world ((create World) sim.coord Rendering))
 
 ;; Types
-(import (Simulation) "./simulation")
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Colony) "./entities/ant")

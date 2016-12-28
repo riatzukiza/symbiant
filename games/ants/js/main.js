@@ -14,12 +14,12 @@ const $ = require("jquery/dist/jquery.min.js");
 const { 
   World
  } = require("./systems/world");
-global.world = create(World)(sim.coord, Rendering);
-let sim = create(Simulation)(120, 120, 5);
-global.sim = sim;
 const { 
   Simulation
  } = require("./simulation");
+let sim = create(Simulation)(120, 120, 5);
+global.sim = sim;
+global.world = create(World)(sim.coord, Rendering);
 const { 
   Entity
  } = require("./ecs/entity");
@@ -65,13 +65,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:83:0 */
+  /* Map.prototype.each eval.sibilant:84:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:85:0 */
+  /* start eval.sibilant:86:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
