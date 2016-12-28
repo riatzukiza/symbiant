@@ -83,7 +83,9 @@ Values are not changed unless done so explicitly by the function as a side effec
                              (=> (coord)
                                  (let w (decay coord (get coord.layers id) rate))
                                  (weights.set x y w)
+
                                  (if (<= w 0) (do (.delete decaying.marked coord) false) true)))))
+
       (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
 

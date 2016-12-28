@@ -148,11 +148,20 @@ const Pheremones = {
       return this;
     
    },
-  update( decaying = this.decaying ){ 
+  update( decaying = this.decaying,id = this.id ){ 
     
-      return decaying.waiting.each((coord) => {
+      return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
-        return w = decay(coord, w, rate);
+        let w = decay(coord, coord.layers[id], rate);
+        weights.set(x, y, w);
+        return (function() {
+          if (w <= 0) {
+            decaying.marked.delete(coord);
+            return false;
+          } else {
+            return true;
+          }
+        }).call(this);
       
       });
     
@@ -162,8 +171,6 @@ const Pheremones = {
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
         let coord = world.coord.get(x, y);
-        let now = sim.ticks;
-        let debt = (now - lastTimeVisited);
         (function() {
           if (!(decaying.marked.has(coord))) {
             decaying.marked.add(coord);
