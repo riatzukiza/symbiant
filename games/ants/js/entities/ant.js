@@ -369,21 +369,22 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      console.log("Updating");
       let update = (ant) => {
       	
-        console.log("UPDATE?");
-        return ant.update();
+        ant.update();
+        return ant;
       
       };
-      let has = (ant) => {
+      let has = (entities) => {
       	
-        console.log("HAS?!?!?!");
-        return entities.has(ant);
+        return (ant) => {
+        	
+          return entities.has(ant);
+        
+        };
       
       };
-      this.ants = this.ants.filter(has);
-      this.ants = this.ants.map(update);
+      this.ants = this.ants.map(update).filter(has(entities));
       // this.ants = this.ants.filter((ant) => {
       // 	
       //   ant.update();
