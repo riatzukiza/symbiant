@@ -100,12 +100,13 @@ var start = (function start$(sim) {
       }
     }).call(this);
     (function() {
-      if ((ticks % 30) === 0) {
-        return Colony.colonies.each((col) => {
+      if ((ticks % 1) === 0) {
+        return for (let time = 0;time < 10;++(time)){
+        Colony.colonies.each((col) => {
         	
           return col.update();
         
-        });
+        })};
       }
     }).call(this);
     return sim.layers.update().render();
