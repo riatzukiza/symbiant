@@ -14,7 +14,6 @@
 (import {euclidian-distance} "./math")
 (import {complement} "./color")
 
-;;(import (each-weight) "./ant")
 
 (let colors [])
 

@@ -1,4 +1,5 @@
 (import ( create extend mixin) "../util")
+
 (type Entity
       (init (pos world color collision ))
       (gett r  this.color.red)

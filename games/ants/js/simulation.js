@@ -6,15 +6,6 @@ const {
 const { 
   EventEmitter
  } = require("events");
-const { 
-  StateSpace
- } = require("./state-space");
-const { 
-  Colony,
-  Ant,
-  eachWeight,
-  mapWeights
- } = require("./ant");
 const fs = require("browserify-fs");
 const { 
   Matrix
@@ -37,7 +28,7 @@ const Location = {
 const Simulation = extend(EventEmitter.prototype, { 
   symbol:Symbol("Simulation"),
   init( fps = this.fps,width = this.width,scale = this.scale,state = false,layers = (new Layers(document.getElementById("stage"), "gl", width, scale)).setBGColor(),coord = create(Matrix)([], width, width).dmap((function(nil, x, y) {
-    /* eval.sibilant:27:34 */
+    /* eval.sibilant:16:67 */
   
     return create(Location)(x, y);
   })),systems = (new Set()),rate = (1000 / fps),ticks = 0,sim = this ){ 
@@ -47,7 +38,18 @@ const Simulation = extend(EventEmitter.prototype, {
       return this;
     
    },
-  add( system = this.system ){ 
+  use( color = this.color,system = this.system,entity = this.entity ){ 
+    
+      this.systems.add(create(system)(this, entity, color));
+      return this;
+    
+   },
+  delete(  ){ 
+    
+      return this;
+    
+   },
+  has(  ){ 
     
       return this;
     
@@ -102,67 +104,12 @@ const Simulation = extend(EventEmitter.prototype, {
    },
   save(  ){ 
     
-      let storage = {
-        ants: [],
-        weights: sim.weights,
-        stats: sim.stats
-      };
-      sim.ants.each((ant) => {
-      	
-        delete ant.ants;
-        delete ant.sim;
-        delete ant.ant;
-        delete ant.weights;
-        delete ant.collision;
-        return storage.ants.push(ant);
-      
-      });
-      fs.writeFile("./sim.json", JSON.stringify(storage), (err) => {
-      	
-        (function() {
-          if (err) {
-            return this.emit("error", err);
-          }
-        }).call(this);
-        return this.emit("save");
-      
-      });
       return this;
     
    },
   load( cb = this.cb ){ 
     
-      this.on("load", (cb || (function(sim) {
-        /* eval.sibilant:92:42 */
-      
-        return sim;
-      })));
-      fs.readFile("./sim.json", (err, simState) => {
-      	
-        return (function() {
-          if (err) {
-            return this.emit("load", this);
-          } else {
-            let json = JSON.parse(simState);
-            console.log("loaded file", json);
-            return (function() {
-              if (json.weights) {
-                this.ants = (new Set(json.ants.map((ant) => {
-                	
-                  ant.sim = this;
-                  ant.kernel = create(Matrix)(ant.kernel.array, ant.kernel.width, ant.kernel.height);
-                  return create(extend(Ant, ant))();
-                
-                })));
-                this.stats = (json.stats || this.stats);
-                this.weights = create(StateSpace)(120, 120, create(Matrix)(json.weights.state.array, json.weights.width, json.weights.height), create(Matrix)(json.weights.transition.array, json.weights.width, json.weights.height));
-                return this.emit("load", this);
-              }
-            }).call(this);
-          }
-        }).call(this);
-      
-      });
+      cb(this);
       return this;
     
    }
