@@ -380,6 +380,7 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           this.event.emit("extinct", this);
+          sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }
       }).call(this);
