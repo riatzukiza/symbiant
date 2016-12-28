@@ -55,12 +55,14 @@ const Entity = {
     
       let pos = world.coord.get(x, y);
       return (function() {
-        if (world.collision.has) {
-          return pos;
+        if (world.collision.has(pos)) {
+          return false;
+        } else {
+          let ent = create(this)(pos, color);
+          world.add(ent);
+          return ent;
         }
-      }).call(this)(false, let ent = create(this)(pos, color);
-      world.add(ent);
-      return ent;);
+      }).call(this);
     
    },
   move( x = this.x,y = this.y ){ 
