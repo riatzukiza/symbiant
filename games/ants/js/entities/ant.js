@@ -369,6 +369,7 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
+      console.log("Updating");
       let update = (ant) => {
       	
         console.log("UPDATE?");
