@@ -17,7 +17,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(120, 400, 2);
+let sim = create(Simulation)(120, 120, 5);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
@@ -89,7 +89,7 @@ var start = (function start$(sim) {
   global.sim = sim;
   for (let time = 0;time < 100;++(time)){
   reds.spawn()};
-  for (let time = 0;time < 10000;++(time)){
+  for (let time = 0;time < 100;++(time)){
   plants.random()};
   interface(sim, Colony);
   return sim.start().on("tick", (now, ticks) => {
