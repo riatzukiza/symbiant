@@ -51,7 +51,7 @@ const {
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
-  life:1,
+  life:10,
   update( pos = this.pos,system = this.system ){ 
     
       return (function() {
@@ -95,7 +95,7 @@ var start = (function start$(sim) {
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
-      if ((ticks % 10) === 0) {
+      if ((ticks % 120) === 0) {
         return plants.update();
       }
     }).call(this);
