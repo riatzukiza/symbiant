@@ -254,6 +254,11 @@ const Ant = extend(Entity, {
         }).call(this);
       
       }, 3);
+      (function() {
+        {
+          return (choice.x === ant.x && choice.y === ant.y);
+        }
+      }).call(this);
       return choice;
     
    },
