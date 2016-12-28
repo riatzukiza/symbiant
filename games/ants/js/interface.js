@@ -47,19 +47,11 @@ var interface = (function interface$(sim) {
       
         var table = $("<table>");
         let headerRow = $("<tr>");
-        headerRow.append($("<th>").text("name"));
         headerRow.append($("<th>").text("numbers"));
         table.append(headerRow);
         Colony.colonies.each((c) => {
         	
           var row = $("<tr>");
-          let name = (function() {
-            /* eval.sibilant:30:34 */
-          
-            let colData = $("<td> ").text(c.name);
-            row.append(colData);
-            return colData;
-          }).call(this);
           let numbers = (function() {
             /* eval.sibilant:30:34 */
           
