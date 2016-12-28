@@ -188,8 +188,8 @@
                   (let has (=> (entities) (=> (ant) (.has entities ant))))
                   (assign this.ants (pipe
                                      this.ants
-                                     (.map update)
-                                     (.filter  (has entities))))
+                                     (.filter  (has entities))
+                                     (.map update)))
                   (comment (assign this.ants (.filter this.ants (=> (ant)
                                                             (.update ant )
                                                             (let has? (.has entities ant))
