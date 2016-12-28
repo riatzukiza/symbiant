@@ -158,6 +158,7 @@ const Pheremones = {
         console.log("filtering coord", coord, w);
         return (function() {
           if (w <= 0) {
+            console.log("done decaying", coord);
             decaying.marked.delete(coord);
             return false;
           } else {
