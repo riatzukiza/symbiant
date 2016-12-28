@@ -133,7 +133,7 @@
                             (.*has-discovered-food  ant )
                             (.*eat ant )))
                       (.*die ant))
-                  (.emit this.seeking ant.pos this.seeking.weights (+ 0.01 (* (gene ant rate) (/ ant.life Ant.life))) 20)))
+                  (.emit this.seeking ant.pos this.seeking.weights (* (gene ant rate) (/ ant.life Ant.life)) 20)))
 
 
 (export Ant)
