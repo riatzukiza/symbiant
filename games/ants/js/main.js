@@ -36,12 +36,9 @@ const {
   Colony
  } = require("./entities/ant");
 let green = { 
-  red,
-  0,
-  green,
-  255,
-  blue,
-  0
+  red:0,
+  green:255,
+  blue:0
  };
 let yellow = {
   red: 255,
@@ -82,12 +79,9 @@ var start = (function start$(sim) {
     x: 30,
     y: 60
   }, { 
-    red,
-    255,
-    green,
-    0,
-    blue,
-    0
+    red:255,
+    green:0,
+    blue:0
    }, plants);
   global.sim = sim;
   for (let time = 0;time < 10;++(time)){
