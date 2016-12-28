@@ -155,10 +155,8 @@ const Pheremones = {
         let w = decay(coord, coord.layers[id], dec);
         coord.layers[id] = w;
         weights.set(coord.x, coord.y, w);
-        console.log("filtering coord", coord, w);
         return (function() {
           if (w <= 0) {
-            console.log("done decaying", coord, id);
             decaying.marked.delete(coord);
             return false;
           } else {
@@ -171,7 +169,6 @@ const Pheremones = {
    },
   emit( pos = this.pos,weights = this.weights,rate = this.rate,r = 5,decaying = this.decaying,id = this.id ){ 
     
-      console.log("emitting", id);
       return eachInArea(weights.state, pos, (w, i, j, x, y) => {
       	
         let coord = world.coord.get(x, y);
@@ -184,8 +181,7 @@ const Pheremones = {
         }).call(this);
         return (function() {
           if (w < 1) {
-            coord.layers[id] += (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
-            return console.log(coord.layers[id]);
+            return coord.layers[id] += (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
           }
         }).call(this);
       
