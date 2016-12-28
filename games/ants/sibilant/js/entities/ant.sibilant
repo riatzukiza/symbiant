@@ -1,5 +1,6 @@
-(import ( create extend mixin) "../util")
+(import ( create extend mixin curry) "../util")
 (import (Entity) "../ecs/entity")
+(const R (require "ramda"))
 (import (Entity-group) "../ecs/group")
 (import (Matrix) "../matrix" )
 (import (Pheremones) "../pheremons")
@@ -180,10 +181,9 @@
 
          (generic update (mth) (entities weights decay mating-weights food-weights)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
-                  (assign this.ants (.filter this.ants (=> (ant)
-                                                           (.update ant )
-                                                           (let has? (.has entities ant))
-                                                           (unless has? (print "removing ant?" has? ant)) has?)))
+                  (let has (R.invoker 1 "has"))
+                  (let update (R.invoker 0 "update"))
+                  (assign this.ants ((R.pipe (R.filter (has R.__ entities)) (R.map update)) this.ants))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)

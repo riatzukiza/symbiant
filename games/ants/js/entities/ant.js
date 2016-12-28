@@ -1,11 +1,13 @@
 const { 
   create,
   extend,
-  mixin
+  mixin,
+  curry
  } = require("../util");
 const { 
   Entity
  } = require("../ecs/entity");
+const R = require("ramda");
 const { 
   EntityGroup
  } = require("../ecs/group");
@@ -36,7 +38,7 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 var randomColor = (function randomColor$() {
-  /* random-color eval.sibilant:16:0 */
+  /* random-color eval.sibilant:17:0 */
 
   return {
     red: (Math.floor((Math.random() * ( - 255))) + 255),
@@ -45,7 +47,7 @@ var randomColor = (function randomColor$() {
   };
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:23:0 */
+  /* matrix-center eval.sibilant:24:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -221,7 +223,7 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:97:18 */
+        /* total-weight eval.sibilant:98:18 */
       
         return (ant.genetics.deviance + 1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
@@ -367,18 +369,9 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      this.ants = this.ants.filter((ant) => {
-      	
-        ant.update();
-        let has__QUERY = entities.has(ant);
-        (function() {
-          if (!(has__QUERY)) {
-            return console.log("removing ant?", has__QUERY, ant);
-          }
-        }).call(this);
-        return has__QUERY;
-      
-      });
+      let has = R.invoker(1, "has");
+      let update = R.invoker(0, "update");
+      this.ants = R.pipe(R.filter(has(R.__, entities)), R.map(update))(this.ants);
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
