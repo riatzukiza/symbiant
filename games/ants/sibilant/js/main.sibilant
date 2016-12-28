@@ -56,7 +56,6 @@
                                      {
                                      entities (.get sim.layers)
                                      weights []
-
                                      }))
 
 ;; Types
