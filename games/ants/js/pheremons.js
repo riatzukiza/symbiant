@@ -45,7 +45,7 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
 var addMixingLayer = (function addMixingLayer$(entity, weights) {
   /* add-mixing-layer eval.sibilant:44:0 */
 
-  let layer.apply(this, get.concat([ sim.layers ])) = ;
+  let layer = sim.layers.get();
   weights.layer = layer;
   weights.each((w, x, y) => {
   	
