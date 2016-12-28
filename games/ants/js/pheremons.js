@@ -157,6 +157,7 @@ const Pheremones = {
         weights.set(coord.x, coord.y, w);
         return (function() {
           if (w <= 0) {
+            console.log("done decaying", coord, w, id);
             decaying.marked.delete(coord);
             return false;
           } else {
