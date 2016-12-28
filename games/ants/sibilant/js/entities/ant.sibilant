@@ -94,7 +94,7 @@
                                                        (gene ant deviance)))))
                   (let rand (* count (Math.random)))
                   (each-valid-move ant this.seeking.weights.state
-                                   (incr-by sum (+ 1(* w
+                                   (incr-by sum (+ 1 (* w
                                                     (/ ant.life Ant.life)
                                                     (.get (gene ant kernel) i j)
                                                     (gene ant deviance))))
