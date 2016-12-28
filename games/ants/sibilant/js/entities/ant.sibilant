@@ -186,8 +186,8 @@
 
                   (assign this.ants (pipe
                                      this.ants
-                                     (.each  update)
-                                     (.filter  (has entities))))
+                                     (.filter  (has entities))
+                                     (.each  update)))
 
                   (when (= this.entities.size 0)
                     (print "colonly has died")

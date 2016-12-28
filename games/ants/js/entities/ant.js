@@ -378,7 +378,7 @@ const Colony = extend(EntityGroup, {
         };
       
       };
-      this.ants = this.ants.each(update).filter(has(entities));
+      this.ants = this.ants.filter(has(entities)).each(update);
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
