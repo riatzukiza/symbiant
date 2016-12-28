@@ -369,9 +369,21 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      let has = R.invoker(1, "has");
-      let update = R.invoker(0, "update");
-      this.ants = R.pipe(R.filter(has(R.__, entities)), R.map(update))(this.ants);
+      let update = (ant) => {
+      	
+        return ant.update();
+      
+      };
+      let has = (entities) => {
+      	
+        return (ant) => {
+        	
+          return entities.has(ant);
+        
+        };
+      
+      };
+      this.ants = this.ants.filter(has(entities)).map(update);
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
