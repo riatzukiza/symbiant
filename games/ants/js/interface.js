@@ -61,7 +61,6 @@ var interface = (function interface$(sim, C) {
           }).call(this);
           table.append(row);
           console.log("ants", c);
-          name.css("color", ("rgb(" + [ c.color.red, c.color.green, c.color.blue ].join(",") + ")"));
           return sim.on("tick", () => {
           	
             return numbers.text(c.ants.size);

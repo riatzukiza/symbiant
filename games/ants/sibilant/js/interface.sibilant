@@ -53,7 +53,7 @@
                                 (print "ants" c)
 
 
-                                (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
+                                ;;(.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
                                 (on sim "tick" () (.text numbers c.ants.size))))) context)
 (export interface)
