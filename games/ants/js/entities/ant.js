@@ -116,6 +116,7 @@ const Ant = extend(Entity, {
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
       let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
+      foodWeights.update();
       return this.group.foodWeights.emit(ant.pos, group.weights, emission, 20);
     
    },
@@ -125,6 +126,7 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
+      matingWeights.update();
       return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
@@ -219,7 +221,7 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:93:18 */
+        /* total-weight eval.sibilant:96:18 */
       
         return (ant.genetics.deviance + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
@@ -363,8 +365,6 @@ const Colony = extend(EntityGroup, {
         return ant.update();
       
       });
-      matingWeights.update();
-      foodWeights.update();
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
