@@ -55,8 +55,6 @@
 
                        (on sim "tick" () (.text numbers c.ants.size))))
 
-         (sequence here .css
-                   ( "margin-top" "600px")
-                   ("z-index" "9999")))
+         )
   context)
 (export interface)

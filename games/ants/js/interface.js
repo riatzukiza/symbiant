@@ -81,7 +81,6 @@ var interface = (function interface$(sim) {
       return here;
     })(context);
     ;
-    here.css("margin-top", "600px").css("z-index", "9999");
     return here;
   })(context);
   ;
