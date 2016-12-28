@@ -6,33 +6,14 @@ socket.on("change", () => {
 
 });
 const { 
-  euclidianDistance
- } = require("./math");
-const { 
   create,
   extend,
   mixin
  } = require("./util");
 const $ = require("jquery/dist/jquery.min.js");
-const fs = require("browserify-fs");
-const { 
-  Matrix
- } = require("./matrix");
-const { 
-  StateSpace
- } = require("./state-space");
 const { 
   Simulation
  } = require("./simulation");
-const { 
-  Pheremones
- } = require("./pheremons");
-const { 
-  complement
- } = require("./color");
-const { 
-  weightedRandomElement
- } = require("./random");
 let george = {
   x: 20,
   y: 20
@@ -103,13 +84,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:102:0 */
+  /* Map.prototype.each eval.sibilant:94:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:104:0 */
+  /* start eval.sibilant:96:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({

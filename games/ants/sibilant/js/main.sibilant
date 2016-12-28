@@ -1,28 +1,20 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
-(macro import (thing from)
-       `(const (literal ...@(content-of thing)) (require @from)))
+(macro import (thing from) `(const (literal ...@(content-of thing)) (require @from)))
 (let socket (io "/ants"))
 (on socket "change" () (print "change ") (.reload location))
 
 ;; Libs
-(import (euclidian-distance) "./math")
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
-(const fs (require "browserify-fs"))
 ;; Types
-(import (Matrix) "./matrix" )
-(import (State-space) "./state-space")
 (import (Simulation) "./simulation")
 
 ;;(import (Entity) "./ecs/entity")
 ;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
 ;; one thing, I can break down these functions into smaller functions and attempt to observe where patterns emerge.
 
-(import (Pheremones) "./pheremons")
-(import (complement) "./color")
-(import (weighted-random-element) "./random")
 (let george { x 20 y 20 })
 ;; Declare variables
 (Simulation let sim (120 120 5))
