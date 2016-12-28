@@ -385,18 +385,6 @@ const Colony = extend(EntityGroup, {
       
       };
       this.ants = this.ants.filter(has(entities)).map(update);
-      // this.ants = this.ants.filter((ant) => {
-      // 	
-      //   ant.update();
-      //   let has__QUERY = entities.has(ant);
-      //   (function() {
-      //     if (!(has__QUERY)) {
-      //       return console.log("removing ant?", has__QUERY, ant);
-      //     }
-      //   }).call(this);
-      //   return has__QUERY;
-      // 
-      // });
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
