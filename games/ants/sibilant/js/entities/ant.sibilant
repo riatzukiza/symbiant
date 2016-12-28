@@ -79,7 +79,8 @@
                   (let done false)
                   (let choice {
                     x ant.x
-                    y ant.y
+                  
+  y ant.y
                     })
                   ;; I think this ends up being needed in multiple places.
                   ;; but in what way?
@@ -127,7 +128,7 @@
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
-                                       (and (< group.colonies 30)(> (Math.random) 0.9999))
+                                       (and (< group.colonies.size 30)(> (Math.random) 0.9999))
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
                             (.*eat ant )))
