@@ -56,7 +56,6 @@
                   (print "ant make babies" ant)
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
-                  (.spawn group )
                   (.update this.group.mating-weights)
                   (.emit this.group.mating-weights ant.pos group.mating-weights.weights
                          (* 10  (gene ant rate) (/ ant.life Ant.life)) 20))
