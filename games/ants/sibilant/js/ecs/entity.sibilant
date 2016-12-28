@@ -13,11 +13,9 @@
 
       (gmth spawn (x y color )
             (let pos (.get world.coord x y))
-            (if (world.collision.has pos )
-               false
-               (do (let ent ((create this) pos color))
-                   (world.add ent)
-                ent)))
+            (unless (world.collision.has pos )
+              (let ent ((create this) pos color))
+              (world.add ent) ent))
 
       (gmth move (x y )
             (let pos (.get world.coord x y))
