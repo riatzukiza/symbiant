@@ -13,6 +13,12 @@
 
          (let m (allns w h weight))
          (set m.array (matrix-center w h) c) m)
+(def random-color ()
+  {
+  red (random-int 255)
+  green (random-int 255)
+  blue (random-int 255)
+  })
 
 (def matrix-center (width height )
   (Math.round (/ (- (* width height) 1) 2)))
@@ -128,7 +134,6 @@
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
-
                                        (and (< group.colonies.size 30)(> (Math.random) 0.9999))
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )

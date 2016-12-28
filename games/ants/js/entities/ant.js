@@ -35,8 +35,17 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   m.array[matrixCenter(w, h)] = c;
   return m;
 });
+var randomColor = (function randomColor$() {
+  /* random-color eval.sibilant:16:0 */
+
+  return {
+    red: (Math.floor((Math.random() * ( - 255))) + 255),
+    green: (Math.floor((Math.random() * ( - 255))) + 255),
+    blue: (Math.floor((Math.random() * ( - 255))) + 255)
+  };
+});
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:17:0 */
+  /* matrix-center eval.sibilant:23:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
