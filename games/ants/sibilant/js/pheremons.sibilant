@@ -42,7 +42,6 @@ Values are not changed unless done so explicitly by the function as a side effec
                       (=> (@el-name i j x y)
                           ...@body) @size ))
 (def add-mixing-layer (entity weights layer)
-
   (assign weights.layer layer)
   (each weights (w x y)
         (.add layer
