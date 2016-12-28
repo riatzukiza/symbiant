@@ -122,7 +122,6 @@ const Ant = extend(Entity, {
    },
   _reproduce( nest = this.nest,ant = this.ant,group = this.group ){ 
     
-      console.log("ant make babies", ant);
       ant.life = (ant.life / 2);
       ant.mutate();
       group.spawn();
