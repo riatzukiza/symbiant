@@ -50,10 +50,12 @@
   (div interface-container {}
          (panel colonies
                 (describe-table (Colony.colonies (c) ( (numbers c.entities.size)) here)
+                                (print "ants" c)
 
-                       (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                       (on sim "tick" () (.text numbers c.ants.size))))
+                                (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
+
+                                (on sim "tick" () (.text numbers c.ants.size))))
 
          )
   context)
