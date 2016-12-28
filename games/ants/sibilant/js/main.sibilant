@@ -97,7 +97,7 @@
   (assign global.sim sim)
   (do-times 10 (.spawn reds))
   (do-times 100 (.random plants  ))
-  ;;(interface sim)
+  (interface sim)
 
   (on (sim.start) "tick" (now ticks)
       (every 120 ticks (.update plants))
