@@ -106,7 +106,7 @@ const Ant = extend(Entity, {
     
       group.goals.delete(ant._food);
       ant.life = (ant.life + ant._food.life);
-      let emission = (ant.genetics.rate * ant.genetics.findRate * 100);
+      let emission = (ant.genetics.rate * ant.genetics.findRate * 10);
       console.log("eating", emission);
       return this.group.foodWeights.emit(ant.pos, group.weights, emission, 20);
     
@@ -117,7 +117,7 @@ const Ant = extend(Entity, {
       ant.mutate();
       group.spawn();
       group.spawn();
-      return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (100 * ant.genetics.rate * (ant.life / Ant.life)), 20);
+      return this.group.matingWeights.emit(ant.pos, group.matingWeights.weights, (10 * ant.genetics.rate * (ant.life / Ant.life)), 20);
     
    },
   _die( ant = this.ant,group = this.group ){ 
