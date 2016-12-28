@@ -50,7 +50,14 @@
 
 (Simulation let sim (120 120 5))
 (assign global.sim sim)
-(assign global.world ((create World) sim.coord Rendering))
+(type Rendering
+      )
+(assign global.world ((create World) sim.coord
+                                     {
+                                     entities (.get sim.layers)
+                                     weights []
+
+                                     }))
 
 ;; Types
 (import (Entity) "./ecs/entity")
@@ -63,9 +70,7 @@
 (let green (color 0 255 0))
 (let yellow { red 255 green 255 blue 0 })
 
-(type Rendering
-      (property entities (.get sim.layers))
-      (property weights []))
+
 
 
 (specify Plant (extend Entity)

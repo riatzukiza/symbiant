@@ -19,7 +19,13 @@ const {
  } = require("./simulation");
 let sim = create(Simulation)(120, 120, 5);
 global.sim = sim;
-global.world = create(World)(sim.coord, Rendering);
+const Rendering = { 
+  symbol:Symbol("Rendering")
+ };
+global.world = create(World)(sim.coord, {
+  entities: sim.layers.get(),
+  weights: []
+});
 const { 
   Entity
  } = require("./ecs/entity");
@@ -39,11 +45,6 @@ let yellow = {
   green: 255,
   blue: 0
 };
-const Rendering = { 
-  symbol:Symbol("Rendering"),
-  entities:sim.layers.get(),
-  weights:[]
- };
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
@@ -65,13 +66,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:84:0 */
+  /* Map.prototype.each eval.sibilant:89:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:86:0 */
+  /* start eval.sibilant:91:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
