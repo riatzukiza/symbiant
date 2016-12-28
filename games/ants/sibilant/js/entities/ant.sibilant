@@ -185,8 +185,9 @@
                   ;;(assign this.ants ((R.pipe (R.filter (has R.__ entities)) (R.map update)) this.ants))
                   (let update (=> (ant) (.update ant )))
                   (let has (=> (entities) (=> (ant) (.has entities ant))))
-                  (assign this.ants (pipe (.filter this.ants (has entities))
-                                          (.map update)))
+                  (assign this.ants (pipe
+                                     (.map update)
+                                     (.filter this.ants (has entities))))
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
