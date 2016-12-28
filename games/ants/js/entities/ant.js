@@ -341,7 +341,7 @@ const Colony = extend(EntityGroup, {
       });
     
    },
-  update( entities = this.entities,weights = this.weights,decay = this.decay ){ 
+  update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
       this.each((ant) => {
@@ -349,6 +349,8 @@ const Colony = extend(EntityGroup, {
         return ant.update();
       
       });
+      matingWeights.update();
+      foodWeights.update();
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");

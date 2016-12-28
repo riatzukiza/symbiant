@@ -77,15 +77,17 @@ Values are not changed unless done so explicitly by the function as a side effec
                    (id (++ this.id )))
             (add-mixing-layer this weights layer))
 
-      (gmth update (decaying )
-            (.each decaying.waiting (=> (coord) (assign w (decay coord w rate))))
-            )
+      (gmth update (decaying id)
+            (assign this.decaying.waiting
+                    (.filter decaying.waiting
+                             (=> (coord)
+                                 (let w (decay coord (get coord.layers id) rate))
+                                 (weights.set x y w)
+                                 (if (<= w 0) (do (.delete decaying.marked coord) false) true)))))
       (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
 
                   (let coord (.get world.coord x y))
-                  (let now sim.ticks)
-                  (let debt (- now last-time-visited))
                   (unless (.has decaying.marked coord)
                     (.add decaying.marked coord)
                     (.push decaying.waiting coord)
