@@ -77,7 +77,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                    (id (++ this.id )))
             (add-mixing-layer this weights layer))
 
-      (gmth update (decaying id (dec decay) weights)
+      (gmth update (decaying id (dec this.decay) weights)
             (assign this.decaying.waiting
                     (.filter decaying.waiting
                              (=> (coord)

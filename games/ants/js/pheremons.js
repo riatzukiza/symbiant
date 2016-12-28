@@ -148,7 +148,7 @@ const Pheremones = {
       return this;
     
    },
-  update( decaying = this.decaying,id = this.id,dec = decay,weights = this.weights ){ 
+  update( decaying = this.decaying,id = this.id,dec = this.decay,weights = this.weights ){ 
     
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
