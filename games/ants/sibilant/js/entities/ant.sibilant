@@ -184,8 +184,8 @@
                   ;;(let has (R.invoker 1 "has"))
                   ;;(assign this.ants ((R.pipe (R.filter (has R.__ entities)) (R.map update)) this.ants))
 
-                  (let update (=> (ant) (.update ant )))
-                  (let has (=> (ant) (.has entities ant)))
+                  (let update (=> (ant) (print "UPDATE?")(.update ant )))
+                  (let has (=> (ant) (print "HAS?!?!?!")(.has entities ant)))
                   (assign this.ants  (.filter  this.ants has))
                   (assign this.ants  (.map  this.ants update))
                   (comment (assign this.ants (.filter this.ants (=> (ant)

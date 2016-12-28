@@ -371,11 +371,13 @@ const Colony = extend(EntityGroup, {
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
       let update = (ant) => {
       	
+        console.log("UPDATE?");
         return ant.update();
       
       };
       let has = (ant) => {
       	
+        console.log("HAS?!?!?!");
         return entities.has(ant);
       
       };
