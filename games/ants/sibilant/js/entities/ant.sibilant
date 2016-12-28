@@ -172,8 +172,7 @@
                     (assign ent.nest this.nest)
                     (.emit this.event "spawn" ent)
                     (.push this.ants ent)
-                    ent
-                    ))
+                    ent))
 
          (generic serialize (mth) (ants)
                   (map (.to-array ants) (ant) (.serialize ant)))
@@ -186,7 +185,7 @@
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
-                    (.remove sim.layers this.layer)
+                    ;;(.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
 

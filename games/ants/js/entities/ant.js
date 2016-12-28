@@ -377,7 +377,6 @@ const Colony = extend(EntityGroup, {
         if (this.entities.size === 0) {
           console.log("colonly has died");
           this.event.emit("extinct", this);
-          sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }
       }).call(this);
