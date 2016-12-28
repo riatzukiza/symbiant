@@ -87,7 +87,7 @@ var start = (function start$(sim) {
     blue:0
    }, plants);
   global.sim = sim;
-  for (let time = 0;time < 120;++(time)){
+  for (let time = 0;time < 10;++(time)){
   reds.spawn()};
   for (let time = 0;time < 100;++(time)){
   plants.random()};
@@ -95,7 +95,7 @@ var start = (function start$(sim) {
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
-      if ((ticks % 10) === 0) {
+      if ((ticks % 40) === 0) {
         return plants.update();
       }
     }).call(this);
