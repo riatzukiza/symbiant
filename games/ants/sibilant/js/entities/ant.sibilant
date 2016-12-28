@@ -143,7 +143,7 @@
          (property colonies (new Set) )
          (property entity-type Ant)
 
-         (init (nest color goals (decay 0.01) colonies
+         (init (nest color goals (decay 0.1) colonies
 
                      (food-weights ((create Pheremones) color decay (.get sim.layers)))
 
