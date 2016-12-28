@@ -53,7 +53,7 @@
                   (.update this.group.food-weights)
                   (.emit this.group.food-weights ant.pos group.weights  emission 20))
          (generic *reproduce (mth) (nest ant group )
-                  (print "reproduced" ant)
+                  (print "ant make babies" ant)
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group )
@@ -102,7 +102,10 @@
                   (each-valid-move ant this.seeking.weights.state
                                    (incr-by sum (total-weight w i j))
                                    (when (and (<= rand sum) (not done))
-                                     (assign choice.x x choice.y y done true))) choice)
+                                     (assign choice.x x choice.y y done true)))
+                  (if (and (= choice.x ant.x) (= choice.y ant.y))
+                      (print "ant chose the same spot"))
+                  choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
                                            (let total-life 0)
@@ -130,7 +133,7 @@
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
-                                       (and (< group.colonies.size 30)(> (Math.random) 0.999999999999))
+                                       (and (< group.colonies.size 30)(> (Math.random) 0.999))
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
                             (.*eat ant )))
@@ -156,17 +159,12 @@
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
-
                   (let rx (ternary (= (random-bit) 1) 1 -1))
                   (let ry (ternary (= (random-bit) 1) 1 -1))
-
-                  (let x (+ this.nest.x (* (random-int 1 30) rx) ))
-                  (let y (+ this.nest.y (* (random-int 1 30) ry) ))
-
-                  (let pos (.get world.coord x y))
-                  (unless (world.collision.has pos )
-                    (let ent ((create entity-type) pos color))
-                    (world.add ent)
+                  (let ent (.spawn entity-type
+                                   (+ this.nest.x (* (random-int 1 30) rx) )
+                                   (+ this.nest.y (* (random-int 1 30) ry) ) color))
+                  (when ent
                     (assign ent.group this)
                     (assign ent.seeking this.food-weights)
                     (this.add ent)
@@ -187,7 +185,7 @@
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
-                    ;;(.remove sim.layers this.layer)
+                    (.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
 
