@@ -93,7 +93,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                   (unless (.has decaying.marked coord)
                     (.add decaying.marked coord)
                     (.push decaying.waiting coord)
-                    (set coord.layers id 0))
+                    (set coord.layers id w))
                   (if (< w 1)
                       (incr-by (get coord.layers id)
                                (/ rate (+ 1 (Math.pow (euclidian-distance x y pos.x pos.y) 2))))))))

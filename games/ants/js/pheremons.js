@@ -175,7 +175,7 @@ const Pheremones = {
           if (!(decaying.marked.has(coord))) {
             decaying.marked.add(coord);
             decaying.waiting.push(coord);
-            return coord.layers[id] = 0;
+            return coord.layers[id] = w;
           }
         }).call(this);
         return (function() {
