@@ -322,7 +322,7 @@ const Colony = extend(EntityGroup, {
     red:color.red,
     green:color.green,
     blue:255
-   }, decay, sim.layers.get()),event = (new EventEmitter()),ants = [] ){ 
+   }, decay),event = (new EventEmitter()),ants = [] ){ 
     
       this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;this.event = event;this.ants = ants;
       EntityGroup.init.call(this);

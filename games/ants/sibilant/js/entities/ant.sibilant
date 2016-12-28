@@ -149,9 +149,7 @@
 
                      (food-weights ((create Pheremones) color decay (.get sim.layers)))
 
-                     (mating-weights ((create Pheremones)
-                                      (color color.red color.green 255)
-                                      decay (.get sim.layers)))
+                     (mating-weights ((create Pheremones) (color color.red color.green 255) decay ))
                      (event (new Event-emitter))
                      (ants []))
                (Entity-group.init.call this)
