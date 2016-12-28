@@ -45,18 +45,15 @@
 (import (emit-pheremones Ant ) "./ant")
 (import (Colony) "./colony")
 
-(def interface (sim)
+(def interface (sim C)
 
   (div interface-container {}
          (panel colonies
-                (describe-table (Colony.colonies (c) ( (numbers c.entities.size)) here)
+                (describe-table (C.colonies (c) ( (numbers c.entities.size)) here)
                                 (print "ants" c)
 
 
                                 (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                                (on sim "tick" () (.text numbers c.ants.size))))
-
-         )
-  context)
+                                (on sim "tick" () (.text numbers c.ants.size))))) context)
 (export interface)

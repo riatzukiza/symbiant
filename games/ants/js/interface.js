@@ -12,7 +12,7 @@ const {
 const { 
   Colony
  } = require("./colony");
-var interface = (function interface$(sim) {
+var interface = (function interface$(sim, C) {
   /* interface eval.sibilant:48:0 */
 
   let interfaceContainer = (function(context) {
@@ -49,7 +49,7 @@ var interface = (function interface$(sim) {
         let headerRow = $("<tr>");
         headerRow.append($("<th>").text("numbers"));
         table.append(headerRow);
-        Colony.colonies.each((c) => {
+        C.colonies.each((c) => {
         	
           var row = $("<tr>");
           let numbers = (function() {
