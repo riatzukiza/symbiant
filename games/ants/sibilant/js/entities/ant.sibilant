@@ -166,7 +166,6 @@
                   (let y (+ this.nest.y (* (random-int 1 30) ry) ))
 
                   (let pos (.get world.coord x y))
-                  (print "TRYING TO SPAWN" ent)
                   (unless (world.collision.has pos )
                     (let ent ((create entity-type) pos color))
                     (world.add ent)

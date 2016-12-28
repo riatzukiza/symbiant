@@ -342,7 +342,6 @@ const Colony = extend(EntityGroup, {
       let x = (this.nest.x + ((Math.floor((Math.random() * (30 - 1))) + 1) * rx));
       let y = (this.nest.y + ((Math.floor((Math.random() * (30 - 1))) + 1) * ry));
       let pos = world.coord.get(x, y);
-      console.log("TRYING TO SPAWN", ent);
       (function() {
         if (!(world.collision.has(pos))) {
           let ent = create(entityType)(pos, color);
