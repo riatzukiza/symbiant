@@ -345,7 +345,7 @@ const Colony = extend(EntityGroup, {
       console.log("TRYING TO SPAWN", ent);
       (function() {
         if (!(world.collision.has(pos))) {
-          let ent = create(this)(pos, color);
+          let ent = create(entityType)(pos, color);
           world.add(ent);
           ent.group = this;
           ent.seeking = this.foodWeights;
