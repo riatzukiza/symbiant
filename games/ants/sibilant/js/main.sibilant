@@ -79,7 +79,7 @@
 
 (specify Plant (extend Entity)
          (property color green)
-         (property life 200)
+         (property life 10)
          (gmth update (pos system)
                (when (= (random-bit) 1)
 
