@@ -196,8 +196,8 @@ const Ant = extend(Entity, {
    },
   choose( group = this.group,collision = this.collision,ant = this ){ 
     
-      let count = 1;
-      let sum = 1;
+      let count = 0;
+      let sum = 0;
       let done = false;
       let choice = {
         x: ant.x,
@@ -214,7 +214,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            return count += (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
+            return count += (1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance));
           }
         }).call(this);
       
@@ -225,7 +225,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            sum += (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance);
+            sum += (1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j) * ant.genetics.deviance));
             return (function() {
               if ((rand < sum && !(done))) {
                 choice.x = x;
