@@ -74,8 +74,8 @@
          ;; So there should be a method associated with the colony for creating ants via this method.
          (generic choose (mth) (group collision  (ant this) )
                   ;; A choice is a weighted random selection from a collection area.
-                  (let count 0)
-                  (let sum 0)
+                  (let count 1)
+                  (let sum 1)
                   (let done false)
                   (let choice {
                     x ant.x

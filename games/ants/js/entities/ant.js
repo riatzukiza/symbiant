@@ -196,8 +196,8 @@ const Ant = extend(Entity, {
    },
   choose( group = this.group,collision = this.collision,ant = this ){ 
     
-      let count = 0;
-      let sum = 0;
+      let count = 1;
+      let sum = 1;
       let done = false;
       let choice = {
         x: ant.x,
