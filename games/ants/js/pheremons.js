@@ -146,7 +146,7 @@ const Pheremones = {
     
       this.color = color;this.decay = decay;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
-      addMixingLayer(this, weights, layer);
+      addMixingLayer(this, weights);
       return this;
     
    },
