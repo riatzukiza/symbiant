@@ -370,7 +370,8 @@ const Colony = extend(EntityGroup, {
       this.ants = this.ants.filter((ant) => {
       	
         ant.update();
-        return entities.has(ant);
+        let has__QUERY = entities.has(ant);
+        return console.log("removing ant?", has__QUERY, ant);
       
       });
       return (function() {
