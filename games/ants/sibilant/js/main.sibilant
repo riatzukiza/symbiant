@@ -49,7 +49,7 @@
 (import (World) "./systems/world")
 (import (Simulation) "./simulation")
 
-(Simulation let sim (120  1))
+(Simulation let sim (120 800 1))
 (assign global.sim sim)
 (type Rendering
       )
@@ -97,9 +97,8 @@
   (let plants ((create Plant-group) ))
   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
   (assign global.sim sim)
-
-  (do-times 1000 (.spawn reds))
-  (do-times 1000 (.random plants  ))
+  (do-times 100 (.spawn reds))
+  (do-times 100 (.random plants  ))
   (interface sim Colony)
 
   (on (sim.start) "tick" (now ticks)
