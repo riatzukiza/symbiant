@@ -53,6 +53,7 @@
                   (.update this.group.food-weights)
                   (.emit this.group.food-weights ant.pos group.weights  emission 20))
          (generic *reproduce (mth) (nest ant group )
+                  (print "reproduced" ant)
                   (assign ant.life (/ ant.life 2))
                   (.mutate ant )
                   (.spawn group )
