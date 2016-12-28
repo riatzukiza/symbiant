@@ -46,6 +46,9 @@
 (const $ (require "jquery/dist/jquery.min.js"))
 ;; Types
 (import (Simulation) "./simulation")
+(import (Entity) "./ecs/entity")
+(import (Entity-group) "./ecs/group")
+(import (Colony) "./entities/ant")
 
 ;;(import (Entity) "./ecs/entity")
 ;; Organization is critical, I have code duplicated all over the place, what can I do to fix this?
@@ -66,16 +69,6 @@
 
 
 (assign global.world ((create World) sim.coord Rendering))
-(import (Entity) "./ecs/entity")
-(import (Entity-group) "./ecs/group")
-(import (Ant Colony) "./entities/ant")
-
-
-
-;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
-
-
-
 (specify Plant (extend Entity)
          (property color green)
          (property life 200)
@@ -87,7 +80,6 @@
                    (.spawn this.group
                            (+ pos.x (random-int 0 2) rx)
                            (+ pos.y (random-int 0 2) ry) this.color))))
-
 (specify Plant-group (extend Entity-group)
          (property entity-type Plant))
 (def Map.prototype.each (f)

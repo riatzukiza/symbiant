@@ -14,6 +14,15 @@ const $ = require("jquery/dist/jquery.min.js");
 const { 
   Simulation
  } = require("./simulation");
+const { 
+  Entity
+ } = require("./ecs/entity");
+const { 
+  EntityGroup
+ } = require("./ecs/group");
+const { 
+  Colony
+ } = require("./entities/ant");
 let george = {
   x: 20,
   y: 20
@@ -44,16 +53,6 @@ const Rendering = {
   weights:[]
  };
 global.world = create(World)(sim.coord, Rendering);
-const { 
-  Entity
- } = require("./ecs/entity");
-const { 
-  EntityGroup
- } = require("./ecs/group");
-const { 
-  Ant,
-  Colony
- } = require("./entities/ant");
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
@@ -75,13 +74,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:93:0 */
+  /* Map.prototype.each eval.sibilant:85:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:95:0 */
+  /* start eval.sibilant:87:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
