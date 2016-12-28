@@ -100,7 +100,7 @@ var start = (function start$(sim) {
       }
     }).call(this);
     (function() {
-      if ((ticks % 1) === 0) {
+      if ((ticks % 30) === 0) {
         return Colony.colonies.each((col) => {
         	
           return col.update();
