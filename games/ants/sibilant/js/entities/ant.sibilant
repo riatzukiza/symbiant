@@ -186,7 +186,7 @@
                   (when (= this.entities.size 0)
                     (print "colonly has died")
                     (.emit this.event "extinct" this)
-                    (.remove sim.layers this.layer)
+                    ;;(.remove sim.layers this.layer)
                     (.delete this.colonies this))))
 (export Colony)
 
