@@ -255,11 +255,6 @@ const Ant = extend(Entity, {
         }).call(this);
       
       }, 3);
-      (function() {
-        if ((choice.x === ant.x && choice.y === ant.y)) {
-          return console.log("ant chose the same spot");
-        }
-      }).call(this);
       return choice;
     
    },
