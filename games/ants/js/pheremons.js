@@ -150,6 +150,7 @@ const Pheremones = {
    },
   update( decaying = this.decaying,id = this.id,dec = this.decay,weights = this.weights ){ 
     
+      console.log("updating", this.decaying.waiting);
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
         let w = decay(coord, coord.layers[id], dec);
@@ -157,7 +158,6 @@ const Pheremones = {
         weights.set(coord.x, coord.y, w);
         return (function() {
           if (w <= 0) {
-            console.log("done decaying", coord, w, id);
             decaying.marked.delete(coord);
             return false;
           } else {
