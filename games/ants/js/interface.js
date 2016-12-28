@@ -63,7 +63,7 @@ var interface = (function interface$(sim, C) {
           console.log("ants", c);
           return sim.on("tick", () => {
           	
-            return numbers.text(c.ants.size);
+            return numbers.text(c.entities.size);
           
           });
         

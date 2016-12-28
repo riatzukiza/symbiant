@@ -55,5 +55,5 @@
 
                                 ;;(.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 
-                                (on sim "tick" () (.text numbers c.ants.size))))) context)
+                                (on sim "tick" () (.text numbers c.entities.size))))) context)
 (export interface)
