@@ -221,7 +221,7 @@ const Ant = extend(Entity, {
       var totalWeight = (function totalWeight$(w, i, j) {
         /* total-weight eval.sibilant:93:18 */
       
-        return (ant.genetics.deviance + (ant.life / Ant.life) + (w * ant.genetics.kernel.get(i, j)));
+        return (ant.genetics.deviance + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
       eachInArea(this.seeking.weights.state, ant, (w, i, j, x, y) => {
       	

@@ -91,7 +91,8 @@
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let weights null)
                   (def total-weight (w i j)
-                    (+ (gene ant deviance) (/ ant.life Ant.life) (* w  (.get (gene ant kernel) i j))))
+                    (+ (gene ant deviance)
+                       (* w (/ ant.life Ant.life) (.get (gene ant kernel) i j))))
                   (each-valid-move  ant this.seeking.weights.state
                                     (incr-by count (total-weight w i j)))
                   (let rand (* count (Math.random)))
