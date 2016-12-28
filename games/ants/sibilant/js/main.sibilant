@@ -71,7 +71,6 @@
 (import (Ant Colony) "./entities/ant")
 
 
-(assign Entity.empty empty)
 
 ;; FIRST PERSON TO GIVE ME A COLOR, I WILL USE IT FOR THIS TEST ANT!
 

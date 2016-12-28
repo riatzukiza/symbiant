@@ -54,7 +54,6 @@ const {
   Ant,
   Colony
  } = require("./entities/ant");
-Entity.empty = empty;
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
@@ -76,13 +75,13 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:94:0 */
+  /* Map.prototype.each eval.sibilant:93:0 */
 
   this.forEach(f);
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:96:0 */
+  /* start eval.sibilant:95:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
