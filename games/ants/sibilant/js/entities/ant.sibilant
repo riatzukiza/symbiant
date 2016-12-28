@@ -99,9 +99,7 @@
                                                     (.get (gene ant kernel) i j)
                                                     (gene ant deviance))))
                                    (when (and (< rand sum) (not done))
-                                     (assign choice.x x choice.y y done true)))
-
-                  choice)
+                                     (assign choice.x x choice.y y done true))) choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
                                            (let total-life 0)
