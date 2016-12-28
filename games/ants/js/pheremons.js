@@ -148,12 +148,12 @@ const Pheremones = {
       return this;
     
    },
-  update( decaying = this.decaying,id = this.id,dec = this.dec ){ 
+  update( decaying = this.decaying,id = this.id,dec = this.dec,weights = this.weights ){ 
     
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
         let w = decay(coord, coord.layers[id], dec);
-        weights.set(x, y, w);
+        weights.set(coord.x, coord.y, w);
         return (function() {
           if (w <= 0) {
             decaying.marked.delete(coord);
