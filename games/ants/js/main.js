@@ -12,6 +12,12 @@ const {
  } = require("./util");
 const $ = require("jquery/dist/jquery.min.js");
 const { 
+  World
+ } = require("./systems/world");
+global.world = create(World)(sim.coord, Rendering);
+let sim = create(Simulation)(120, 120, 5);
+global.sim = sim;
+const { 
   Simulation
  } = require("./simulation");
 const { 
@@ -23,11 +29,6 @@ const {
 const { 
   Colony
  } = require("./entities/ant");
-const { 
-  World
- } = require("./systems/world");
-let sim = create(Simulation)(120, 120, 5);
-global.sim = sim;
 let green = { 
   red:0,
   green:255,
@@ -43,7 +44,6 @@ const Rendering = {
   entities:sim.layers.get(),
   weights:[]
  };
-global.world = create(World)(sim.coord, Rendering);
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
@@ -54,7 +54,7 @@ const Plant = extend(Entity, {
         if (Math.round(Math.random()) === 1) {
           var rx = (Math.round(Math.random()) === 1) ? 1 : -1;
           var ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-          return this.group.spawn((pos.x + Math.floor((Math.random() * ((2 - 0) + 0))) + rx), (pos.y + Math.floor((Math.random() * ((2 - 0) + 0))) + ry), this.color);
+          return this.group.spawn((pos.x + (Math.floor((Math.random() * (2 - 0))) + 0) + rx), (pos.y + (Math.floor((Math.random() * (2 - 0))) + 0) + ry), this.color);
         }
       }).call(this);
     

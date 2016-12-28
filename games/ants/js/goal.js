@@ -54,7 +54,7 @@ const Plant = {
         if (Math.round(Math.random()) === 1) {
           return requestAnimationFrame(() => {
           	
-            return Plant.spawn((goal.x + Math.floor((Math.random() * ((2 - -2) + -2)))), (goal.y + Math.floor((Math.random() * ((2 - -2) + -2)))), system);
+            return Plant.spawn((goal.x + (Math.floor((Math.random() * (2 - -2))) + -2)), (goal.y + (Math.floor((Math.random() * (2 - -2))) + -2)), system);
           
           }, 0);
         }
@@ -76,7 +76,7 @@ const System = {
    },
   random( entityType = this.entityType,sim = this.sim ){ 
     
-      return entityType.spawn(Math.floor((Math.random() * ((sim.coord.width - 0) + 0))), Math.floor((Math.random() * ((sim.coord.width - 0) + 0))), this);
+      return entityType.spawn((Math.floor((Math.random() * (sim.coord.width - 0))) + 0), (Math.floor((Math.random() * (sim.coord.width - 0))) + 0), this);
     
    },
   update(  ){ 
