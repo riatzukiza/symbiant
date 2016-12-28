@@ -218,7 +218,7 @@ const Ant = extend(Entity, {
         }
       }).call(this);
       let weights = null;
-      var totalWeight = (function totalWeight$(w) {
+      var totalWeight = (function totalWeight$(w, i, j) {
         /* total-weight eval.sibilant:93:18 */
       
         return (ant.genetics.deviance + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
@@ -228,7 +228,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            return count += totalWeight(w);
+            return count += totalWeight(w, i, j);
           }
         }).call(this);
       
@@ -239,7 +239,7 @@ const Ant = extend(Entity, {
         let ent = collision.get(x, y);
         return (function() {
           if ((!(ent) || ent === 0)) {
-            sum += totalWeight(w);
+            sum += totalWeight(w, i, j);
             return (function() {
               if ((rand < sum && !(done))) {
                 choice.x = x;

@@ -90,15 +90,15 @@
                   (when (not (gene ant kernel))
                     (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
                   (let weights null)
-                  (def total-weight (w)
+                  (def total-weight (w i j)
                     (+ (gene ant deviance)
                        (* w (/ ant.life Ant.life)
                           (.get (gene ant kernel) i j))))
                   (each-valid-move  ant this.seeking.weights.state
-                                    (incr-by count (total-weight w)))
+                                    (incr-by count (total-weight w i j)))
                   (let rand (* count (Math.random)))
                   (each-valid-move ant this.seeking.weights.state
-                                   (incr-by sum (total-weight w))
+                                   (incr-by sum (total-weight w i j))
                                    (when (and (< rand sum) (not done))
                                      (assign choice.x x choice.y y done true))) choice)
          (generic *form-new-colony (mth) ()
