@@ -49,7 +49,7 @@
 
   (div interface-container {}
          (panel colonies
-                (describe-table (Colony.colonies (c) ( (numbers c.ants.size)) here)
+                (describe-table (Colony.colonies (c) ( (numbers c.entities.size)) here)
 
                        (.css name "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
 

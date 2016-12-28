@@ -55,7 +55,7 @@ var interface = (function interface$(sim) {
           let numbers = (function() {
             /* eval.sibilant:30:34 */
           
-            let colData = $("<td> ").text(c.ants.size);
+            let colData = $("<td> ").text(c.entities.size);
             row.append(colData);
             return colData;
           }).call(this);
