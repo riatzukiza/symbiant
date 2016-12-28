@@ -343,6 +343,7 @@ const Colony = extend(EntityGroup, {
       let ent = entityType.spawn((this.nest.x + ((Math.floor((Math.random() * (30 - 1))) + 1) * rx)), (this.nest.y + ((Math.floor((Math.random() * (30 - 1))) + 1) * ry)), color);
       (function() {
         if (ent) {
+          console.log("spawn successful", ant);
           ent.group = this;
           ent.seeking = this.foodWeights;
           this.add(ent);

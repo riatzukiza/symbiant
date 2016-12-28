@@ -165,6 +165,7 @@
                                    (+ this.nest.x (* (random-int 1 30) rx) )
                                    (+ this.nest.y (* (random-int 1 30) ry) ) color))
                   (when ent
+                    (print "spawn successful" ant)
                     (assign ent.group this)
                     (assign ent.seeking this.food-weights)
                     (this.add ent)
