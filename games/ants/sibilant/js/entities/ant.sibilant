@@ -185,8 +185,8 @@
                   ;;(assign this.ants ((R.pipe (R.filter (has R.__ entities)) (R.map update)) this.ants))
 
                   (let update (=> (ant) (.update ant )))
-                  (let has (=> (entities) (=> (ant) (.has entities ant))))
-                  (assign this.ants  (.filter  this.ants (has entities)))
+                  (let has (=> (ant) (.has entities ant)))
+                  (assign this.ants  (.filter  this.ants has))
                   (assign this.ants  (.map  this.ants update))
                   (comment (assign this.ants (.filter this.ants (=> (ant)
                                                             (.update ant )

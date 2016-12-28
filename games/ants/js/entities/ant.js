@@ -374,16 +374,12 @@ const Colony = extend(EntityGroup, {
         return ant.update();
       
       };
-      let has = (entities) => {
+      let has = (ant) => {
       	
-        return (ant) => {
-        	
-          return entities.has(ant);
-        
-        };
+        return entities.has(ant);
       
       };
-      this.ants = this.ants.filter(has(entities));
+      this.ants = this.ants.filter(has);
       this.ants = this.ants.map(update);
       // this.ants = this.ants.filter((ant) => {
       // 	
