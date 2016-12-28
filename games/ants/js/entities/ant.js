@@ -292,7 +292,7 @@ const Ant = extend(Entity, {
       let sated__QUERY = ant._sated();
       (function() {
         if ((2 * ant.life) > random) {
-          return (function() {
+          (function() {
             if (sated__QUERY) {
               return (function() {
                 if (ant._nearNest()) {
@@ -305,8 +305,9 @@ const Ant = extend(Entity, {
               return ant._eat();
             }
           }).call(this);
-        } else if (let choice = ant.choose();
-        return this.move(choice.x, choice.y);) {
+          let choice = ant.choose();
+          return this.move(choice.x, choice.y);
+        } else {
           return ant._die();
         }
       }).call(this);
