@@ -17,7 +17,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(120, 120, 5);
+let sim = create(Simulation)(30, 120, 5);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
@@ -96,7 +96,7 @@ var start = (function start$(sim) {
       }
     }).call(this);
     (function() {
-      if ((ticks % 2) === 0) {
+      if ((ticks % 8) === 0) {
         return Colony.colonies.each((col) => {
         	
           return col.update();

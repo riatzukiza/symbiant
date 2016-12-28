@@ -49,7 +49,7 @@
 (import (World) "./systems/world")
 (import (Simulation) "./simulation")
 
-(Simulation let sim (120 120 5))
+(Simulation let sim (30 120 5))
 (assign global.sim sim)
 (type Rendering
       )
@@ -101,7 +101,7 @@
 
   (on (sim.start) "tick" (now ticks)
       (every 120 ticks (.update plants))
-      (every 2 ticks (each Colony.colonies (col) (.update col)))
+      (every 8 ticks (each Colony.colonies (col) (.update col)))
       (pipe sim.layers
             (.update )
             (.render))))
