@@ -180,11 +180,7 @@ const Pheremones = {
             return coord.layers[id] = w;
           }
         }).call(this);
-        return (function() {
-          if (w < 1) {
-            return coord.layers[id] += (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
-          }
-        }).call(this);
+        return coord.layers[id] += (rate / (1 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
       
       }, r);
     
