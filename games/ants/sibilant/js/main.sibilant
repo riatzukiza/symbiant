@@ -1,7 +1,43 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+
+(macro gett (name ...body)
+       ["get " `(mth @name () ...@body)])
+
+(macro sett (name val ...body)
+       ["set " `(mth @name (@val) ...@body)])
+
 (macro import (thing from) `(const (literal ...@(content-of thing)) (require @from)))
+(macro area-has (diameter spot center area cond)
+       `(scoped (let true? false)
+           (area  @area @spot @center @diameter
+                  (when @cond (assign true? true)))
+                true?))
+(macro gene (ent value)
+       `(get @ent (quote genetics) (quote @value)))
+(macro mutate (ent values)
+       (map (content-of values) (value)
+            `(assign (get @ent (quote genetics) (quote @value))
+                  (+ (get @ent (quote genetics) (quote @value))
+                     (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
+(macro random-bit () `(Math.round (Math.random)))
+
+(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
+                                  (do ...@body)))
+
+(macro genetics (assigner ...props)
+       `(@assigner genetics (p-map ...@(map props (p)
+
+                                   (if (literal? p) `( @p (random-float 0 0.5))
+                                       `( @(first (content-of p))
+                                           @(second (content-of p))))))))
+
+
+
+(macro member (name value)
+       `(set this (quote @name) @value))
+
 (let socket (io "/ants"))
 (on socket "change" () (print "change ") (.reload location))
 
@@ -23,37 +59,6 @@
 (let green (color 0 255 0))
 (let black (color 0 0 0))
 
-(macro area-has (diameter spot center area cond)
-       `(scoped (let true? false)
-           (area  @area @spot @center @diameter
-                  (when @cond (assign true? true)))
-                true?))
-(macro gene (ent value)
-       `(get @ent (quote genetics) (quote @value)))
-(macro mutate (ent values)
-       (map (content-of values) (value)
-            `(assign (get @ent (quote genetics) (quote @value))
-                  (+ (get @ent (quote genetics) (quote @value))
-                     (random-signed (get @ent (quote genetics) (quote mutation-factor)))))))
-(macro random-bit () `(Math.round (Math.random)))
-
-(let empty { id 0 })
-(let choice {x 60 y 60})
-(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
-                                  (do ...@body)))
-
-(macro genetics (assigner ...props)
-       `(@assigner genetics (p-map ...@(map props (p)
-
-                                   (if (literal? p) `( @p (random-float 0 0.5))
-                                       `( @(first (content-of p))
-                                           @(second (content-of p))))))))
-
-
-
-(macro member (name value)
-       `(set this (quote @name) @value))
-(import (Collision) "./systems/collision")
 (import (World) "./systems/world")
 (type Rendering
       (property entities (.get sim.layers))
@@ -61,11 +66,6 @@
 
 
 (assign global.world ((create World) sim.coord Rendering))
-(macro gett (name ...body)
-       ["get " `(mth @name () ...@body)])
-
-(macro sett (name val ...body)
-       ["set " `(mth @name (@val) ...@body)])
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Ant Colony) "./entities/ant")

@@ -35,14 +35,6 @@ let black = {
   green:0,
   blue:0
  };
-let empty = { id: 0 };
-let choice = {
-  x: 60,
-  y: 60
-};
-const { 
-  Collision
- } = require("./systems/collision");
 const { 
   World
  } = require("./systems/world");
