@@ -369,31 +369,34 @@ const Colony = extend(EntityGroup, {
   update( entities = this.entities,weights = this.weights,decay = this.decay,matingWeights = this.matingWeights,foodWeights = this.foodWeights ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      // let update = (ant) => {
-      // 	
-      //   return ant.update();
-      // 
-      // }// let has = (entities) => {
-      // 	
-      //   return (ant) => {
-      //   	
-      //     return entities.has(ant);
-      //   
-      //   };
-      // 
-      // }// this.ants = this.ants.map(update).filter(has(entities));
-      this.ants = this.ants.filter((ant) => {
+      let update = (ant) => {
       	
-        ant.update();
-        let has__QUERY = entities.has(ant);
-        (function() {
-          if (!(has__QUERY)) {
-            return console.log("removing ant?", has__QUERY, ant);
-          }
-        }).call(this);
-        return has__QUERY;
+        return ant.update();
       
-      });
+      };
+      let has = (entities) => {
+      	
+        return (ant) => {
+        	
+          return entities.has(ant);
+        
+        };
+      
+      };
+      this.ants = this.ants.filter(has(entities));
+      this.ants = this.ants.map(update);
+      // this.ants = this.ants.filter((ant) => {
+      // 	
+      //   ant.update();
+      //   let has__QUERY = entities.has(ant);
+      //   (function() {
+      //     if (!(has__QUERY)) {
+      //       return console.log("removing ant?", has__QUERY, ant);
+      //     }
+      //   }).call(this);
+      //   return has__QUERY;
+      // 
+      // });
       return (function() {
         if (this.entities.size === 0) {
           console.log("colonly has died");
