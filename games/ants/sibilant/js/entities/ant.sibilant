@@ -168,12 +168,10 @@
                   (when ent
                     (assign ent.group this)
                     (assign ent.seeking this.food-weights)
+                    (this.add ent)
+                    (.push this.ants ent)
                     (assign ent.nest this.nest)
                     (.emit this.event "spawn" ent)
-                    (.on this.event "spawn" (=> ()
-                                                (this.add ent)
-                                                (.push this.ants ent)
-                                                ))
                     ent))
 
          (generic serialize (mth) (ants)
