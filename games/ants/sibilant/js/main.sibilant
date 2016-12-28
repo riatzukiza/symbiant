@@ -98,7 +98,7 @@
   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
   (assign global.sim sim)
   (do-times 10000 (.spawn reds))
-  (do-times 1000 (.random plants  ))
+  (do-times 10000 (.random plants  ))
   (interface sim Colony)
 
   (on (sim.start) "tick" (now ticks)

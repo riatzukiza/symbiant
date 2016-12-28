@@ -89,7 +89,7 @@ var start = (function start$(sim) {
   global.sim = sim;
   for (let time = 0;time < 10000;++(time)){
   reds.spawn()};
-  for (let time = 0;time < 1000;++(time)){
+  for (let time = 0;time < 10000;++(time)){
   plants.random()};
   interface(sim, Colony);
   return sim.start().on("tick", (now, ticks) => {
