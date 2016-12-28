@@ -152,7 +152,7 @@ const Pheremones = {
     
       return this.decaying.waiting = decaying.waiting.filter((coord) => {
       	
-        let w = decay(coord, coord.layers[id], dec);
+        let w = decay(coord, coord.layers[id], 0);
         coord.layers[id] = w;
         weights.set(coord.x, coord.y, w);
         return (function() {
