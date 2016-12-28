@@ -155,6 +155,7 @@ const Pheremones = {
         let w = decay(coord, dec);
         coord.layers[id] = w;
         weights.set(coord.x, coord.y, w);
+        console.log("filtering coord", coord, w);
         return (function() {
           if (w <= 0) {
             decaying.marked.delete(coord);

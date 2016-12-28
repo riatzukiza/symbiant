@@ -84,6 +84,7 @@ Values are not changed unless done so explicitly by the function as a side effec
                                  (let w (decay coord  dec))
                                  (set coord.layers id w)
                                  (weights.set coord.x coord.y w)
+                                 (print "filtering coord" coord w)
 
                                  (if (<= w 0) (do (.delete decaying.marked coord) false) true)))))
 
