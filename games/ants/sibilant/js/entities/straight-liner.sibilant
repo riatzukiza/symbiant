@@ -1,5 +1,0 @@
-(specify Straight-liner (extend Entity)
-         (property color (color 0 151 116))
-         (gmth update ()
-               (++ this.x)
-               (++ this.y)))
