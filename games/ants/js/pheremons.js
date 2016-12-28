@@ -93,7 +93,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights, layer) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:61:0 */
+  /* decay eval.sibilant:62:0 */
 
   let { 
     x,
@@ -114,7 +114,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:68:0 */
+  /* memoize eval.sibilant:69:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -145,6 +145,7 @@ const Pheremones = {
     
       this.color = color;this.decay = decay;this.layer = layer;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
+      addMixingLayer(this, weights, layer);
       return this;
     
    },
