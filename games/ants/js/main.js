@@ -75,7 +75,7 @@ Map.prototype.each = (function Map$prototype$each$(f) {
   return this;
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:95:0 */
+  /* start eval.sibilant:96:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
