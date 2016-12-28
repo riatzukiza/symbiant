@@ -101,7 +101,7 @@
                                    (when (and (< rand sum) (not done))
                                      (assign choice.x x choice.y y done true)))
 
-                  (print "choice" choice)
+                  (print "choice" choice rand count sum)
                   choice)
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
