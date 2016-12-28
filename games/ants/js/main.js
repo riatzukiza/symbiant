@@ -51,7 +51,7 @@ const {
 const Plant = extend(Entity, { 
   symbol:Symbol("Plant"),
   color:green,
-  life:10,
+  life:200,
   update( pos = this.pos,system = this.system ){ 
     
       return (function() {
