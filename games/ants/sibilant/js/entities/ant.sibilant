@@ -112,7 +112,6 @@
                                                  (incr-by total-life ent.life)) total-life))
                   (let new-colony ((create Colony) this.pos (random-color)
                                       (weighted-random-element Entity-group.groups sum-groups-life) ))
-                  (print "creating new colony" new-colony)
                   (.remove this.group this)
                   (.add new-colony this)
                   (do-times 10 (.*reproduce this))
@@ -190,7 +189,6 @@
                                      (.filter  (has entities))))
 
                   (when (= this.entities.size 0)
-                    (print "colonly has died")
                     (.emit this.event "extinct" this)
                     ;;(.remove sim.layers this.layer)
                     (.delete this.colonies this))))

@@ -272,7 +272,6 @@ const Ant = extend(Entity, {
       
       };
       let newColony = create(Colony)(this.pos, randomColor(), weightedRandomElement(EntityGroup.groups, sumGroupsLife));
-      console.log("creating new colony", newColony);
       this.group.remove(this);
       newColony.add(this);
       for (let time = 0;time < 10;++(time)){
@@ -381,7 +380,6 @@ const Colony = extend(EntityGroup, {
       this.ants = this.ants.each(update).filter(has(entities));
       return (function() {
         if (this.entities.size === 0) {
-          console.log("colonly has died");
           this.event.emit("extinct", this);
           return this.colonies.delete(this);
         }
