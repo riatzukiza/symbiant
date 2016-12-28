@@ -61,6 +61,7 @@
                   (.emit this.group.mating-weights ant.pos group.mating-weights.weights
                          (* 10  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
+                  (print "die" ant)
                   (.delete group ant)
                   (.emit this.seeking ant.pos this.seeking.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
