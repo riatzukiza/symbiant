@@ -49,7 +49,7 @@
 (import (World) "./systems/world")
 (import (Simulation) "./simulation")
 
-(Simulation let sim (120 600 1))
+(Simulation let sim (120 300 2))
 (assign global.sim sim)
 (type Rendering
       )
