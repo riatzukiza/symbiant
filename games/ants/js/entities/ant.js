@@ -346,7 +346,6 @@ const Colony = extend(EntityGroup, {
           ent.seeking = this.foodWeights;
           this.add(ent);
           ent.nest = this.nest;
-          this.event.emit("spawn", ent);
           this.ants.push(ent);
           return ent;
         }

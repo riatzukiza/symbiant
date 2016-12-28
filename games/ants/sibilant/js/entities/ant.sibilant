@@ -170,7 +170,7 @@
                     (assign ent.seeking this.food-weights)
                     (this.add ent)
                     (assign ent.nest this.nest)
-                    (.emit this.event "spawn" ent)
+                    ;;(.emit this.event "spawn" ent)
                     (.push this.ants ent)
                     ent))
 
