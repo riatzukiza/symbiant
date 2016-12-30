@@ -7,7 +7,7 @@
 6 silly lifecycle symbiant@0.0.3~prestart: no script for prestart, continuing
 7 info lifecycle symbiant@0.0.3~start: symbiant@0.0.3
 8 verbose lifecycle symbiant@0.0.3~start: unsafe-perm in lifecycle true
-9 verbose lifecycle symbiant@0.0.3~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/aaron/devel/symbiant/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+9 verbose lifecycle symbiant@0.0.3~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/aaron/devel/symbiant/node_modules/.bin:/home/aaron/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/aaron/bin
 10 verbose lifecycle symbiant@0.0.3~start: CWD: /home/aaron/devel/symbiant
 11 silly lifecycle symbiant@0.0.3~start: Args: [ '-c',
 11 silly lifecycle   './node_modules/sibilant/bin/sibilant -x index.sibilant' ]

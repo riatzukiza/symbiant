@@ -44,6 +44,8 @@
 
 (import (emit-pheremones Ant ) "./ant")
 (import (Colony) "./colony")
+(type View
+      (init ()))
 
 (def interface (sim C)
 

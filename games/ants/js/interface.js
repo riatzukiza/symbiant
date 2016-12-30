@@ -12,8 +12,17 @@ const {
 const { 
   Colony
  } = require("./colony");
+const View = { 
+  symbol:Symbol("View"),
+  init(  ){ 
+    
+      
+      return this;
+    
+   }
+ };
 var interface = (function interface$(sim, C) {
-  /* interface eval.sibilant:48:0 */
+  /* interface eval.sibilant:50:0 */
 
   let interfaceContainer = (function(context) {
     /* macros/jquery.sibilant:14:9 */

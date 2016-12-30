@@ -25,34 +25,42 @@
 (server.listen port)
 (macro lets (...variables)
        (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
-(macro route (method path ...body)
-       `(@method app @path
-                 (=> (req res)
-                     (lets (url (Url.parse req.url))
+(macro explode-url (url)
+       `(lets (url (Url.parse @url))
 
-                           ((literal path
-                                     query
-                                     hash port
-                                     search
-                                     pathname
-                                     auth
-                                     slashes
-                                     href
-                                     protocol
-                                     host) url))
-                     (def-promised write (v)
-                       (res.write v success)) ...@body)))
+             ((literal path
+                       query
+                       hash port
+                       search
+                       pathname
+                       auth
+                       slashes
+                       href
+                       protocol
+                       host) url)))
+(macro middleware (...body)
+       `(=> (req res)
+            (explode-url req.url)
+            (def-promised write (v)
+              (res.write v success))
+            ...@body))
+(macro def-middleware (name ...body)
+       `(let @name (middleware ...@body)))
+(macro route (method path ...body)
+       `(@method app @path (middleware ..@body)))
 ;; When somthing in sibilant/js changes, it will compile straight to its javascript representation into
 ;; a mirrored directory
 (macro on (emitter event args ...body)
        `(.on @emitter @event  (=> @args ...@body)))
 (macro once (emitter event args ...body)
        `(.once @emitter @event  (=> @args ...@body)))
+(def-middleware browser-module
+    (.pipe (.on (bundle.bundle) "error"
+                (aprint "bundle err")) res))
 (def add-routes (game bundle)
+  ;; Going at this from the wrong perspective, I need to define my middle ware as functions
   (let html-path (Path.join __dirname "games/" game "/html"))
-  (route .get (Path.join "/games/" game "/js/main.js")
-         (.pipe (.on (bundle.bundle) "error"
-                     (aprint "bundle err")) res))
+  ( .get app (Path.join "/games/" game "/js/main.js") browser-module)
   (app.use (Path.join "/games/" game "/play") (express.static html-path)))
 (def comp ((dots args))
   (=> (x) (.reduce args (=> (value f) (f value)) x)))
@@ -60,9 +68,8 @@
   (pipe path
         (.replace  "/sibilant/" "/")
         (.replace ".sibilant" ".js")))
-(def build (path )
+(generic build (def) (path (target (translate-path path)))
   (print "building" path)
-  (let target (translate-path path))
   (pipe Sibilant
         (.from-file path)
         (.transpile)
@@ -78,11 +85,24 @@
             (each connections (socket)
                   (.emit socket "change")))))
 (type Project (init (src target)))
+(const R (require "ramda"))
 (def initial-build (p src path)
   (print "initial build of" src path)
   (pipe (Promise.resolve p)
         (then-do (each src (name) (build (Path.join  path name))))
         (then-do (each src (name) (build (Path.join  path name))))))
+(def get-current-branch-name ()
+  (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
+(macro curried (args ...body)
+       `(R.curry (=> @args ...@body)))
+(macro def-curried (name args ...body)
+       `(let @name (curried @args ...@body)))
+(def-curried save-branch (message branch-name)
+  (shell
+   (git add "-A" "." )
+   (git commit "-m" (+ "'" message "'"))
+   (git push origin [branch-name])))
+(def-curried parse-branch-name  (path branch-name ) [ (+ "compiled " path ) (+ "compiled-" branch-name) ])
 (type Auto-compiler
       (init (name bundle
                   (namespace (.of io name))
@@ -98,14 +118,9 @@
                    (unless this._compiling
                      (assign this._compiling true)
                      (pipe (.change this path)
-                           (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
-                           (then branch-name
-                                 (print "gitting" branch-name)
-                                 (let compile-branch (+ "compiled-" branch-name))
-                                 (shell
-                                  (git add "-A" "." )
-                                  (git commit "-m" (+"'" "compiled " path "'"))
-                                  (git push origin [branch-name])))
+                           (.then get-current-branch-name)
+                           (.then (R.pipe (parse-branch-name path)
+                                          (R.apply save-branch)) )
 
                            (then-do (assign this._compiling false)))))
                (on namespace "connection" (socket)
