@@ -2,6 +2,7 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
+(print "yeea")
 
 (macro import (thing from)
        `(const (literal ...@(content-of thing)) (require @from)))
@@ -32,7 +33,7 @@
 (import (create extend mixin curry) "./lib/util")
 (const browserify (require "browserify"))
 (import (Directory) "./lib/file-system")
-(import (auto-compile)(require "./auto-compile"))
+(import (auto-compile) "./compiler")
 
 (const port (or process.env.PORT 8001))
 (const app (express))
@@ -61,6 +62,7 @@
 (def add-game (game)
   "sets up the middleware and build tools for a game's directory"
 
+  (print "game" game)
   (var bundle (browserify)
        js-path (Path.join __dirname "games/" game "/js"))
 
@@ -72,6 +74,7 @@
         (then-do (bulk-bundle dir bundle))))
 
 (let games ((create Directory) "./games"))
+(print "games" games)
 
 (pipe (.each games add-game)
       (.then (aprint "all games loaded"))

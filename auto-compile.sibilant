@@ -1,4 +1,3 @@
-
 "use strict"
 (include "./deps")
 (import-namespace defs)
@@ -14,7 +13,7 @@
        `(const (literal ...@(content-of thing)) (require @from)))
 (macro imports (...imports)
        (map imports (import) `(import ...@(content-of import))))
-(import (Path-tree Directory) "./lib/file-system")
+(import (Directory) "./lib/file-system")
 (import (Sibilant)  "./lib/sibilant")
 (import (create extend mixin curry) "./lib/util")
 (const http (require "http"))

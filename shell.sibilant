@@ -26,8 +26,8 @@
               ...@(map args (arg)
                        `(@name ...@(content-of arg)))))
 (macro shell (...commands)
-       `(sequence (shell-command ...@(content-of (.pop commands))) always
-                  ...@(map commands (c) `(result (shell-command ...@ (content-of c))))))
+       `(sequence (shell-command ...@(content-of (first commands))) always
+                  ...@(map (rest commands) (c) `(result (shell-command ...@ (content-of c))))))
 (comment (shell
   (git branch [compile-branch])
   (git checkout [compile-branch])

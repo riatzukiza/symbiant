@@ -99,9 +99,10 @@
        `(let @name (curried @args ...@body)))
 (def-curried save-branch (message branch-name)
   (shell
+   (git push origin [branch-name])
    (git add "-A" "." )
    (git commit "-m" (+ "'" message "'"))
-   (git push origin [branch-name])))
+   ))
 (def-curried parse-branch-name  (path branch-name ) [ (+ "compiled " path ) (+ "compiled-" branch-name) ])
 (type Auto-compiler
       (init (name bundle
