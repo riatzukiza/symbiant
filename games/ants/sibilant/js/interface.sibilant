@@ -4,6 +4,7 @@
 
 (import-namespace defs)
 (import-namespace js)
+
 (type Table
       (init ())
       (gmth add ())
