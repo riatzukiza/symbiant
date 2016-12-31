@@ -67,13 +67,11 @@
                             (on sim "tick" () (.text numbers c.entities.size))))
 
       (gmth update (table) (.remove table) (.render this)))
-(let update-colo)
 
 
 (def interface (sim C)
 
   (div interface-container {}
          (panel colonies
-                ((create Colony-display))
-                )) context)
+                ((create Colony-display)))) context)
 (export interface)
