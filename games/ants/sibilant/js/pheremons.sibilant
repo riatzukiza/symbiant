@@ -41,6 +41,7 @@ Values are not changed unless done so explicitly by the function as a side effec
        `(each-in-area @space @center
                       (=> (@el-name i j x y)
                           ...@body) @size ))
+;; I think that weights could be a class of entity if I could pull out a bit more of their behavior from the pheremones type.
 (def add-mixing-layer (entity weights )
   (let layer (.get sim.layers))
 
