@@ -133,7 +133,7 @@
                                        (.*reproduce ant)
                                        ;;(and
                                         ;;(< group.colonies.size 30)
-                                            (> (Math.random) 0.999999)
+                                            (> (Math.random) 0.9999)
                                             ;;)
                                        (.*form-new-colony ant))
                             (.*has-discovered-food  ant )
