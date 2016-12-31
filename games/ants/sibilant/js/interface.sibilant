@@ -6,7 +6,7 @@
 (import-namespace js)
 
 (type Table
-      (init ())
+      (init (collection paths))
       (gmth add ())
       (gmth remove ())
       (gmth update ()))
