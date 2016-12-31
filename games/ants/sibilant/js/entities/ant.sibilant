@@ -113,6 +113,7 @@
                                       (weighted-random-element Entity-group.groups sum-groups-life) ))
                   (.remove this.group this)
                   (.add new-colony this)
+                  (this.group.emit "new species" new-colony)
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
          (generic update (mth) (  group nest  life  (ant this))
@@ -147,6 +148,7 @@
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)
+         (property id 0)
 
          (init (nest color goals (decay 0.1) colonies
 
@@ -155,6 +157,7 @@
                      (mating-weights ((create Pheremones) (color color.red color.green 255) decay ))
                      (event (new Event-emitter))
                      (ants []))
+               (assign this.id (++ Colony.id))
                (Entity-group.init.call this)
 
                (.add colonies this))
