@@ -92,7 +92,8 @@
                   ;; but in what way?
                   ;; I think some other function will decide what *weight* is, and call this function accordingly.
                   (when (not (gene ant kernel))
-                    (assign (gene ant kernel) (moore-neighborhood 3 3 (gene ant deviance))))
+                    (assign (gene ant kernel)
+                            (moore-neighborhood 3 3 (gene ant deviance))))
                   (let weights null)
                   (def total-weight (w i j)
                     (+ (gene ant deviance)  (* w (/ ant.life Ant.life) (.get (gene ant kernel) i j))))
@@ -111,8 +112,7 @@
                                                  (incr-by total-life ent.life)) total-life))
                   (let new-colony ((create Colony) this.pos (random-color)
                                       (weighted-random-element Entity-group.groups sum-groups-life) ))
-                  (.remove this.group this)
-                  (.add new-colony this)
+                  (.*die this)
                   (this.group.event.emit "new species" new-colony)
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
