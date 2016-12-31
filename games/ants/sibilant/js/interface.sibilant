@@ -4,6 +4,8 @@
 
 (import-namespace defs)
 (import-namespace js)
+(type Table
+      (init ()))
 
 (macro describe-table ( describers ...body)
        (const [eachable each-args table-data container]
