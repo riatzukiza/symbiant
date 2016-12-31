@@ -54,9 +54,9 @@
 (type View
       (init ()))
 (type Colony-display
-      (init ((table (.render this))) )
+      (init (C (table (.render this)) ) )
 
-      (gmth render ()
+      (gmth render (C)
             (describe-table (C.colonies (c) ( (id c.id) (numbers c.entities.size)) here)
                             (print "ants" c)
 
@@ -71,6 +71,5 @@
 (def interface (sim C)
 
   (div interface-container {}
-         (panel colonies
-                ((create Colony-display)))) context)
+         (panel colonies ((create Colony-display) C))) context)
 (export interface)
