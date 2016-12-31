@@ -5,7 +5,10 @@
 (import-namespace defs)
 (import-namespace js)
 (type Table
-      (init ()))
+      (init ())
+      (gmth add ())
+      (gmth remove ())
+      (gmth update ()))
 
 (macro describe-table ( describers ...body)
        (const [eachable each-args table-data container]
