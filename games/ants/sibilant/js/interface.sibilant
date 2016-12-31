@@ -55,7 +55,7 @@
       (init ()))
 (type Colony-display
 
-      (init (C (table (.render this)) )
+      (init (C (table (.render this C)) )
             (print "C" C))
 
       (gmth render (C)
