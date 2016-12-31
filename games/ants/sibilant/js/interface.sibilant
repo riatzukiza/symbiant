@@ -43,7 +43,7 @@
                       (.append table row)
 
                       ...@body)
-                (.append @container table)))
+                (.append @container table) table))
 (import ( create extend mixin) "./util")
 (const $ (require "jquery/dist/jquery.min.js"))
 
@@ -53,16 +53,25 @@
 (import (Colony) "./colony")
 (type View
       (init ()))
+(type Colony-display
+      (init ((table (.render this))) )
+
+      (gmth render ()
+            (describe-table (C.colonies (c) ( (id c.id) (numbers c.entities.size)) here)
+                            (print "ants" c)
+
+                            (.css id "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
+                            (.on c.event "new species" )
+
+                            (on sim "tick" () (.text numbers c.entities.size))))
+
+      (gmth update () (.remove table) (colony-display)))
+(let update-colo)
+
 
 (def interface (sim C)
 
   (div interface-container {}
          (panel colonies
-                (describe-table (C.colonies (c) ( (id c.id) (numbers c.entities.size)) here)
-                                (print "ants" c)
-
-
-                                (.css id "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
-
-                                (on sim "tick" () (.text numbers c.entities.size))))) context)
+                )) context)
 (export interface)
