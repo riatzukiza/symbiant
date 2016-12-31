@@ -4,7 +4,6 @@
 
 (import-namespace defs)
 (import-namespace js)
-(import { create extend mixin} "./util")
 
 (type Table
       (init (collection paths))
