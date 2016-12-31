@@ -113,7 +113,7 @@
                                       (weighted-random-element Entity-group.groups sum-groups-life) ))
                   (.remove this.group this)
                   (.add new-colony this)
-                  (this.group.emit "new species" new-colony)
+                  (this.group.event.emit "new species" new-colony)
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
          (generic update (mth) (  group nest  life  (ant this))
