@@ -54,6 +54,7 @@
 (type View
       (init ()))
 (type Colony-display
+
       (init (C (table (.render this)) )
             (print "C" C))
 
