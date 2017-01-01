@@ -167,6 +167,7 @@
                (assign this.id (++ Colony.id))
                (Entity-group.init.call this)
 
+               (this.event.on "spawn" (aprint "spawned ant!"))
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
 
@@ -186,7 +187,9 @@
                       (this.add ent)
                       (.push this.ants ent)
                       (assign ent.nest this.nest)
-                      (.emit this.event "spawn" ent) ent)))
+                      (.emit this.event "spawn" ent)
+
+                      ent)))
 
          (generic serialize (mth) (ants)
                   (map (.to-array ants) (ant) (.serialize ant)))
