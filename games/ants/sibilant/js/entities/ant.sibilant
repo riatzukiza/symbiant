@@ -65,7 +65,7 @@
                          (* 10  (gene ant rate) (/ ant.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
                   (.delete group ant)
-                  (.delete ant.follower)
+                  (.delete world ant.follower)
                   (.emit this.seeking ant.pos this.seeking.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
                   )
          (generic mutate (mth) (ant group nest)
