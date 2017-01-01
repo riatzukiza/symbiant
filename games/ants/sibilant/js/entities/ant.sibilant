@@ -181,7 +181,7 @@
                      (assign ent.follower (.spawn entity-type (+ rx ent.x) (+ ry ent.y) color))
                      (unless  ent.follower.post
                        (.delete ent)
-                       return)
+                       (return false))
                      (when ent.follower
 
                        (assign ent.group this)
