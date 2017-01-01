@@ -167,7 +167,7 @@
                (assign this.id (++ Colony.id))
                (Entity-group.init.call this)
 
-               ;;(this.event.on "spawn" (aprint "spawned ant!"))
+               (this.event.on "spawn" (aprint "spawned ant!"))
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
 
