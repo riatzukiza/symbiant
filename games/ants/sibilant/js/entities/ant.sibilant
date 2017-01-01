@@ -36,11 +36,7 @@
          (init ( pos color life (ant this) )
                (let rx (ternary (= (random-bit) 1) 1 -1))
                (let ry (ternary (= (random-bit) 1) 1 -1))
-               (.spawn Ant {
-                       pos.x (+ rx pos.x)
-
-                       pos.y (+ ry pos.y)
-                       })
+               (assign this.follower (.spawn Ant  (.get world.coord (+ rx pos.x) (+ ry pos.y))))
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
@@ -137,7 +133,9 @@
                   (let sated? (.*sated ant ))
                   (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
+                          (let last this.pos)
                           (.move this choice.x choice.y  )
+                        (.move this.follower this.pos)
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
                                        ;;(and
