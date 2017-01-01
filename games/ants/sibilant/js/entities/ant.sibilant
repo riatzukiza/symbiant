@@ -178,6 +178,7 @@
                     (let ry (ternary (= (random-bit) 1) 1 -1))
                     (assign ent.follower
                             (.spawn entity-type (+ rx ent.x) (+ ry ent.y) color))
+                    (print "follower" ent.follower)
                     (when ent.follower
 
                       (assign ent.group this)
