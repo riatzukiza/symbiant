@@ -169,15 +169,16 @@
 
                (.add colonies this))
          (generic spawn (fluent mth) (color entity-type)
-                  (let rx (ternary (= (random-bit) 1) 1 -1))
-                  (let ry (ternary (= (random-bit) 1) 1 -1))
 
                   (let ent (.spawn entity-type
                                    (+ this.nest.x (random-int 1 30) )
                                    (+ this.nest.y (random-int 1 30) ) color))
                   (when ent
+                    (let rx (ternary (= (random-bit) 1) 1 -1))
+                    (let ry (ternary (= (random-bit) 1) 1 -1))
                     (assign ent.follower
-                            (.spawn Ant  (.get world.coord (+ rx ent.x) (+ ry ent.y)) color))
+                            (.spawn Ant
+                                    (.get world.coord (+ rx ent.x) (+ ry ent.y)) color))
                     (when ent.follower
 
                       (assign ent.group this)
