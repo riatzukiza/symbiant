@@ -177,8 +177,7 @@
                     (let rx (ternary (= (random-bit) 1) 1 -1))
                     (let ry (ternary (= (random-bit) 1) 1 -1))
                     (assign ent.follower
-                            (.spawn Ant
-                                    (.get world.coord (+ rx ent.x) (+ ry ent.y)) color))
+                            (.spawn Ant (+ rx ent.x) (+ ry ent.y) color))
                     (when ent.follower
 
                       (assign ent.group this)
