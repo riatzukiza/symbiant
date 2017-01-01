@@ -134,8 +134,8 @@
                   (if (> (* 2 ant.life) random)
                       (do (let choice (.choose ant ))
                           (let last this.pos)
-                          (.move this choice.x choice.y  )
-                        ;;(.move this.follower last)
+                        (.move this choice.x choice.y  )
+                        (.move this.follower last)
                         (if sated? (if (.*near-nest  ant)
                                        (.*reproduce ant)
                                        ;;(and
