@@ -34,6 +34,13 @@
          (property life 1000)
          (property collision world.collision)
          (init ( pos color life (ant this) )
+               (let rx (ternary (= (random-bit) 1) 1 -1))
+               (let ry (ternary (= (random-bit) 1) 1 -1))
+               (.spawn Ant {
+                       pos.x (+ rx pos.x)
+
+                       pos.y (+ ry pos.y)
+                       })
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
