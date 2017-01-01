@@ -174,7 +174,7 @@
                   (let ent (.spawn entity-type
                                    (+ this.nest.x (random-int 1 30) )
                                    (+ this.nest.y (random-int 1 30) ) color))
-                  (when ent
+                  (when (and ent ent.pos)
                     (let rx (ternary (= (random-bit) 1) 1 -1))
                     (let ry (ternary (= (random-bit) 1) 1 -1))
                     (assign ent.follower
