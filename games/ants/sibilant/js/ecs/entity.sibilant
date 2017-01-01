@@ -6,7 +6,7 @@
       (gett g  this.color.green)
       (gett b  this.color.blue)
       (gett a  255)
-      (gett x  (print this) this.pos.x)
+      (gett x   this.pos.x)
       (gett y  this.pos.y)
       (sett x num (.move this num this.y))
       (sett y num (.move this this.x num))
