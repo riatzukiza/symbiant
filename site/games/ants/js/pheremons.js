@@ -42,59 +42,65 @@ function eachInArea( matrix = this.matrix,pos = this.pos,f = this.f,size = 3,rad
     });
   
  };
+const Weight = { 
+  symbol:Symbol("Weight"),
+  init( x = this.x,y = this.y,entity = this.entity ){ 
+    
+      this.x = x;this.y = y;this.entity = entity;
+      return this;
+    
+   },
+  get weight(  ){ 
+    
+      return weights.get(x, y);
+    
+   },
+  get color(  ){ 
+    
+      return (function() {
+        if (this.weight >= 0) {
+          return entity.color;
+        } else {
+          return complement(entity.color);
+        }
+      }).call(this);
+    
+   },
+  get r(  ){ 
+    
+      return this.color.red;
+    
+   },
+  get g(  ){ 
+    
+      return this.color.green;
+    
+   },
+  get b(  ){ 
+    
+      return this.color.blue;
+    
+   },
+  get a(  ){ 
+    
+      return Math.abs((160 * this.weight));
+    
+   }
+ };
 var addMixingLayer = (function addMixingLayer$(entity, weights) {
-  /* add-mixing-layer eval.sibilant:44:0 */
+  /* add-mixing-layer eval.sibilant:56:0 */
 
   let layer = sim.layers.get();
   weights.layer = layer;
   weights.each((w, x, y) => {
   	
-    return layer.add({ 
-      x,
-      y,
-      get weight(  ){ 
-        
-          return weights.get(x, y);
-        
-       },
-      get color(  ){ 
-        
-          return (function() {
-            if (this.weight >= 0) {
-              return entity.color;
-            } else {
-              return complement(entity.color);
-            }
-          }).call(this);
-        
-       },
-      get r(  ){ 
-        
-          return this.color.red;
-        
-       },
-      get g(  ){ 
-        
-          return this.color.green;
-        
-       },
-      get b(  ){ 
-        
-          return this.color.blue;
-        
-       },
-      get a(  ){ 
-        
-          return Math.abs((160 * this.weight));
-        
-       }
-     });
+    return layer.add(create(Weight)(x, y, entity));
   
   });
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:63:0 */
+  /* decay eval.sibilant:64:0 */
 
   let { 
     x,
@@ -115,7 +121,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:70:0 */
+  /* memoize eval.sibilant:71:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
@@ -146,7 +152,6 @@ const Pheremones = {
     
       this.color = color;this.decay = decay;this.decaying = decaying;this.weights = weights;this.id = id;this.lastUpdate = lastUpdate;
       ++(Pheremones.id);
-      addMixingLayer(this, weights);
       return this;
     
    },

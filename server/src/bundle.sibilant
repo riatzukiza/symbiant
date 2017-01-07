@@ -1,0 +1,16 @@
+(include "./deps")
+(import-namespace defs)
+(import-namespace js)
+(import (Directory) "./lib/file-system")
+(def bulk-bundle (dir bundle)
+  (print "bulk add on" dir.path)
+  (each  dir (name)
+         (then (.find dir name) node
+               (unless (= name "includes")
+                 (if (= node.symbol Directory.symbol)
+                     (bulk-bundle node bundle)
+                     (do
+                      (print "adding" node.path "to bundle")
+                      (bundle.add node.path)))))))
+
+(export bulk-bundle)

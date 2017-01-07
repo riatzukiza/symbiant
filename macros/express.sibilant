@@ -1,0 +1,26 @@
+(import-namespace defs)
+(import-namespace js)
+(namespace express)
+(assign global.express (require "express"))
+(macro explode-url (url)
+       `(lets (url (Url.parse @url))
+              ((literal path
+                        query
+                        hash port
+                        search
+                        pathname
+                        auth
+                        slashes
+                        href
+                        protocol
+                        host) url)))
+(macro middleware (...body)
+       `(=> (req res)
+            (explode-url req.url)
+            (def-promised write (v)
+              (res.write v success))
+            ...@body))
+(macro def-middleware (name ...body)
+       `(let @name (middleware ...@body)))
+(macro route (method path ...body)
+       `(@method app @path (middleware ..@body)))

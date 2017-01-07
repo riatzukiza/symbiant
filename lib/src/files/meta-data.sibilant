@@ -1,0 +1,6 @@
+(const Path (require "path"))
+(type Meta-data
+      (init (path (name (.basename Path path)))
+            ()))
+(specify File (extend Meta-data))
+(specify Directory (extend Meta-data))

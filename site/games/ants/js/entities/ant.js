@@ -222,9 +222,9 @@ const Ant = extend(Entity, {
       }).call(this);
       let weights = null;
       var totalWeight = (function totalWeight$(w, i, j) {
-        /* total-weight eval.sibilant:97:18 */
+        /* total-weight eval.sibilant:98:18 */
       
-        return (ant.genetics.deviance + 1 + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
+        return (ant.genetics.deviance + (w * (ant.life / Ant.life) * ant.genetics.kernel.get(i, j)));
       });
       eachInArea(this.seeking.weights.state, ant, (w, i, j, x, y) => {
       	
@@ -270,9 +270,15 @@ const Ant = extend(Entity, {
         return totalLife;
       
       };
-      let newColony = create(Colony)(this.pos, randomColor(), weightedRandomElement(EntityGroup.groups, sumGroupsLife));
-      this.group.remove(this);
+      let newColony = create(Colony)(this.pos, randomColor(), weightedRandomElement(EntityGroup.groups, sumGroupsLife), (this.group.decay + (function() {
+        /* eval.sibilant:33:8 */
+      
+        let rand = ((Math.random() * (0.0001 - 0)) + 0);
+        return (0.0001 - (rand / 2));
+      }).call(this)));
+      this.group.delete(this);
       newColony.add(this);
+      this.group.event.emit("new species", newColony);
       for (let time = 0;time < 10;++(time)){
       this._reproduce()};
       return this.color = newColony.color;
@@ -294,7 +300,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (ant._nearNest()) {
                   return ant._reproduce();
-                } else if (Math.random() > 0.999) {
+                } else if (Math.random() > 0.9999) {
                   return ant._formNewColony();
                 }
               }).call(this);
@@ -318,6 +324,7 @@ const Colony = extend(EntityGroup, {
   symbol:Symbol("Colony"),
   colonies:(new Set()),
   entityType:Ant,
+  id:0,
   init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.1,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay),matingWeights = create(Pheremones)({ 
     red:color.red,
     green:color.green,
@@ -325,6 +332,7 @@ const Colony = extend(EntityGroup, {
    }, decay),event = (new EventEmitter()),ants = [] ){ 
     
       this.nest = nest;this.color = color;this.goals = goals;this.decay = decay;this.colonies = colonies;this.foodWeights = foodWeights;this.matingWeights = matingWeights;this.event = event;this.ants = ants;
+      this.id = ++(Colony.id);
       EntityGroup.init.call(this);
       colonies.add(this);
       return this;
@@ -380,7 +388,6 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           this.event.emit("extinct", this);
-          sim.layers.remove(this.layer);
           return this.colonies.delete(this);
         }
       }).call(this);

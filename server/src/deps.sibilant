@@ -163,3 +163,27 @@
              ((get this (quote @property) (quote @name)) (dots args))))
 (macro catch (p ...body)
        `(.catch @p (=> (e) ...@body)))
+
+(macro import (thing from)
+       `(const (literal ...@(content-of thing)) (require @from)))
+(macro lets (...variables)
+       (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
+(macro route (method path ...body)
+       `(@method app @path
+                 (=> (req res)
+                     (lets (url (Url.parse req.url))
+
+                           ((literal path
+                                     query
+                                     hash port
+                                     search
+                                     pathname
+                                     auth
+                                     slashes
+                                     href
+                                     protocol
+                                     host) url))
+                     (def-promised write (v)
+                       (res.write v success)) ...@body)))
+
+(print "moose")

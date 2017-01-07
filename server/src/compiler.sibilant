@@ -17,6 +17,11 @@
 (import (Sibilant)  "./lib/sibilant")
 (import (create extend mixin curry) "./lib/util")
 (const http (require "http"))
+(def signal-refresh (game connections)
+  (=> (promise)
+      (then promise string
+            (each connections (socket)
+                  (.emit socket "change")))))
 (type Auto-compiler
       (init (name bundle io
                   (namespace (.of io name))

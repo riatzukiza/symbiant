@@ -1,3 +1,4 @@
+
 (macro area (space el-name center size ...body)
        `(each-in-area @space @center
                       (=> (@el-name i j x y)

@@ -1,0 +1,7 @@
+(include "../../deps.sibilant")
+(import-namespace defs)
+(import-namespace js)
+
+(const assert (require "assert"))
+
+(describe)

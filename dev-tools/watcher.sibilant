@@ -1,0 +1,41 @@
+(require! "chokidar")
+(const Pathing (require "path"))
+(import (Inode) "./lib/file-system")
+(type Process-type
+      (init (cmd args opts))
+      (generic start (fluent mth) ())
+      (generic stop (fluent mth) ()))
+;; A mapping of associations between files with same sub paths given two initial roots
+;; This pattern shows up a lot, with a table being associated with a buncha data.
+;; and I have to check if the data is in the table before performing some operation
+(macro lets (variables ...body)
+       `(do (.map (content-of variables)
+                  (=> (c) [`(let ...@(content-of c)) ";\n"]))
+            ...@body))
+
+(def each-path-element (path f)
+  (.each (.split path Path.sep) f))
+(type Path
+      (init (string (array (.split string Pathing.sep))))
+      (generic each (fluent mth) (f array)
+               ()))
+(def force-get-file (path)
+  (each-path-element path
+                     (lambda (e))))
+(type File-relation
+      (init (mirror path
+                    (src (Inode.get (Pathing.join mirror.src path)))
+                    (target (Inode.get (Pathing.join mirror.target path))))))
+(macro remember (table value ...body)
+       `(if (.has @table @value)
+            (.get @table @value)
+            (.set @table @value (do ...@body))))
+(type Node
+      (init (key)))
+(type File-Mirror
+      (init (src target (table (new Map))))
+      (gmth get (path src target table)
+            (remember table path ((create Relation) src target path))))
+(type )
+
+(watch ["./*/src/"])

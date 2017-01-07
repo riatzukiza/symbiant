@@ -2,29 +2,10 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
-(print "yeea")
 
-(macro import (thing from)
-       `(const (literal ...@(content-of thing)) (require @from)))
-(macro lets (...variables)
-       (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
-(macro route (method path ...body)
-       `(@method app @path
-                 (=> (req res)
-                     (lets (url (Url.parse req.url))
 
-                           ((literal path
-                                     query
-                                     hash port
-                                     search
-                                     pathname
-                                     auth
-                                     slashes
-                                     href
-                                     protocol
-                                     host) url))
-                     (def-promised write (v)
-                       (res.write v success)) ...@body)))
+(include "./macros/express.sibilant")
+(import-namespace express)
 
 (const http (require "http"))
 (const express (require "express"))
@@ -34,6 +15,7 @@
 (const browserify (require "browserify"))
 (import (Directory) "./lib/file-system")
 (import (auto-compile) "./compiler")
+(import (bulk-bundle) "./bundle")
 
 (const port (or process.env.PORT 8001))
 (const app (express))
@@ -48,21 +30,10 @@
          (.pipe (.on (bundle.bundle) "error"
                      (aprint "bundle err")) res))
   (app.use (Path.join "/games/" game "/play") (express.static html-path)))
-(def bulk-bundle (dir bundle)
-  (print "bulk add on" dir.path)
-  (each  dir (name)
-         (then (.find dir name) node
-               (unless (= name "includes")
-                 (if (= node.symbol Directory.symbol)
-                     (bulk-bundle node bundle)
-                     (do
-                      (print "adding" node.path "to bundle")
-                      (bundle.add node.path)))))))
 
 (def add-game (game)
   "sets up the middleware and build tools for a game's directory"
 
-  (print "game" game)
   (var bundle (browserify)
        js-path (Path.join __dirname "games/" game "/js"))
 
