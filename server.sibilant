@@ -27,6 +27,7 @@
                        (res.write v success)) ...@body)))
 
 (require! "http" 'express  'browserify
+          program "commander"
 
           Url "url"
           socket-io "socket.io"
@@ -36,8 +37,11 @@
           (literal Directory ) "./lib/file-system"
           )
 
+(pipe program
+      (.option "-p, --port [number || process.env.PORT || 8001]")
+      (.parse process.argv))
 
-(var port (or process.env.PORT 8001)
+(var port (or program.port process.env.PORT 8001)
       app (express)
 
       server (http.Server app)
