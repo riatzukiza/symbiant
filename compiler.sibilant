@@ -26,7 +26,7 @@
       (init (name bundle io
                   (namespace (.of io name))
                   (connections (new Set))
-                  (sibilant-path (Path.join __dirname "games/" name "/sibilant/js"))
+                  (sibilant-path (Path.join "games/" name "/sibilant/js"))
                   (source-watcher (chokidar.watch sibilant-path))
                   (src ((create Directory) sibilant-path)))
             (initial-build null src sibilant-path ))
