@@ -1,0 +1,5 @@
+(.then (shell
+        (git add ".")
+        (git commit "-m" "\"preping for heroku\"")
+        (git push origin master))
+       (aprint "success"))

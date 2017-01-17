@@ -21,6 +21,7 @@
 (const http (require "http"))
 (const server (http.Server app))
 (const browserify (require "browserify"))
+(const bundle (browserify))
 (const io ((require "socket.io") server))
 (server.listen port)
 (macro lets (...variables)

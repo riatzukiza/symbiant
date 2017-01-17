@@ -43,7 +43,7 @@
 (const io ((require "socket.io") server))
 (server.listen port)
 (def add-routes (game bundle)
-  (let html-path (Path.join __dirname "games/" game "/html"))
+  (let html-path (Path.join  "games/" game "/html"))
   (route .get (Path.join "/games/" game "/js/main.js")
          (.pipe (.on (bundle.bundle) "error"
                      (aprint "bundle err")) res))
@@ -64,7 +64,7 @@
 
   (print "game" game)
   (var bundle (browserify)
-       js-path (Path.join __dirname "games/" game "/js"))
+       js-path (Path.join  "games/" game "/js"))
 
   (var dir ((create Directory) js-path))
 
