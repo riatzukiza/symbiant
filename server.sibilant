@@ -3,7 +3,6 @@
 (import-namespace defs)
 (import-namespace js)
 (print "yeea")
-(const __dirname (or global.__dirname "."))
 
 (macro import (thing from)
        `(const (literal ...@(content-of thing)) (require @from)))
@@ -27,24 +26,27 @@
                      (def-promised write (v)
                        (res.write v success)) ...@body)))
 
-(const http (require "http"))
-(const express (require "express"))
-(const Path (require "path"))
-(const Url (require "url"))
-(import (create extend mixin curry) "./lib/util")
-(const browserify (require "browserify"))
-(import (Directory) "./lib/file-system")
-(import (auto-compile) "./compiler")
+(require! "http" 'express  'browserify
 
-(const port (or process.env.PORT 8001))
-(const app (express))
+          Url "url"
+          socket-io "socket.io"
+          Path 'path
+
+          (literal create extend mixin curry) "./lib/util"
+          (literal Directory ) "./lib/file-system"
+          )
 
 
-(const server (http.Server app))
-(const io ((require "socket.io") server))
+(var port (or process.env.PORT 8001)
+      app (express)
+
+      server (http.Server app)
+      io (socket-io server))
+(include "./compiler")
+
 (server.listen port)
 (def add-routes (game bundle)
-  (let html-path (Path.join __dirname "games/" game "/html"))
+  (let html-path (Path.join  "games/" game "/html"))
   (route .get (Path.join "/games/" game "/js/main.js")
          (.pipe (.on (bundle.bundle) "error"
                      (aprint "bundle err")) res))
@@ -65,7 +67,7 @@
 
   (print "game" game)
   (var bundle (browserify)
-       js-path (Path.join __dirname "games/" game "/js"))
+       js-path (Path.join  "games/" game "/js"))
 
   (var dir ((create Directory) js-path))
 
@@ -74,7 +76,7 @@
   (pipe (Promise.resolve (auto-compile game bundle io))
         (then-do (bulk-bundle dir bundle))))
 
-(let games ((create Directory) "./games"))
+(var games ((create Directory) "./games"))
 (print "games" games)
 
 (pipe (.each games add-game)
