@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "main": "main.js",
   "scripts": {
-    "start": "./node_modules/sibilant/bin/sibilant -x index.sibilant"
+    "start": "./node_modules/sibilant/bin/sibilant -x server.sibilant"
   },
   "keywords": [],
   "author": "GitHub",

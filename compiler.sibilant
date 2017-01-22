@@ -52,7 +52,7 @@
                    (on socket "disconnect" ()
                        (.delete connections socket)))))
 (def auto-compile (game bundle io)
-  (when true ;;(= env "dev")
+  (when (= env "dev")
     (let compiler ((create Auto-compiler) game bundle io))
     (.connect compiler )))
 (export auto-compile)

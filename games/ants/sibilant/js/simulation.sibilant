@@ -2,6 +2,7 @@
 (import (Event-emitter) "events")
 
 (const fs (require "browserify-fs"))
+
 (import (Matrix) "./matrix" )
 (import (Entity) "./entity" )
 (import (Layers) "./webgl-layer" )
@@ -31,6 +32,7 @@
                   (assign this.state (not this.state))
                   (when this.state (.start this)))
          (generic stop (fluent mth) () (assign this.state false))
+
          (generic  tick (fluent mth)(previous rate)
                    (when this.state
                      (let now (Date.now))

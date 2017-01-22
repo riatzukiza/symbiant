@@ -2,86 +2,87 @@
 (include "./deps")
 (import-namespace defs)
 (import-namespace js)
-(print "yeea")
 
 (macro import (thing from)
-       `(const (literal ...@(content-of thing)) (require @from)))
+ `(const (literal ...@(content-of thing)) (require @from)))
 (macro lets (...variables)
-       (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
+ (variables.map (=> (c) [`(let ...@(content-of c)) ";\n"])))
 (macro route (method path ...body)
-       `(@method app @path
-                 (=> (req res)
-                     (lets (url (Url.parse req.url))
+ `(@method app @path
+   (=> (req res)
+    (lets (url (Url.parse req.url))
 
-                           ((literal path
-                                     query
-                                     hash port
-                                     search
-                                     pathname
-                                     auth
-                                     slashes
-                                     href
-                                     protocol
-                                     host) url))
-                     (def-promised write (v)
-                       (res.write v success)) ...@body)))
+     ((literal path
+       query
+       hash port
+       search
+       pathname
+       auth
+       slashes
+       href
+       protocol
+       host) url))
+    (def-promised write (v)
+     (res.write v success)) ...@body)))
 
-(require! "http" 'express  'browserify
-          program "commander"
+(require! "http" "express"  "browserify"
+ program "commander"
 
-          Url "url"
-          socket-io "socket.io"
-          Path 'path
+ Url "url"
+ socket-io "socket.io"
+ Path "path"
 
-          (literal create extend mixin curry) "./lib/util"
-          (literal Directory ) "./lib/file-system"
-          )
+ (literal create extend mixin curry) "./lib/util"
+ (literal Directory ) "./lib/file-system"
+)
 
 (pipe program
-      (.option "-p, --port [number || process.env.PORT || 8001]")
-      (.parse process.argv))
+ (.option "-p, --port [number || process.env.PORT || 8001]")
+ (.parse process.argv))
 
 (var port (or program.port process.env.PORT 8001)
-      app (express)
+ app (express)
 
-      server (http.Server app)
-      io (socket-io server))
+ server (http.Server app)
+ io (socket-io server))
 (include "./compiler")
 
 (server.listen port)
+
 (def add-routes (game bundle)
-  (let html-path (Path.join  "games/" game "/html"))
-  (route .get (Path.join "/games/" game "/js/main.js")
-         (.pipe (.on (bundle.bundle) "error"
-                     (aprint "bundle err")) res))
-  (app.use (Path.join "/games/" game "/play") (express.static html-path)))
+ (let html-path (Path.join  "games/" game "/html"))
+ (route .get (Path.join "/games/" game "/js/main.js")
+  (.pipe (.on (bundle.bundle) "error"
+          (aprint "bundle err")) res))
+ (app.use (Path.join "/games/" game "/play") (express.static html-path)))
+
 (def bulk-bundle (dir bundle)
-  (print "bulk add on" dir.path)
-  (each  dir (name)
-         (then (.find dir name) node
-               (unless (= name "includes")
-                 (if (= node.symbol Directory.symbol)
-                     (bulk-bundle node bundle)
-                     (do
-                      (print "adding" node.path "to bundle")
-                      (bundle.add node.path)))))))
+ (print "bulk add on" dir.path)
+ (each  dir (name)
+  (then (.find dir name) node
+   (unless (= name "includes")
+    (if (= node.symbol Directory.symbol)
+        (bulk-bundle node bundle)
+     (do
+         (print "adding" node.path "to bundle")
+      (bundle.add node.path)))))))
 
 (def add-game (game)
-  "sets up the middleware and build tools for a game's directory"
+ "sets up the middleware and build tools for a game's directory"
 
-  (print "game" game)
-  (var bundle (browserify)
-       js-path (Path.join  "games/" game "/js"))
+ (print "game" game)
+ (var bundle (browserify)
+  js-path (Path.join  "games/" game "/js"))
 
-  (var dir ((create Directory) js-path))
+ (var dir ((create Directory) js-path))
 
-  (add-routes game bundle)
+ (add-routes game bundle)
 
-  (bulk-bundle dir bundle))
+ (bulk-bundle dir bundle))
 
 (var games ((create Directory) "./games"))
 (print "games" games)
 
 (pipe (.each games add-game)
-      (.then (aprint "all games loaded"))
-      (.catch  (aprint "failed to set up all the games")))
+ (.then (aprint "all games loaded"))
+ (.catch  (aprint "failed to set up all the games")))
