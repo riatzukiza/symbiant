@@ -59,10 +59,25 @@
             (print "C" C))
 
       (gmth render (C here)
+            (macro rgb-string (color)
+                   `(+ "rgb("
+                       (.join [
+                              (get @color 'red)
+
+                              (get @color 'green)
+
+                              (get @color 'blue)
+
+                              ] ",") ")")
+                   )
             (describe-table (C.colonies (c) ( (id c.id) (numbers c.entities.size)) here)
                             (print "ants" c)
 
-                            (.css id "color" (+ "rgb(" (.join [c.color.red c.color.green, c.color.blue] ",") ")"))
+                            (.css id "color" (+ "rgb("
+                                                (.join [
+                                                       c.color.red
+                                                       c.color.green,
+                                                       c.color.blue] ",") ")"))
                             (on c.event "new species" () (.update this))
 
                             (on sim "tick" () (.text numbers c.entities.size))))
@@ -73,5 +88,5 @@
 (def interface (sim C)
 
   (div interface-container {}
-         (panel colonies ((create Colony-display) C here))) context)
+       (panel colonies ((create Colony-display) C here))) context)
 (export interface)
