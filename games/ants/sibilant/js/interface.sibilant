@@ -85,11 +85,12 @@
 (def interface (sim C)
 
   (div interface-container {}
+
        (panel colonies
               (var col-display ((create Colony-display) C here))
               (print col-display )
               col-display)
        (panel toggles
-             (panel render-pheremones ) 
-              )) context)
+              (describe-table (["render-pheremones"] (option) ((option option) ("false")) here))))
+  context)
 (export interface)
