@@ -88,5 +88,7 @@
        (panel colonies
               (var col-display ((create Colony-display) C here))
               (print col-display )
-              col-display)) context)
+              col-display)
+       (panel toggles
+              (button render-trails? ))) context)
 (export interface)
