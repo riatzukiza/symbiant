@@ -90,5 +90,5 @@
               (print col-display )
               col-display)
        (panel toggles
-              (button render-trails? ))) context)
+              )) context)
 (export interface)
