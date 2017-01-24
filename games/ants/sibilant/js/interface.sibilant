@@ -91,9 +91,7 @@
               (print col-display )
               col-display)
        (panel toggles
-              (describe-table (["render-pheremones"] (option) ((option-name option) (value ($element button "<button>" {
-                                                                                                     text option-name
-                                                                                                     }))) here)
+              (describe-table (["render-pheremones"] (option) ((option-name option) (value "false")) here)
                               )
               ))
   context)
