@@ -1,5 +1,7 @@
 (include "./deps")
 
+
+
 (import-namespace defs)
 (import-namespace js)
 
@@ -7,6 +9,7 @@
        ["get " `(mth @name () ...@body)])
 
 (macro sett (name val ...body)
+
        ["set " `(mth @name (@val) ...@body)])
 
 (macro import (thing from) `(const (literal ...@(content-of thing)) (require @from)))
@@ -14,6 +17,7 @@
        `(scoped (let true? false)
            (area  @area @spot @center @diameter
                   (when @cond (assign true? true)))
+
                 true?))
 (macro gene (ent value)
        `(get @ent (quote genetics) (quote @value)))
