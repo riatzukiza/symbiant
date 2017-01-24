@@ -90,7 +90,8 @@
               (print col-display )
               col-display)
        (panel toggles
-              (pipe ($ "button")
-                    (.text "button"))
+              (here.append (pipe ($ "button")
+                                 (.text "button")
+                                 ))
               )) context)
 (export interface)
