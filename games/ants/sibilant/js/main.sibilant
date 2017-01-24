@@ -103,7 +103,7 @@
   (assign global.sim sim)
   (do-times 100 (.spawn reds))
   (do-times 100 (.random plants  ))
-  (interface sim Colony)
+  (interface sim reds)
 
   (on (sim.start) "tick" (now ticks)
       (every 60 ticks (.update plants))
