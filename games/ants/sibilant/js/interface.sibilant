@@ -91,6 +91,6 @@
               (print col-display )
               col-display)
        (panel toggles
-              (describe-table (["render-pheremones"] (option) (option (value "false")) here))))
+              (describe-table (["render-pheremones"] (option) ((option-name option) (value "false")) here))))
   context)
 (export interface)
