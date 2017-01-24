@@ -90,8 +90,6 @@
               (print col-display )
               col-display)
        (panel toggles
-              (here.append (pipe ($ "button")
-                                 (.text "button")
-                                 ))
+             (panel render-pheremones ) 
               )) context)
 (export interface)
