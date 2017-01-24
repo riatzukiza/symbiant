@@ -86,5 +86,6 @@
   (div interface-container {}
        (panel colonies
               (print "hi")
-              ((create Colony-display) C here))) context)
+              (let ((colony-display ((create Colony-display) C here)))
+                (print "colony-display" colony-display)))) context)
 (export interface)
