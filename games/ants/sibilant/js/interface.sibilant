@@ -84,5 +84,7 @@
 (def interface (sim C)
 
   (div interface-container {}
-       (panel colonies ((create Colony-display) C here))) context)
+       (panel colonies
+              (print "hi")
+              ((create Colony-display) C here))) context)
 (export interface)
