@@ -59,6 +59,7 @@
             (print "C" C))
 
       (gmth render (C here)
+            (print "rendering table" this)
             (macro rgb-string (color)
                    `(+ "rgb("
                        (.join [
