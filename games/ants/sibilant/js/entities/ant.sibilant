@@ -33,11 +33,13 @@
 (specify Ant (extend Entity)
          (property life 1000)
          (property collision world.collision)
+
          (init ( pos color life (ant this) )
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
+
          (generic *has-discovered-food (mth) ( group  ant)
                   (let true? false)
                   (area  world.coord spot ant 5
