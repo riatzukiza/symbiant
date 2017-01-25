@@ -5,8 +5,7 @@
 (import-namespace defs)
 (import-namespace js)
 
-(type Table
-      (init (collection paths))
-      (gmth add ())
-      (gmth remove ())
-      (gmth update ()))
+(def interface (sim C)
+
+  )
+(export interface)
