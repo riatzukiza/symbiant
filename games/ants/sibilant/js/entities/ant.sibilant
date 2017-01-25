@@ -30,6 +30,11 @@
 
 (import (each-in-area) "../area")
 
+;; entities require a position by default
+(pipe (.define Entity "Ant")
+      (.value-component "life" 1000)
+      (.value-component "collision" world.collision)
+      )
 (specify Ant (extend Entity)
          (property life 1000)
          (property collision world.collision)
@@ -38,7 +43,8 @@
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
-                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
+                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))
+               (assign this.components []))
 
          (generic *has-discovered-food (mth) ( group  ant)
                   (let true? false)
