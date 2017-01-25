@@ -54,7 +54,7 @@
                            (assign this._food spot)
                            (assign true? true))) true?)
 
-         (generic *eat (mth) ( group ant)
+         (generic *eat (mth) ( group )
                   (.delete group.goals this._food)
                   (assign this.life (+ this.life this._food.life))
                   (let emission (* (gene this rate) (gene this find-rate) 10))
@@ -69,46 +69,46 @@
                   (.update this.group.mating-weights)
                   (.emit this.group.mating-weights this.pos group.mating-weights.weights
                          (* 10  (gene this rate) (/ this.life Ant.life)) 20))
-         (generic *die (mth) (  ant group )
-                  (.delete group ant)
-                  (.emit this.seeking ant.pos this.seeking.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
+         (generic *die (mth) (   group )
+                  (.delete group this)
+                  (.emit this.seeking this.pos this.seeking.weights (* -10 (gene this rate)  (/ this.life Ant.life)) 20)
                   )
-         (generic mutate (mth) (ant group nest)
+         (generic mutate (mth) ( group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
-                  (.emit this.group.food-weights ant.pos group.weights (- (gene ant rate)))
-                  (.dmap (gene ant kernel) (=> (x) (* x (random-signed 0.2))))
-                  (mutate ant (return-rate find-rate deviance rate) )
-                  (assign ant.life Ant.life ))
+                  (.emit this.group.food-weights this.pos group.weights (- (gene this rate)))
+                  (.dmap (gene this kernel) (=> (x) (* x (random-signed 0.2))))
+                  (mutate this (return-rate find-rate deviance rate) )
+                  (assign this.life Ant.life ))
          (generic *sated (mth) (nest ant )
-                  (let sated? (> ant.life Ant.life))
+                  (let sated? (> this.life Ant.life))
                   (if sated? (assign this.seeking this.group.mating-weights)
                       (assign this.seeking this.group.food-weights))
                   sated?)
 
-         (generic *near-nest (mth) (nest ant )
-                  (area-has 10 spot ant world.coord (and (= nest.x x) (= nest.y y))))
+         (generic *near-nest (mth) (nest  )
+                  (area-has 10 spot this world.coord (and (= nest.x x) (= nest.y y))))
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
-         (generic choose (mth) (group collision  (ant this) )
+         (generic choose (mth) (group collision   )
                   ;; A choice is a weighted random selection from a collection area.
                   (let count 0)
                   (let sum 0)
                   (let done false)
-                  (let choice { x ant.x y ant.y })
+                  (let choice { x this.x y this.y })
                   ;; I think this ends up being needed in multiple places.
                   ;; but in what way?
                   ;; I think some other function will decide what *weight* is, and call this function accordingly.
-                  (when (not (gene ant kernel))
-                    (assign (gene ant kernel)
-                            (moore-neighborhood 3 3 (gene ant deviance))))
+                  (when (not (gene this kernel))
+                    (assign (gene this kernel)
+                            (moore-neighborhood 3 3 (gene this deviance))))
                   (let weights null)
                   (def total-weight (w i j)
-                    (+ (gene ant deviance)  (* w (/ ant.life Ant.life) (.get (gene ant kernel) i j))))
-                  (each-valid-move  ant this.seeking.weights.state
+                    (+ (gene this deviance)  (* w (/ this.life Ant.life) (.get (gene this kernel) i j))))
+                  (each-valid-move  this this.seeking.weights.state
                                     (incr-by count (total-weight w i j)))
                   (let rand (* count (Math.random)))
-                  (each-valid-move ant this.seeking.weights.state
+                  (each-valid-move this this.seeking.weights.state
                                    (incr-by sum (total-weight w i j))
                                    (when (and (<= rand sum) (not done))
                                      (assign choice.x x choice.y y done true)))
@@ -126,30 +126,30 @@
                   (this.group.event.emit "new species" new-colony)
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
-         (generic update (mth) (  group nest  life  (ant this))
+         (generic update (mth) (  group nest  life  )
                   ;; Ants are more likely to choose food-weights over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work
                   (let x 0)
                   (let y 0)
-                  (-- ant.life)
+                  (-- this.life)
                   (let random (random-int 0 (/ Ant.life 2)))
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
-                  (let sated? (.*sated ant ))
-                  (if (> (* 2 ant.life) random)
-                      (do (let choice (.choose ant ))
+                  (let sated? (.*sated this ))
+                  (if (> (* 2 this.life) random)
+                      (do (let choice (.choose this ))
                           (.move this choice.x choice.y  )
-                        (if sated? (if (.*near-nest  ant)
-                                       (.*reproduce ant)
+                        (if sated? (if (.*near-nest  this)
+                                       (.*reproduce this)
                                        ;;(and
                                         ;;(< group.colonies.size 30)
                                             (> (Math.random) 0.9999)
                                             ;;)
-                                       (.*form-new-colony ant))
-                            (.*has-discovered-food  ant )
-                            (.*eat ant )))
-                      (.*die ant))
-                  (.emit this.seeking ant.pos this.seeking.weights (* (gene ant rate) (/ ant.life Ant.life)) 10)))
+                                       (.*form-new-colony this))
+                            (.*has-discovered-food  this )
+                            (.*eat this )))
+                      (.*die this))
+                  (.emit this.seeking this.pos this.seeking.weights (* (gene this rate) (/ this.life Ant.life)) 10)))
 
 
 (export Ant)
