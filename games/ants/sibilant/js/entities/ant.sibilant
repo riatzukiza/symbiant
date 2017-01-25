@@ -30,45 +30,45 @@
 
 (import (each-in-area) "../area")
 
-;; entities require a position by default
+;; entities require a position and a color by default
 (pipe (.define Entity "Ant")
       (.value-component "life" 1000)
-      (.value-component "collision" world.collision)
-      )
+      (.value-component "collision" world.collision))
 (specify Ant (extend Entity)
          (property life 1000)
          (property collision world.collision)
 
-         (init ( pos color life (ant this) )
+         (init ( pos color life )
                (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
-                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))
-               (assign this.components []))
+                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
+         (getter components ()
+                 [])
 
-         (generic *has-discovered-food (mth) ( group  ant)
+         (generic *has-discovered-food (mth) ( group  )
                   (let true? false)
-                  (area  world.coord spot ant 5
+                  (area  world.coord spot this 5
                          (assign spot (.get world.collision.entities spot))
                          (when (and  (not true?) (.has group.goals spot) )
                            (assign this._food spot)
                            (assign true? true))) true?)
 
          (generic *eat (mth) ( group ant)
-                  (.delete group.goals ant._food)
-                  (assign ant.life (+ ant.life ant._food.life))
-                  (let emission (* (gene ant rate) (gene ant find-rate) 10))
+                  (.delete group.goals this._food)
+                  (assign this.life (+ this.life this._food.life))
+                  (let emission (* (gene this rate) (gene this find-rate) 10))
 
                   (.update this.group.food-weights)
-                  (.emit this.group.food-weights ant.pos group.weights  emission 20))
-         (generic *reproduce (mth) (nest ant group )
-                  ;;(print "ant make babies" ant)
-                  (assign ant.life (/ ant.life 2))
-                  (.mutate ant )
+                  (.emit this.group.food-weights this.pos group.weights  emission 20))
+         (generic *reproduce (mth) (nest this group )
+                  ;;(print "this make babies" this)
+                  (assign this.life (/ this.life 2))
+                  (.mutate this )
                   (.spawn group )
                   (.update this.group.mating-weights)
-                  (.emit this.group.mating-weights ant.pos group.mating-weights.weights
-                         (* 10  (gene ant rate) (/ ant.life Ant.life)) 20))
+                  (.emit this.group.mating-weights this.pos group.mating-weights.weights
+                         (* 10  (gene this rate) (/ this.life Ant.life)) 20))
          (generic *die (mth) (  ant group )
                   (.delete group ant)
                   (.emit this.seeking ant.pos this.seeking.weights (* -10 (gene ant rate)  (/ ant.life Ant.life)) 20)
