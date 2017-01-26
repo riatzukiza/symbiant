@@ -79,13 +79,18 @@
                  pos this.pos
                  color this.color
                  life this.life
-                 }
-                 )
+                 })
+         (setter components (obj)
+                 (.each obj (=> (v k) (set this k v))))
 
-         (gmth save (path components) (fs.write-file path (JSON.stringify components)
-                                                     (=> (err) (if err (print "save failed gracefully" path)))))
+         (gmth save (path callback components)
+               (fs.write-file path (JSON.stringify components) callback))
 
-         (mth load (path) (fs.read-file ))
+         (mth load (path cb)
+              (fs.read-file path (=> (err buffer)
+                                     (if err (print "save failed gracefully" path)
+                                         (cb ((create Ant)
+                                              ))))))
 
          (generic *has-discovered-food (mth) ( group  )
                   (let true? false)
