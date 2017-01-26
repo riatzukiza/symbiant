@@ -8,6 +8,7 @@
 (import (State-space) "../state-space")
 
 (import (complement) "../color")
+(require! fs "browserify-fs")
 
 
 (generic moore-neighborhood (def) (w h (weight 1) (c 0))
@@ -80,6 +81,9 @@
                  color this.color
                  life this.life
                  })
+         (gmth load ())
+         (gmth save ()
+               ())
          (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
