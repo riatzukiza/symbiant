@@ -81,7 +81,21 @@
                  color this.color
                  life this.life
                  })
-         (gmth load ())
+         (gmth load (path)
+               (macro call-node-back (func ...args)
+                      `(make-promise (.apply @func  this [
+                                             ...@args
+                                             (=> (err value )
+                                                 (if err (fail err) )
+                                                 (success value)) ])))
+               (pipe (call-node-back fs.read-file)
+                     (make-promise
+                      (fs.read-file path
+                                    (=> (err value)
+                                        (if err (fail err)
+                                            (success
+                                             (extend this
+                                                     (JSON.parse value)))))))))
          (gmth save ()
                ())
          (setter value (obj)
