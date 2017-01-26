@@ -81,9 +81,11 @@
                  life this.life
                  }
                  )
-         (gmth save (path components) (fs.write-file path (JSON.stringify components)))
 
-         (mth load (path))
+         (gmth save (path components) (fs.write-file path (JSON.stringify components)
+                                                     (=> (err) (if err (print "save failed gracefully" path)))))
+
+         (mth load (path) (fs.read-file ))
 
          (generic *has-discovered-food (mth) ( group  )
                   (let true? false)
