@@ -60,6 +60,7 @@
       (mth add-component ())
       (mth update ()
            (this.systems.each (=> (system) (.update system components)))))
+
 (comment (pipe (.define Entity "Ant")
        (.value-component "life" 1000)
        (.value-component "collision" world.collision)))
