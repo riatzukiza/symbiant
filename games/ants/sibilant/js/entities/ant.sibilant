@@ -83,14 +83,6 @@
          (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
-         (gmth save (path components)
-               (.save File.Json path components))
-
-         (mth load (path cb)
-              (fs.read-file path (=> (err buffer)
-                                     (if err (print "save failed gracefully" path)
-                                         (cb ((create Ant)
-                                              ))))))
 
          (generic *has-discovered-food (mth) ( group  )
                   (let true? false)
