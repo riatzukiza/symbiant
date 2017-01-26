@@ -74,7 +74,16 @@
                           (return-rate (random-signed 1))
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
          (getter components ()
-                 [])
+                 {
+                 genetics this.genetics
+                 pos this.pos
+                 color this.color
+                 life this.life
+                 }
+                 )
+         (gmth save (path components) (fs.write-file path (JSON.stringify components)))
+
+         (mth load (path))
 
          (generic *has-discovered-food (mth) ( group  )
                   (let true? false)
