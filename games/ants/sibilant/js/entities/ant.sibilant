@@ -84,20 +84,17 @@
          (gmth load (path)
                (macro call-node-back (func ...args)
                       `(make-promise (.apply @func  this [
+
                                              ...@args
+
                                              (=> (err value )
                                                  (if err (fail err) )
                                                  (success value)) ])))
-               (pipe (call-node-back fs.read-file)
-                     (make-promise
-                      (fs.read-file path
-                                    (=> (err value)
-                                        (if err (fail err)
-                                            (success
-                                             (extend this
-                                                     (JSON.parse value)))))))))
-         (gmth save ()
-               ())
+               (pipe (call-node-back fs.read-file path)
+                     (.then JSON.parse)
+                     (.then (=> (obj) ((create (extend this obj)))))))
+         (gmth save (value)
+               (call-node-back fs.write-file path value))
          (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
