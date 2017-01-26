@@ -73,18 +73,18 @@
                           (find-rate (random-signed 1))
                           (return-rate (random-signed 1))
                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
-         (getter components ()
+         (getter value ()
                  {
                  genetics this.genetics
                  pos this.pos
                  color this.color
                  life this.life
                  })
-         (setter components (obj)
+         (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
-         (gmth save (path callback components)
-               (fs.write-file path (JSON.stringify components) callback))
+         (gmth save (path components)
+               (.save File.Json path components))
 
          (mth load (path cb)
               (fs.read-file path (=> (err buffer)
