@@ -97,6 +97,13 @@
 (def Map.prototype.each (f)
   (.for-each this f) this)
 
+(generic save (def) (path components)
+      (.save Json-file path components))
+
+(generic load (def) (path file (entity this))
+  (pipe (.load file.json path)
+        (.then (set-value _ entity))))
+
 (def start (sim)
   (let plants ((create Plant-group) ))
   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
