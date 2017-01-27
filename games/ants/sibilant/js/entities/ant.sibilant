@@ -15,6 +15,9 @@
 
          (let m (allns w h weight))
          (set m.array (matrix-center w h) c) m)
+(def Object.prototype.each (f)
+  (.each (Object.keys this) f)
+  this)
 (def random-color ()
   {
   red (random-int 255)
@@ -81,6 +84,10 @@
                  color this.color
                  life this.life
                  })
+
+         (gmth serialize ()
+               (JSON.stringify this.value))
+
          (gmth load (path)
                (macro call-node-back (func ...args)
                       `(make-promise (.apply @func  this [
@@ -90,11 +97,14 @@
                                              (=> (err value )
                                                  (if err (fail err) )
                                                  (success value)) ])))
+
                (pipe (call-node-back fs.read-file path)
                      (.then JSON.parse)
                      (.then (=> (obj) ((create (extend this obj)))))))
+
          (gmth save (value)
                (call-node-back fs.write-file path value))
+
          (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
@@ -223,6 +233,7 @@
                (Entity-group.init.call this)
 
                (.add colonies this))
+
          (generic spawn (fluent mth) (color entity-type)
                   (let rx (ternary (= (random-bit) 1) 1 -1))
                   (let ry (ternary (= (random-bit) 1) 1 -1))
@@ -241,6 +252,18 @@
 
          (generic serialize (mth) (ants)
                   (map (.to-array ants) (ant) (.serialize ant)))
+
+         (gmth save (path)
+               (macro call-node-back (func ...args)
+                      `(make-promise (.apply @func  this [
+
+                                             ...@args
+
+                                             (=> (err value )
+                                                 (if err (fail err) )
+                                                 (success value)) ])))
+               (call-node-back fs.write-file path )
+               )
 
          (generic update (mth) (entities weights decay mating-weights food-weights)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
