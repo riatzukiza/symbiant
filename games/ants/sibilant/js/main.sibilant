@@ -54,6 +54,7 @@
 (import (Simulation) "./simulation")
 
 (Simulation let sim (120 120 5))
+
 (assign global.sim sim)
 (type Rendering
       )
@@ -98,10 +99,17 @@
   (.for-each this f) this)
 
 (generic save (def) (path components)
-      (.save Json-file path components))
+      (save-json-file path components))
 
-(generic load (def) (path file (entity this))
-  (pipe (.load file.json path)
+(let set-value (R.curry (=> (value entity) (assign entity.value value))))
+
+(def-promised load-json-file (path)
+  ()
+  )
+
+(generic load (def) (path (entity this))
+
+  (pipe (load-json-file path)
         (.then (set-value _ entity))))
 
 (def start (sim)
@@ -119,5 +127,4 @@
       (pipe sim.layers
             (.update )
             (.render))))
-
 (.load sim  start)
