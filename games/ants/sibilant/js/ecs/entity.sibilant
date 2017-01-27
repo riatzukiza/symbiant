@@ -5,6 +5,7 @@
       (gett r  this.color.red)
       (gett g  this.color.green)
       (gett b  this.color.blue)
+
       (gett a  255)
       (gett x  this.pos.x)
       (gett y  this.pos.y)
