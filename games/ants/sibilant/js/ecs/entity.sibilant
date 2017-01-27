@@ -7,10 +7,11 @@
       (gett b  this.color.blue)
 
       (gett a  255)
-      (gett x  this.pos.x)
-      (gett y  this.pos.y)
 
+      (gett x  this.pos.x)
       (sett x  num (.move this num this.y))
+
+      (gett y  this.pos.y)
       (sett y  num (.move this this.x num))
 
       (gmth spawn (x y color )
