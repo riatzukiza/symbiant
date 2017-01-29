@@ -4,6 +4,9 @@
 
 (import-namespace defs)
 (import-namespace js)
+(type Game-map
+      (init ())
+      )
 
 (def interface (sim C)
 

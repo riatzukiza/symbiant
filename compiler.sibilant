@@ -1,12 +1,13 @@
 "use strict"
 (include "./deps")
+(require! {Sibilant} "./lib/sibilant.sibilant")
 (import-namespace defs)
 (import-namespace js)
 
 ;;(const __dirname (or global.__dirname "."))
-(var port (or process.env.PORT 8001)
+(var port (or process.env.PORT 8002)
 
-     env (or process.env.NODE_ENV "dev"))
+     env "dev")
 
 (require! "express" "chokidar" )
 
@@ -22,6 +23,22 @@
       (then promise string
             (each connections (socket)
                   (.emit socket "change")))))
+(def translate-path (path)
+  (pipe path
+        (.replace  "/sibilant/" "/")
+        (.replace ".sibilant" ".js")))
+(def build (path )
+  (print "building" path)
+  (var target (translate-path path))
+  (pipe Sibilant
+        (.from-file path)
+        (.transpile)
+        (.save-file target)))
+(def initial-build (p src path)
+  (print "initial build of" src path)
+  (pipe (Promise.resolve p)
+        (then-do (each src (name) (build (Path.join  path name))))
+        (then-do (each src (name) (build (Path.join  path name))))))
 (type Auto-compiler
       (init (name bundle io
                   (namespace (.of io name))
@@ -30,8 +47,10 @@
                   (source-watcher (chokidar.watch sibilant-path))
                   (src ((create Directory) sibilant-path)))
             (initial-build null src sibilant-path ))
+
       (generic change (mth) (path name connections)
                ((signal-refresh name connections) (build path)))
+
       (generic connect (mth) (namespace connections source-watcher bundle name)
                (on source-watcher "change" (path)
                    (unless this._compiling
@@ -40,7 +59,7 @@
                            (then-do (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
                            (then branch-name
                                  (print "gitting" branch-name)
-                                 (let compile-branch (+ "compiled-" branch-name))
+                                 (var compile-branch (+ "compiled-" branch-name))
                                  (shell
                                   (git add "-A" "." )
                                   (git commit "-m" (+ "compiled " path))
@@ -52,23 +71,12 @@
                    (on socket "disconnect" ()
                        (.delete connections socket)))))
 (def auto-compile (game bundle io)
+  (print "attempting to initiate auto compiler" game bundle io)
   (when (= env "dev")
-    (let compiler ((create Auto-compiler) game bundle io))
+    (print "auto compiler running...")
+    (var compiler ((create Auto-compiler) game bundle io))
     (.connect compiler )))
 (export auto-compile)
-(def initial-build (p src path)
-  (print "initial build of" src path)
-  (pipe (Promise.resolve p)
-        (then-do (each src (name) (build (Path.join  path name))))
-        (then-do (each src (name) (build (Path.join  path name))))))
-(def build (path )
-  (print "building" path)
-  (let target (translate-path path))
-  (pipe Sibilant
-        (.from-file path)
-        (.transpile)
-        (.save-file target)))
-(def translate-path (path)
-  (pipe path
-        (.replace  "/sibilant/" "/")
-        (.replace ".sibilant" ".js")))
+
+
+

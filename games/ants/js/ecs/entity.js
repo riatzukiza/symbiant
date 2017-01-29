@@ -36,14 +36,14 @@ const Entity = {
       return this.pos.x;
     
    },
-  get y(  ){ 
-    
-      return this.pos.y;
-    
-   },
   set x( num ){ 
     
       return this.move(num, this.y);
+    
+   },
+  get y(  ){ 
+    
+      return this.pos.y;
     
    },
   set y( num ){ 

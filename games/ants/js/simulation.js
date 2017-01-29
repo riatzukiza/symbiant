@@ -28,7 +28,7 @@ const Location = {
 const Simulation = extend(EventEmitter.prototype, { 
   symbol:Symbol("Simulation"),
   init( fps = this.fps,width = this.width,scale = this.scale,state = false,layers = (new Layers(document.getElementById("stage"), "gl", width, scale)).setBGColor(),coord = create(Matrix)([], width, width).dmap((function(nil, x, y) {
-    /* eval.sibilant:16:67 */
+    /* eval.sibilant:17:67 */
   
     return create(Location)(x, y);
   })),systems = (new Set()),rate = (1000 / fps),ticks = 0,sim = this ){ 

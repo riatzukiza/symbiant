@@ -17,7 +17,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(120, 120, 5);
+let sim = create(Simulation)(120, 240, 3);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
@@ -69,13 +69,38 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:93:0 */
+  /* Map.prototype.each eval.sibilant:100:0 */
 
   this.forEach(f);
   return this;
 });
+var save = (function save$(path = this.path, components = this.components) {
+  /* save deps.sibilant:61:8 */
+
+  return saveJsonFile(path, components);
+});
+var R = require("ramda");
+let setValue = R.curry((value, entity) => {
+	
+  return entity.value = value;
+
+});
+function loadJsonFile( path ){ 
+  (new Promise((success, fail) => {
+  	
+    var resolve = success,
+        reject = fail;
+    return null;
+  
+  }))
+ };
+var load = (function load$(path = this.path, entity = this) {
+  /* load deps.sibilant:61:8 */
+
+  return loadJsonFile(path).then(setValue(_, entity));
+});
 var start = (function start$(sim) {
-  /* start eval.sibilant:96:0 */
+  /* start eval.sibilant:118:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
@@ -91,7 +116,7 @@ var start = (function start$(sim) {
   reds.spawn()};
   for (let time = 0;time < 100;++(time)){
   plants.random()};
-  interface(sim, Colony);
+  interface(sim, reds);
   return sim.start().on("tick", (now, ticks) => {
   	
     (function() {
