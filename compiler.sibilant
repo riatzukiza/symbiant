@@ -23,6 +23,11 @@
       (then promise string
             (each connections (socket)
                   (.emit socket "change")))))
+(def lazy-git (message branch)
+  (shell
+   (git add "-A" "." )
+   (git commit "-m" [message])
+   (git push origin [branch])))
 (def translate-path (path)
   (pipe path
         (.replace  "/sibilant/" "/")
@@ -60,6 +65,8 @@
                            (then branch-name
                                  (print "gitting" branch-name)
                                  (var compile-branch (+ "compiled-" branch-name))
+                                 
+
                                  (shell
                                   (git add "-A" "." )
                                   (git commit "-m" (+ "compiled " path))

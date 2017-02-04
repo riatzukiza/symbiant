@@ -3,6 +3,7 @@
 (namespace symbiant)
 
 (include "./deps")
+(require! (literal create extend mixin curry) "./lib/util")
 (import-namespace defs)
 (import-namespace js)
 
@@ -14,7 +15,11 @@
 (macro let (args ...body)
        `((lambda (...@(.map args.contents (=> (el) (first el.contents))))
            ...@body) ...@(.map args.contents (=> (el) (second el.contents)))) )
-
+(def lazy-git (message branch)
+  (shell
+   (git add "-A" "." )
+   (git commit "-m" [message])
+   (git push origin [branch])))
 (macro let* (vars ...body)
 
        (if (> (length vars.contents) 1)

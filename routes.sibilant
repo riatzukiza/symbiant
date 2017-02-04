@@ -1,30 +1,14 @@
-(comment (def html-element (name )
+(namespace routes)
+(include "../kit/inc/macros")
+(import-namespace kit)
 
-           (let=> (attributes body stream)
+(require! (literal create extend mixin curry) "./lib/util"
+          Future "./lib/async"
+          (literal Trie trie) "../kit/src/collection/trie.sibilant")
 
-                  ((body ((create Future-array) body))
-                   ( stream ((create Promise-writer) stream))
 
-                   (write-element-attribute
-                    (=> (value key) (resolve-then value (.write stream (+ key "=" "'" value "' " ))))))
-
-                  (sequence (Promise.resolve) then-do
-
-                            ((.write stream opening))
-
-                            ((.map (Future.Object.resolve attributes) attributes
-                                   write-element-attribute))
-
-                            ((.write stream ">"))
-                            ((.map-serial body (.bind stream.list.write stream)))
-                            ((.write stream (+ "</" name ">")))))))
-(type Promise-writer 
-      (init ( stream (promise (Promise.resolve))))
-      (gmth write (message promise stream)
-            (assign this.promise
-                    (pipe promise
-                          (then-do (pipe (Promise.resolve message)
-                                         (then value (make-promise (.write stream value success))))))))) 
+(include "./promise-writer"
+         "./object")
 
 (macro resolve-then ( value ...body)
        `(pipe (Promise.resolve @value)
@@ -32,58 +16,165 @@
 
 (def write-element-attribute (value key)
   (resolve-then value (.write stream (+ key "=" "'" value "' " ))))
+
 (macro arrow-let (defs ...body)
-       `(let @(.map defs.contents
-                    (=> (de)
-                      `(@(first def.contents) (=> ...@(rest def.contents)))))))
+       `(let (...@(.map defs.contents
+                  (=> (de)
+                      `(@(first de.contents) (=> ...@(rest de.contents))))))
+          ...@body))
 (alias-macro arrow-let =>-let)
 (alias-macro arrow-let flet)
 
 (type Html-element
 
-      (getter body () ((create Future-array) this.*body))
+      (getter body () this.*body)
       (getter stream () ((create Promise-writer) this.*stream))
       (getter promise () this.*promise)
 
-      (init (name attributes *stream *body  (*promise (Promise.resolve)))))
-(def-generic Html-element.render (stream name  attributes body promise)
+      (init ((name "")
+             (attributes {})
+             (*body [])
+             *stream
+             (*promise (Promise.resolve)))))
+(var html-element (create Html-element))
 
-  (flet ((write-element-attribute (value key)
-           (resolve-then value (.write stream (+ key "=" "'" value "' " ))))
+(generic Html-element.render (def) (stream name  attributes body promise) "
 
-         (render-child-segment (segment)
-           (if (or (string? segment) (instanceof Buffer segment))
-               (.write stream segment)
-               (.render segment stream)))
+Write an html document fragment to a stream, and its content. Content can be a string, promise, or a renderable.
 
-         (render-opening-tag () (.write stream (+ "<" name)))
+"
+         (flet ((render-element-attribute (value key)
+                  "given a key and a value, render the attribute string fragment associated to the given stream"
+                  (resolve-then value (.write stream (+ " " key "=" "'" value "' " ))))
 
-         (render-attributes ()
-           (.map (Future.Object.resolve attributes)
-                 write-element-attribute))
+                (render-child-segment (segment)
+                  (if segment.render
+                      (.render segment stream)
+                      (.write stream (+ "" segment))))
 
-         (render-children () (.map-serial body render-child-segment))
-         (render-closing-tag () (.write stream (+ "</" name ">"))))
+                (end-opening-tag ()
+                  (.write stream ">"))
 
-    (sequence promise then
+                (render-opening-tag ()
+                  (.write stream (+ "<" name)))
 
-              (render-opening-tag)
+                (render-closing-tag () (.write stream (+ "</" name ">"))))
 
-              (render-attributes)
+           (flet ((render-attributes ()
+                    (.map (.all Promise (.map (Object.keys attributes)
+                                              (=> (k)
+                                                  (render-element-attribute (get attributes k) k))))))
 
-              (end-opening-tag)
+                  (render-children ()
+                    (.reduce body (=> (promise element)
+                                      (then-do promise
+                                               (print "rendering" element)
+                                               (render-child-segment element)))
+                             (Promise.resolve))))
 
-              (render-children)
+             (sequence promise .then
 
-              (render-closing-tag))))
+                       (render-opening-tag)
+
+                       (render-attributes)
+
+                       (end-opening-tag)
+
+                       (render-children)
+
+                       (render-closing-tag)))))
 
 
-(markup-to-stream
- process.stdout
- (:html
-  (:head )
-  (:body (:h1 "this is a shitty website!")
-         (:div {id "main-container"}
-               (span "yes, yes it is.")))))
 
-((create Html-element))
+(macro dotted? (token) `(= (get @token "type") "dots"))
+
+(alias-macro loop flat-pipe)
+
+(def Array.prototype.each (f)
+  (this.for-each f)
+  this)
+(def Object.prototype.keys ()
+  (Object.keys this))
+(def Object.prototype.each (f)
+
+  (each (.keys this) (k) (f (get this k) k))
+
+  this)
+
+
+
+(macro markup ( root)
+       `(html-element ...@(let ((name `(quote @(first (content-of (first (content-of root))))))
+                                (elements (rest root.contents))
+                                (attributes-list [])
+                                (values []))
+
+
+                            (while (> elements.length 0)
+                              (let ((el (.shift elements)))
+
+                                (if (dotted? el)
+                                    (do (.push attributes-list el)
+                                        (.push attributes-list (.shift elements)))
+
+                                    (and (expression? el)
+                                         (dotted? (first el.contents)))
+                                    (.push values `(markup  @el))
+
+                                    (.push values el))))
+
+
+                            [ name  `(hash ...@attributes-list)  `[...@values] ])))
+
+(require! "http")
+(macro with-markup-to-stream (stream element)
+       `(pipe (markup @element)
+              (.render ((create Promise-writer) @stream))
+              (then-do (.end @stream))))
+
+(def render-test-document (res)
+
+  (with-markup-to-stream res
+    (.html
+     (.head )
+     (.body (.h1 "this is a shitty website!")
+            (.div  .id "main-container" 
+                   (.div "yes, yes it is.")
+
+                   (.div (Date.now))
+
+                   (.div "and that was the time."))))))
+
+
+
+(comment (http.get "http://localhost:8000"
+           (=> (res) (.pipe res process.stdout))))
+
+(pipe (.render ((create Promise-writer) res))
+      (then-do (.end res))
+
+      (.catch (aprint "test render failed")))
+(var routes (trie))
+(var app ((require "express")))
+
+(const server
+       (pipe (http.create-server app)
+             (.listen 8000)))
+
+(macro define-router  (app path)
+       (.use))
+(macro route (...body)
+       `(=> (req res) ...@body))
+
+(macro define-markup-router (app path markup)
+       `(.get @app @path (route (with-markup-to-stream res @markup ))))
+
+(macro define-script-router (app path ...body)
+       `(.get @app @path
+              (route ...@(.map body (=> (el) `(.write res (quote @el)))) (.end res))))
+
+
+(pipe app
+      (define-markup-router  "/portal"
+          (.html
+           (.head (.script .src "/libs")))))

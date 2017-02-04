@@ -4,7 +4,9 @@
                         (.each collection callback)))
 
          (generic map (mth) ( callback promise all)
+                  (print "mapping collection from the futureeee")
                   (then promise collection
+                        (log-pretty "????" collection)
                         (all (.map collection callback))))
 
          (generic reduce (mth) (callback initial-value promise )
@@ -24,6 +26,7 @@
 
          (generic resolve (mth) (collection (self this))
                   "resolve a collection, and all of its members"
+                  (print "resolving" collection)
                   ((create self)
                    (.then (.resolve Promise collection) self.all)))
 

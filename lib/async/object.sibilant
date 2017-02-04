@@ -10,6 +10,5 @@
 (specify Future-object (extend Future-collection)
          (mth all (object)
               (then (.all Future-array (key-value-pair object)) pair
-                    (let o (key-value-object pair))
-                    o)))
+                    (key-value-object pair))))
 (assign exports.Object Future-object)

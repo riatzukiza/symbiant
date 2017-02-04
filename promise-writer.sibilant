@@ -1,0 +1,12 @@
+(import-namespace kit)
+(type Promise-writer
+      (init ( stream (promise (Promise.resolve))))
+      (gmth write (message promise stream)
+            (print "writing" message)
+            (assign this.promise
+                    (pipe promise
+                          (then-do (pipe (Promise.resolve message)
+                                         (then value
+                                               (make-promise
+                                                (print "wrote to stream with promise")
+                                                (.write stream value success)))))))))

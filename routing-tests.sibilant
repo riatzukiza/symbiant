@@ -1,0 +1,29 @@
+
+(pipe app (.get  "/test/hello" (route (res.end "hello"))))
+
+(define-markup-router app "/test/templater-test.html"
+  (.html
+   (.head )
+   (.body (.h1 "this is a shitty website!")
+          (.div  .id "main-container"
+                 (.div "yes, yes it is.")
+
+                 (.div (Date.now))
+
+                 (.div "and that was the time.")))))
+
+
+
+
+(define-markup-router app "/test/greetings.html"
+  (.html
+   (.head
+    (.body (.h1 "home")
+           (.div .id "greeting")
+           (.script .src "/test/greetings.js"))
+    "if there is a greeting here, then the test has passed.")))
+
+
+(define-script-router app "/test/greetings.js"
+  (set (.get-element-by-id document "greeting") "innerHTML"
+       "hey man. Whats up?"))

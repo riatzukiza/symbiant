@@ -1,5 +1,4 @@
 (const (literal List) (require "../collection/list"))
-(print "List.bind" List.bind)
 
 (specify Future-array (extend Future-collection)
          ;; NOTE for the following two functions I would like
@@ -14,7 +13,6 @@
          (generic bind (mth) (callback promise)
                   (then (.resolve Future-array promise )
                         collection
-                        (print "collection" collection)
                         (List.bind callback collection []))
                   )
          (generic map-all-serial (mth) (callback collection )

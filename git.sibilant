@@ -17,62 +17,6 @@
       (init (name (promise (Promise.resolve)))))
 (specify Event-emitter (extend Event-emitter.prototype)
          (property init Event-emitter))
-(type Indexed-set
-
-      (init ((*set (new Set)) (*array [])))
-
-      (gmth add ())
-      (gmth delete ())
-      (gmth each ())
-      (gmth join ())
-      (gmth intersect ())
-      (gmth has ()))
-
-(type Model
-      (init ((actors (indexed-set))
-             (messages (indexed-set))))
-      (gmth add (actor))
-      (mth create (type (dots args))
-           ((create type) (dots args)))
-      (gmth get (name) )
-      (gmth delete ()))
-
-(type Message
-      (property promise Promise)
-
-      (init ( (addresses  (literal to from) ) model )
-            (.push model.messages this))
-
-      (gmth send (sender args success fail)
-            (.then (.send sender args recipiant)
-                   success fail)))
-
-(type Queue
-      (init (sequence []))
-      (gmth enqueue ())
-      (gmth dequeue ))
-(type Promise
-      (init ()))
-
-(type Actor
-      (property events (new Event-emitter))
-
-      (init (promise (waiting [])
-                     (handled [])
-                     callback)
-            (.push mode.actors))
-
-
-      (generic send (fluent mth) (args promise messages callback)
-               (let (i (.push messages args ))
-                 (assign this.promise
-                         (.then promise
-                                (=>  (value)
-                                     (callback value args)))))))
-
-(generic Actor.send (def data) (key))
-
-
 
 (type Git
 
@@ -103,9 +47,10 @@
 
 (generic heroku.push-all (def) (message)
          (git (add ".")
-              (commit "-m" (+ "'" message "'"))
+              (commit "-m" message)
               (push 'origin 'master)
               (push 'heroku 'master)))
+
 (comment (.then (shell
          (git add ".")
          (git commit "-m" (+ "'" message "'"))

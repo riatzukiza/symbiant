@@ -1,0 +1,31 @@
+(comment (unzip elements
+                (if (dotted? el)
+                    (.push attributes-list [ (first el.contents) (second el.contents) ])
+
+                    (expression? el) )
+                (if (dotted? (first el.contents))
+                    (.push  values
+                            `(markup-to-stream
+                              @stream
+                              @el)))))
+(macro unzip (arr let-vars ...body)
+       `(let @let-vars
+          (while (> (get @arr "length") 0) ...@body)
+          ))
+(comment (unzip elements
+                ((name (first root.contents))
+                 (attributes-list [])
+                 (values []))))
+(var html-element (create Html-element))
+(var doc-root
+     (html-element "html" {} [
+                   (html-element "head" {} [])
+                   (html-element "body" {} [
+
+                                 (html-element "h1" { } [ "this is a shitty website" ])
+
+                                 (html-element "div" { id "main-container" }
+                                               (html-element "div" { } [ "yes it is" ])
+                                               (html-element "div" { } [ (Date.now) ])
+
+                                               (html-element "div" { } [ "and that was the time" ] )) ] ) ] ) )

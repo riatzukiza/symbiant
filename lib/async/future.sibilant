@@ -1,6 +1,6 @@
 (type Future
 
-      (mth init (promise (default value null))
+      (mth init ((promise (Promise.resolve)) (default value null))
            (assign this.promise promise
                    this.value value ))
 
