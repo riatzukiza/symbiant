@@ -10,10 +10,13 @@
       (generic has (mth) (n)
                ;; (n == 0) == false ;;case where given 0, and the run is negative.
                (= this.value (= n 0)))
+
       (gmth before? (i start)
             (<= i start))
+
       (gmth after? (i end)
             (>= i end))
+
       (gmth between? (i start end)
             (and (>= i start) (<=  i end)))
       (generic each (mth!) (callback start end array)
