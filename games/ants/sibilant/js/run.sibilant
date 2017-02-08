@@ -35,8 +35,7 @@
                                      (assign run ((create Run) array (not run.value) i i run))
                                      (indexes.push run))))))
          (gmth push (v)
-               ())
-      )
+               ()))
 (type Run-indexed-array
       (init (array (indexes []))
             (let run ((create Run) array false 0 0 null null))
