@@ -19,7 +19,9 @@
 
       (gmth between? (i start end)
             (and (>= i start) (<=  i end)))
+
       (generic each (mth!) (callback start end array)
+
                (loop (collect r this)
                      (for (let i start) (< start end) (++i))
                      (callback (get array i) i))))
