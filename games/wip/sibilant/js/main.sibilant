@@ -40,7 +40,7 @@
 
 (macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
                                   (do ...@body)))
-
+;; I don't
 (macro genetics (assigner ...props)
        `(@assigner genetics (p-map ...@(map props (p)
 
