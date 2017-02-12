@@ -43,7 +43,7 @@
 (macro member (name value)
        `(set this (quote @name) @value))
 
-(let socket (io "/ants"))
+(let socket (io "/wip"))
 (on socket "change" () (print "change ") (.reload location))
 
 ;; Libs
