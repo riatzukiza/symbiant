@@ -103,8 +103,6 @@
         (.then (set-value _ entity))))
 
 (def start (sim)
-  (interface sim reds)
-
   (on (sim.start) "tick" (now ticks)
       (every 60 ticks (.update plants))
 
