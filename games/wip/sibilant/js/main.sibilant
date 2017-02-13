@@ -98,11 +98,12 @@
   (pipe (load-json-file path)
         (.then (set-value _ entity))))
 
+(specfiy Conway-cell (extend Entity)
+      )
+
 (def start (sim)
   (on (sim.start) "tick" (now ticks)
-      (every 60 ticks (.update plants))
 
-      (do-times 1 (each Colony.colonies (col) (.update col)))
       (pipe sim.layers
             (.update )
             (.render))))
