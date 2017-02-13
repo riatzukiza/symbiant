@@ -97,9 +97,48 @@
 
   (pipe (load-json-file path)
         (.then (set-value _ entity))))
+;; System
 
-(specfiy Conway-cell (extend Entity)
+(type Game
+      ())
+
+(type Neiborhood
+      (init ())
       )
+(def with-in-range (f g min max value)
+  (if (> value min)
+      (g )
+
+      (or (>= value min) (<= value max))
+      (f )
+
+      (< value max)
+      (g)))
+
+(specify Cell (extend Entity)
+         (gett nabors )
+         (property min 2)
+         (property max 3)
+         (gmth update (pos neibors (live neibors.live) min max)
+               (with-in-range)
+               (if (> live min)
+                   (.die this)
+
+                   (or (>= live min) (<= live max))
+                   (.done this)
+
+                   (< live max)
+                   (.die this)
+
+                   )))
+
+(specify Live-cell (extend Cell)
+         (property color white)
+         )
+
+(specify Dead-cell (extend Cell)
+         (property color black)
+         )
 
 (def start (sim)
   (on (sim.start) "tick" (now ticks)
