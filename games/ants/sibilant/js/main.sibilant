@@ -38,8 +38,6 @@
                                        `( @(first (content-of p))
                                            @(second (content-of p))))))))
 
-
-
 (macro member (name value)
        `(set this (quote @name) @value))
 
