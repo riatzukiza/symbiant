@@ -43,14 +43,12 @@ const Run = {
     
    },
   each( callback = this.callback,start = this.start,end = this.end,array = this.array ){ 
-    (function() {
-      /* macros/js/index.sibilant:82:8 */
     
       let r = this;
       for (let i = start;start < end;++(i)){
       callback(array[i], i)};
       return r;
-    }).call(this)
+    
    }
  };
 const RunList = extend(List, { 

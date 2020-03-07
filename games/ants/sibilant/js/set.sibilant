@@ -9,20 +9,20 @@
 
 (macro all-of ( set name ...body) `(for! ((of! let @name @set)) ...@body))
 
-(macro all-must (set var cond)
-       `(scoped
-         (loop (all-of  @set @var)
+;; (macro all-must (set var cond)
+;;        `(scoped
+;;          (loop (all-of  @set @var)
 
-               (if (not @cond))
+;;                (if (not @cond))
 
-               (return false))
-         (return true)))
+;;                (return false))
+;;          (return true)))
 
 (macro have (set el) `(.has @set @el))
 
-(def-proto Set is-superset (subset)
+;; (def-proto Set is-superset (subset)
 
-  (all-must (have this elem)))
+;;   (all-must (have this elem)))
 
 (def-proto Set union (set-b)
   (loop

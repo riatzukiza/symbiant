@@ -52,33 +52,33 @@
 ;;A pvar is going to be tricky.
 ;;how do I create an empty variable, then do some asyncronous stuff, then assign a value to that variable,
 ;;with out creating any closures that will prevent the variable from being accessable from with in the scope it was created in?
-(comment (macro def-async (name args defs ...body)
-        (print "args" ...arguments)
-        (if (not (empty? defs.contents))
-            (do
-             (print "defs was not empty")
-             (assign exp-defs
-              (defs.contents.map
-                  (=> (def)
-                      (print "mapin def" def)
-                      (if (not (empty? def.contents))
-                          (do
+;; (comment (macro def-async (name args defs ...body)
+;;         (print "args" ...arguments)
+;;         (if (not (empty? defs.contents))
+;;             (do
+;;              (print "defs was not empty")
+;;              (assign exp-defs
+;;               (defs.contents.map
+;;                   (=> (def)
+;;                       (print "mapin def" def)
+;;                       (if (not (empty? def.contents))
+;;                           (do
 
-                           (var name (first def.contents)
-                                args (second def.contents)
-                                other-defs (third def.contents)
-                                def-body (.slice (get def 'contents) 3))
+;;                            (var name (first def.contents)
+;;                                 args (second def.contents)
+;;                                 other-defs (third def.contents)
+;;                                 def-body (.slice (get def 'contents) 3))
 
-                           (print "still mapin def" name args other-defs def-body)
+;;                            (print "still mapin def" name args other-defs def-body)
 
-                            `(def-async @name @args @other-defs ...@def-body))))))
-              `(var @name (# @args
-                             ...@exp-defs
-                             (do-promise ...@body))))
-            (do
-             (print "defs was empty")
-             `(var @name (# @args
-                            (do-promise ...@body)))))))
+;;                             `(def-async @name @args @other-defs ...@def-body))))))
+;;               `(var @name (# @args
+;;                              ...@exp-defs
+;;                              (do-promise ...@body))))
+;;             (do
+;;              (print "defs was empty")
+;;              `(var @name (# @args
+;;                             (do-promise ...@body)))))))
 
 (curried node-promise-wrapper (func args)
          (make-promise (func ...args (# (err value) (if err (success value) (fail err))))))

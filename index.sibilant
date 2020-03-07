@@ -13,8 +13,8 @@
 (include "./shell")
 (macro import (thing from)
        `(const (literal ...@(content-of thing)) (require @from)))
-(macro imports (...imports)
-       (map imports (import) `(import ...@(content-of import))))
+;; (macro imports (...imports)
+;;        (map imports (import) `(import ...@(content-of import))))
 (import (Path-tree Directory) "./lib/file-system")
 (import (Sibilant)  "./lib/sibilant")
 (import (create extend mixin curry) "./lib/util")
@@ -113,18 +113,25 @@
                   (source-watcher (chokidar.watch sibilant-path))
                   (src ((create Directory) sibilant-path)))
             (initial-build null src sibilant-path ))
+
       (generic change (mth) (path name connections)
                ((signal-refresh name connections) (build path)))
+
       (generic connect (mth) (namespace connections source-watcher bundle name)
+
                (on source-watcher "change" (path)
+
                    (unless this._compiling
                      (assign this._compiling true)
+
                      (pipe (.change this path)
                            (.then get-current-branch-name)
                            (.then (R.pipe (parse-branch-name path)
-                                          (R.apply save-branch)) )
+                                          ;; (R.apply save-branch)
+                                          ) )
 
                            (then-do (assign this._compiling false)))))
+
                (on namespace "connection" (socket)
                    (.add connections socket)
                    (on socket "disconnect" ()
@@ -160,7 +167,8 @@
   (add-routes game bundle)
 
   (pipe (Promise.resolve (auto-compile game bundle))
-        (then-do (bulk-bundle dir bundle))))
+        (then-do (bulk-bundle dir bundle))
+        (.catch (=> (e) console.log(e)))))
 
 (let games ((create Directory) "./games"))
 

@@ -16,8 +16,8 @@
 (macro import (thing from)
        `(const (literal ...@(content-of thing)) (require @from)))
 
-(macro imports (...imports)
-       (map imports (import) `(import ...@(content-of import))))
+;; (macro imports (...imports)
+;;        (map imports (import) `(import ...@(content-of import))))
 (def signal-refresh (game connections)
   (=> (promise)
       (then promise string

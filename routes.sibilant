@@ -34,7 +34,7 @@
   (resolve-then value (.write stream (+ key "=" "'" value "' " ))))
 (macro arrow-let (defs ...body)
        `(let @(.map defs.contents
-                    (=> (de)
+                    (=> (def)
                       `(@(first def.contents) (=> ...@(rest def.contents)))))))
 (alias-macro arrow-let =>-let)
 (alias-macro arrow-let flet)
@@ -48,34 +48,32 @@
       (init (name attributes *stream *body  (*promise (Promise.resolve)))))
 (def-generic Html-element.render (stream name  attributes body promise)
 
-  (flet ((write-element-attribute (value key)
-           (resolve-then value (.write stream (+ key "=" "'" value "' " ))))
+             (let ((write-element-attribute (=> (value key) (resolve-then value (.write stream (+ key "=" "'" value "' " )))))
 
-         (render-child-segment (segment)
-           (if (or (string? segment) (instanceof Buffer segment))
-               (.write stream segment)
-               (.render segment stream)))
+                   (render-child-segment (=> (segment)
+                                             (if (or (string? segment) (instanceof Buffer segment))
+                                                 (.write stream segment)
+                                                 (.render segment stream))))
 
-         (render-opening-tag () (.write stream (+ "<" name)))
+                   (render-opening-tag (=> () (.write stream (+ "<" name))))
 
-         (render-attributes ()
-           (.map (Future.Object.resolve attributes)
-                 write-element-attribute))
+                   (render-attributes (=> () (.map (Future.Object.resolve attributes)
+                                             write-element-attribute)))
 
-         (render-children () (.map-serial body render-child-segment))
-         (render-closing-tag () (.write stream (+ "</" name ">"))))
+                   (render-children (=> () (.map-serial body render-child-segment)))
+                   (render-closing-tag (=> () (.write stream (+ "</" name ">")))))
 
-    (sequence promise then
+                  (sequence promise then
 
-              (render-opening-tag)
+                            (render-opening-tag)
 
-              (render-attributes)
+                            (render-attributes)
 
-              (end-opening-tag)
+                            (end-opening-tag)
 
-              (render-children)
+                            (render-children)
 
-              (render-closing-tag))))
+                            (render-closing-tag))))
 
 
 (markup-to-stream

@@ -9,7 +9,7 @@
 (include "../kit/inc/macros.sibilant")
 (import-namespace kit)
 (require! (literal Trie trie) "../kit/src/collection/trie"
-          (literal Maybe maybe "../kit/src/collection/singletons"))
+          (literal Maybe maybe) "../kit/src/collection/singletons")
 
 (macro let (args ...body)
        `((lambda (...@(.map args.contents (=> (el) (first el.contents))))
