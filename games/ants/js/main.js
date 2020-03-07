@@ -18,7 +18,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(120, 100, 5);
+let sim = create(Simulation)(120, 100, 6);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
@@ -70,7 +70,7 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:96:0 */
+  /* Map.prototype.each eval.sibilant:95:0 */
 
   this.forEach(f);
   return this;
@@ -101,7 +101,7 @@ var load = (function load$(path = this.path, entity = this) {
   return loadJsonFile(path).then(setValue(_, entity));
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:114:0 */
+  /* start eval.sibilant:113:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({
