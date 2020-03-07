@@ -1,5 +1,6 @@
 (include "./deps")
 
+(console.log "loaded")
 (import-namespace defs)
 (import-namespace js)
 
