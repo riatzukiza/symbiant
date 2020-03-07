@@ -69,7 +69,7 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:100:0 */
+  /* Map.prototype.each eval.sibilant:101:0 */
 
   this.forEach(f);
   return this;
@@ -100,7 +100,7 @@ var load = (function load$(path = this.path, entity = this) {
   return loadJsonFile(path).then(setValue(_, entity));
 });
 var start = (function start$(sim) {
-  /* start eval.sibilant:118:0 */
+  /* start eval.sibilant:119:0 */
 
   let plants = create(PlantGroup)();
   let reds = create(Colony)({

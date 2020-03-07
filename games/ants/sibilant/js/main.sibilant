@@ -44,6 +44,7 @@
        `(set this (quote @name) @value))
 
 (let socket (io "/ants"))
+
 (on socket "change" () (print "change ") (.reload location))
 
 ;; Libs
