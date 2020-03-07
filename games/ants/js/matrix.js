@@ -3,14 +3,15 @@ const {
   extend,
   mixin
  } = require("./util");
+var tf = require("@tensorflow/tfjs");
 Array.prototype.each = (function Array$prototype$each$(f) {
-  /* Array.prototype.each eval.sibilant:31:0 */
+  /* Array.prototype.each eval.sibilant:33:0 */
 
   this.forEach(f);
   return this;
 });
 Set.prototype.each = (function Set$prototype$each$(f) {
-  /* Set.prototype.each eval.sibilant:34:0 */
+  /* Set.prototype.each eval.sibilant:36:0 */
 
   this.forEach(f);
   return this;

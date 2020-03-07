@@ -10,6 +10,8 @@
 
 (const (literal create extend mixin) (require "./util"))
 
+(require! tf "@tensorflow/tfjs")
+
 (macro mth! (name args ...body) `(state @name (comma ...@(mac-sym-con args)) ...@body))
 
 
