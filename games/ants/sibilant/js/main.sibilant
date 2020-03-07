@@ -55,8 +55,7 @@
 
 
 (assign global.sim sim)
-(type Rendering
-      )
+(type Rendering)
 (assign global.world ((create World) sim.coord
                                      {
                                      entities (.get sim.layers)
