@@ -12,6 +12,7 @@
     "sibilant": "*"
   },
   "dependencies": {
+    "@tensorflow/tfjs": "^1.6.0",
     "browserify": "*",
     "browserify-fs": "^1.0.0",
     "chokidar": "^1.6.1",
