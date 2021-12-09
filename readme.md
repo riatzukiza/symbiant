@@ -1,7 +1,7 @@
 # Symbiants
 
 Symbiants is a Probabalistic (Stoastic) Cellular automata, initially started as a visualization of Ant Colony Optimization algorithims,
-it has become a bit more than that. Symbiants is currently under active development, and its true nature is not yet known.
+it has become a bit more than that.
 Currently, a 120 by 120 grid is spawned with 1000 random plants, and one colony of 100 red ants, whos objective is to
 eat as many of the plants as possible. Ants can be sated, meaning they have eaten enough food to reproduce upon 
 successfully returning to their nest (which is currently not visualized). An ant can also split off to become a new colony, this
