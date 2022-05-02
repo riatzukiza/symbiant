@@ -17,13 +17,13 @@ var thenAlways = (function thenAlways$(p, f) {
   /* then-always shell.sibilant:9:0 */
 
   return p.then((result) => {
-  	
+    
     return f(result);
-  
+    
   }, (err) => {
-  	
+    
     return f();
-  
+    
   });
 });
 // thenAlways(thenAlways(thenAlways(thenAlways(exec([ "git", "checkout", [ branchName ].join("") ].join(" ")), (result) => {
@@ -46,16 +46,16 @@ var thenAlways = (function thenAlways$(p, f) {
 const { 
   PathTree,
   Directory
- } = require("./lib/file-system");
+} = require("./lib/file-system");
 const { 
   Sibilant
- } = require("./lib/sibilant");
+} = require("./lib/sibilant");
 const { 
   create,
   extend,
   mixin,
   curry
- } = require("./lib/util");
+} = require("./lib/util");
 const http = require("http");
 const server = http.Server(app);
 const browserify = require("browserify");
@@ -66,7 +66,7 @@ var addRoutes = (function addRoutes$(game, bundle) {
 
   let htmlPath = Path.join(__dirname, "games/", game, "/html");
   app.get(Path.join("/games/", game, "/js/main.js"), (req, res) => {
-  	
+    
     let url = Url.parse(req.url);
     let { 
       path,
@@ -80,23 +80,23 @@ var addRoutes = (function addRoutes$(game, bundle) {
       href,
       protocol,
       host
-     } = url;
+    } = url;
     ;
     function write( v ){ 
       (new Promise((success, fail) => {
-      	
+        
         var resolve = success,
             reject = fail;
         return res.write(v, success);
-      
+        
       }))
-     };
+    };
     return bundle.bundle().on("error", (...b) => {
-    	
+      
       return console.log("bundle err", ...b);
-    
+      
     }).pipe(res);
-  
+    
   });
   return app.use(Path.join("/games/", game, "/play"), express.static(htmlPath));
 });
@@ -104,13 +104,13 @@ var comp = (function comp$(...args) {
   /* comp index.sibilant:57:0 */
 
   return (x) => {
-  	
-    return args.reduce((value, f) => {
-    	
-      return f(value);
     
+    return args.reduce((value, f) => {
+      
+      return f(value);
+      
     }, x);
-  
+    
   };
 });
 var translatePath = (function translatePath$(path) {
@@ -129,9 +129,9 @@ var addToBundle = (function addToBundle$(bundle, game) {
   /* add-to-bundle index.sibilant:70:0 */
 
   return (file) => {
-  	
+    
     return bundle.add(Path.join(__dirname, "games/", game, "/js", file));
-  
+    
   };
 });
 Set.prototype.each = (function Set$prototype$each$(f) {
@@ -144,120 +144,120 @@ var signalRefresh = (function signalRefresh$(game, connections) {
   /* signal-refresh index.sibilant:75:0 */
 
   return (promise) => {
-  	
-    return promise.then((string) => {
-    	
-      return connections.each((socket) => {
-      	
-        return socket.emit("change");
-      
-      });
     
+    return promise.then((string) => {
+      
+      return connections.each((socket) => {
+        
+        return socket.emit("change");
+        
+      });
+      
     });
-  
+    
   };
 });
 const Project = { 
   symbol:Symbol("Project"),
   init( src = this.src,target = this.target ){ 
     
-      this.src = src;this.target = target;
-      return this;
+    this.src = src;this.target = target;
+    return this;
     
-   }
- };
+  }
+};
 var initialBuild = (function initialBuild$(p, src, path) {
   /* initial-build index.sibilant:81:0 */
 
   console.log("initial build of", src, path);
   return Promise.resolve(p).then((nil) => {
-  	
-    return src.each((name) => {
-    	
-      return build(Path.join(path, name));
     
+    return src.each((name) => {
+      
+      return build(Path.join(path, name));
+      
     });
-  
+    
   }).then((nil) => {
-  	
-    return src.each((name) => {
-    	
-      return build(Path.join(path, name));
     
+    return src.each((name) => {
+      
+      return build(Path.join(path, name));
+      
     });
-  
+    
   });
 });
 const AutoCompiler = { 
   symbol:Symbol("AutoCompiler"),
   init( name = this.name,bundle = this.bundle,namespace = io.of(name),connections = (new Set()),sibilantPath = Path.join(__dirname, "games/", name, "/sibilant/js"),sourceWatcher = chokidar.watch(sibilantPath),src = create(Directory)(sibilantPath) ){ 
     
-      this.name = name;this.bundle = bundle;this.namespace = namespace;this.connections = connections;this.sibilantPath = sibilantPath;this.sourceWatcher = sourceWatcher;this.src = src;
-      initialBuild(null, src, sibilantPath);
-      return this;
+    this.name = name;this.bundle = bundle;this.namespace = namespace;this.connections = connections;this.sibilantPath = sibilantPath;this.sourceWatcher = sourceWatcher;this.src = src;
+    initialBuild(null, src, sibilantPath);
+    return this;
     
-   },
+  },
   change( path = this.path,name = this.name,connections = this.connections ){ 
     
-      return signalRefresh(name, connections)(build(path));
+    return signalRefresh(name, connections)(build(path));
     
-   },
+  },
   connect( namespace = this.namespace,connections = this.connections,sourceWatcher = this.sourceWatcher,bundle = this.bundle,name = this.name ){ 
     
-      sourceWatcher.on("change", (path) => {
-      	
-        return (function() {
-          if (!(this._compiling)) {
-            this._compiling = true;
-            return this.change(path).then((nil) => {
-            	
-              return exec([ "git", "branch", "|", "grep \\*", "|", "cut", "-d", "' '", "-f2" ].join(" "));
+    sourceWatcher.on("change", (path) => {
+      
+      return (function() {
+        if (!(this._compiling)) {
+          this._compiling = true;
+          return this.change(path).then((nil) => {
             
-            }).then((branchName) => {
-            	
-              console.log("gitting", branchName);
-              let compileBranch = ("compiled-" + branchName);
-              return thenAlways(thenAlways(exec([ "git", "push", "origin", [ branchName ].join("") ].join(" ")), (result) => {
-              	
-                return exec([ "git", "add", "-A", "." ].join(" "));
+            return exec([ "git", "branch", "|", "grep \\*", "|", "cut", "-d", "' '", "-f2" ].join(" "));
+            
+          }).then((branchName) => {
+            
+            console.log("gitting", branchName);
+            let compileBranch = ("compiled-" + branchName);
+            return thenAlways(thenAlways(exec([ "git", "push", "origin", [ branchName ].join("") ].join(" ")), (result) => {
               
-              }), (result) => {
-              	
-                return exec([ "git", "commit", "-m", ("'" + "compiled " + path + "'") ].join(" "));
+              return exec([ "git", "add", "-A", "." ].join(" "));
               
-              });
-            
-            }).then((nil) => {
-            	
-              return this._compiling = false;
-            
+            }), (result) => {
+              
+              return exec([ "git", "commit", "-m", ("'" + "compiled " + path + "'") ].join(" "));
+              
             });
-          }
-        }).call(this);
+            
+          }).then((nil) => {
+            
+            return this._compiling = false;
+            
+          });
+        }
+      }).call(this);
       
-      });
-      return namespace.on("connection", (socket) => {
-      	
-        connections.add(socket);
-        return socket.on("disconnect", () => {
-        	
-          return connections.delete(socket);
+    });
+    return namespace.on("connection", (socket) => {
+      
+      connections.add(socket);
+      return socket.on("disconnect", () => {
         
-        });
-      
+        return connections.delete(socket);
+        
       });
+      
+    });
     
-   }
- };
+  }
+};
 const Bundler = { 
   symbol:Symbol("Bundler"),
   init( bundle = browserify(),jsPath = Path.join(__dirname, "games/", game, "/js"),dir = create(Directory)(jsPath) ){ 
     
-      this.bundle = bundle;this.jsPath = jsPath;this.dir = dir;
-      return this;
+    this.bundle = bundle;this.jsPath = jsPath;this.dir = dir;
+    return this;
     
-   }
- };
+  }
+};
 var autoCompile = (function autoCompile$(game, bundle) {
   /* auto-compile index.sibilant:119:0 */
 
@@ -273,9 +273,9 @@ var bulkBundle = (function bulkBundle$(dir, bundle) {
 
   console.log("bulk add on", dir.path);
   return dir.each((name) => {
-  	
+    
     return dir.find(name).then((node) => {
-    	
+      
       return (function() {
         if (!(name === "includes")) {
           return (function() {
@@ -288,9 +288,9 @@ var bulkBundle = (function bulkBundle$(dir, bundle) {
           }).call(this);
         }
       }).call(this);
-    
+      
     });
-  
+    
   });
 });
 var addGame = (function addGame$(game) {
@@ -302,18 +302,18 @@ var addGame = (function addGame$(game) {
   var dir = create(Directory)(jsPath);
   addRoutes(game, bundle);
   return Promise.resolve(autoCompile(game, bundle)).then((nil) => {
-  	
+    
     return bulkBundle(dir, bundle);
-  
+    
   });
 });
 let games = create(Directory)("./games");
 games.each(addGame).then((...b) => {
-	
+  
   return console.log("all games loaded", ...b);
 
 }).catch((...b) => {
-	
+  
   return console.log("failed to set up all the games", ...b);
 
 });

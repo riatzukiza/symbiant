@@ -109,7 +109,7 @@ var start = (function start$(sim) {
     y: 60
   }, { 
     red:255,
-    green:0,
+    green:200,
     blue:0
    }, plants);
   global.sim = sim;
