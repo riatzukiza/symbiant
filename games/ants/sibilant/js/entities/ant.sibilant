@@ -201,7 +201,7 @@
                                        (.*reproduce this)
                                        ;;(and
                                         ;;(< group.colonies.size 30)
-                                            (> (Math.random) 0.999999999)
+                                            (> (Math.random) 0.99999)
                                             ;;)
                                        (.*form-new-colony this))
                             (.*has-discovered-food  this )
