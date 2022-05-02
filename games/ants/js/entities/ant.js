@@ -145,33 +145,41 @@ const Ant = extend(Entity, {
   symbol:Symbol("Ant"),
   life:1000,
   collision:world.collision,
-  init( pos = this.pos,color = this.color,life = this.life,genetics = lit(deviance((function() {
-    /* eval.sibilant:33:8 */
-  
-    let rand = ((Math.random() * (0.1 - 0)) + 0);
-    return (0.1 - (rand / 2));
-  }).call(this)), rate, mutationFactor, findRate((function() {
-    /* eval.sibilant:33:8 */
-  
-    let rand = ((Math.random() * (1 - 0)) + 0);
-    return (1 - (rand / 2));
-  }).call(this)), returnRate((function() {
-    /* eval.sibilant:33:8 */
-  
-    let rand = ((Math.random() * (1 - 0)) + 0);
-    return (1 - (rand / 2));
-  }).call(this)), kernel(mooreNeighborhood(3, 3).dmap(() => {
-  	
-    return (function() {
-      /* eval.sibilant:33:8 */
-    
-      let rand = ((Math.random() * (1 - 0)) + 0);
-      return (1 - (rand / 2));
-    }).call(this);
-  
-  }))) ){ 
+  init( pos = this.pos,color = this.color,life = this.life,genetics = this.genetics ){ 
     
       this.pos = pos;this.color = color;this.life = life;this.genetics = genetics;
+      this.genetics = { 
+        deviance:(function() {
+          /* eval.sibilant:33:8 */
+        
+          let rand = ((Math.random() * (0.1 - 0)) + 0);
+          return (0.1 - (rand / 2));
+        }).call(this),
+        rate:((Math.random() * (0.5 - 0)) + 0),
+        mutationFactor:((Math.random() * (0.5 - 0)) + 0),
+        findRate:(function() {
+          /* eval.sibilant:33:8 */
+        
+          let rand = ((Math.random() * (1 - 0)) + 0);
+          return (1 - (rand / 2));
+        }).call(this),
+        returnRate:(function() {
+          /* eval.sibilant:33:8 */
+        
+          let rand = ((Math.random() * (1 - 0)) + 0);
+          return (1 - (rand / 2));
+        }).call(this),
+        kernel:mooreNeighborhood(3, 3).dmap(() => {
+        	
+          return (function() {
+            /* eval.sibilant:33:8 */
+          
+            let rand = ((Math.random() * (1 - 0)) + 0);
+            return (1 - (rand / 2));
+          }).call(this);
+        
+        })
+       };
       return this;
     
    },
