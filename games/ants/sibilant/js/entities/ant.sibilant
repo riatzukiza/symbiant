@@ -240,7 +240,6 @@
                                    (+ this.nest.y (random-int 1 30) )
                                    color))
 
-                  (.mutate ent )
                   (when ent
                     (assign ent.group this)
                     (assign ent.seeking this.food-weights)
@@ -248,6 +247,7 @@
                     (.push this.ants ent)
                     (assign ent.nest this.nest)
                     (.emit this.event "spawn" ent)
+                    (.mutate ent )
                     ent))
 
          (generic serialize (mth) (ants)
