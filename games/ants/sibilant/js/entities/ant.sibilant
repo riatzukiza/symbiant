@@ -238,7 +238,9 @@
                   (let ent (.spawn entity-type
                                    (+ this.nest.x (random-int 1 30) )
                                    (+ this.nest.y (random-int 1 30) )
-                                   color))
+                                   color
+                                   genetics
+                                   ))
 
                   (when ent
                     (assign ent.group this)

@@ -481,7 +481,7 @@ const Colony = extend(EntityGroup, {
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
-      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 1))) + 1)), (this.nest.y + (Math.floor((Math.random() * (30 - 1))) + 1)), color);
+      let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 1))) + 1)), (this.nest.y + (Math.floor((Math.random() * (30 - 1))) + 1)), color, genetics);
       (function() {
         if (ent) {
           ent.group = this;
