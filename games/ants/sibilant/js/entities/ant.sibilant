@@ -72,10 +72,10 @@
          (property life 1000)
          (property collision world.collision)
 
-         (init ( pos color life (genetics (deviance (random-signed 0.1)) rate mutation-factor
-                                          (find-rate (random-signed 1))
-                                          (return-rate (random-signed 1))
-                                          (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))))
+         (init ( pos color life (genetics (p-map (deviance (random-signed 0.1)) rate mutation-factor
+                                           (find-rate (random-signed 1))
+                                           (return-rate (random-signed 1))
+                                           (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))))
          (getter value ()
                  {
                  genetics this.genetics
