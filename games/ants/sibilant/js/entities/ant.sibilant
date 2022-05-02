@@ -222,7 +222,7 @@
          (property entity-type Ant)
          (property id 0)
 
-         (init (nest color goals (decay 0.001) colonies
+         (init (nest color goals (decay 0.1) colonies
 
                      (food-weights ((create Pheremones) color decay ))
 
