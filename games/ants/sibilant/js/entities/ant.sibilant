@@ -190,11 +190,11 @@
                   (let x 0)
                   (let y 0)
                   (-- this.life)
-                  (let random (random-int 0 (/ Ant.life 2)))
+                  (let random (random-int 0 this.life))
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated this ))
-                  (if (> (* 2 this.life) random)
+                  (if (> this.life random)
                       (do (let choice (.choose this ))
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  this)

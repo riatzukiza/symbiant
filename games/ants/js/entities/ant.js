@@ -425,10 +425,10 @@ const Ant = extend(Entity, {
       let x = 0;
       let y = 0;
       --(this.life);
-      let random = (Math.floor((Math.random() * ((Ant.life / 2) - 0))) + 0);
+      let random = (Math.floor((Math.random() * (this.life - 0))) + 0);
       let sated__QUERY = this._sated();
       (function() {
-        if ((2 * this.life) > random) {
+        if (this.life > random) {
           let choice = this.choose();
           this.move(choice.x, choice.y);
           return (function() {
