@@ -52,16 +52,16 @@ const Weight = {
    },
   get weight(  ){ 
     
-      return weights.get(x, y);
+      return this.weights.get(x, y);
     
    },
   get color(  ){ 
     
       return (function() {
         if (this.weight >= 0) {
-          return entity.color;
+          return this.entity.color;
         } else {
-          return complement(entity.color);
+          return complement(this.entity.color);
         }
       }).call(this);
     

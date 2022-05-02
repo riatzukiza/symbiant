@@ -44,10 +44,10 @@ Values are not changed unless done so explicitly by the function as a side effec
 ;; I think that weights could be a class of entity if I could pull out a bit more of their behavior from the pheremones type.
 (type Weight
       (init (x y entity))
-      (gett weight (.get weights x y))
+      (gett weight (.get this.weights x y))
       (gett color (if (>= this.weight 0 )
-                      entity.color
-                      (complement entity.color)))
+                      this.entity.color
+                      (complement this.entity.color)))
       (gett r this.color.red )
       (gett g this.color.green)
       (gett b this.color.blue)
