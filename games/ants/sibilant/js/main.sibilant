@@ -50,7 +50,7 @@
 (import (World) "./systems/world")
 (import (Simulation) "./simulation")
 
-(Simulation let sim (200 100 6))
+(Simulation let sim (12 10 6))
 
 
 (assign global.sim sim)
