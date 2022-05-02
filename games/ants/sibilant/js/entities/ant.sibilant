@@ -210,7 +210,8 @@
                       (.*die this))
                   (.emit this.seeking this.pos this.seeking.weights
                          (* (gene this rate)
-                            (/ this.life Ant.life)) 100)))
+                            (/ this.life Ant.life))
+                         100)))
 
 
 (export Ant)
