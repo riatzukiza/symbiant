@@ -208,7 +208,7 @@
                         (if (.*has-discovered-food  this )
                          (.*eat this )))
                       (.*die this))
-                  (.emit this.seeking this.pos this.seeking.weights (* (gene this rate) (/ this.life Ant.life)) 10)))
+                  (.emit this.seeking this.pos this.seeking.weights (* (gene this rate) (/ this.life Ant.life)) 100)))
 
 
 (export Ant)
