@@ -101,7 +101,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 
                   (if (< w 1)
                       (do (incr-by (get coord.layers id)
-                                   (/ 0.001 (+ 1 (euclidian-distance x y pos.x pos.y)))))))))
+                                   (/ 0.01 (+ 1 (euclidian-distance x y pos.x pos.y)))))))))
 
 
 (export Pheremones)
