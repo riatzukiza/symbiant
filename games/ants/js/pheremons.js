@@ -52,7 +52,7 @@ const Weight = {
    },
   get weight(  ){ 
     
-      return this.entity.weights.get(x, y);
+      return this.entity.weights.get(this.x, this.y);
     
    },
   get color(  ){ 
