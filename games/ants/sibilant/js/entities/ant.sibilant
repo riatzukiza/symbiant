@@ -190,7 +190,7 @@
                   (let x 0)
                   (let y 0)
                   (-- this.life)
-                  (let random (random-int 0 this.life))
+                  (let random (random-int 0 50))
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated this ))

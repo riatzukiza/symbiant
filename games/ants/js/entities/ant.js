@@ -425,7 +425,7 @@ const Ant = extend(Entity, {
       let x = 0;
       let y = 0;
       --(this.life);
-      let random = (Math.floor((Math.random() * (this.life - 0))) + 0);
+      let random = (Math.floor((Math.random() * (50 - 0))) + 0);
       let sated__QUERY = this._sated();
       (function() {
         if (this.life > random) {
