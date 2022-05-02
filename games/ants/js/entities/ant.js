@@ -436,7 +436,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (this._nearNest()) {
                   return this._reproduce();
-                } else if (Math.random() > 0.1) {
+                } else if (Math.random() > 0.9999) {
                   return this._formNewColony();
                 }
               }).call(this);
