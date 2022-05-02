@@ -18,7 +18,7 @@ const {
 const { 
   Simulation
  } = require("./simulation");
-let sim = create(Simulation)(120, 100, 6);
+let sim = create(Simulation)(200, 100, 6);
 global.sim = sim;
 const Rendering = { 
   symbol:Symbol("Rendering")
