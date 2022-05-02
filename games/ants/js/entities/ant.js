@@ -261,7 +261,6 @@ const Ant = extend(Entity, {
   _reproduce( nest = this.nest,group = this.group ){ 
     
       this.life = (this.life / 2);
-      this.mutate();
       group.spawn();
       this.group.matingWeights.update();
       return this.group.matingWeights.emit(this.pos, group.matingWeights.weights, (10 * this.genetics.rate * (this.life / Ant.life)), 20);

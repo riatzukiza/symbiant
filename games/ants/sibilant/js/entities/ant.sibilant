@@ -123,7 +123,7 @@
          (generic *reproduce (mth) (nest  group )
                   ;;(print "this make babies" this)
                   (assign this.life (/ this.life 2))
-                  (.mutate this )
+                  ;; (.mutate this )
                   (.spawn group )
                   (.update this.group.mating-weights)
                   (.emit this.group.mating-weights this.pos group.mating-weights.weights
