@@ -326,7 +326,7 @@ const Ant = extend(Entity, {
   _nearNest( nest = this.nest ){ 
     
       return (function() {
-        /* eval.sibilant:17:8 */
+        /* eval.sibilant:16:8 */
       
         let true__QUERY = false;
         eachInArea(world.coord, this, (spot, i, j, x, y) => {
@@ -436,7 +436,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (this._nearNest()) {
                   return this._reproduce();
-                } else if (Math.random() > 0.9999) {
+                } else if (Math.random() > 0.1) {
                   return this._formNewColony();
                 }
               }).call(this);
