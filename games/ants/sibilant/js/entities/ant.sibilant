@@ -204,9 +204,9 @@
                                         ;;(< group.colonies.size 30)
                                             (> (Math.random) 0.99999999999999)
                                             ;;)
-                                       (.*form-new-colony this))
-                            (.*has-discovered-food  this )
-                            (.*eat this )))
+                                            (.*form-new-colony this)))
+                        (if (.*has-discovered-food  this )
+                         (.*eat this )))
                       (.*die this))
                   (.emit this.seeking this.pos this.seeking.weights (* (gene this rate) (/ this.life Ant.life)) 10)))
 

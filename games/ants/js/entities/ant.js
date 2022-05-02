@@ -434,7 +434,7 @@ const Ant = extend(Entity, {
         if (this.life > random) {
           let choice = this.choose();
           this.move(choice.x, choice.y);
-          return (function() {
+          (function() {
             if (sated__QUERY) {
               return (function() {
                 if (this._nearNest()) {
@@ -443,7 +443,10 @@ const Ant = extend(Entity, {
                   return this._formNewColony();
                 }
               }).call(this);
-            } else if (this._hasDiscoveredFood()) {
+            }
+          }).call(this);
+          return (function() {
+            if (this._hasDiscoveredFood()) {
               return this._eat();
             }
           }).call(this);
