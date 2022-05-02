@@ -265,7 +265,7 @@ const Ant = extend(Entity, {
   _reproduce( nest = this.nest,group = this.group ){ 
     
       this.life = (this.life / 2);
-      group.spawn();
+      group.spawn(this.genetics);
       this.group.matingWeights.update();
       return this.group.matingWeights.emit(this.pos, group.matingWeights.weights, (10 * this.genetics.rate * (this.life / Ant.life)), 20);
     
@@ -477,11 +477,12 @@ const Colony = extend(EntityGroup, {
       return this;
     
    },
-  spawn( color = this.color,entityType = this.entityType ){ 
+  spawn( genetics = this.genetics,color = this.color,entityType = this.entityType ){ 
     
       let rx = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ry = (Math.round(Math.random()) === 1) ? 1 : -1;
       let ent = entityType.spawn((this.nest.x + (Math.floor((Math.random() * (30 - 1))) + 1)), (this.nest.y + (Math.floor((Math.random() * (30 - 1))) + 1)), color);
+      ent.mutate();
       (function() {
         if (ent) {
           ent.group = this;

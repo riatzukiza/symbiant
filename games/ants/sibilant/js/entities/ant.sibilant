@@ -125,8 +125,7 @@
          (generic *reproduce (mth) (nest  group )
                   ;;(print "this make babies" this)
                   (assign this.life (/ this.life 2))
-                  ;; (.mutate this )
-                  (.spawn group )
+                  (.spawn group this.genetics)
                   (.update this.group.mating-weights)
                   (.emit this.group.mating-weights this.pos group.mating-weights.weights
                          (* 10  (gene this rate) (/ this.life Ant.life)) 20))
@@ -232,13 +231,16 @@
 
                (.add colonies this))
 
-         (generic spawn (fluent mth) (color entity-type)
+         (generic spawn (fluent mth) (genetics color entity-type)
                   (let rx (ternary (= (random-bit) 1) 1 -1))
                   (let ry (ternary (= (random-bit) 1) 1 -1))
 
                   (let ent (.spawn entity-type
                                    (+ this.nest.x (random-int 1 30) )
-                                   (+ this.nest.y (random-int 1 30) ) color))
+                                   (+ this.nest.y (random-int 1 30) )
+                                   color))
+
+                  (.mutate ent )
                   (when ent
                     (assign ent.group this)
                     (assign ent.seeking this.food-weights)
