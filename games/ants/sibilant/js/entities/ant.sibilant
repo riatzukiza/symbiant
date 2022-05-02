@@ -208,10 +208,10 @@
                         (if (.*has-discovered-food  this )
                          (.*eat this )))
                       (.*die this))
+                  (var v (/ this.life Ant.life))
                   (.emit this.seeking this.pos this.seeking.weights
                          (* (gene this rate)
-                            (/ this.life Ant.life))
-                         1)))
+                            (if (> 1 v) 1 v)) 1)))
 
 
 (export Ant)
