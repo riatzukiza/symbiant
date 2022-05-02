@@ -454,7 +454,7 @@ const Ant = extend(Entity, {
           return this._die();
         }
       }).call(this);
-      return this.seeking.emit(this.pos, this.seeking.weights, (this.genetics.rate * (this.life / Ant.life)), 100);
+      return this.seeking.emit(this.pos, this.seeking.weights, (this.genetics.rate * (this.life / Ant.life)), 1);
     
    }
  });

@@ -211,7 +211,7 @@
                   (.emit this.seeking this.pos this.seeking.weights
                          (* (gene this rate)
                             (/ this.life Ant.life))
-                         100)))
+                         1)))
 
 
 (export Ant)
