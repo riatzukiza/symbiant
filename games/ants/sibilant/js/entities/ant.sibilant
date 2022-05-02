@@ -76,8 +76,7 @@
          (property life 1000)
          (property collision world.collision)
 
-         (init ( pos color life (genetics genetics))
-               )
+         (init ( pos color life (genetics genetics)))
          (getter value ()
                  {
                  genetics this.genetics
