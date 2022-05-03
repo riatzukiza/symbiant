@@ -121,7 +121,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:71:0 */
+  /* memoize eval.sibilant:72:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	

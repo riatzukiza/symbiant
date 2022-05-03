@@ -67,6 +67,7 @@ Values are not changed unless done so explicitly by the function as a side effec
           (if (> v 0) (- v decay)
               (< v 0) (+ v decay))
           (do 0)))
+
 ;; used to index non-empty runs of data in an array
 (def memoize (f)
   (let cache (.map (new Array f.length) (-> (new Map))))
