@@ -121,7 +121,11 @@
                   (let emission (* (gene this rate) (gene this find-rate) 10))
 
                   (.update this.group.food-weights)
-                  (.emit this.group.food-weights this.pos group.weights  emission 20))
+                  (.emit this.group.food-weights
+                         this.pos
+                         group.weights
+                         emission
+                         20))
 
          (generic *reproduce (mth) (nest  group )
                   ;;(print "this make babies" this)
