@@ -52,6 +52,7 @@ Values are not changed unless done so explicitly by the function as a side effec
       (gett b this.color.blue)
 
       (gett a (Math.abs (* 160 this.weight)) ))
+
 (def add-mixing-layer (entity weights )
   (let layer (.get sim.layers))
 

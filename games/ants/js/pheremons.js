@@ -88,7 +88,7 @@ const Weight = {
    }
  };
 var addMixingLayer = (function addMixingLayer$(entity, weights) {
-  /* add-mixing-layer eval.sibilant:55:0 */
+  /* add-mixing-layer eval.sibilant:56:0 */
 
   let layer = sim.layers.get();
   weights.layer = layer;
@@ -100,7 +100,7 @@ var addMixingLayer = (function addMixingLayer$(entity, weights) {
   return layer.moveUp();
 });
 var decay = (function decay$(coord, v, decay) {
-  /* decay eval.sibilant:63:0 */
+  /* decay eval.sibilant:64:0 */
 
   let { 
     x,
@@ -121,7 +121,7 @@ var decay = (function decay$(coord, v, decay) {
   }).call(this);
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:70:0 */
+  /* memoize eval.sibilant:71:0 */
 
   let cache = (new Array(f.length)).map(() => {
   	
