@@ -117,7 +117,7 @@
 
          (generic *eat (mth) ( group )
                   (.delete group.goals this._food)
-                  (assign this.life (+ this.life this._food.life))
+                  (assign this.life (+ this.life (* 10 this._food.life)))
                   (let emission (* (gene this rate) (gene this find-rate) 10))
 
                   (.update this.group.food-weights)
