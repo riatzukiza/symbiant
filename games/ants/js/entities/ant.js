@@ -468,7 +468,7 @@ const Colony = extend(EntityGroup, {
   colonies:(new Set()),
   entityType:Ant,
   id:0,
-  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.001,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay),matingWeights = create(Pheremones)({ 
+  init( nest = this.nest,color = this.color,goals = this.goals,decay = 0.01,colonies = this.colonies,foodWeights = create(Pheremones)(color, decay),matingWeights = create(Pheremones)({ 
     red:color.red,
     green:color.green,
     blue:255
