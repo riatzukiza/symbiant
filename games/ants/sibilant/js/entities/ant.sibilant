@@ -236,8 +236,8 @@
                                             ;;)
                                             (.*form-new-colony this)))
                         (if (.*has-discovered-food  this )
-                         (.*eat this )))
-                      (.*die this))
+                            (>  this.lifee 10000)
+ 9                     (.*die this))
                   (var v (/ this.life Ant.life))
                   (.emit this.seeking this.pos this.seeking.weights
                          (* (gene this rate)
