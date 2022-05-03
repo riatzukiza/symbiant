@@ -114,7 +114,7 @@
   (let plants ((create Plant-group) ))
   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
   (assign global.sim sim)
-  (do-times 100 (.spawn reds))
+  (do-times 1000 (.spawn reds))
   (do-times 1000 (.random plants  ))
   (interface sim reds)
 
