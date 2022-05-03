@@ -219,13 +219,12 @@
          (generic update (mth) (  group nest  life  )
                   ;; Ants are more likely to choose food-weights over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work
-                  (let x 0)
-                  (let y 0)
-                  (-- this.life)
+                  (let x 0) (let y 0) (-- this.life)
                   (let random (random-int 0 50))
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated this ))
+
                   (if (> this.life 0)
                       (do (let choice (.choose this ))
                           (.move this choice.x choice.y  )
