@@ -293,9 +293,7 @@
                     (.emit this.event "spawn" ent)
                     (.mutate ent ) ent))
 
-         (generic serialize (mth) (ants)
-                  (JSON.stringify (map (.to-array ants) (ant) (.serialize ant))))
-
+         (generic serialize (mth) (ants) (JSON.stringify (map (.to-array ants) (ant) (.serialize ant))))
          (gmth load (path) (call-node-back fs.read-file path ))
          (gmth save (path) (call-node-back fs.write-file path (.serialize this)))
 
