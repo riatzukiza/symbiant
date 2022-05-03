@@ -122,9 +122,9 @@
 
                   (.update this.group.food-weights)
                   (.emit this.group.food-weights
-                         this.pos
-                         group.weights
-                         emission
+                         this.pos,
+                         group.weights,
+                         emission,
                          20))
 
          (generic *reproduce (mth) (nest  group )
