@@ -122,6 +122,7 @@
                              (* (gene this find-rate)
                                 10
                                 this._food.life)))
+
                   (let emission (* (gene this rate) (gene this find-rate) 10))
 
                   (.update this.group.food-weights)
