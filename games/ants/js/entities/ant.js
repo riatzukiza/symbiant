@@ -143,7 +143,7 @@ const {
 // Entity.define("Ant").valueComponent("life", 1000).valueComponent("collision", world.collision);
 const Ant = extend(Entity, { 
   symbol:Symbol("Ant"),
-  life:1000,
+  life:100,
   collision:world.collision,
   init( pos = this.pos,color = this.color,life = this.life,genetics = this.genetics ){ 
     
