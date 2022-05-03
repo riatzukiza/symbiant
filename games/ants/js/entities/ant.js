@@ -256,7 +256,7 @@ const Ant = extend(Entity, {
   _eat( group = this.group ){ 
     
       group.goals.delete(this._food);
-      this.life = (this.life + (1000 * this._food.life));
+      this.life = (this.life + (100 * this._food.life));
       let emission = (this.genetics.rate * this.genetics.findRate * 10);
       this.group.foodWeights.update();
       return this.group.foodWeights.emit(this.pos, group.weights, emission, 20);
