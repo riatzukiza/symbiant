@@ -81,7 +81,9 @@ Values are not changed unless done so explicitly by the function as a side effec
             )
 
       (gmth update (decaying id (dec this.decay) weights)
+
             (let debt ( - sim.ticks this.last-update))
+
             (assign this.last-update sim.ticks)
             (assign this.decaying.waiting
                     (.filter decaying.waiting
