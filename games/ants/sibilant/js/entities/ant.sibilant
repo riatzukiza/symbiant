@@ -82,12 +82,12 @@
          (property collision world.collision)
 
          (init ( pos color life genetics)
+               ;; super wierd unnessisary macro here I think, lets fix it
                (unless genetics
                        (genetics  member (deviance (random-signed 0.9)) rate mutation-factor
                                   (find-rate (random-signed 1))
                                   (return-rate (random-signed 1))
-                                  (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
-               )
+                                  (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1)))))))
          (getter value ()
                  {
                  genetics this.genetics
