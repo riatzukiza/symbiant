@@ -573,6 +573,11 @@ const Colony = extend(EntityGroup, {
       return (function() {
         if (this.entities.size === 0) {
           this.event.emit("extinct", this);
+          (function() {
+            if (this.layer) {
+              return sim.layers.remove(this.layer);
+            }
+          }).call(this);
           return this.colonies.delete(this);
         }
       }).call(this);

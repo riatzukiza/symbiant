@@ -289,7 +289,7 @@
                   (when (= this.entities.size 0)
                     (.emit this.event "extinct" this)
                     ;; remove this and the calls on pheremons to disable displaying weights
-                    ;; (.remove sim.layers this.layer)
+                    (if this.layer (.remove sim.layers this.layer))
                     (.delete this.colonies this))))
 (export Colony)
 
