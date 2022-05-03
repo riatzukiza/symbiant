@@ -195,7 +195,7 @@
                   ;; Randomly kill off ants who's lives are
                   ;; below a random threshold between some value and 0
                   (let sated? (.*sated this ))
-                  (if (> this.life random)
+                  (if (> this.life 0)
                       (do (let choice (.choose this ))
                           (.move this choice.x choice.y  )
                         (if sated? (if (.*near-nest  this)

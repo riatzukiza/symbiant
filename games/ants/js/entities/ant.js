@@ -431,7 +431,7 @@ const Ant = extend(Entity, {
       let random = (Math.floor((Math.random() * (50 - 0))) + 0);
       let sated__QUERY = this._sated();
       (function() {
-        if (this.life > random) {
+        if (this.life > 0) {
           let choice = this.choose();
           this.move(choice.x, choice.y);
           (function() {
