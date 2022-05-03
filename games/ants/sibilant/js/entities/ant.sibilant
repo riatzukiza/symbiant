@@ -128,7 +128,7 @@
                   (.spawn group this.genetics)
                   (.update this.group.mating-weights)
                   (.emit this.group.mating-weights this.pos, group.mating-weights.weights,
-                         (* 10  (gene this rate) (/ this.life Ant.life)) 20))
+                         (* 10  (gene this rate) (/ this.life Ant.life)), 20))
 
          (generic *die (mth) (   group )
                   (.delete group this)
