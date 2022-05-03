@@ -183,8 +183,8 @@
                   (.delete this.group this)
                   (.add new-colony this)
                   (this.group.event.emit "new species" new-colony)
-                  (do-times 10 (.*reproduce this))
-                  (assign this.color new-colony.color))
+                  (assign this.color new-colony.color)
+                  (do-times 10 (.*reproduce this)))
          (generic update (mth) (  group nest  life  )
                   ;; Ants are more likely to choose food-weights over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work

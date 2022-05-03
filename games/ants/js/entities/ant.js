@@ -418,9 +418,9 @@ const Ant = extend(Entity, {
       this.group.delete(this);
       newColony.add(this);
       this.group.event.emit("new species", newColony);
-      for (let time = 0;time < 10;++(time)){
+      this.color = newColony.color;
+      return for (let time = 0;time < 10;++(time)){
       this._reproduce()};
-      return this.color = newColony.color;
     
    },
   update( group = this.group,nest = this.nest,life = this.life ){ 
