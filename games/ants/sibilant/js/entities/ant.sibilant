@@ -183,29 +183,39 @@
                   (when (not (gene this kernel))
                     (assign (gene this kernel)
                             (moore-neighborhood 3 3 (gene this deviance))))
+
                   (let weights null)
+
                   (var total-weight (=> (w i j) (+ (gene this deviance)  (* w (/ this.life Ant.life) (.get (gene this kernel) i j)))))
+
                   (each-valid-move  this this.seeking.weights.state
                                     (incr-by count (total-weight w i j)))
+
                   (let rand (* count (Math.random)))
+
                   (each-valid-move this this.seeking.weights.state
                                    (incr-by sum (total-weight w i j))
                                    (when (and (<= rand sum) (not done))
                                      (assign choice.x x choice.y y done true)))
+
                   choice)
+
          (generic *form-new-colony (mth) ()
                   (let sum-groups-life (=> (group)
                                            (let total-life 0)
                                            (each group.entities (ent)
                                                  (incr-by total-life ent.life)) total-life))
+
                   (let new-colony ((create Colony) this.pos (random-color)
                                    (weighted-random-element Entity-group.groups sum-groups-life)
                                    (+ this.group.decay (random-signed 0.0001))))
+
                   (.delete this.group this)
                   (.add new-colony this)
                   (this.group.event.emit "new species" new-colony)
                   (do-times 10 (.*reproduce this))
                   (assign this.color new-colony.color))
+
          (generic update (mth) (  group nest  life  )
                   ;; Ants are more likely to choose food-weights over none.
                   ;; but the chance must still exist for the ant to take non marked paths for this to work
