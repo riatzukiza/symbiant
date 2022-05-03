@@ -6,6 +6,7 @@
 (import (Pheremones) "../pheremons")
 (import (weighted-random-element) "../random")
 (import (State-space) "../state-space")
+(import (Event-emitter) "events")
 
 (import (complement) "../color")
 (require! fs "browserify-fs")
@@ -247,7 +248,6 @@
 
 (export Ant)
 
-(import (Event-emitter) "events")
 (specify Colony (extend Entity-group)
          (property colonies (new Set) )
          (property entity-type Ant)

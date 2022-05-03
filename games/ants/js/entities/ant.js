@@ -24,6 +24,9 @@ const {
   StateSpace
  } = require("../state-space");
 const { 
+  EventEmitter
+ } = require("events");
+const { 
   complement
  } = require("../color");
 var fs = require("browserify-fs");
@@ -39,13 +42,13 @@ var mooreNeighborhood = (function mooreNeighborhood$(w = this.w, h = this.h, wei
   return m;
 });
 Object.prototype.each = (function Object$prototype$each$(f) {
-  /* Object.prototype.each eval.sibilant:18:0 */
+  /* Object.prototype.each eval.sibilant:19:0 */
 
   Object.keys(this).each(f);
   return this;
 });
 var randomColor = (function randomColor$() {
-  /* random-color eval.sibilant:21:0 */
+  /* random-color eval.sibilant:22:0 */
 
   return {
     red: (Math.floor((Math.random() * ( - 255))) + 255),
@@ -54,7 +57,7 @@ var randomColor = (function randomColor$() {
   };
 });
 var matrixCenter = (function matrixCenter$(width, height) {
-  /* matrix-center eval.sibilant:28:0 */
+  /* matrix-center eval.sibilant:29:0 */
 
   return Math.round((((width * height) - 1) / 2));
 });
@@ -460,9 +463,6 @@ const Ant = extend(Entity, {
    }
  });
 exports.Ant = Ant;
-const { 
-  EventEmitter
- } = require("events");
 const Colony = extend(EntityGroup, { 
   symbol:Symbol("Colony"),
   colonies:(new Set()),
