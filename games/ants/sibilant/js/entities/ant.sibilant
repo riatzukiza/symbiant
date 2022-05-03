@@ -100,11 +100,10 @@
                (JSON.stringify this.value))
 
          (gmth load (path)
-               
-
                (pipe (call-node-back fs.read-file path)
                      (.then JSON.parse)
                      (.then (=> (obj) ((create (extend this obj)))))))
+
          (setter value (obj)
                  (.each obj (=> (v k) (set this k v))))
 
