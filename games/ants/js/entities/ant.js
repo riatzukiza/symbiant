@@ -532,7 +532,6 @@ const Colony = extend(EntityGroup, {
    },
   save( path = this.path ){ 
     
-      
       return (new Promise((success, fail) => {
       	
         var resolve = success,

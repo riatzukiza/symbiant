@@ -35,6 +35,15 @@
 
 (import (each-in-area) "../area")
 
+
+(macro call-node-back (func ...args)
+       `(make-promise (.apply @func  this [
+
+                                           ...@args
+
+                                           (=> (err value )
+                                               (if err (fail err) )
+                                               (success value)) ])))
 ;; entities require a position and a color by default
 (comment (type Indexed-set
        (init ((member-set (new Set)) (member-array [])))
@@ -249,6 +258,7 @@
 (export Ant)
 
 (specify Colony (extend Entity-group)
+
          (property colonies (new Set) )
          (property entity-type Ant)
          (property id 0)
@@ -256,16 +266,18 @@
          (init (nest color goals (decay 0.01) colonies
 
                      (food-weights ((create Pheremones) color decay ))
-
                      (mating-weights ((create Pheremones) (color color.red color.green 255) decay ))
+
                      (event (new Event-emitter))
                      (ants []))
+
                (assign this.id (++ Colony.id))
                (Entity-group.init.call this)
 
                (.add colonies this))
 
          (generic spawn (fluent mth) (genetics color entity-type)
+
                   (let rx (ternary (= (random-bit) 1) 1 -1))
                   (let ry (ternary (= (random-bit) 1) 1 -1))
 
@@ -273,8 +285,7 @@
                                    (+ this.nest.x (random-int 1 30) )
                                    (+ this.nest.y (random-int 1 30) )
                                    color
-                                   genetics
-                                   ))
+                                   genetics))
 
                   (when ent
                     (assign ent.group this)
@@ -283,26 +294,17 @@
                     (.push this.ants ent)
                     (assign ent.nest this.nest)
                     (.emit this.event "spawn" ent)
-                    (.mutate ent )
-                    ent))
+                    (.mutate ent ) ent))
 
          (generic serialize (mth) (ants)
                   (JSON.stringify (map (.to-array ants) (ant) (.serialize ant))))
 
          (gmth load (path)
                (call-node-back fs.read-file path ))
+
          (gmth save (path)
-               (macro call-node-back (func ...args)
-                      `(make-promise (.apply @func  this [
 
-                                             ...@args
-
-                                             (=> (err value )
-                                                 (if err (fail err) )
-                                                 (success value)) ])))
-
-               (call-node-back fs.write-file path (.serialize this))
-               )
+               (call-node-back fs.write-file path (.serialize this)))
 
          (generic update (mth) (entities weights decay mating-weights food-weights)
                   "Process the movement of ever ant in a set of ants, updating weights along the way."
