@@ -161,6 +161,7 @@
                   (.dmap (gene this kernel) (=> (x) (* x (random-signed 0.9))))
                   (mutate this (return-rate find-rate deviance rate) )
                   (assign this.life Ant.life ))
+
          (generic *sated (mth) (nest ant )
                   (let sated? (> this.life Ant.life))
                   (if sated? (assign this.seeking this.group.mating-weights)
