@@ -43,40 +43,41 @@
                    (=> (err value )
                        (if err (fail err) )
                        (success value)) ])))
+
 ;; entities require a position and a color by default
-(comment (type Indexed-set
-       (init ((member-set (new Set)) (member-array [])))
+;; (comment (type Indexed-set
+;;        (init ((member-set (new Set)) (member-array [])))
 
-       (generic add (fluent mth) (value member-set member-array)
-                (.push member-array value)
-                (.add member-set value))
+;;        (generic add (fluent mth) (value member-set member-array)
+;;                 (.push member-array value)
+;;                 (.add member-set value))
 
-       (generic each (fluent mth) (f member-array)
-                (.each member-array f))))
-(comment (type System
-       (init ((entities (create-instance Indexed-set))
-              (handlers [])))
-       (mth start ())
-       (mth subscribe (entity)
-            (.add this.entities entity)
-            )
-       (mth update (components)
-            (.each this.entities
-                   (=> (entity)
-                       (.each this.handlers
-                              (=> (handler) (handler entity this))))))))
-(comment (type Entity
-       (init ((systems (new Set)) (components {}) ))
-       (mth add-system (system)
-            (.add this.systems system)
-            this)
-       (mth add-component ())
-       (mth update ()
-            (this.systems.each (=> (system) (.update system components))))))
+;;        (generic each (fluent mth) (f member-array)
+;;                 (.each member-array f))))
+;; (comment (type System
+;;        (init ((entities (create-instance Indexed-set))
+;;               (handlers [])))
+;;        (mth start ())
+;;        (mth subscribe (entity)
+;;             (.add this.entities entity)
+;;             )
+;;        (mth update (components)
+;;             (.each this.entities
+;;                    (=> (entity)
+;;                        (.each this.handlers
+;;                               (=> (handler) (handler entity this))))))))
+;; (comment (type Entity
+;;        (init ((systems (new Set)) (components {}) ))
+;;        (mth add-system (system)
+;;             (.add this.systems system)
+;;             this)
+;;        (mth add-component ())
+;;        (mth update ()
+;;             (this.systems.each (=> (system) (.update system components))))))
 
-(comment (pipe (.define Entity "Ant")
-       (.value-component "life" 10)
-       (.value-component "collision" world.collision)))
+;; (comment (pipe (.define Entity "Ant")
+;;        (.value-component "life" 10)
+;;        (.value-component "collision" world.collision)))
 (specify Ant (extend Entity)
          (property life 100)
          (property collision world.collision)
