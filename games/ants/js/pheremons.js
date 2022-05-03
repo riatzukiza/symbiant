@@ -182,15 +182,15 @@ const Pheremones = {
       	
         let coord = world.coord.get(x, y);
         (function() {
+          if (w < 1) {
+            return coord.layers[id] += ((1 * rate) / (0.5 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
+          }
+        }).call(this);
+        return (function() {
           if (!(decaying.marked.has(coord))) {
             decaying.marked.add(coord);
             decaying.waiting.push(coord);
             return coord.layers[id] = w;
-          }
-        }).call(this);
-        return (function() {
-          if (w < 1) {
-            return coord.layers[id] += ((1 * rate) / (0.5 + Math.pow(euclidianDistance(x, y, pos.x, pos.y), 2)));
           }
         }).call(this);
       

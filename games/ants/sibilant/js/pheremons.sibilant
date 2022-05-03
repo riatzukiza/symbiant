@@ -94,14 +94,14 @@ Values are not changed unless done so explicitly by the function as a side effec
       (gmth emit  (pos weights rate (r 5 ) decaying id)
             (area weights.state w pos r
                   (let coord (.get world.coord x y))
+                  (if (< w 1)
+                      (do (incr-by (get coord.layers id)
+                                   (/ (* 1 rate)
+                                      (+ 0.5 (Math.pow (euclidian-distance x y pos.x pos.y) 2))))))
                   (unless (.has decaying.marked coord)
                     (.add decaying.marked coord)
                     (.push decaying.waiting coord)
-                    (set coord.layers id w))
-
-                  (if (< w 1)
-                      (do (incr-by (get coord.layers id)
-                                   (/ (* 1 rate) (+ 0.5 (Math.pow (euclidian-distance x y pos.x pos.y) 2)))))))))
+                    (set coord.layers id w)))))
 
 
 (export Pheremones)
