@@ -154,8 +154,8 @@ const Ant = extend(Entity, {
             deviance:(function() {
               /* eval.sibilant:33:8 */
             
-              let rand = ((Math.random() * (0.5 - 0)) + 0);
-              return (0.5 - (rand / 2));
+              let rand = ((Math.random() * (0.9 - 0)) + 0);
+              return (0.9 - (rand / 2));
             }).call(this),
             rate:((Math.random() * (0.5 - 0)) + 0),
             mutationFactor:((Math.random() * (0.5 - 0)) + 0),
