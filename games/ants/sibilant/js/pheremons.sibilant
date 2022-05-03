@@ -72,6 +72,7 @@ Values are not changed unless done so explicitly by the function as a side effec
 (def memoize (f)
   (let cache (.map (new Array f.length) (-> (new Map))))
   (=> ((dots args)) (if (.every cache (=> (cache i) (cache.has (get args i)))))))
+
 (type Pheremones
       (property id 0)
       (init (color decay (decaying { waiting [] marked (new Set) })
