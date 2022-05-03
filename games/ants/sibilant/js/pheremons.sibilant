@@ -76,7 +76,8 @@ Values are not changed unless done so explicitly by the function as a side effec
       (init (color decay (decaying { waiting [] marked (new Set) })
                    (weights ((create State-space) sim.width sim.width)) id (last-update 0))
             (++ Pheremones.id)
-            (add-mixing-layer this weights  ))
+            ;; (add-mixing-layer this weights  )
+            )
 
       (gmth update (decaying id (dec this.decay) weights)
             (let debt ( - sim.ticks this.last-update))
