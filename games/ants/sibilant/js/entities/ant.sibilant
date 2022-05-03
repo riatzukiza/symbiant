@@ -269,6 +269,7 @@
                      (ants []))
 
                (assign this.id (++ Colony.id))
+
                (Entity-group.init.call this)
 
                (.add colonies this))
