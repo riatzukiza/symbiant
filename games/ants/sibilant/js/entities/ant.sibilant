@@ -136,7 +136,7 @@
          (generic mutate (mth) ( group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
                   (.emit this.group.food-weights this.pos group.weights (- (gene this rate)))
-                  (.dmap (gene this kernel) (=> (x) (* x (random-signed 0.2))))
+                  (.dmap (gene this kernel) (=> (x) (* x (random-signed 0.9))))
                   (mutate this (return-rate find-rate deviance rate) )
                   (assign this.life Ant.life ))
          (generic *sated (mth) (nest ant )

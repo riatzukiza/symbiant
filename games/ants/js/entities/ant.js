@@ -284,8 +284,8 @@ const Ant = extend(Entity, {
         return (x * (function() {
           /* eval.sibilant:33:8 */
         
-          let rand = ((Math.random() * (0.2 - 0)) + 0);
-          return (0.2 - (rand / 2));
+          let rand = ((Math.random() * (0.9 - 0)) + 0);
+          return (0.9 - (rand / 2));
         }).call(this));
       
       });
