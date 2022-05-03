@@ -127,7 +127,6 @@ const Ant = extend(Entity, {
    },
   load( path = this.path ){ 
     
-      
       return (new Promise((success, fail) => {
       	
         var resolve = success,

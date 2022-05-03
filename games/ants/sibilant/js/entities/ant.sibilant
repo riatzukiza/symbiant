@@ -35,7 +35,6 @@
 
 (import (each-in-area) "../area")
 
-
 (macro call-node-back (func ...args)
        `(make-promise
          (.apply @func  this
@@ -101,14 +100,7 @@
                (JSON.stringify this.value))
 
          (gmth load (path)
-               (macro call-node-back (func ...args)
-                      `(make-promise (.apply @func  this [
-
-                                             ...@args
-
-                                             (=> (err value )
-                                                 (if err (fail err) )
-                                                 (success value)) ])))
+               
 
                (pipe (call-node-back fs.read-file path)
                      (.then JSON.parse)
