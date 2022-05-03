@@ -135,7 +135,8 @@
                          this.pos
                          this.seeking.weights
                          (* -10 (gene this rate)
-                            (/ this.life Ant.life)) 20)
+                            (/ this.life Ant.life))
+                         20)
                   )
          (generic mutate (mth) ( group nest)
                   ;; me think mutations aughta be put into some fancy ass abstraction some where.
