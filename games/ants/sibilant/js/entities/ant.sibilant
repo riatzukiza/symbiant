@@ -74,7 +74,7 @@
 
          (init ( pos color life genetics)
                (unless genetics
-                       (genetics  member (deviance (random-signed 0.1)) rate mutation-factor
+                       (genetics  member (deviance (random-signed 0.5)) rate mutation-factor
                                   (find-rate (random-signed 1))
                                   (return-rate (random-signed 1))
                                   (kernel (.dmap (moore-neighborhood 3 3) (-> (random-signed 1))))))
