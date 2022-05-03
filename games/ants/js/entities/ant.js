@@ -439,7 +439,7 @@ const Ant = extend(Entity, {
               return (function() {
                 if (this._nearNest()) {
                   return this._reproduce();
-                } else if (this.life > 1000) {
+                } else if (this.life > 10000) {
                   return this._formNewColony();
                 }
               }).call(this);
