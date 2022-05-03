@@ -170,6 +170,7 @@
 
          (generic *near-nest (mth) (nest  )
                   (area-has 10 spot this world.coord (and (= nest.x x) (= nest.y y))))
+
          ;; This is the function we should be calling in most instances to create an ant.
          ;; Ants should belong to a colony.
          ;; So there should be a method associated with the colony for creating ants via this method.
@@ -188,7 +189,11 @@
 
                   (let weights null)
 
-                  (var total-weight (=> (w i j) (+ (gene this deviance)  (* w (/ this.life Ant.life) (.get (gene this kernel) i j)))))
+                  (var total-weight (=> (w i j)
+                                        (+ (gene this deviance)
+                                           (* w
+                                              (/ this.life Ant.life)
+                                              (.get (gene this kernel) i j)))))
 
                   (each-valid-move  this this.seeking.weights.state
                                     (incr-by count (total-weight w i j)))
