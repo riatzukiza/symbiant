@@ -140,7 +140,7 @@ const {
 //     
 //    }
 //  };
-// Entity.define("Ant").valueComponent("life", 1000).valueComponent("collision", world.collision);
+// Entity.define("Ant").valueComponent("life", 10).valueComponent("collision", world.collision);
 const Ant = extend(Entity, { 
   symbol:Symbol("Ant"),
   life:1000,
