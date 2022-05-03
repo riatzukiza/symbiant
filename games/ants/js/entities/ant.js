@@ -450,7 +450,7 @@ const Ant = extend(Entity, {
               return this._eat();
             }
           }).call(this);
-        } else if (9) {
+        } else {
           return this._die();
         }
       }).call(this);
