@@ -35,11 +35,11 @@ Values are not changed unless done so explicitly by the function as a side effec
                        (- pos.y rad)
                        size size (=> (v i j x y ) (f v i j (+ x i) (+ y j)))))
 
-
 (macro area (space el-name center size ...body)
        `(each-in-area @space @center
                       (=> (@el-name i j x y)
                           ...@body) @size ))
+
 ;; I think that weights could be a class of entity if I could pull out a bit more of their behavior from the pheremones type.
 (type Weight
       (init (x y entity))
