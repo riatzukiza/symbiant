@@ -37,13 +37,11 @@
 
 
 (macro call-node-back (func ...args)
-       `(make-promise (.apply @func  this [
-
-                                           ...@args
-
-                                           (=> (err value )
-                                               (if err (fail err) )
-                                               (success value)) ])))
+       `(make-promise
+         (.apply @func  this
+                 [...@args (=> (err value )
+                               (if err (fail err) )
+                               (success value)) ])))
 ;; entities require a position and a color by default
 (comment (type Indexed-set
        (init ((member-set (new Set)) (member-array [])))
