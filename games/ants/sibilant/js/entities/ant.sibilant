@@ -202,7 +202,7 @@
                                        (.*reproduce this)
                                        ;;(and
                                         ;;(< group.colonies.size 30)
-                                       (>  this.life 10000)
+                                       (>  this.life 100000)
                                             ;;)
                                             (.*form-new-colony this)))
                         (if (.*has-discovered-food  this )
