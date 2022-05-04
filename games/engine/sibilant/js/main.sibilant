@@ -165,6 +165,7 @@
     ;; (print 'c*v.xd c*v.xd )
     ;; (print 'c*v.yd c*v.yd )
     )
+(const Pheremones (create-field ))
 (def ant ())
 (def plant ())
 (def nest ())
@@ -191,3 +192,4 @@
                'xd (random-int 1 10)
                'yd (random-int 1 10)))
 
+(print window)

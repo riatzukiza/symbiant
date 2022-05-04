@@ -124,3 +124,14 @@ class Vector {
     return this.x == v.x && this.y == v.y;
   }
 }
+
+function createField(columns,rows) {
+  let field = new Array(columns);
+  for(let x = 0; x < columns; x++) {
+    field[x] = new Array(columns);
+    for(let y = 0; y < rows; y++) {
+      field[x][y] = new Vector(0, 0);
+    }
+  }
+  return field
+}

@@ -273,23 +273,24 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return console.log(err);
 
 }));
+const Pheremones=createField();
 var ant = (function ant$() {
-  /* ant eval.sibilant:168:0 */
+  /* ant eval.sibilant:169:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:169:0 */
+  /* plant eval.sibilant:170:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:170:0 */
+  /* nest eval.sibilant:171:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:171:0 */
+  /* colony eval.sibilant:172:0 */
 
   
 });
@@ -318,3 +319,4 @@ var colony = (function colony$() {
   ;
   return $for;
 }).call(this);
+console.log(window);
