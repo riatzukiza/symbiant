@@ -135,7 +135,7 @@
          'xd (- c*v.xd cv.xd)
          'yd (- c*v.yd cv.yd))
     )
-(do-times 1000
+(do-times 100
           (var dot (entity active-game-systems))
 
           (set (.get game.systems Dot dot)
