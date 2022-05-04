@@ -161,13 +161,13 @@ var {
  } = require("sibilant-game-engine/client/systems/rendering/dot"),
     { 
   Position
- } = require("sibilant-game-engine/systems/position"),
+ } = require("sibilant-game-engine/client/systems/position"),
     { 
   Physics
- } = require("sibilant-game-engine/systems/physics"),
+ } = require("sibilant-game-engine/client/systems/physics"),
     { 
   Scalar
- } = require("sibilant-game-engine/math/scalar");
+ } = require("sibilant-game-engine/client/math/scalar");
 const rendering=Rendering.load({ 
   size:Scalar.sub(window.size(), 8),
   limit:100,
