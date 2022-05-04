@@ -186,6 +186,9 @@ var {
   Scalar
  } = require("sibilant-game-engine/client/math/scalar"),
     { 
+  MatrixMap
+ } = require("sibilant-game-engine/client/data-structures/matrix-map"),
+    { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
@@ -204,22 +207,22 @@ var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:115:0 */
+  /* entity eval.sibilant:116:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:116:0 */
+  /* vector2d eval.sibilant:117:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:118:0 */
+  /* Tree-map.get eval.sibilant:119:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:120:0 */
+  /* memoize eval.sibilant:121:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -271,22 +274,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:167:0 */
+  /* ant eval.sibilant:168:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:168:0 */
+  /* plant eval.sibilant:169:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:169:0 */
+  /* nest eval.sibilant:170:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:170:0 */
+  /* colony eval.sibilant:171:0 */
 
   
 });
