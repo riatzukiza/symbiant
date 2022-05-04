@@ -148,5 +148,5 @@
                'xd (random-int 1 100)
                'yd (random-int 1 100)))
 
-(let socket (io "/ants"))
+(let socket (io "/engine"))
 (on socket "change" () (print "change ") (.reload location))

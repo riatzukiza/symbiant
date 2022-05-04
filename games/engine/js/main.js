@@ -266,7 +266,7 @@ var rgba = memoize(((r, g, b, a) => {
 (function() {
   /* node_modules/kit/inc/scope.sibilant:12:9 */
 
-  return io("/ants");
+  return io("/engine");
 })();
 socket.on("change", (() => {
 	
