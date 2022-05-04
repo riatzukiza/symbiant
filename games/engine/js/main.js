@@ -166,7 +166,7 @@ var {
  } = require("sibilant-game-engine/client/systems/position"),
     { 
   Velocity
- } = require("sibilant-game-engine/systems/velocity"),
+ } = require("sibilant-game-engine/client/systems/velocity"),
     { 
   Physics
  } = require("sibilant-game-engine/client/systems/physics"),
@@ -189,23 +189,23 @@ var activeGameSystems = [ Dot, Position, Physics, Velocity ];
 var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:108:0 */
+  /* entity eval.sibilant:109:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:109:0 */
+  /* vector2d eval.sibilant:110:0 */
 
   return [ x, y ];
 });
 var dot = entity(activeGameSystems);
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:113:0 */
+  /* Tree-map.get eval.sibilant:114:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:115:0 */
+  /* memoize eval.sibilant:116:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -239,7 +239,7 @@ var rgba = memoize(((r, g, b, a) => {
 game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
 game.systems.get(Position, dot).x = 500;
 game.systems.get(Position, dot).y = 200;
-game.systems.get(Position, dot).z = 1000;
+game.systems.get(Position, dot).z = 1;
 game.systems.get(Physics, dot).scale = 10;
 game.systems.get(Physics, dot).mass = 10;
 game.systems.get(Physics, dot).forces = [];
