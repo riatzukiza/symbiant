@@ -109,8 +109,6 @@
 (def entity (aspects ) (.spawn game.ent aspects ))
 (def vector2d (x y) [x y])
 
-(var dot (entity active-game-systems))
-
 (def Tree-map.get ((dots args))
      (get (.find this (dots args)) 'value))
 (def memoize (f)

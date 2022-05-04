@@ -198,14 +198,13 @@ var vector2d = (function vector2d$(x, y) {
 
   return [ x, y ];
 });
-var dot = entity(activeGameSystems);
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:114:0 */
+  /* Tree-map.get eval.sibilant:112:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:116:0 */
+  /* memoize eval.sibilant:114:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
