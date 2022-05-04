@@ -144,8 +144,8 @@
     (var v)
 
     (set cv
-         'xd (* m* (- cv.xd c*v.xd))
-         'yd (* m* (- cv.yd c*v.yd)))
+         'xd (* m* (+ cv.xd c*v.xd))
+         'yd (* m* (+ cv.yd c*v.yd)))
 
     ;; (set c*v
     ;;      'xd (* m (+ c*v.xd cv.xd))
