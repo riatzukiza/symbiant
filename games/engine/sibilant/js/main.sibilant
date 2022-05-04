@@ -88,8 +88,6 @@
 ;;             )
 
 
-
-
 (const rendering (.load Rendering
                         (lit (size (.sub Scalar  (window.size) 8))
                              (limit 100)
@@ -97,14 +95,14 @@
 
 (.resize rendering (.sub Scalar  (window.size) 4))
 
-(const stage (dom (.div .id 'stage )))
-(const container (dom (.div .id "container" rendering.context.canvas)))
+(var stage (dom (.div .id 'stage )))
+
+
+(var container (dom (.div .id "container" rendering.context.canvas)))
 (with-dom Document-root (.div .id 'frame container))
 
 (var active-game-systems [Dot Position Physics Velocity])
-(const game ((create Game) rendering active-game-systems))
-
-(.use game Dot)
+(var game ((create Game) rendering active-game-systems))
 
 (.start game)
 
@@ -122,16 +120,17 @@
                    (f (dots args)))))
 
 (var rgba (memoize (=> (r g b a) (lit r g b a))))
+
 (set (.get game.systems Dot dot)
-     'color (rgba 255 0 0 255)
-     )
+     'color (rgba 255 0 0 255))
 
 
 
 (set (.get game.systems Position dot )
      'x 500
      'y 200
-     'z 1000)
+     'z 1
+     )
 
 (set (.get game.systems Physics dot)
      'scale 10
@@ -139,5 +138,5 @@
      'forces [])
 
 (set (.get game.systems Velocity dot)
-     'xd 10
-     'yd 10)
+     'xd 100
+     'yd 100)

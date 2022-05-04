@@ -182,31 +182,30 @@ const rendering=Rendering.load({
   blend:true
  });
 rendering.resize(Scalar.sub(window.size(), 4));
-const stage=createDocumentNode("div", { 'id': "stage" }, []);
-const container=createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
+var stage = createDocumentNode("div", { 'id': "stage" }, []);
+var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
 var activeGameSystems = [ Dot, Position, Physics, Velocity ];
-const game=create(Game)(rendering, activeGameSystems);
-game.use(Dot);
+var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:111:0 */
+  /* entity eval.sibilant:109:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:112:0 */
+  /* vector2d eval.sibilant:110:0 */
 
   return [ x, y ];
 });
 var dot = entity(activeGameSystems);
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:116:0 */
+  /* Tree-map.get eval.sibilant:114:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:118:0 */
+  /* memoize eval.sibilant:116:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -240,9 +239,9 @@ var rgba = memoize(((r, g, b, a) => {
 game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
 game.systems.get(Position, dot).x = 500;
 game.systems.get(Position, dot).y = 200;
-game.systems.get(Position, dot).z = 1000;
+game.systems.get(Position, dot).z = 1;
 game.systems.get(Physics, dot).scale = 10;
 game.systems.get(Physics, dot).mass = 10;
 game.systems.get(Physics, dot).forces = [];
-game.systems.get(Velocity, dot).xd = 10;
-game.systems.get(Velocity, dot).yd = 10;
+game.systems.get(Velocity, dot).xd = 100;
+game.systems.get(Velocity, dot).yd = 100;
