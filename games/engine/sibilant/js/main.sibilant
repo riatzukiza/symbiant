@@ -128,8 +128,8 @@
 
 (do-times 1000
           (set (.get game.systems Position dot )
-               'x (random-int 0 1000)
-               'y (random-int 0 1000)
+               'x (random-int 1 1000)
+               'y (random-int 1 1000)
                'z 1
                )
 
