@@ -181,28 +181,24 @@ const container=createDocumentNode("div", { 'id': "container" }, [ rendering.con
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
 var game = create(Game)(rendering, [ Physics, Position, Dot ]);
 game.start();
-Array.prototype.each = (function Array$prototype$each$(f) {
-  /* Array.prototype.each eval.sibilant:104:0 */
+var entity = (function entity$(aspects) {
+  /* entity eval.sibilant:103:0 */
 
-  this.forEach(f);
-  return this;
+  return game.ent.spawn(aspects);
 });
-Object.prototype.each = (function Object$prototype$each$(f) {
-  /* Object.prototype.each eval.sibilant:107:0 */
+var vector2d = (function vector2d$(x, y) {
+  /* vector2d eval.sibilant:104:0 */
 
-  return Object.keys(this).forEach(((k) => {
-  	
-    return f(this[k], k);
-  
-  }));
+  return [ x, y ];
 });
+var dot = entity(activeGameSystems);
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:113:0 */
+  /* Tree-map.get eval.sibilant:108:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:115:0 */
+  /* memoize eval.sibilant:110:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -233,31 +229,12 @@ var rgba = memoize(((r, g, b, a) => {
    };
 
 }));
-var entity = (function entity$(aspects, data) {
-  /* entity eval.sibilant:123:0 */
-
-  return game.ent.spawn(aspects, data);
-});
-var coordinate = (function coordinate$(x, y) {
-  /* coordinate eval.sibilant:125:0 */
-
-  return { 
-    x,
-    y
-   };
-});
-var simpleDot = (function simpleDot$(x, y, z) {
-  /* simple-dot eval.sibilant:53:8 */
-
-  var entity = game.ent.spawn([ Dot, Position, Physics ]);
-  game.systems.get(Dot, entity).color = rgba(255, 0, 0, 255);
-  game.systems.get(Position, entity).x = x;
-  game.systems.get(Position, entity).y = y;
-  game.systems.get(Position, entity).z = z;
-  game.systems.get(Physics, entity).scale = 5;
-  game.systems.get(Physics, entity).mass = 10;
-  game.systems.get(Physics, entity).forces = [];
-  return entity;
-});
-var dot = simpleDot(10, 10, 10);
-console.log(dot);
+game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
+game.systems.get(Position, dot).x = 500;
+game.systems.get(Position, dot).y = 200;
+game.systems.get(Position, dot).z = 1000;
+game.systems.get(Physics, dot).scale = 10;
+game.systems.get(Physics, dot).mass = 10;
+game.systems.get(Physics, dot).forces = [];
+game.systems.get(Velocity, dot).xd = 10;
+game.systems.get(Velocity, dot).yd = 10;
