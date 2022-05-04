@@ -10,6 +10,7 @@ var {
 var { 
   Interface
  } = require("@kit-js/interface");
+global.mixin = mixin;
 var { 
   EventEmitter,
   emit,
@@ -180,13 +181,13 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var game = create(Game)(rendering, [ Physics, Position, Dot ]);
 game.start();
 Array.prototype.each = (function Array$prototype$each$(f) {
-  /* Array.prototype.each eval.sibilant:100:0 */
+  /* Array.prototype.each eval.sibilant:101:0 */
 
   this.forEach(f);
   return this;
 });
 Object.prototype.each = (function Object$prototype$each$(f) {
-  /* Object.prototype.each eval.sibilant:103:0 */
+  /* Object.prototype.each eval.sibilant:104:0 */
 
   return Object.keys(this).forEach(((k) => {
   	
@@ -195,12 +196,12 @@ Object.prototype.each = (function Object$prototype$each$(f) {
   }));
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:109:0 */
+  /* Tree-map.get eval.sibilant:110:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:111:0 */
+  /* memoize eval.sibilant:112:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -210,7 +211,7 @@ var memoize = (function memoize$(f) {
         return cache.get(args);
       } else {
         var r = (function() {
-          /* eval.sibilant:32:23 */
+          /* eval.sibilant:33:23 */
         
           return f(...args);
         }).call(this);
@@ -232,12 +233,12 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects, data) {
-  /* entity eval.sibilant:119:0 */
+  /* entity eval.sibilant:120:0 */
 
   return game.ent.spawn(aspects, data);
 });
 var coordinate = (function coordinate$(x, y) {
-  /* coordinate eval.sibilant:121:0 */
+  /* coordinate eval.sibilant:122:0 */
 
   return { 
     x,
@@ -245,7 +246,7 @@ var coordinate = (function coordinate$(x, y) {
    };
 });
 var simpleDot = (function simpleDot$(x, y, z) {
-  /* simple-dot eval.sibilant:49:8 */
+  /* simple-dot eval.sibilant:50:8 */
 
   var entity = game.ent.spawn([ Dot, Position, Physics ]);
   game.systems.get(Dot, entity).color = rgba(255, 0, 0, 255);

@@ -2,6 +2,7 @@
 (include "kit/header" )
 (import-namespace kit)
 (include "kit-interface/header" )
+(assign global.mixin mixin)
 (import-namespace interface)
 (def-lit-macro define (name parent ...body)
                `(property @name
