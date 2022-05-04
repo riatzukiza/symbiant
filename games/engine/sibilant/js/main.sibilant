@@ -139,9 +139,9 @@
          'xd (+ cv.xd c*v.xd)
          'yd (+ cv.yd c*v.yd))
 
-    (set c*v
-         'xd (+ c*v.xd cv.xd)
-         'yd (+ c*v.yd cv.yd))
+    ;; (set c*v
+    ;;      'xd (+ c*v.xd cv.xd)
+    ;;      'yd (+ c*v.yd cv.yd))
 
     (print "After collision")
     (print 'cv.id cv.id )
