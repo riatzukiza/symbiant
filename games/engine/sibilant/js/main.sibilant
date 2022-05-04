@@ -127,6 +127,7 @@
 
 
 (do-times 1000
+          (var dot (entity active-game-systems))
           (set (.get game.systems Position dot )
                'x (random-int 1 1000)
                'y (random-int 1 1000)
