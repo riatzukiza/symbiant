@@ -137,7 +137,7 @@
 
     (set cv
          'xd (+ cv.xd c*v.xd)
-         'yd (+ cv.yd c*.yd))
+         'yd (+ cv.yd c*v.yd))
 
     (set c*v
          'xd (+ c*v.xd cv.xd)
