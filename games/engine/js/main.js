@@ -287,9 +287,9 @@ game.events.on("collision", (([ c, c_, d ]) => {
     game.systems.get(Position, dot).y = (Math.floor((Math.random() * (1000 - 1))) + 1);
     game.systems.get(Position, dot).z = 1;
     var m = (Math.floor((Math.random() * (10 - 1))) + 1);
-    game.systems.get(Physics, dot).scale = 10;
-    game.systems.get(Physics, dot).mass = "forces";
-    game.systems.get(Physics, dot)[[]] = undefined;
+    game.systems.get(Physics, dot).scale = m;
+    game.systems.get(Physics, dot).mass = m;
+    game.systems.get(Physics, dot).forces = [];
     game.systems.get(Velocity, dot).xd = (Math.floor((Math.random() * (10 - 1))) + 1);
     return game.systems.get(Velocity, dot).yd = (Math.floor((Math.random() * (10 - 1))) + 1);
   }).call(this);
