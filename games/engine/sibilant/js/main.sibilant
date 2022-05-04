@@ -125,7 +125,7 @@
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
-    (print 'collision (lit c c*))
+    (print 'collision (lit c c* cv c*v))
 
     (set c
          'xd (- c.xd c*.xd)
