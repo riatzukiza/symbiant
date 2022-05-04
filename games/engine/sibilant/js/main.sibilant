@@ -129,14 +129,14 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    (print "before collision")
-    (print 'cv.id cv.id )
-    (print 'cv.xd cv.xd )
-    (print 'cv.yd cv.yd )
+    ;; (print "before collision")
+    ;; (print 'cv.id cv.id )
+    ;; (print 'cv.xd cv.xd )
+    ;; (print 'cv.yd cv.yd )
 
-    (print 'c*v.id c*v.id )
-    (print 'c*v.xd c*v.xd )
-    (print 'c*v.yd c*v.yd )
+    ;; (print 'c*v.id c*v.id )
+    ;; (print 'c*v.xd c*v.xd )
+    ;; (print 'c*v.yd c*v.yd )
 
     (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
 
@@ -151,14 +151,14 @@
          'xd (* m (+ c*v.xd cv.xd))
          'yd (* m (+ c*v.yd cv.yd)))
 
-    (print "After collision")
-    (print 'cv.id cv.id )
-    (print 'cv.xd cv.xd )
-    (print 'cv.yd cv.yd )
+    ;; (print "After collision")
+    ;; (print 'cv.id cv.id )
+    ;; (print 'cv.xd cv.xd )
+    ;; (print 'cv.yd cv.yd )
 
-    (print 'c*v.id c*v.id )
-    (print 'c*v.xd c*v.xd )
-    (print 'c*v.yd c*v.yd )
+    ;; (print 'c*v.id c*v.id )
+    ;; (print 'c*v.xd c*v.xd )
+    ;; (print 'c*v.yd c*v.yd )
     )
 (do-times 1000
           (var dot (entity active-game-systems))
