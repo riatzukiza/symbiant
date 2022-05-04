@@ -243,5 +243,5 @@ game.systems.get(Position, dot).z = 1;
 game.systems.get(Physics, dot).scale = 10;
 game.systems.get(Physics, dot).mass = 10;
 game.systems.get(Physics, dot).forces = [];
-game.systems.get(Velocity, dot).xd = 10;
-game.systems.get(Velocity, dot).yd = 10;
+game.systems.get(Velocity, dot).xd = 100;
+game.systems.get(Velocity, dot).yd = 100;

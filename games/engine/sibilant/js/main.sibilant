@@ -138,5 +138,5 @@
      'forces [])
 
 (set (.get game.systems Velocity dot)
-     'xd 10
-     'yd 10)
+     'xd 100
+     'yd 100)
