@@ -188,7 +188,7 @@ rendering.resize(Scalar.sub(window.size(), 4));
 var stage = createDocumentNode("div", { 'id': "stage" }, []);
 var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
-var activeGameSystems = [ Dot, Position, Physics, Velocity ];
+var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
