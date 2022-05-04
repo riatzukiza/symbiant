@@ -167,6 +167,7 @@
 (def ant ())
 (def plant ())
 (def nest ())
+(def colony ())
 (do-times 1000
           (var dot (entity active-game-systems))
 

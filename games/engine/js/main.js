@@ -285,6 +285,11 @@ var nest = (function nest$() {
 
   
 });
+var colony = (function colony$() {
+  /* colony eval.sibilant:170:0 */
+
+  
+});
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
