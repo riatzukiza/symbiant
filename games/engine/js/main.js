@@ -256,8 +256,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var v = undefined;
   cv.xd = (m_ * (cv.xd - c_v.xd));
   cv.yd = (m_ * (cv.yd - c_v.yd));
-  c_v.xd = (m * (c_v.xd - cv.xd));
-  c_v.yd = (m * (c_v.yd - cv.yd));
+  c_v.xd = (m * (c_v.xd + cv.xd));
+  c_v.yd = (m * (c_v.yd + cv.yd));
   console.log("After collision");
   console.log("cv.id", cv.id);
   console.log("cv.xd", cv.xd);
