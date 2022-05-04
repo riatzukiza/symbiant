@@ -172,7 +172,10 @@ var {
  } = require("sibilant-game-engine/client/systems/physics"),
     { 
   Scalar
- } = require("sibilant-game-engine/client/math/scalar");
+ } = require("sibilant-game-engine/client/math/scalar"),
+    { 
+  TreeMap
+ } = require("tree-kit");
 const rendering=Rendering.load({ 
   size:Scalar.sub(window.size(), 8),
   limit:100,
