@@ -1,5 +1,5 @@
 console.log("loaded");
-let socket = io("/ants");
+let socket = io("/physics");
 socket.on("change", () => {
 	
   console.log("change ");
@@ -49,10 +49,10 @@ let yellow = {
 const { 
   interface
  } = require("./interface");
-const Plant = extend(Entity, { 
-  symbol:Symbol("Plant"),
+const Particle = extend(Entity, { 
+  symbol:Symbol("Particle"),
   color:green,
-  life:50,
+  null,
   update( pos = this.pos,system = this.system ){ 
     
       return (function() {
@@ -70,7 +70,7 @@ const PlantGroup = extend(EntityGroup, {
   entityType:Plant
  });
 Map.prototype.each = (function Map$prototype$each$(f) {
-  /* Map.prototype.each eval.sibilant:95:0 */
+  /* Map.prototype.each eval.sibilant:97:0 */
 
   this.forEach(f);
   return this;
@@ -86,18 +86,44 @@ let setValue = R.curry((value, entity) => {
   return entity.value = value;
 
 });
-function loadJsonFile( path ){ 
-  (new Promise((success, fail) => {
-  	
-    var resolve = success,
-        reject = fail;
-    return null;
-  
-  }))
- };
 var load = (function load$(path = this.path, entity = this) {
   /* load deps.sibilant:61:8 */
 
   return loadJsonFile(path).then(setValue(_, entity));
+});
+var start = (function start$(sim) {
+  /* start eval.sibilant:112:0 */
+
+  let plants = create(PlantGroup)();
+  let reds = create(Colony)({
+    x: 30,
+    y: 60
+  }, { 
+    red:255,
+    green:0,
+    blue:0
+   }, plants);
+  global.sim = sim;
+  for (let time = 0;time < 1000;++(time)){
+  reds.spawn()};
+  for (let time = 0;time < 1000;++(time)){
+  plants.random()};
+  interface(sim, reds);
+  return sim.start().on("tick", (now, ticks) => {
+  	
+    (function() {
+      if ((ticks % 60) === 0) {
+        return plants.update();
+      }
+    }).call(this);
+    for (let time = 0;time < 1;++(time)){
+    Colony.colonies.each((col) => {
+    	
+      return col.update();
+    
+    })};
+    return sim.layers.update().render();
+  
+  });
 });
 sim.load(start);

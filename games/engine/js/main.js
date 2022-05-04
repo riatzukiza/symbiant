@@ -1,0 +1,261 @@
+var R = require("ramda");
+var { 
+  create,
+  extend,
+  mixin,
+  conditional,
+  cond,
+  partiallyApplyAfter
+ } = require("@kit-js/core/js/util");
+var { 
+  Interface
+ } = require("@kit-js/interface");
+var { 
+  EventEmitter,
+  emit,
+  bubble
+ } = require("kit-events");
+var renderChildren = R.curry(((_parent, c, i, a) => {
+	
+  return (function() {
+    if (typeof c === "undefined") {
+      return null;
+    } else if (c.render) {
+      return c.render(_parent);
+    } else if ((c && "object" === typeof c && "Array" === c.constructor.name)) {
+      return c.each(renderChildren(_parent));
+    } else if (typeof c === "string") {
+      return _parent._node.appendChild(document.createTextNode(c));
+    } else if (typeof c === "number") {
+      return _parent._node.appendChild(document.createTextNode(("" + c)));
+    } else if (typeof c === "function") {
+      return renderChildren(_parent, c(_parent), i, a);
+    } else if ((c instanceof Element)) {
+      return (function(node) {
+        /* node_modules/kit/inc/scope.sibilant:12:9 */
+      
+        a[i] = node;
+        return renderChildren(_parent, node, i, a);
+      })(DocumentNode.wrap(c, _parent._node));
+    } else {
+      return _parent._node.appendChild(c);
+    }
+  }).call(this);
+
+}));
+var DocumentNode = EventEmitter.define("DocumentNode", { 
+  init( tagName = this.tagName,attributes = this.attributes,_children = [],_parent = this._parent,_node = document.createElement(tagName) ){ 
+    
+      this.tagName = tagName;this.attributes = attributes;this._children = _children;this._parent = _parent;this._node = _node;
+      EventEmitter.init.call(this);
+      return this;
+    
+   },
+  get children(  ){ 
+    
+      return this._children;
+    
+   },
+  get style(  ){ 
+    
+      return this._node.style;
+    
+   },
+  clear( _node = this._node ){ 
+    
+      _node.innerHTML = "";
+      return this;
+    
+   },
+  render( _parent = this._parent,attributes = this.attributes,tagName = this.tagName,_node = this._node,children = this.children ){ 
+    
+      _node.innerHTML = "";
+      this._parent = _parent;
+      _parent._node.appendChild(_node);
+      attributes.each(((a, k) => {
+      	
+        return _node[k] = a;
+      
+      }));
+      children.each(renderChildren(this));
+      this.emit("render");
+      return this;
+    
+   },
+  wrap( _node,_parent ){ 
+    
+      "create a Document-node from a native DOM Element";
+      return create(DocumentNode)(_node.tagName, {  }, [], _parent, _node);
+    
+   },
+  append( node = this.node,children = this.children ){ 
+    
+      "add a child to the bottom of this one";
+      children.push(node);
+      return this;
+    
+   },
+  prepend( node = this.node,children = this.children ){ 
+    
+      "add a child to the top of this one";
+      return this.children = [ node, children ];
+    
+   },
+  remove( _node = this._node,_parent = this._parent ){ 
+    
+      "remove this element from the tree.";
+      _node.remove();
+      _parent.children.filter(((c) => {
+      	
+        return !(_node === c);
+      
+      }));
+      _parent.emit("remove", _node);
+      return this;
+    
+   }
+ });
+var DocumentRoot = DocumentNode.define("DocumentRoot", { 
+  get _parent(  ){ 
+    
+      return this;
+    
+   },
+  tagName:"html",
+  _node:document.documentElement,
+  _children:[]
+ });
+var DocumentBody = DocumentNode.define("DocumentBody", { 
+  get _parent(  ){ 
+    
+      return this;
+    
+   },
+  tagName:"body",
+  _node:document.body,
+  _children:[]
+ });
+var DocumentHead = DocumentNode.define("DocumentHead", { 
+  get _parent(  ){ 
+    
+      return this;
+    
+   },
+  tagName:"head",
+  _node:document.head,
+  _children:[]
+ });
+var createDocumentNode = create(DocumentNode);
+console.log(document.appendChild);
+var { 
+  TreeMap
+ } = require("tree-kit");
+var { 
+  Game
+ } = require("sibilant-game-engine/client/game"),
+    { 
+  Rendering
+ } = require("sibilant-game-engine/client/systems/rendering/rendering"),
+    { 
+  Dot
+ } = require("sibilant-game-engine/client/systems/rendering/dot"),
+    { 
+  Position
+ } = require("sibilant-game-engine/systems/position"),
+    { 
+  Physics
+ } = require("sibilant-game-engine/systems/physics"),
+    { 
+  Scalar
+ } = require("sibilant-game-engine/math/scalar");
+const rendering=Rendering.load({ 
+  size:Scalar.sub(window.size(), 8),
+  limit:100,
+  blend:true
+ });
+rendering.resize(Scalar.sub(window.size(), 4));
+const stage=createDocumentNode("div", { 'id': "stage" }, []);
+const container=createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
+createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
+var game = create(Game)(rendering, [ Physics, Position, Dot ]);
+game.start();
+Array.prototype.each = (function Array$prototype$each$(f) {
+  /* Array.prototype.each eval.sibilant:100:0 */
+
+  this.forEach(f);
+  return this;
+});
+Object.prototype.each = (function Object$prototype$each$(f) {
+  /* Object.prototype.each eval.sibilant:103:0 */
+
+  return Object.keys(this).forEach(((k) => {
+  	
+    return f(this[k], k);
+  
+  }));
+});
+TreeMap.get = (function TreeMap$get$(...args) {
+  /* Tree-map.get eval.sibilant:109:0 */
+
+  return this.find(...args).value;
+});
+var memoize = (function memoize$(f) {
+  /* memoize eval.sibilant:111:0 */
+
+  var cache = create(TreeMap)();
+  return ((...args) => {
+  	
+    return (function() {
+      if (cache.has(args)) {
+        return cache.get(args);
+      } else {
+        var r = (function() {
+          /* eval.sibilant:32:23 */
+        
+          return f(...args);
+        }).call(this);
+        cache.set(args, r);
+        return r;
+      }
+    }).call(this);
+  
+  });
+});
+var rgba = memoize(((r, g, b, a) => {
+	
+  return { 
+    r,
+    g,
+    b,
+    a
+   };
+
+}));
+var entity = (function entity$(aspects, data) {
+  /* entity eval.sibilant:119:0 */
+
+  return game.ent.spawn(aspects, data);
+});
+var coordinate = (function coordinate$(x, y) {
+  /* coordinate eval.sibilant:121:0 */
+
+  return { 
+    x,
+    y
+   };
+});
+var simpleDot = (function simpleDot$(x, y, z) {
+  /* simple-dot eval.sibilant:49:8 */
+
+  var entity = game.ent.spawn([ Dot, Position, Physics ]);
+  game.systems.get(Dot, entity).color = rgba(255, 0, 0, 255);
+  game.systems.get(Position, entity).x = x;
+  game.systems.get(Position, entity).y = y;
+  game.systems.get(Position, entity).z = z;
+  game.systems.get(Physics, entity).scale = 5;
+  game.systems.get(Physics, entity).mass = 10;
+  game.systems.get(Physics, entity).forces = [];
+  return entity;
+});
+var dot = simpleDot(10, 10, 10);
+console.log(dot);

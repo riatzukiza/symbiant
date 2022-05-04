@@ -40,7 +40,7 @@
 (macro member (name value)
        `(set this (quote @name) @value))
 
-(let socket (io "/ants"))
+(let socket (io "/physics"))
 (on socket "change" () (print "change ") (.reload location))
 
 ;; Libs
@@ -51,7 +51,6 @@
 (import (Simulation) "./simulation")
 
 (Simulation let sim (300 300 4))
-
 
 (assign global.sim sim)
 (type Rendering)
@@ -65,6 +64,7 @@
 (import (Entity) "./ecs/entity")
 (import (Entity-group) "./ecs/group")
 (import (Colony) "./entities/ant")
+
 (macro color (r g b)
        `(p-map (red @r) (green @g) (blue @b)))
 ;;(import (Entity) "./ecs/entity")
@@ -74,24 +74,26 @@
 
 (let green (color 0 255 0))
 (let yellow { red 255 green 255 blue 0 })
+
 (import (interface) "./interface")
 
 
 
 
-(specify Plant (extend Entity)
+(specify Particle (extend Entity)
          (property color green)
-         (property life 50)
+         ()
          (gmth update (pos system)
                (when (= (random-bit) 1)
-
                    (var rx (ternary (= (random-bit) 1) 1 -1) )
                    (var ry (ternary (= (random-bit) 1) 1 -1) )
                    (.spawn this.group
                            (+ pos.x (random-int 0 2) rx)
                            (+ pos.y (random-int 0 2) ry) this.color))))
+
 (specify Plant-group (extend Entity-group)
          (property entity-type Plant))
+
 (def Map.prototype.each (f)
   (.for-each this f) this)
 
@@ -101,28 +103,25 @@
 (require! R "ramda")
 (let set-value (R.curry (=> (value entity) (assign entity.value value))))
 
-(def-promised load-json-file (path)
-  ()
-  )
 
 (generic load (def) (path (entity this))
 
   (pipe (load-json-file path)
         (.then (set-value _ entity))))
 
-;; (def start (sim)
-;;   (let plants ((create Plant-group) ))
-;;   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
-;;   (assign global.sim sim)
-;;   (do-times 1000 (.spawn reds))
-;;   (do-times 1000 (.random plants  ))
-;;   (interface sim reds)
+(def start (sim)
+  (let plants ((create Plant-group) ))
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
+  (assign global.sim sim)
+  (do-times 1000 (.spawn reds))
+  (do-times 1000 (.random plants  ))
+  (interface sim reds)
 
-;;   (on (sim.start) "tick" (now ticks)
-;;       (every 60 ticks (.update plants))
+  (on (sim.start) "tick" (now ticks)
+      (every 60 ticks (.update plants))
 
-;;       (do-times 1 (each Colony.colonies (col) (.update col)))
-;;       (pipe sim.layers
-;;             (.update )
-;;             (.render))))
+      (do-times 1 (each Colony.colonies (col) (.update col)))
+      (pipe sim.layers
+            (.update )
+            (.render))))
 (.load sim  start)

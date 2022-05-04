@@ -1,0 +1,34 @@
+(import ( create extend mixin) "../util")
+
+(type Entity
+      (init (pos world color collision ))
+      (gett r  this.color.red)
+      (gett g  this.color.green)
+      (gett b  this.color.blue)
+
+      (gett a  255)
+
+      (gett x  this.pos.x)
+      (sett x  num (.move this num this.y))
+
+      (gett y  this.pos.y)
+      (sett y  num (.move this this.x num))
+
+      (gmth spawn (x y color )
+            (let pos (.get world.coord x y))
+            (unless (world.collision.has pos )
+              (let ent ((create this) pos color))
+              (world.add ent) ent))
+
+      (gmth move (x y )
+            (let pos (.get world.coord x y))
+            (unless (world.collision.has pos )
+              (.move world.collision this pos)
+              (assign this.pos pos)))
+      (gmth delete ()
+            (.delete world this))
+      (generic random (mth) ( )
+               (.spawn this
+                       (random-int 0 world.coord.width)
+                       (random-int 0 world.coord.width))))
+(export Entity)

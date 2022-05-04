@@ -45,66 +45,87 @@
             (def-promised write (v)
               (res.write v success))
             ...@body))
+
 (macro def-middleware (name ...body)
        `(let @name (middleware ...@body)))
+
 (macro route (method path ...body)
        `(@method app @path (middleware ..@body)))
+
 ;; When somthing in sibilant/js changes, it will compile straight to its javascript representation into
 ;; a mirrored directory
+
 (macro on (emitter event args ...body)
        `(.on @emitter @event  (=> @args ...@body)))
+
 (macro once (emitter event args ...body)
        `(.once @emitter @event  (=> @args ...@body)))
+
 (def-middleware browser-module
     (.pipe (.on (bundle.bundle) "error"
                 (aprint "bundle err")) res))
+
 (def add-routes (game bundle)
   ;; Going at this from the wrong perspective, I need to define my middle ware as functions
   (let html-path (Path.join __dirname "games/" game "/html"))
   ( .get app (Path.join "/games/" game "/js/main.js") browser-module)
   (app.use (Path.join "/games/" game "/play") (express.static html-path)))
+
 (def comp ((dots args))
   (=> (x) (.reduce args (=> (value f) (f value)) x)))
+
 (def translate-path (path)
   (pipe path
         (.replace  "/sibilant/" "/")
         (.replace ".sibilant" ".js")))
+
 (generic build (def) (path (target (translate-path path)))
   (print "building" path)
   (pipe Sibilant
         (.from-file path)
         (.transpile)
         (.save-file target)))
+
 (def add-to-bundle (bundle game)
   (=> (file)
       (bundle.add (Path.join __dirname "games/" game "/js" file))))
+
 (def Set.prototype.each (f)
   (this.for-each f) this)
+
 (def signal-refresh (game connections)
   (=> (promise)
       (then promise string
             (each connections (socket)
                   (.emit socket "change")))))
+
 (type Project (init (src target)))
+
 (const R (require "ramda"))
+
 (def initial-build (p src path)
   (print "initial build of" src path)
   (pipe (Promise.resolve p)
         (then-do (each src (name) (build (Path.join  path name))))
         (then-do (each src (name) (build (Path.join  path name))))))
+
 (def get-current-branch-name ()
   (shell-command  git branch | "grep \\*" | cut "-d" "' '" "-f2"))
+
 (macro curried (args ...body)
        `(R.curry (=> @args ...@body)))
+
 (macro def-curried (name args ...body)
        `(let @name (curried @args ...@body)))
+
 (def-curried save-branch (message branch-name)
   (shell
    (git push origin [branch-name])
    (git add "-A" "." )
-   (git commit "-m" (+ "'" message "'"))
-   ))
+   (git commit "-m" (+ "'" message "'"))))
+
 (def-curried parse-branch-name  (path branch-name ) [ (+ "compiled " path ) (+ "compiled-" branch-name) ])
+
 (type Auto-compiler
       (init (name bundle
                   (namespace (.of io name))
@@ -136,15 +157,18 @@
                    (.add connections socket)
                    (on socket "disconnect" ()
                        (.delete connections socket)))))
+
 (type Bundler
       (init ((bundle (browserify) )
              (js-path (Path.join __dirname "games/" game "/js"))
              (dir ((create Directory) js-path)))))
+
 (def auto-compile (game bundle)
   (when (= env "dev")
     (print "env is dev")
     (let compiler ((create Auto-compiler) game bundle))
     (.connect compiler )))
+
 (def bulk-bundle (dir bundle)
   (print "bulk add on" dir.path)
   (each  dir (name)

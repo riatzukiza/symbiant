@@ -1,0 +1,20 @@
+(type Collision
+
+      (init (coord (entities (new Map) ) ))
+      (generic serialize (mth) (entities)
+               (map (.to-array entities) (ent) (.serialize ent)))
+      (generic move (mth) (ent pos entities)
+               (.delete entities ent.pos)
+               (.set entities pos ent))
+      (generic check (mth) (x y coord )
+               (this.has (.get coord x y)))
+      (generic set (mth) (pos ent entities)
+               (.set entities pos ent))
+      (generic get (mth) (x y entities coord)
+               (.get entities (.get coord x y)))
+      (generic delete (mth) (key )
+               (.delete this.entities key))
+      (generic has (mth) (pos entities)
+               (.has entities pos)))
+
+(export Collision)
