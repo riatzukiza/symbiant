@@ -242,7 +242,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
-  console.log(collision, { 
+  console.log("collision", { 
     c,
     c_
    });

@@ -125,12 +125,11 @@
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
-    (print collision (lit c c*))
+    (print 'collision (lit c c*))
 
     (set c
          'xd (- c.xd c*.xd)
-         'yd (- c.yd c*.yd))
-    )
+         'yd (- c.yd c*.yd)))
 (do-times 1000
           (var dot (entity active-game-systems))
 
