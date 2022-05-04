@@ -249,7 +249,15 @@ game.events.on("collision", (([ c, c_, d ]) => {
   console.log("c_v.xd", c_v.xd);
   console.log("c_v.yd", c_v.yd);
   cv.xd = (cv.xd + c_v.xd);
-  return cv.yd = (cv.yd + c_.yd);
+  cv.yd = (cv.yd + c_.yd);
+  c_v.xd = (c_v.xd + cv.xd);
+  c_v.yd = (c_v.yd + cv.yd);
+  console.log("cv.id", cv.id);
+  console.log("cv.xd", cv.xd);
+  console.log("cv.yd", cv.yd);
+  console.log("c_v.id", c_v.id);
+  console.log("c_v.xd", c_v.xd);
+  return console.log("c_v.yd", c_v.yd);
 
 })).once("error", ((err) => {
 	
