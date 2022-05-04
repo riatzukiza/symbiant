@@ -187,7 +187,7 @@ var {
  } = require("sibilant-game-engine/client/math/scalar"),
     { 
   MatrixMap
- } = require("sibilant-game-engine/client/data-structures/matrix-map"),
+ } = require("sibilant-game-engine/client/data-structures/"),
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),

@@ -75,7 +75,7 @@
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Scalar) "sibilant-game-engine/client/math/scalar"
-          (lit Matrix-map) "sibilant-game-engine/client/data-structures/matrix-map"
+          (lit Matrix-map) "sibilant-game-engine/client/data-structures/"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
