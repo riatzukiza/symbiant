@@ -5,6 +5,7 @@
 
 (var socket (io "/engine"))
 (on socket "change" () (print "change ") (.reload location))
+
 (set global
      'mixin mixin
      'create create

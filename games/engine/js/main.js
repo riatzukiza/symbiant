@@ -204,22 +204,22 @@ var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:114:0 */
+  /* entity eval.sibilant:115:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:115:0 */
+  /* vector2d eval.sibilant:116:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:117:0 */
+  /* Tree-map.get eval.sibilant:118:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:119:0 */
+  /* memoize eval.sibilant:120:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -229,7 +229,7 @@ var memoize = (function memoize$(f) {
         return cache.get(args);
       } else {
         var r = (function() {
-          /* eval.sibilant:39:23 */
+          /* eval.sibilant:40:23 */
         
           return f(...args);
         }).call(this);
