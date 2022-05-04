@@ -164,6 +164,9 @@
     ;; (print 'c*v.xd c*v.xd )
     ;; (print 'c*v.yd c*v.yd )
     )
+(def ant ())
+(def plant ())
+(def nest ())
 (do-times 1000
           (var dot (entity active-game-systems))
 

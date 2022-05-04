@@ -270,6 +270,21 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return console.log(err);
 
 }));
+var ant = (function ant$() {
+  /* ant eval.sibilant:167:0 */
+
+  
+});
+var plant = (function plant$() {
+  /* plant eval.sibilant:168:0 */
+
+  
+});
+var nest = (function nest$() {
+  /* nest eval.sibilant:169:0 */
+
+  
+});
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
