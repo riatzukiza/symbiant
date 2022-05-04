@@ -139,15 +139,17 @@
     (print 'c*v.yd c*v.yd )
 
     (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
+
     (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
+    (var v)
 
     (set cv
-         'xd (+ cv.xd c*v.xd)
-         'yd (+ cv.yd c*v.yd))
+         'xd (* m (- cv.xd c*v.xd))
+         'yd (* m (- cv.yd c*v.yd)))
 
     (set c*v
-         'xd (- c*v.xd cv.xd)
-         'yd (- c*v.yd cv.yd))
+         'xd (* m* (- c*v.xd cv.xd))
+         'yd (* m* (- c*v.yd cv.yd)))
 
     (print "After collision")
     (print 'cv.id cv.id )
