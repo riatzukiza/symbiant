@@ -86,17 +86,21 @@
 ;;             )
 
 
-(const rendering (.load Rendering (lit (size (.sub Scalar  (window.size) 8)) (limit 100) (blend true))))
+(const rendering (.load Rendering
+                        (lit (size (.sub Scalar  (window.size) 8))
+                             (limit 100)
+                             (blend true))))
 
 (.resize rendering (.sub Scalar  (window.size) 4))
 
-(const stage (dom (.div .id 'stage)))
-(const container (dom (.div .id "container" rendering.context.canvas)))
+(var stage (dom (.div .id 'stage )))
 
+
+(var container (dom (.div .id "container" rendering.context.canvas)))
 (with-dom Document-root (.div .id 'frame container))
-;; end rendering context
 
-(var game ((create Game) rendering [Physics   Position   Dot]))
+(var active-game-systems [Dot Position Physics Velocity])
+(var game ((create Game) rendering active-game-systems))
 
 (.start game)
 
