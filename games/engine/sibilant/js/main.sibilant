@@ -68,6 +68,7 @@
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
           (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
+          (lit Velocity) "sibilant-game-engine/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Scalar) "sibilant-game-engine/client/math/scalar")
 
