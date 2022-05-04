@@ -127,6 +127,8 @@
     (var c*v (.get game.systems Velocity c*.entity))
     (print 'cv.id cv.id )
     (print 'cv.xd cv.xd )
+
+    (print 'c*v.id c*v.id )
     (print 'c*v.xd c*v.xd )
 
     (print 'cv.yd cv.yd )
