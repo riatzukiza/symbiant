@@ -141,5 +141,5 @@
                'forces [])
 
           (set (.get game.systems Velocity dot)
-               'xd (random-int 1 10)
-               'yd (random-int 1 10)))
+               'xd (random-int 1 100)
+               'yd (random-int 1 100)))

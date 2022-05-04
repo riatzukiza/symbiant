@@ -255,8 +255,8 @@ var rgba = memoize(((r, g, b, a) => {
     game.systems.get(Physics, dot).scale = 10;
     game.systems.get(Physics, dot).mass = 10;
     game.systems.get(Physics, dot).forces = [];
-    game.systems.get(Velocity, dot).xd = (Math.floor((Math.random() * (10 - 1))) + 1);
-    return game.systems.get(Velocity, dot).yd = (Math.floor((Math.random() * (10 - 1))) + 1);
+    game.systems.get(Velocity, dot).xd = (Math.floor((Math.random() * (100 - 1))) + 1);
+    return game.systems.get(Velocity, dot).yd = (Math.floor((Math.random() * (100 - 1))) + 1);
   }).call(this);
   }
   ;
