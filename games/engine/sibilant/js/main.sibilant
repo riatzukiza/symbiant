@@ -172,9 +172,10 @@
                )
 
 
+          (var m (random-int 1 10))
           (set (.get game.systems Physics dot)
                'scale 10
-               'mass 10
+               'mass 
                'forces [])
 
           (set (.get game.systems Velocity dot)
