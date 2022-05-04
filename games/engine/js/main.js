@@ -283,11 +283,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   ;
   return $for;
 }).call(this);
-(function() {
-  /* node_modules/kit/inc/scope.sibilant:12:9 */
-
-  return io("/engine");
-})();
+var socket = io("/engine");
 socket.on("change", (() => {
 	
   console.log("change ");
