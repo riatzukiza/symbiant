@@ -160,7 +160,7 @@
     (print 'c*v.xd c*v.xd )
     (print 'c*v.yd c*v.yd )
     )
-(do-times 100
+(do-times 1000
           (var dot (entity active-game-systems))
 
           (set (.get game.systems Dot dot)

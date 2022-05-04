@@ -276,7 +276,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < 100;++(i))
+  for (var i = 0;i < 1000;++(i))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
