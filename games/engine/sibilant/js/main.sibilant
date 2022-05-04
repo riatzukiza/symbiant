@@ -126,6 +126,9 @@
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
 
+    (var cp (.get game.systems Physics c.entity))
+    (var c*p (.get game.systems Physics c*.entity))
+
     (print "before collision")
     (print 'cv.id cv.id )
     (print 'cv.xd cv.xd )
@@ -134,6 +137,7 @@
     (print 'c*v.id c*v.id )
     (print 'c*v.xd c*v.xd )
     (print 'c*v.yd c*v.yd )
+    (var m ())
 
     (set cv
          'xd (+ cv.xd c*v.xd)
