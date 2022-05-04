@@ -147,3 +147,6 @@
           (set (.get game.systems Velocity dot)
                'xd (random-int 1 100)
                'yd (random-int 1 100)))
+
+(let socket (io "/ants"))
+(on socket "change" () (print "change ") (.reload location))

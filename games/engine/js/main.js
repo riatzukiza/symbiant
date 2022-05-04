@@ -263,3 +263,19 @@ var rgba = memoize(((r, g, b, a) => {
   ;
   return $for;
 }).call(this);
+(function() {
+  /* node_modules/kit/inc/scope.sibilant:12:9 */
+
+  return io("/ants");
+})();
+socket.on("change", (() => {
+	
+  console.log("change ");
+  return location.reload();
+
+})).once("error", ((err) => {
+	
+  console.log("error on", "change", "of", "socket", "given", "null");
+  return console.log(err);
+
+}));
