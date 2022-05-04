@@ -172,7 +172,7 @@
                )
 
 
-          (var m (random-int 1 10))
+          (var m (random-int 1 100))
           (set (.get game.systems Physics dot)
                'scale m
                'mass m
