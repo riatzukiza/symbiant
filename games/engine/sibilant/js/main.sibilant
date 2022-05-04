@@ -127,9 +127,14 @@
     (var c*v (.get game.systems Velocity c*.entity))
     (print 'collision (lit c c* cv c*v))
 
-    (set c
-         'xd (- c.xd c*.xd)
-         'yd (- c.yd c*.yd)))
+    (set cv
+         'xd (- cv.xd c*v.xd)
+         'yd (- cv.yd c*.yd))
+
+    (set c*v
+         'xd (- c*v.xd cv.xd)
+         'yd (- c*v.yd cv.yd))
+    )
 (do-times 1000
           (var dot (entity active-game-systems))
 
