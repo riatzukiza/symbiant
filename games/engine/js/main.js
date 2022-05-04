@@ -238,6 +238,23 @@ var rgba = memoize(((r, g, b, a) => {
    };
 
 }));
+game.events.on("collision", (([ c, c_, d ]) => {
+	
+  var cv = game.systems.get(Velocity, c.entity);
+  var c_v = game.systems.get(Velocity, c_.entity);
+  console.log(collision, { 
+    c,
+    c_
+   });
+  c.xd = (c.xd - c_.xd);
+  return c.yd = (c.yd - c_.yd);
+
+})).once("error", ((err) => {
+	
+  console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
+  return console.log(err);
+
+}));
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
