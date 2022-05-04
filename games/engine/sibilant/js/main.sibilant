@@ -2,6 +2,9 @@
 (include "kit/header" )
 (import-namespace kit)
 (include "kit-interface/header" )
+
+(var socket (io "/engine"))
+(on socket "change" () (print "change ") (.reload location))
 (set global
      'mixin mixin
      'create create
@@ -182,5 +185,3 @@
                'xd (random-int 1 10)
                'yd (random-int 1 10)))
 
-(var socket (io "/engine"))
-(on socket "change" () (print "change ") (.reload location))
