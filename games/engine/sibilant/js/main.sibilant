@@ -128,6 +128,9 @@
     (print 'cv.xd cv.xd )
     (print 'c*v.xd c*v.xd )
 
+    (print 'cv.yd cv.yd )
+    (print 'c*v.yd c*v.yd )
+
     (set cv
          'xd (+ cv.xd c*v.xd)
          'yd (+ cv.yd c*.yd))
