@@ -139,7 +139,7 @@
     (print 'c*v.yd c*v.yd )
 
     (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
-    (var m* (/ (* 2 cp.mass)(+ c*p.mass cp.mass)))
+    (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
 
     (set cv
          'xd (+ cv.xd c*v.xd)

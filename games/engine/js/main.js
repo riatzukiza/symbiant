@@ -252,7 +252,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   console.log("c_v.xd", c_v.xd);
   console.log("c_v.yd", c_v.yd);
   var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
-  var m_ = ((2 * cp.mass) / (c_p.mass + cp.mass));
+  var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
   cv.xd = (cv.xd + c_v.xd);
   cv.yd = (cv.yd + c_v.yd);
   c_v.xd = (c_v.xd - cv.xd);
