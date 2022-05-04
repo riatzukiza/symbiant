@@ -125,6 +125,8 @@
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
+
+    (print "before collision")
     (print 'cv.id cv.id )
     (print 'cv.xd cv.xd )
     (print 'cv.yd cv.yd )
@@ -141,6 +143,7 @@
          'xd (+ c*v.xd cv.xd)
          'yd (+ c*v.yd cv.yd))
 
+    (print "After collision")
     (print 'cv.id cv.id )
     (print 'cv.xd cv.xd )
     (print 'cv.yd cv.yd )
