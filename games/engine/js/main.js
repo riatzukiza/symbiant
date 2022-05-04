@@ -237,11 +237,25 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
-game.systems.get(Position, dot).x = 500;
-game.systems.get(Position, dot).y = 200;
-game.systems.get(Position, dot).z = 1;
-game.systems.get(Physics, dot).scale = 10;
-game.systems.get(Physics, dot).mass = 10;
-game.systems.get(Physics, dot).forces = [];
-game.systems.get(Velocity, dot).xd = 100;
-game.systems.get(Velocity, dot).yd = 100;
+(function() {
+  /* node_modules/kit/inc/loops.sibilant:26:8 */
+
+  var $for = null;
+  for (var i = 0;i < 1000;++(i))
+  {
+  $for = (function() {
+    /* node_modules/kit/inc/loops.sibilant:28:35 */
+  
+    game.systems.get(Position, dot).x = (Math.floor((Math.random() * (1000 - 0))) + 0);
+    game.systems.get(Position, dot).y = (Math.floor((Math.random() * (1000 - 0))) + 0);
+    game.systems.get(Position, dot).z = 1;
+    game.systems.get(Physics, dot).scale = 10;
+    game.systems.get(Physics, dot).mass = 10;
+    game.systems.get(Physics, dot).forces = [];
+    game.systems.get(Velocity, dot).xd = 10;
+    return game.systems.get(Velocity, dot).yd = 10;
+  }).call(this);
+  }
+  ;
+  return $for;
+}).call(this);
