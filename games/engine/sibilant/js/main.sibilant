@@ -117,44 +117,44 @@
 (var rgba (memoize (=> (r g b a) (lit r g b a))))
 
 
-(on game.events 'collision ([c c* d])
-    (var cv (.get game.systems Velocity c.entity))
-    (var c*v (.get game.systems Velocity c*.entity))
+;; (on game.events 'collision ([c c* d])
+;;     (var cv (.get game.systems Velocity c.entity))
+;;     (var c*v (.get game.systems Velocity c*.entity))
 
-    (var cp (.get game.systems Physics c.entity))
-    (var c*p (.get game.systems Physics c*.entity))
+;;     (var cp (.get game.systems Physics c.entity))
+;;     (var c*p (.get game.systems Physics c*.entity))
 
-    ;; (print "before collision")
-    ;; (print 'cv.id cv.id )
-    ;; (print 'cv.xd cv.xd )
-    ;; (print 'cv.yd cv.yd )
+;;     ;; (print "before collision")
+;;     ;; (print 'cv.id cv.id )
+;;     ;; (print 'cv.xd cv.xd )
+;;     ;; (print 'cv.yd cv.yd )
 
-    ;; (print 'c*v.id c*v.id )
-    ;; (print 'c*v.xd c*v.xd )
-    ;; (print 'c*v.yd c*v.yd )
+;;     ;; (print 'c*v.id c*v.id )
+;;     ;; (print 'c*v.xd c*v.xd )
+;;     ;; (print 'c*v.yd c*v.yd )
 
-    (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
+;;     (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
 
-    (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
-    (var v)
+;;     (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
+;;     (var v)
 
-    (set cv
-         'xd (* m* (- cv.xd c*v.xd))
-         'yd (* m* (- cv.yd c*v.yd)))
+;;     (set cv
+;;          'xd (* m* (- cv.xd c*v.xd))
+;;          'yd (* m* (- cv.yd c*v.yd)))
 
-    (set c*v
-         'xd (* m (+ c*v.xd cv.xd))
-         'yd (* m (+ c*v.yd cv.yd)))
+;;     (set c*v
+;;          'xd (* m (+ c*v.xd cv.xd))
+;;          'yd (* m (+ c*v.yd cv.yd)))
 
-    ;; (print "After collision")
-    ;; (print 'cv.id cv.id )
-    ;; (print 'cv.xd cv.xd )
-    ;; (print 'cv.yd cv.yd )
+;;     ;; (print "After collision")
+;;     ;; (print 'cv.id cv.id )
+;;     ;; (print 'cv.xd cv.xd )
+;;     ;; (print 'cv.yd cv.yd )
 
-    ;; (print 'c*v.id c*v.id )
-    ;; (print 'c*v.xd c*v.xd )
-    ;; (print 'c*v.yd c*v.yd )
-    )
+;;     ;; (print 'c*v.id c*v.id )
+;;     ;; (print 'c*v.xd c*v.xd )
+;;     ;; (print 'c*v.yd c*v.yd )
+;;     )
 ;; (const Pheremones (create-field ))
 (def ant ())
 (def plant ())
