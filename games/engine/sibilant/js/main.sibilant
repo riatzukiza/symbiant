@@ -170,16 +170,15 @@
         (not (or (= c.entity home) (= c*.entity home)))
         (do
 
-         (var m (/ (* 1 cp.mass) (+ c*p.mass cp.mass)))
-         (var m* (/ (* 1 c*p.mass)(+ c*p.mass cp.mass)))
+         (var m (/ cp.mass  cp.mass))
+         (var m* (/ c*p.mass cp.mass))
          (set cv
               'xd (* m* c*v.xd)
               'yd (* m* c*v.yd))
 
          (set c*v
               'xd (* m cv.xd)
-              'yd (* m cv.yd))
-         ))
+              'yd (* m cv.yd))))
 
 
     ;; (set cv.pos
