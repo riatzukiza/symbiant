@@ -297,8 +297,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.xd = 0;
       return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
-      cv.accelerate([ randomSignedInt(1, 10) ]);
-      return c_v.accelerate([ randomSignedInt(1, 10) ]);
+      
     }
   }).call(this);
 
@@ -362,11 +361,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$17, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$18, home, startingLife) {
   /* spawn-ant eval.sibilant:280:0 */
 
-  var x = x_y$17[0],
-      y = x_y$17[1];
+  var x = x_y$18[0],
+      y = x_y$18[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
