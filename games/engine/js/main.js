@@ -388,7 +388,17 @@ game.systems.get(Collision, target).type = "static";
     game.systems.get(Position, dot).z = 1;
     game.systems.get(Physics, dot).scale = 10;
     game.systems.get(Physics, dot).mass = 1;
-    return game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
+    game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
+    var dot = entity(activeGameSystems);
+    game.systems.get(Dot, dot).color = rgba(0, 0, 0, 255);
+    game.systems.get(Position, dot).x = (200 + (Math.floor((Math.random() * ((config.dimensions[0] / 1) - 1))) + 1));
+    game.systems.get(Position, dot).y = (200 + (Math.floor((Math.random() * ((config.dimensions[1] / 1) - 1))) + 1));
+    game.systems.get(Position, dot).z = 1;
+    game.systems.get(Physics, dot).scale = 10;
+    game.systems.get(Physics, dot).mass = 1;
+    game.systems.get(Physics, dot).forces = [ Friction ];
+    game.systems.get(Velocity, dot).xd = (Math.floor((Math.random() * (10 - 1))) + 1);
+    return game.systems.get(Velocity, dot).yd = (Math.floor((Math.random() * (10 - 1))) + 1);
   }).call(this);
   }
   ;
