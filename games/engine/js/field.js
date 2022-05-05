@@ -26,19 +26,17 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     }
 
 
-    if(vec.getLength() < 10) {
 
-      pH.addTo(vec)
+    pH.addTo(vec)
 
-      vel.accelerate([pH.x,pH.y]);
+    vel.accelerate([pH.x,pH.y]);
 
-      pH.addTo({
-        x:vel.xd,
-        y:vel.yd
+    pH.addTo({
+      x:vel.xd,
+      y:vel.yd
 
-      })
+    })
     // console.log({tick,vec,vel})
-    }
 
   }
 }

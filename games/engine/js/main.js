@@ -297,7 +297,10 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.xd = 0;
       return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
-      
+      cv.xd = (m_ * c_v.xd);
+      cv.yd = (m_ * c_v.yd);
+      c_v.xd = (m * cv.xd);
+      return c_v.yd = (m * cv.yd);
     }
   }).call(this);
 

@@ -173,13 +173,13 @@
         (not (or (= c.entity home) (= c*.entity home)))
         (do
 
-         ;; (set cv
-         ;;      'xd (* m* c*v.xd)
-         ;;      'yd (* m* c*v.yd))
+         (set cv
+              'xd (* m* c*v.xd)
+              'yd (* m* c*v.yd))
 
-         ;; (set c*v
-         ;;      'xd (* m cv.xd)
-         ;;      'yd (* m cv.yd))
+         (set c*v
+              'xd (* m cv.xd)
+              'yd (* m cv.yd))
          ))
 
 
