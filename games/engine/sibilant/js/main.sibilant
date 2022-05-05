@@ -264,6 +264,7 @@
 
 (set (.get game.systems Collision target)
      'type 'static)
+
 (def create-ant ([x, y])
      (var ant (entity active-game-systems))
 
