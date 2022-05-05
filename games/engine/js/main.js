@@ -318,4 +318,3 @@ var SignalField = Physics.Force.define("SignalField", {
   ;
   return $for;
 }).call(this);
-console.log("WHAT", Scalar.sub(window.size(), 8));
