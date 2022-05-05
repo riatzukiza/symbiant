@@ -7,3 +7,4 @@ module.exports.fieldForce = 1;
 module.exports.dimensions = dim;
 module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
+module.exports.decay = undefined;
