@@ -358,11 +358,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$14, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$13[0],
-      y = x_y$13[1];
+  var x = x_y$14[0],
+      y = x_y$14[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -379,7 +379,7 @@ var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < 80;++(i))
+  for (var i = 0;i < 200;++(i))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
