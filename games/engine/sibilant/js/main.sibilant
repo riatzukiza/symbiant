@@ -105,6 +105,7 @@
     (if (= c.entity target)
         (do
 
+         (print "HIT")
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
@@ -119,6 +120,7 @@
         (= c*.entity target)
         (do
 
+         (print "HIT")
          (var hpos (.get game.systems Position home))
          (set cv.pos
               'x (+ 3 hpos.x)
