@@ -169,6 +169,7 @@
               'x (+ 30 hpos.x)
               'y (+ 30 hpos.y))
          (print "after collided with target" hpos c cv))
+        (not (or (= c.entity home) (= c*.entity home)))
         (do
 
          (print "collision between ants" c c*)
