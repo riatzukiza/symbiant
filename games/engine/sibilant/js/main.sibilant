@@ -50,42 +50,6 @@
                `(gett @name [...@(.map keys (=> (k) `(get this @k)))]))
 
 (import-namespace dom)
-(macro def-entity (name args ...body)
-       `(def @name @args
-             (var entity (.spawn game.ent [...@(.map body (#-> (get 'contents) first))]))
-
-             ...@(.map body (=> ((lit (contents [component (dots props)])))
-                                `(set (.get game.systems @component entity)
-
-                                      ...@props)))
-             entity))
-
-
-
-
-(macro collide (ent ...body) `(if (or (not @ent) (= @ent empty) (= @ent 0))
-                                  (do ...@body)))
-
-(macro area (space el-name center size ...body)
-       `(each-in-area @space @center (=> (@el-name i j x y) ...@body) @size ))
-
-(macro adjacent (matrix value-name center ...body)
-       `(area @matrix @value-name @center 3 ...@body))
-
-(macro if-valid-move (ent ...body )
-       `(when (or (not @ent) (= @ent empty) (= @ent 0)) ...@body))
-
-(macro each-valid-move (ent space ...rest)
-
-       `(adjacent @space w @ent
-
-                  (let ent (.get collision x y))
-
-                  (if-valid-move
-                   ent
-                   ...@rest)))
-(macro all-zero (w h) `(.dmap ((create Matrix) (new Float32Array (* @w @h)) @w @h) (lambda () 0) ))
-(macro allns (w h n) `(.dmap  ((create Matrix) [] @w @h) (lambda () @n) ))
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
 
