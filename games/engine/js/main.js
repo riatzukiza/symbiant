@@ -203,7 +203,7 @@ var {
   TreeMap
  } = require("tree-kit");
 const rendering=Rendering.load({ 
-  size:Scalar.sub(window.size(), 8),
+  size:config.dimensions,
   limit:100,
   blend:true
  });

@@ -84,7 +84,7 @@
 
 
 (const rendering (.load Rendering
-                        (lit (size (.sub Scalar  (window.size) 8))
+                        (lit (size config.dimensions)
                              (limit 100)
                              (blend true))))
 
