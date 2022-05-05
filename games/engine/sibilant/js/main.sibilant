@@ -148,12 +148,12 @@
     (var v)
 
     (set cv.pos
-         'x (-  cv.pos.x (/ cv.xd 2))
-         'y (-  cv.pos.y (/ cv.yd 2)))
+         'x (-  cv.pos.x (/ cv.xd 20))
+         'y (-  cv.pos.y (/ cv.yd 20)))
 
     (set c*v.pos
-         'x (-  c*v.pos.x (/ c*v.xd 2))
-         'y (-  c*v.pos.y (/ c*v.yd 2)))
+         'x (-  c*v.pos.x (/ c*v.xd 20))
+         'y (-  c*v.pos.y (/ c*v.yd 20)))
     (set cv
          'xd (* 2 m* c*v.xd)
          'yd (* 2 m* c*v.yd))
