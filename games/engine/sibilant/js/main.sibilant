@@ -190,7 +190,7 @@
           (set (.get game.systems Physics dot)
                'scale 10
                'mass 1
-               'forces [SignalField])
+               'forces [SignalField, Physics.Friction])
 
           ;; (set (.get game.systems Velocity dot)
           ;;      'xd (random-int 1 10)

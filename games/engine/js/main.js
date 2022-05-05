@@ -334,7 +334,7 @@ var SignalField = Physics.Force.define("SignalField", {
     game.systems.get(Position, dot).z = 1;
     game.systems.get(Physics, dot).scale = 10;
     game.systems.get(Physics, dot).mass = 1;
-    return game.systems.get(Physics, dot).forces = [ SignalField ];
+    return game.systems.get(Physics, dot).forces = [ SignalField, Physics.Friction ];
   }).call(this);
   }
   ;
