@@ -333,6 +333,10 @@ var SignalField = Physics.Force.define("SignalField", {
    }
  });
 var home = entity([ Dot, Position, Physics, Collision ]);
+game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
+game.systems.get(Position, home).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
+game.systems.get(Position, home).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
+game.systems.get(Position, home).z = 1;
 var target = entity([ Dot, Position, Physics, Collision ]);
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */

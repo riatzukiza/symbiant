@@ -201,6 +201,13 @@
                              (update-particle v v.pos, field, layer))))
 
 (var home (entity [Dot Position Physics Collision]))
+
+(set (.get game.systems Dot home)
+     'color (rgba 0 255 0 255))
+(set (.get game.systems Position home )
+     'x (random-int 1 (first config.dimensions))
+     'y (random-int 1 (second config.dimensions))
+     'z 1)
 (var target (entity [Dot Position Physics Collision]))
 (do-times 80
           (var dot (entity active-game-systems))
