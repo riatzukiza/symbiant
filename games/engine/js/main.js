@@ -186,6 +186,16 @@ var {
   Scalar
  } = require("sibilant-game-engine/client/math/scalar"),
     { 
+  Component,
+  System
+ } = require("sibilant-game-engine/client/ecs/component"),
+    noise = require("./noise"),
+    config = require("./config"),
+    Vector = require("./vector"),
+    { 
+  createVectorField
+ } = require("./field"),
+    { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
@@ -204,22 +214,22 @@ var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:116:0 */
+  /* entity eval.sibilant:104:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:117:0 */
+  /* vector2d eval.sibilant:105:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:119:0 */
+  /* Tree-map.get eval.sibilant:107:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:121:0 */
+  /* memoize eval.sibilant:109:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -229,7 +239,7 @@ var memoize = (function memoize$(f) {
         return cache.get(args);
       } else {
         var r = (function() {
-          /* eval.sibilant:40:23 */
+          /* eval.sibilant:37:23 */
         
           return f(...args);
         }).call(this);
@@ -250,46 +260,41 @@ var rgba = memoize(((r, g, b, a) => {
    };
 
 }));
-game.events.on("collision", (([ c, c_, d ]) => {
-	
-  var cv = game.systems.get(Velocity, c.entity);
-  var c_v = game.systems.get(Velocity, c_.entity);
-  var cp = game.systems.get(Physics, c.entity);
-  var c_p = game.systems.get(Physics, c_.entity);
-  var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
-  var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
-  var v = undefined;
-  cv.xd = (m_ * (cv.xd - c_v.xd));
-  cv.yd = (m_ * (cv.yd - c_v.yd));
-  c_v.xd = (m * (c_v.xd + cv.xd));
-  return c_v.yd = (m * (c_v.yd + cv.yd));
-
-})).once("error", ((err) => {
-	
-  console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
-  return console.log(err);
-
-}));
 var ant = (function ant$() {
-  /* ant eval.sibilant:169:0 */
+  /* ant eval.sibilant:157:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:170:0 */
+  /* plant eval.sibilant:158:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:171:0 */
+  /* nest eval.sibilant:159:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:172:0 */
+  /* colony eval.sibilant:160:0 */
 
   
 });
+var SignalField = Physics.Force.define("SignalField", { 
+  field:createVectorField(),
+  layer:createVectorField(),
+  apply( c = this.c,field = this.field,layer = this.layer ){ 
+    
+      var v = c.velocity;
+      var collision = c.system.process.systems.get(Collision, c.entity);
+      return (function() {
+        if (!(collision.colliding)) {
+          return updateParticle(v, v.pos, field, layer);
+        }
+      }).call(this);
+    
+   }
+ });
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
@@ -304,15 +309,12 @@ var colony = (function colony$() {
     game.systems.get(Position, dot).x = (Math.floor((Math.random() * (1000 - 1))) + 1);
     game.systems.get(Position, dot).y = (Math.floor((Math.random() * (1000 - 1))) + 1);
     game.systems.get(Position, dot).z = 1;
-    var m = (Math.floor((Math.random() * (10 - 1))) + 1);
-    game.systems.get(Physics, dot).scale = m;
-    game.systems.get(Physics, dot).mass = m;
-    game.systems.get(Physics, dot).forces = [];
-    game.systems.get(Velocity, dot).xd = (Math.floor((Math.random() * (10 - 1))) + 1);
-    return game.systems.get(Velocity, dot).yd = (Math.floor((Math.random() * (10 - 1))) + 1);
+    game.systems.get(Physics, dot).scale = 1;
+    game.systems.get(Physics, dot).mass = 1;
+    return game.systems.get(Physics, dot).forces = [ SignalField ];
   }).call(this);
   }
   ;
   return $for;
 }).call(this);
-console.log(window);
+console.log("WHAT", Scalar.sub(window.size(), 8));

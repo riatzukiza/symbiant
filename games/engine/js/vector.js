@@ -124,6 +124,7 @@ class Vector {
     return this.x == v.x && this.y == v.y;
   }
 }
+module.exports = Vector
 
 function createField(columns,rows) {
   let field = new Array(columns);
