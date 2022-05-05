@@ -393,8 +393,7 @@ game.systems.get(Collision, target).type = "static";
     game.systems.get(Position, dot).y = (200 + (Math.floor((Math.random() * ((config.dimensions[1] / 1) - 1))) + 1));
     game.systems.get(Position, dot).z = 1;
     game.systems.get(Physics, dot).scale = 20;
-    game.systems.get(Physics, dot)[r] = "mass";
-    game.systems.get(Physics, dot)[1] = undefined;
+    game.systems.get(Physics, dot).mass = 1;
     return game.systems.get(Physics, dot).forces = [ Friction ];
   }).call(this);
   }
