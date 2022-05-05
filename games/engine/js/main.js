@@ -358,13 +358,15 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var spawnAnt = (function spawnAnt$(x_y$15, home, startingLife) {
-  /* spawn-ant eval.sibilant:274:0 */
+const ants=[];
+var spawnAnt = (function spawnAnt$(x_y$16, home, startingLife) {
+  /* spawn-ant eval.sibilant:275:0 */
 
-  var x = x_y$15[0],
-      y = x_y$15[1];
+  var x = x_y$16[0],
+      y = x_y$16[1];
 
   var ant = entity(activeGameSystems);
+  ants.push(ant);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
   var homePos = game.systems.get(Position, home);
   game.systems.get(Position, ant).x = x;

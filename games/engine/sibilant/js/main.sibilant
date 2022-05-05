@@ -273,8 +273,10 @@
 (set (.get game.systems Collision target)
      'type 'static)
 
+(const ants [])
 (def spawn-ant ([x, y], home, starting-life)
      (var ant (entity active-game-systems))
+     (.push ants ant)
 
      (set (.get game.systems Dot ant)
           'color (rgba 255 0 0 255))
