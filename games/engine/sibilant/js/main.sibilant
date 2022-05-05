@@ -286,7 +286,6 @@
      ant)
 
 (do-times 80
-
           (var dot (entity active-game-systems))
 
           (set (.get game.systems Dot dot)
