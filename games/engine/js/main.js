@@ -372,7 +372,7 @@ game.systems.get(Collision, target).type = "static";
   
     var dot = entity(activeGameSystems);
     game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
-    var homePos = game.systems.get(Physics, home);
+    var homePos = game.systems.get(Position, home);
     game.systems.get(Position, dot).x = (homePos.x + (Math.floor((Math.random() * (300 - 1))) + 1));
     game.systems.get(Position, dot).y = (homePos.y + (Math.floor((Math.random() * (300 - 1))) + 1));
     game.systems.get(Position, dot).z = 1;
