@@ -190,7 +190,6 @@ var {
   System
  } = require("sibilant-game-engine/client/ecs/component"),
     noise = require("./noise"),
-    config = require("./config"),
     Vector = require("./vector"),
     { 
   createVectorField,
@@ -202,6 +201,7 @@ var {
     { 
   TreeMap
  } = require("tree-kit");
+var config = require("./config");
 console.log(config);
 const rendering=Rendering.load({ 
   size:config.dimensions,
