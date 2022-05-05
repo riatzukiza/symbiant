@@ -70,7 +70,7 @@
           (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
-          (lit Physics) "sibilant-game-engine/client/systems/physics"
+          (lit Physics Friction) "sibilant-game-engine/client/systems/physics"
           (lit Scalar) "sibilant-game-engine/client/math/scalar"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
           noise "./noise"
@@ -190,7 +190,7 @@
           (set (.get game.systems Physics dot)
                'scale 10
                'mass 1
-               'forces [SignalField, Physics.Friction])
+               'forces [SignalField])
 
           ;; (set (.get game.systems Velocity dot)
           ;;      'xd (random-int 1 10)
