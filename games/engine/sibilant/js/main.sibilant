@@ -147,13 +147,6 @@
     (var m* (/ (*  c*p.mass)(+ c*p.mass cp.mass)))
     (var v)
 
-    (set cv.pos
-         'x (-  cv.pos.x (/ cv.xd 10))
-         'y (-  cv.pos.y (/ cv.yd 10)))
-
-    (set c*v.pos
-         'x (-  c*v.pos.x (/ c*v.xd 10))
-         'y (-  c*v.pos.y (/ c*v.yd 10)))
     (set cv
          'xd (* 2 m* c*v.xd)
          'yd (* 2 m* c*v.yd))
@@ -161,6 +154,14 @@
     (set c*v
          'xd (* 2 m cv.xd)
          'yd (* 2 m cv.yd))
+
+    (set cv.pos
+         'x (-  cv.pos.x (/ cv.xd 10))
+         'y (-  cv.pos.y (/ cv.yd 10)))
+
+    (set c*v.pos
+         'x (-  c*v.pos.x (/ c*v.xd 10))
+         'y (-  c*v.pos.y (/ c*v.yd 10)))
 
     ;; (set cv
     ;;      'xd c*v.xd
