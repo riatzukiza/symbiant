@@ -255,13 +255,16 @@ var memoize = (function memoize$(f) {
       if (cache.has(args)) {
         return cache.get(args);
       } else {
-        var r = (function() {
-          /* eval.sibilant:37:23 */
+        return (function(value) {
+          /* node_modules/kit/inc/scope.sibilant:12:9 */
+        
+          cache.set(args, value);
+          return value;
+        })((function() {
+          /* node_modules/kit/inc/macros.sibilant:30:25 */
         
           return f(...args);
-        }).call(this);
-        cache.set(args, r);
-        return r;
+        }).call(this));
       }
     }).call(this);
   
@@ -362,11 +365,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
   /* spawn-ant eval.sibilant:185:0 */
 
-  var x = x_y$5[0],
-      y = x_y$5[1];
+  var x = x_y$2[0],
+      y = x_y$2[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -386,7 +389,7 @@ var number = 100;
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var let = time;time < number;++(time))
+  for (var i = 0;i < number;++(i))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
