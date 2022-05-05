@@ -18,7 +18,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     let vec = field[pos.x][pos.y];
 
 
-    if(vec.getLength() < 5) {
+    if(vec.getLength() < 10) {
     pheremones[pos.x][pos.y].addTo(vec)
 
     vec = pheremones[pos.x][pos.y];
