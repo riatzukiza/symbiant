@@ -297,8 +297,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.xd = 0;
       return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
-      var m = ((4 * cp.mass) / (c_p.mass + cp.mass));
-      var m_ = ((4 * c_p.mass) / (c_p.mass + cp.mass));
+      var m = ((1 * cp.mass) / (c_p.mass + cp.mass));
+      var m_ = ((1 * c_p.mass) / (c_p.mass + cp.mass));
       cv.xd = (m_ * c_v.xd);
       cv.yd = (m_ * c_v.yd);
       c_v.xd = (m * cv.xd);
@@ -365,11 +365,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
   /* spawn-ant eval.sibilant:265:0 */
 
-  var x = x_y$3[0],
-      y = x_y$3[1];
+  var x = x_y$4[0],
+      y = x_y$4[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
