@@ -7,5 +7,5 @@ module.exports.angleZoom = 100;
 module.exports.noiseZ = 100;
 module.exports.fieldForce = 100;
 module.exports.dimensions = dim;
-module.exports.columns = (dim[0] / size);
-module.exports.rows = (dim[1] / size);
+module.exports.columns = Math.round((dim[0] / size));
+module.exports.rows = Math.round((dim[1] / size));
