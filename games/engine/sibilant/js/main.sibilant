@@ -167,7 +167,12 @@
               'xd 0 
               'yd 0)
          )
-        ;;(not (or (= c.entity home) (= c*.entity home)))
+        (not (or (= c.entity home) (= c*.entity home)))
+        (do
+
+         (cv.accelerate [(random-signed-int 1 10)])
+         (c*v.accelerate [(random-signed-int 1 10)])
+         )
         ;; (do
 
         ;;  (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
