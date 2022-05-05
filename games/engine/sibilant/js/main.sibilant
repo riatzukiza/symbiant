@@ -276,7 +276,7 @@
 (def spawn-ant ([x, y], home, starting-life)
      (var ant (entity active-game-systems))
 
-     (set (.get game.systems Dot dot)
+     (set (.get game.systems Dot ant)
           'color (rgba 255 0 0 255))
 
      (var home-pos (.get game.systems Position home))
