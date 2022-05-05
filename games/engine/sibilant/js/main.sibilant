@@ -128,10 +128,11 @@
          (set cv
               'xd 0
               'yd 0))
-        (not (or (= c.entity home) (= c*.entity home)))
-        (do
-         (.accelerate cv [(random-signed 2),(random-signed 2)])
-         (.accelerate c*v [(random-signed 2),(random-signed 2)]))))
+        ;; (not (or (= c.entity home) (= c*.entity home)))
+        ;; (do
+        ;;  (.accelerate cv [(random-signed 2),(random-signed 2)])
+        ;;  (.accelerate c*v [(random-signed 2),(random-signed 2)]))
+        ))
 
 (define SignalField Physics.Force
 

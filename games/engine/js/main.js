@@ -301,29 +301,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.y = (3 + hpos.y);
       cv.xd = 0;
       return cv.yd = 0;
-    } else if (!((c.entity === home || c_.entity === home))) {
-      cv.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
-      }).call(this) ]);
-      return c_v.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
-      }).call(this) ]);
     }
   }).call(this);
 
@@ -367,11 +344,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
-  /* spawn-ant eval.sibilant:187:0 */
+var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
+  /* spawn-ant eval.sibilant:188:0 */
 
-  var x = x_y$5[0],
-      y = x_y$5[1];
+  var x = x_y$6[0],
+      y = x_y$6[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
