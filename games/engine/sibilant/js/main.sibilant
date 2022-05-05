@@ -120,7 +120,6 @@
          )
         (= c*.entity target)
         (do
-
          (print "HIT")
          (var hpos (.get game.systems Position home))
          (set cv.pos
@@ -128,7 +127,9 @@
               'y (+ 3 hpos.y))
          (set cv
               'xd 0
-              'yd 0))))
+              'yd 0))
+        (print "hit something other than target")
+        ))
 
 (define SignalField Physics.Force
 

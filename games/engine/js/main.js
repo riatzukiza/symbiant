@@ -302,6 +302,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.y = (3 + hpos.y);
       cv.xd = 0;
       return cv.yd = 0;
+    } else {
+      return console.log("hit something other than target");
     }
   }).call(this);
 
@@ -345,11 +347,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
-  /* spawn-ant eval.sibilant:184:0 */
+var spawnAnt = (function spawnAnt$(x_y$9, home, startingLife) {
+  /* spawn-ant eval.sibilant:185:0 */
 
-  var x = x_y$8[0],
-      y = x_y$8[1];
+  var x = x_y$9[0],
+      y = x_y$9[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
