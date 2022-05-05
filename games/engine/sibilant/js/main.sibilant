@@ -164,8 +164,8 @@
         (field (create-vector-field (/ (first config.dimensions)
                                        config.size)
                                     (/ (second config.dimensions)
-                                       config.size)
-                                    ))
+                                       config.size)))
+
         (layer (create-vector-field (/ (first config.dimensions)
                                        config.size)
                                     (/ (second config.dimensions)
