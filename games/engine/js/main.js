@@ -289,18 +289,13 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
-      console.log("before target collided with ant", hpos, c_, c_v);
       c_v.pos.x = (30 + hpos.x);
-      c_v.pos.y = (30 + hpos.y);
-      return console.log("after target collided with ant", hpos, c_, c_v);
+      return c_v.pos.y = (30 + hpos.y);
     } else if (c_.entity === target) {
       var hpos = game.systems.get(Position, home);
-      console.log("before collided with target", hpos, c, cv);
       cv.pos.x = (30 + hpos.x);
-      cv.pos.y = (30 + hpos.y);
-      return console.log("after collided with target", hpos, c, cv);
+      return cv.pos.y = (30 + hpos.y);
     } else if (!((c.entity === home || c_.entity === home))) {
-      console.log("collision between ants", c, c_);
       cv.xd = (m_ * c_v.xd);
       cv.yd = (m_ * c_v.yd);
       c_v.xd = (m * cv.xd);
