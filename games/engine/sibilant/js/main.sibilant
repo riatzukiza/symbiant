@@ -151,6 +151,7 @@
     (when (= c.entity target)
           (var hpos (.get game.systems Position home))
 
+          (print "target collided with ant" hpos)
           (set c*.pos
                'x (+ 3 hpos.x)
                'y (+ 3 hpos.y))
@@ -158,6 +159,7 @@
     (when (= c*.entity target)
 
           (var hpos (.get game.systems Position home))
+          (print "collided with target" hpos)
           (set c.pos
                'x (+ 3 hpos.x)
                'y (+ 3 hpos.y))
