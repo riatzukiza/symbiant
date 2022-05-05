@@ -23,7 +23,6 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones) 
       vec = pheremones[pos.x][pos.y];
     }
 
-    console.log({pos,vec,field,pheremones,angle,length})
     vel.accelerate([vec.x,vec.y]);
   }
 }
