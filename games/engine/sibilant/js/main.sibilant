@@ -212,10 +212,10 @@
 
 (var target (entity [Dot Position Physics Collision]))
 
-(set (.get game.systems Dot home)
+(set (.get game.systems Dot target)
      'color (rgba 0 255 0 255))
 
-(set (.get game.systems Position home )
+(set (.get game.systems Position target )
      'x (random-int 1 (first config.dimensions))
      'y (random-int 1 (second config.dimensions))
      'z 1)
