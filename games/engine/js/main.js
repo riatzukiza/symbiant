@@ -231,22 +231,22 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:115:0 */
+  /* entity eval.sibilant:158:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:116:0 */
+  /* vector2d eval.sibilant:159:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:118:0 */
+  /* Tree-map.get eval.sibilant:161:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:120:0 */
+  /* memoize eval.sibilant:163:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -297,7 +297,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.xd = 0;
       return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
-      
+      cv.accelerate([ (Math.floor((Math.random() * (10 - 1))) + 1) ]);
+      return c_v.accelerate([ (Math.floor((Math.random() * (10 - 1))) + 1) ]);
     }
   }).call(this);
 
@@ -308,22 +309,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:223:0 */
+  /* ant eval.sibilant:266:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:224:0 */
+  /* plant eval.sibilant:267:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:225:0 */
+  /* nest eval.sibilant:268:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:226:0 */
+  /* colony eval.sibilant:269:0 */
 
   
 });
@@ -361,11 +362,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$18, home, startingLife) {
-  /* spawn-ant eval.sibilant:280:0 */
+var spawnAnt = (function spawnAnt$(x_y$19, home, startingLife) {
+  /* spawn-ant eval.sibilant:323:0 */
 
-  var x = x_y$18[0],
-      y = x_y$18[1];
+  var x = x_y$19[0],
+      y = x_y$19[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -383,7 +384,7 @@ var spawnAnt = (function spawnAnt$(x_y$18, home, startingLife) {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < 100;++(i))
+  for (var let = time;time < 100;++(time))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
