@@ -142,9 +142,6 @@
     ;; (print 'c*v.xd c*v.xd )
     ;; (print 'c*v.yd c*v.yd )
 
-    (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
-
-    (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
     (if (= c.entity target)
         (do
 
@@ -173,6 +170,8 @@
         (not (or (= c.entity home) (= c*.entity home)))
         (do
 
+         (var m (/ (* 4 cp.mass) (+ c*p.mass cp.mass)))
+         (var m* (/ (* 4 c*p.mass)(+ c*p.mass cp.mass)))
          (set cv
               'xd (* m* c*v.xd)
               'yd (* m* c*v.yd))
@@ -265,7 +264,7 @@
 (set (.get game.systems Collision target)
      'type 'static)
 
-(def create-ant ([x, y], home, starting-life)
+(def spawn-ant ([x, y], home, starting-life)
      (var ant (entity active-game-systems))
 
      (set (.get game.systems Dot dot)

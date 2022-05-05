@@ -283,8 +283,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
-  var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
   return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
@@ -299,6 +297,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.xd = 0;
       return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
+      var m = ((4 * cp.mass) / (c_p.mass + cp.mass));
+      var m_ = ((4 * c_p.mass) / (c_p.mass + cp.mass));
       cv.xd = (m_ * c_v.xd);
       cv.yd = (m_ * c_v.yd);
       c_v.xd = (m * cv.xd);
@@ -313,22 +313,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:210:0 */
+  /* ant eval.sibilant:209:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:211:0 */
+  /* plant eval.sibilant:210:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:212:0 */
+  /* nest eval.sibilant:211:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:213:0 */
+  /* colony eval.sibilant:212:0 */
 
   
 });
@@ -365,11 +365,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var createAnt = (function createAnt$(x_y$8, home, startingLife) {
-  /* create-ant eval.sibilant:266:0 */
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:265:0 */
 
-  var x = x_y$8[0],
-      y = x_y$8[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
@@ -386,7 +386,7 @@ var createAnt = (function createAnt$(x_y$8, home, startingLife) {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var let = time;time < 80;++(time))
+  for (var i = 0;i < 80;++(i))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
