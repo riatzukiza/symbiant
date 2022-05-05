@@ -267,10 +267,12 @@
           (set (.get game.systems Dot dot)
                'color (rgba 255 0 0 255))
           (var home-pos (.get game.systems Physics home))
-          (set (.get game.systems Position dot )
+          (var ant-pos (.get game.systems Position dot ))
+          (set ant-pos
                'x (+ 40 home-pos.x (random-int 1 300))
                'y (+ 40 home-pos.y (random-int 1 300))
                'z 1)
+          (print ant-pos)
 
 
           (set (.get game.systems Physics dot)
