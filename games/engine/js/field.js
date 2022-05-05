@@ -14,13 +14,24 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     field[pos.x][pos.y].setAngle(angle);
 
     let vec = field[pos.x][pos.y];
+    if(!pH.lastCheck) {
+      pH.lastCheck = tick
+    }
+    if(pH.lastCheck < tick) {
+      pH.divTo(tick - pH.lastCheck)
+      pH.lastCheck = tick
+    }
 
 
     if(vec.getLength() < 1) {
       pH.addTo(vec)
 
-      vec = pheremones[pos.x][pos.y];
-      vel.accelerate([vec.x,vec.y]);
+      vel.accelerate([pH.x,pH.y]);
+      pH.addTo({
+        x:vel.xd,
+        y:vel.yd
+
+      })
     // console.log({tick,vec,vel})
     }
 

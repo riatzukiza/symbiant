@@ -206,12 +206,7 @@ var Friction = Physics.Force.define("Friction", {
     
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
-      return (function() {
-        if (!(collision.colliding)) {
-          v.xd += (-1 * (v.xd / 2));
-          return v.yd += (-1 * (v.yd / 2));
-        }
-      }).call(this);
+      return collision;
     
    }
  });
@@ -290,14 +285,14 @@ game.events.on("collision", (([ c, c_, d ]) => {
       var hpos = game.systems.get(Position, home);
       c_v.pos.x = (30 + hpos.x);
       c_v.pos.y = (30 + hpos.y);
-      c_v.xd = 1;
-      return c_v.yd = 1;
+      c_v.xd = 0;
+      return c_v.yd = 0;
     } else if (c_.entity === target) {
       var hpos = game.systems.get(Position, home);
       cv.pos.x = (30 + hpos.x);
       cv.pos.y = (30 + hpos.y);
-      cv.xd = 1;
-      return cv.yd = 1;
+      cv.xd = 0;
+      return cv.yd = 0;
     } else if (!((c.entity === home || c_.entity === home))) {
       
     }
