@@ -286,26 +286,24 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
   var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
   var v = undefined;
-  (function() {
+  return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
       console.log("target collided with ant", hpos);
       c_.pos.x = (3 + hpos.x);
       return c_.pos.y = (3 + hpos.y);
-    }
-  }).call(this);
-  (function() {
-    if (c_.entity === target) {
+    } else if (c_.entity === target) {
       var hpos = game.systems.get(Position, home);
       console.log("collided with target", hpos);
       c.pos.x = (3 + hpos.x);
       return c.pos.y = (3 + hpos.y);
+    } else {
+      cv.xd = (m_ * c_v.xd);
+      cv.yd = (m_ * c_v.yd);
+      c_v.xd = (m * cv.xd);
+      return c_v.yd = (m * cv.yd);
     }
   }).call(this);
-  cv.xd = (m_ * c_v.xd);
-  cv.yd = (m_ * c_v.yd);
-  c_v.xd = (m * cv.xd);
-  return c_v.yd = (m * cv.yd);
 
 })).once("error", ((err) => {
 	
@@ -314,22 +312,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:201:0 */
+  /* ant eval.sibilant:207:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:202:0 */
+  /* plant eval.sibilant:208:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:203:0 */
+  /* nest eval.sibilant:209:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:204:0 */
+  /* colony eval.sibilant:210:0 */
 
   
 });

@@ -148,22 +148,35 @@
     (var v)
     ;; (if (= c.entity home))
     ;; (if (= c*.entity home))
-    (when (= c.entity target)
-          (var hpos (.get game.systems Position home))
+    (if (= c.entity target)
+        (do
 
-          (print "target collided with ant" hpos)
-          (set c*.pos
-               'x (+ 3 hpos.x)
-               'y (+ 3 hpos.y))
-        )
-    (when (= c*.entity target)
+         (var hpos (.get game.systems Position home))
 
-          (var hpos (.get game.systems Position home))
-          (print "collided with target" hpos)
-          (set c.pos
-               'x (+ 3 hpos.x)
-               'y (+ 3 hpos.y))
-          )
+         (print "target collided with ant" hpos)
+         (set c*.pos
+              'x (+ 3 hpos.x)
+              'y (+ 3 hpos.y))
+         )
+        (= c*.entity target)
+        (do
+
+         (var hpos (.get game.systems Position home))
+         (print "collided with target" hpos)
+         (set c.pos
+              'x (+ 3 hpos.x)
+              'y (+ 3 hpos.y)))
+        (do
+
+         (set cv
+              'xd (* m* c*v.xd)
+              'yd (* m* c*v.yd))
+
+         (set c*v
+              'xd (* m cv.xd)
+              'yd (* m cv.yd))
+         ))
+
 
     ;; (set cv.pos
     ;;      'x (-  cv.pos.x (/ cv.xd 3))
@@ -172,13 +185,6 @@
     ;; (set c*v.pos
     ;;      'x (-  c*v.pos.x (/ c*v.xd 3))
     ;;      'y (-  c*v.pos.y (/ c*v.yd 3)))
-    (set cv
-         'xd (* m* c*v.xd)
-         'yd (* m* c*v.yd))
-
-    (set c*v
-         'xd (* m cv.xd)
-         'yd (* m cv.yd))
 
     ;; (set cv
     ;;      'xd c*v.xd
