@@ -285,6 +285,7 @@
 
           (set (.get game.systems Dot dot)
                'color (rgba 255 0 0 255))
+
           (set (.get game.systems Position dot )
                'x (+ home-pos.x (random-int 1 30))
                'y (+ home-pos.y (random-int 1 30))
