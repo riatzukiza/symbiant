@@ -145,9 +145,6 @@
     (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
 
     (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
-    (var v)
-    ;; (if (= c.entity home))
-    ;; (if (= c*.entity home))
     (if (= c.entity target)
         (do
 

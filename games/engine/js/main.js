@@ -285,7 +285,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_p = game.systems.get(Physics, c_.entity);
   var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
   var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
-  var v = undefined;
   return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
@@ -310,22 +309,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:211:0 */
+  /* ant eval.sibilant:208:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:212:0 */
+  /* plant eval.sibilant:209:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:213:0 */
+  /* nest eval.sibilant:210:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:214:0 */
+  /* colony eval.sibilant:211:0 */
 
   
 });
