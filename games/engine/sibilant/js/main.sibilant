@@ -160,8 +160,7 @@
 
 (define SignalField Physics.Force
 
-        (field (create-vector-field (/ (first config.dimensions)
-                                       config.size)
+        (field (create-vector-field config.columns 
                                     (/ (second config.dimensions)
                                        config.size)))
 
