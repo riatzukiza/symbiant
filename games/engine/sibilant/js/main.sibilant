@@ -153,7 +153,7 @@
 
          (var hpos (.get game.systems Position home))
 
-         (print "target collided with ant" hpos c*)
+         (print "target collided with ant" hpos c* c*v)
          (set c*v.pos
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
@@ -162,7 +162,7 @@
         (do
 
          (var hpos (.get game.systems Position home))
-         (print "collided with target" hpos c)
+         (print "collided with target" hpos c cv)
          (set cv.pos
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y)))
