@@ -165,7 +165,11 @@
          (var hpos (.get game.systems Position home))
          (set cv.pos
               'x (+ 30 hpos.x)
-              'y (+ 30 hpos.y)))
+              'y (+ 30 hpos.y))
+         (set cv
+              'xd 0 
+              'yd 0)
+         )
         (not (or (= c.entity home) (= c*.entity home)))
         (do
 
