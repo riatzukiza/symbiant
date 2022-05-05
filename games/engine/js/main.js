@@ -193,7 +193,8 @@ var {
     config = require("./config"),
     Vector = require("./vector"),
     { 
-  createVectorField
+  createVectorField,
+  updateParticle
  } = require("./field"),
     { 
   Collision

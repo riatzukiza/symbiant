@@ -76,7 +76,7 @@
           noise "./noise"
           config "./config"
           Vector "./vector"
-          (lit create-vector-field) "./field"
+          (lit create-vector-field update-particle) "./field"
           ;; (lit Matrix-map) "sibilant-game-engine/client/data-structures/"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
