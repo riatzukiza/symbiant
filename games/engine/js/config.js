@@ -8,4 +8,4 @@ module.exports.dimensions = dim;
 module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
 module.exports.decay = 0.9;
-module.exports.friction = 16;
+module.exports.friction = 6;
