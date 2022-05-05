@@ -274,7 +274,7 @@
                'x (+ 40 home-pos.x randx)
                'y (+ 40 home-pos.y randy)
                'z 1)
-          (print ant-pos)
+          (print ant-pos home-pos randx randy)
 
 
           (set (.get game.systems Physics dot)

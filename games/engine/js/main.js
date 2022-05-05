@@ -379,7 +379,7 @@ game.systems.get(Collision, target).type = "static";
     antPos.x = (40 + homePos.x + randx);
     antPos.y = (40 + homePos.y + randy);
     antPos.z = 1;
-    console.log(antPos);
+    console.log(antPos, homePos, randx, randy);
     game.systems.get(Physics, dot).scale = 10;
     game.systems.get(Physics, dot).mass = 1;
     game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
