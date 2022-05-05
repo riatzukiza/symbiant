@@ -349,11 +349,19 @@ game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
 game.systems.get(Position, home).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
 game.systems.get(Position, home).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
 game.systems.get(Position, home).z = 1;
+game.systems.get(Physics, home).scale = 10;
+game.systems.get(Physics, home).mass = 1;
+game.systems.get(Physics, home).forces = [];
+game.systems.get(Collision, home).type = "static";
 var target = entity([ Dot, Position, Physics, Collision ]);
 game.systems.get(Dot, target).color = rgba(0, 0, 255, 255);
 game.systems.get(Position, target).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
 game.systems.get(Position, target).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
 game.systems.get(Position, target).z = 1;
+game.systems.get(Physics, target).scale = 10;
+game.systems.get(Physics, target).mass = 1;
+game.systems.get(Physics, target).forces = [];
+game.systems.get(Collision, target).type = "static";
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
