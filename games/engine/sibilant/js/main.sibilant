@@ -167,8 +167,8 @@
               'x (+ 30 hpos.x)
               'y (+ 30 hpos.y))
          (set cv
-              'xd 0 
-              'yd 0)
+              'xd 1 
+              'yd 1)
          )
         (not (or (= c.entity home) (= c*.entity home)))
         (do

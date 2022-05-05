@@ -291,8 +291,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       var hpos = game.systems.get(Position, home);
       cv.pos.x = (30 + hpos.x);
       cv.pos.y = (30 + hpos.y);
-      cv.xd = 0;
-      return cv.yd = 0;
+      cv.xd = 1;
+      return cv.yd = 1;
     } else if (!((c.entity === home || c_.entity === home))) {
       
     }
