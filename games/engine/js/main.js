@@ -270,7 +270,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return console.log(err);
 
 }));
-const Pheremones=createField();
 var ant = (function ant$() {
   /* ant eval.sibilant:169:0 */
 

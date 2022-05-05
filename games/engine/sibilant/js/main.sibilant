@@ -165,7 +165,7 @@
     ;; (print 'c*v.xd c*v.xd )
     ;; (print 'c*v.yd c*v.yd )
     )
-(const Pheremones (create-field ))
+;; (const Pheremones (create-field ))
 (def ant ())
 (def plant ())
 (def nest ())
