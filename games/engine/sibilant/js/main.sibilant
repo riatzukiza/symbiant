@@ -142,9 +142,9 @@
     ;; (print 'c*v.xd c*v.xd )
     ;; (print 'c*v.yd c*v.yd )
 
-    ;; (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
+    (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
 
-    ;; (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
+    (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
     (if (= c.entity target)
         (do
 

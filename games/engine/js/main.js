@@ -283,6 +283,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
+  var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
+  var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
   return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
