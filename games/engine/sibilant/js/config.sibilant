@@ -6,4 +6,6 @@
      'noise-z 100
      'field-force 100
      'dimensions [200,200]
+     'columns (/ (first config.dimensions)
+                config.size)
      )
