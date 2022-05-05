@@ -128,7 +128,7 @@
          (set cv
               'xd 0
               'yd 0))
-        (print "hit something other than target")
+        (print "not target")
         ))
 
 (define SignalField Physics.Force
