@@ -31,7 +31,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     pH.addTo(vec)
 
-    if(pH.getLength() < 1) {
+    if(pH.getLength() < 10) {
       vel.accelerate([pH.x,pH.y]);
 
       pH.addTo({
