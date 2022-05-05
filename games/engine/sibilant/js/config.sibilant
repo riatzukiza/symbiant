@@ -3,7 +3,7 @@
 (set module.exports
      'height 100
      'width  100
-     'size 5
+     'size size
      'angle-zoom 100
      'noise-z 100
      'field-force 100
