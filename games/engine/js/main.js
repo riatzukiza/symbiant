@@ -326,26 +326,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return console.log(err);
 
 }));
-var ant = (function ant$() {
-  /* ant eval.sibilant:265:0 */
-
-  
-});
-var plant = (function plant$() {
-  /* plant eval.sibilant:266:0 */
-
-  
-});
-var nest = (function nest$() {
-  /* nest eval.sibilant:267:0 */
-
-  
-});
-var colony = (function colony$() {
-  /* colony eval.sibilant:268:0 */
-
-  
-});
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),
@@ -381,7 +361,7 @@ game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
 var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
-  /* spawn-ant eval.sibilant:322:0 */
+  /* spawn-ant eval.sibilant:317:0 */
 
   var x = x_y$3[0],
       y = x_y$3[1];
