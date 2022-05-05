@@ -80,6 +80,7 @@
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
+(assign global.size window.size)
 (require! config "./config")
 (print (window.size))
 
