@@ -149,8 +149,11 @@
 
     (set cv.pos
          'x (- cv.xd cv.pos.x)
-         'y (- cv.yd cv.pos.y)
-         )
+         'y (- cv.yd cv.pos.y))
+
+    (set c*v.pos
+         'x (-  c*v.pos.x c*v.xd)
+         'y (-  c*v.pos.y c*v.yd))
     (set cv
          'xd (* 2 m* c*v.xd)
          'yd (* 2 m* c*v.yd))
