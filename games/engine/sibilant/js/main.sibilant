@@ -163,10 +163,8 @@
         (field (create-vector-field config.columns 
                                     config.rows))
 
-        (layer (create-vector-field (/ (first config.dimensions)
-                                       config.size)
-                                    (/ (second config.dimensions)
-                                       config.size)))
+        (layer (create-vector-field config.columns 
+                                    config.rows))
 
         (def-generic apply (c, field, layer)
                      (var v c.velocity)

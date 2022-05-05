@@ -282,7 +282,7 @@ var colony = (function colony$() {
 });
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
-  layer:createVectorField((config.dimensions[0] / config.size), (config.dimensions[1] / config.size)),
+  layer:createVectorField(config.columns, config.rows),
   apply( c = this.c,field = this.field,layer = this.layer ){ 
     
       var v = c.velocity;
