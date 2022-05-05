@@ -29,7 +29,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
 
-    vel.accelerate([( pH.x/ 100),pH.y/100]);
+    vel.accelerate([( pH.x),pH.y]);
 
     pH.addTo(vec)
     pH.addTo({
