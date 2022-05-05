@@ -208,8 +208,8 @@ var Friction = Physics.Force.define("Friction", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          v.xd += (-1 * (v.xd / 16));
-          return v.yd += (-1 * (v.yd / 16));
+          v.xd += (-1 * (v.xd / 64));
+          return v.yd += (-1 * (v.yd / 64));
         }
       }).call(this);
     
@@ -298,22 +298,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:176:0 */
+  /* ant eval.sibilant:175:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:177:0 */
+  /* plant eval.sibilant:176:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:178:0 */
+  /* nest eval.sibilant:177:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:179:0 */
+  /* colony eval.sibilant:178:0 */
 
   
 });
