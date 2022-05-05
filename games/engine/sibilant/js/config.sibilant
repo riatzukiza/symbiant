@@ -1,28 +1,4 @@
-
-(namespace engine-tests)
-(include "kit/header" )
-(import-namespace kit)
-(include "kit-interface/header" )
-
-(var socket (io "/engine"))
-(on socket "change" () (print "change ") (.reload location))
-
-(set global
-     'mixin mixin
-     'create create
-     )
-(import-namespace interface)
-(def-lit-macro define (name parent ...body)
-               `(property @name
-                          (.define @parent (quote @name)
-                                   (lit ...@body))))
-(include "kit-html/src/dom")
-
-(def-lit-macro def-curried (name args ...body) `(property @name (R.curry (lambda @args ...@body))))
-
-
-(require! (lit Tree-map) "tree-kit")
-(const dim (window.size))
+(const dim [200,200])
 (const size 5)
 (set module.exports
      'height 100
