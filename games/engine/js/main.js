@@ -208,8 +208,8 @@ var Friction = Physics.Force.define("Friction", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          v.xd += (-1 * (v.xd / 16));
-          return v.yd += (-1 * (v.yd / 16));
+          v.xd += (-1 * (v.xd / 2));
+          return v.yd += (-1 * (v.yd / 2));
         }
       }).call(this);
     
