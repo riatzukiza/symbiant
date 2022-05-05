@@ -72,6 +72,7 @@
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Scalar) "sibilant-game-engine/client/math/scalar"
+
           (lit Component System) "sibilant-game-engine/client/ecs/component"
           noise "./noise"
           Vector "./vector"
@@ -86,8 +87,8 @@
              (var v c.velocity)
              (var collision (.get c.system.process.systems Collision c.entity))
              (unless collision.colliding
-                     (incr-by v.xd (* -1 (/ v.xd 2)))
-                     (incr-by v.yd (* -1 (/ v.yd 2))))
+                     (incr-by v.xd (* -1 (/ v.xd 4)))
+                     (incr-by v.yd (* -1 (/ v.yd 4))))
              ))
 (assign global.size window.size)
 (print window.size)
