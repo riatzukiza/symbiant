@@ -290,7 +290,6 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          console.log("woosh", v, field, layer);
           return updateParticle(v, v.pos, field, layer);
         }
       }).call(this);
