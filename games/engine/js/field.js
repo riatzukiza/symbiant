@@ -8,7 +8,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
   if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
 
     let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, config.noiseZ) * Math.PI * 2;
-    let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, config.noiseZ) *tick* config.fieldForce / 20;
+    let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, config.noiseZ) * config.fieldForce / 20;
 
     field[pos.x][pos.y].setLength(length);
     field[pos.x][pos.y].setAngle(angle);
