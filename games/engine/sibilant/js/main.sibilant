@@ -182,13 +182,13 @@
          ;;               (* 2)
          ;;               ) ))
 
-         ;; (set cv.pos
-         ;;      'x (-  cv.pos.x (/ cv.xd 2))
-         ;;      'y (-  cv.pos.y (/ cv.yd 2)))
+         (set cv.pos
+              'x (-  cv.pos.x (/ cv.xd 2))
+              'y (-  cv.pos.y (/ cv.yd 2)))
 
-         ;; (set c*v.pos
-         ;;      'x (-  c*v.pos.x (/ c*v.xd 2))
-         ;;      'y (-  c*v.pos.y (/ c*v.yd 2)))
+         (set c*v.pos
+              'x (-  c*v.pos.x (/ c*v.xd 2))
+              'y (-  c*v.pos.y (/ c*v.yd 2)))
          (set cv
               'xd (* m* c*v.xd)
               'yd (* m* c*v.yd))
