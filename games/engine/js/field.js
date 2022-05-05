@@ -17,11 +17,14 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     let vec = field[pos.x][pos.y];
 
-    pheremones[pos.x][pos.y].addTo(vec)
+    if(vec.getLength() < 1) {
 
-    vec = pheremones[pos.x][pos.y];
+      pheremones[pos.x][pos.y].addTo(vec)
 
-    vel.accelerate([vec.x/tick,vec.y/tick]);
+      vec = pheremones[pos.x][pos.y];
+      vel.accelerate([vec.x/tick,vec.y/tick]);
+    }
+
   }
 }
 
