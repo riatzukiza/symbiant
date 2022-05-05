@@ -147,12 +147,12 @@
     (var v)
 
     (set cv
-         'xd (* m c*v.xd)
-         'yd (* m c*v.yd))
+         'xd (* m* c*v.xd)
+         'yd (* m* c*v.yd))
 
     (set c*v
-         'xd (* m* cv.xd)
-         'yd (* m* cv.yd))
+         'xd (* m cv.xd)
+         'yd (* m cv.yd))
 
     ;; (set cv
     ;;      'xd c*v.xd
@@ -220,7 +220,7 @@
 
           (set (.get game.systems Physics dot)
                'scale 40
-               'mass 100
+               'mass 10
                'forces [Friction])
 
           ;; (set (.get game.systems Velocity dot)

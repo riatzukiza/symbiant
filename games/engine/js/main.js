@@ -286,10 +286,10 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
   var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
   var v = undefined;
-  cv.xd = (m * c_v.xd);
-  cv.yd = (m * c_v.yd);
-  c_v.xd = (m_ * cv.xd);
-  return c_v.yd = (m_ * cv.yd);
+  cv.xd = (m_ * c_v.xd);
+  cv.yd = (m_ * c_v.yd);
+  c_v.xd = (m * cv.xd);
+  return c_v.yd = (m * cv.yd);
 
 })).once("error", ((err) => {
 	
@@ -355,7 +355,7 @@ var SignalField = Physics.Force.define("SignalField", {
     game.systems.get(Position, dot).y = (Math.floor((Math.random() * (1000 - 1))) + 1);
     game.systems.get(Position, dot).z = 1;
     game.systems.get(Physics, dot).scale = 40;
-    game.systems.get(Physics, dot).mass = 100;
+    game.systems.get(Physics, dot).mass = 10;
     return game.systems.get(Physics, dot).forces = [ Friction ];
   }).call(this);
   }
