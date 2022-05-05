@@ -218,7 +218,7 @@
                      (var collision (.get c.system.process.systems Collision c.entity))
                      (unless collision.colliding
                              ;; (print "woosh", v, field, layer)
-                             (update-particle v v.pos, field, layer))))
+                             (update-particle v v.pos, field, layer game.ticker.tick))))
 
 (var home (entity [Dot Position Physics Collision]))
 

@@ -337,7 +337,7 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          return updateParticle(v, v.pos, field, layer);
+          return updateParticle(v, v.pos, field, layer, game.ticker.tick);
         }
       }).call(this);
     

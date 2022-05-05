@@ -1,7 +1,7 @@
 const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
-module.exports.updateParticle = function updateParticle(vel,p,field,pheremones) {
+module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick) {
   const pos = new Vector(0,0)
   pos.x = Math.round(p.x / config.size);
   pos.y = Math.round(p.y / config.size);
@@ -17,13 +17,11 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones) 
 
     let vec = field[pos.x][pos.y];
 
-    if(vec.getLength() < 1) {
-      pheremones[pos.x][pos.y].addTo(vec)
+    pheremones[pos.x][pos.y].addTo(vec)
 
-      vec = pheremones[pos.x][pos.y];
-    }
+    vec = pheremones[pos.x][pos.y];
 
-    vel.accelerate([vec.x,vec.y]);
+    vel.accelerate([vec.x/tick,vec.y/tick]);
   }
 }
 
