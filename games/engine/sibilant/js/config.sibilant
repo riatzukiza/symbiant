@@ -2,8 +2,6 @@
 )
 (const size 5)
 (set module.exports
-     'height 10
-     'width  10
      'size size
      'angle-zoom 10
      'noise-z 10
