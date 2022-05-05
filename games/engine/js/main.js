@@ -338,8 +338,8 @@ var SignalField = Physics.Force.define("SignalField", {
   
     var dot = entity(activeGameSystems);
     game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
-    game.systems.get(Position, dot).x = (Math.floor((Math.random() * (1000 - 1))) + 1);
-    game.systems.get(Position, dot).y = (Math.floor((Math.random() * (1000 - 1))) + 1);
+    game.systems.get(Position, dot).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
+    game.systems.get(Position, dot).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
     game.systems.get(Position, dot).z = 1;
     game.systems.get(Physics, dot).scale = 10;
     game.systems.get(Physics, dot).mass = 1;

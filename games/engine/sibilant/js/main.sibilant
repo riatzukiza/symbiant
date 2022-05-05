@@ -199,8 +199,8 @@
           (set (.get game.systems Dot dot)
                'color (rgba 255 0 0 255))
           (set (.get game.systems Position dot )
-               'x (random-int 1 1000)
-               'y (random-int 1 1000)
+               'x (random-int 1 (first config.dimensions))
+               'y (random-int 1 (second config.dimensions))
                'z 1)
 
 
