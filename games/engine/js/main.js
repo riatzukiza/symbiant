@@ -360,11 +360,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
   /* spawn-ant eval.sibilant:317:0 */
 
-  var x = x_y$5[0],
-      y = x_y$5[1];
+  var x = x_y$6[0],
+      y = x_y$6[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
