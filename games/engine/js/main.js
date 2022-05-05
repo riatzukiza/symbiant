@@ -331,7 +331,7 @@ var SignalField = Physics.Force.define("SignalField", {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < 150;++(i))
+  for (var i = 0;i < 120;++(i))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
