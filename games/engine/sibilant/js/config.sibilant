@@ -7,6 +7,6 @@
      'noise-z 100
      'field-force 100
      'dimensions dim
-     'columns (/ (first config.dimensions)
+     'columns (/ (first dim)
                 config.size)
      )
