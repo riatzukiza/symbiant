@@ -5,4 +5,5 @@
      'angle-zoom 100
      'noise-z 100
      'field-force 100
+     'dimensions (window.size)
      )
