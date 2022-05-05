@@ -98,7 +98,6 @@
 (var active-game-systems [Dot Position Physics Velocity Collision])
 (var game ((create Game) rendering active-game-systems))
 
-(.start game)
 
 (def entity (aspects ) (.spawn game.ent aspects ))
 (def vector2d (x y) [x y])
@@ -202,3 +201,5 @@
 
 
 
+
+(.start game)

@@ -212,24 +212,23 @@ var container = createDocumentNode("div", { 'id': "container" }, [ rendering.con
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
-game.start();
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:103:0 */
+  /* entity eval.sibilant:102:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:104:0 */
+  /* vector2d eval.sibilant:103:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:106:0 */
+  /* Tree-map.get eval.sibilant:105:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:108:0 */
+  /* memoize eval.sibilant:107:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -261,22 +260,22 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:156:0 */
+  /* ant eval.sibilant:155:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:157:0 */
+  /* plant eval.sibilant:156:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:158:0 */
+  /* nest eval.sibilant:157:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:159:0 */
+  /* colony eval.sibilant:158:0 */
 
   
 });
@@ -317,3 +316,4 @@ var SignalField = Physics.Force.define("SignalField", {
   ;
   return $for;
 }).call(this);
+game.start();
