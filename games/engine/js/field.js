@@ -19,17 +19,19 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     }
     if(pH.lastCheck < tick) {
       pH.subFrom({
-        x:0.1 * (tick - pH.lastCheck ),
-        y:0.1 * (tick - pH.lastCheck )
+        x:0.9 * (tick - pH.lastCheck ),
+        y:0.9 * (tick - pH.lastCheck )
       })
       pH.lastCheck = tick
     }
 
 
-    if(vec.getLength() < 1) {
+    if(vec.getLength() < 10) {
+
       pH.addTo(vec)
 
       vel.accelerate([pH.x,pH.y]);
+
       pH.addTo({
         x:vel.xd,
         y:vel.yd
