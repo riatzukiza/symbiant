@@ -9,6 +9,6 @@
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 0.4
+     'decay 0.1
      'friction 2
      )
