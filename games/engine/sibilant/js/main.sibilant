@@ -154,6 +154,10 @@
               'x (+ 30 hpos.x)
               'y (+ 30 hpos.y))
 
+         (set c*v
+              'xd 0 
+              'yd 0)
+
          )
         (= c*.entity target)
         (do
