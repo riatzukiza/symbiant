@@ -149,16 +149,18 @@
     ;; (if (= c.entity home))
     ;; (if (= c*.entity home))
     (when (= c.entity target)
+          (var hpos (.get game.systems Position home))
 
           (set c*.pos
-               'x (+ 3 c.pos.x)
-               'y (+ 3 c.pos.y))
+               'x (+ 3 hpos.x)
+               'y (+ 3 hpos.y))
         )
     (when (= c*.entity target)
 
+          (var hpos (.get game.systems Position home))
           (set c.pos
-               'x (+ 3 c*.pos.x)
-               'y (+ 3 c*.pos.y))
+               'x (+ 3 hpos.x)
+               'y (+ 3 hpos.y))
           )
 
     ;; (set cv.pos
