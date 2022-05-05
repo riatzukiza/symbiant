@@ -336,9 +336,9 @@
           'forces [SignalField, Friction])
      ant)
 
-;; (do-times 100
-;;           (var home-pos (.get game.systems Position home))
-;;           (spawn-ant [home-pos.x, home-pos.y], home))
+(do-times 100
+          (var home-pos (.get game.systems Position home))
+          (spawn-ant [home-pos.x, home-pos.y], home))
 
 
 
