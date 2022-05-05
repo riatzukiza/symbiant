@@ -146,6 +146,15 @@
 
     (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
     (var v)
+    ;; (if (= c.entity home))
+    ;; (if (= c*.entity home))
+    (when (= c.entity target)
+
+          (set c*.pos
+               'x c.pos.x
+               'y c.pos.y)
+        )
+    (when (= c*.entity target))
 
     ;; (set cv.pos
     ;;      'x (-  cv.pos.x (/ cv.xd 3))
