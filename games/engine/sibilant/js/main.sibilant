@@ -70,7 +70,7 @@
           (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
-          (lit Physics Friction) "sibilant-game-engine/client/systems/physics"
+          (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Scalar) "sibilant-game-engine/client/math/scalar"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
           noise "./noise"
@@ -80,6 +80,14 @@
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
+
+(define Friction Physics.Force
+        (def apply (c)
+             (var v c.velocity)
+             (var collision (.get c.system.process.systems Collision c.entity))
+             (unless collision.colliding
+                     (incr-by v.xd (* -1 (/ v.xd 1000)))
+                     (incr-by v.yd (* -1 (/ v.yd 1000))))))
 (assign global.size window.size)
 (print window.size)
 (require! config "./config")
@@ -138,13 +146,21 @@
     (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
     (var v)
 
+    ;; (set cv
+    ;;      'xd (* m* (- cv.xd c*v.xd))
+    ;;      'yd (* m* (- cv.yd c*v.yd)))
+
+    ;; (set c*v
+    ;;      'xd (* m (+ c*v.xd cv.xd))
+    ;;      'yd (* m (+ c*v.yd cv.yd)))
+
     (set cv
-         'xd (* m* (- cv.xd c*v.xd))
-         'yd (* m* (- cv.yd c*v.yd)))
+         'xd c*v.xd
+         'yd c*v.yd)
 
     (set c*v
-         'xd (* m (+ c*v.xd cv.xd))
-         'yd (* m (+ c*v.yd cv.yd)))
+         'xd cv.xd
+         'yd cv.yd)
 
     ;; (print "After collision")
     ;; (print 'cv.id cv.id )
