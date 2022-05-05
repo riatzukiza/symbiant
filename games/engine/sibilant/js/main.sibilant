@@ -294,6 +294,8 @@
      ant)
 
 (do-times 80
+          (var home-pos (.get game.systems Position home))
+          (spawn-ant [home-pos.x, home-pos.y], home,)
           )
 
 
