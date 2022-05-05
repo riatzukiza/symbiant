@@ -195,7 +195,7 @@
           (var dot (entity active-game-systems))
 
           (set (.get game.systems Dot dot)
-               'color (rgba 255 0 0 255))
+               'color (rgba 255 100 100 255))
           (set (.get game.systems Position dot )
                'x (random-int 1 1000)
                'y (random-int 1 1000)
