@@ -1,4 +1,4 @@
-const dim=[ 200, 200 ];
+const dim=[ window.innerWidth, window.innerHeight ];
 const size=5;
 module.exports.height = 100;
 module.exports.width = 100;

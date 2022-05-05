@@ -1,4 +1,5 @@
-(const dim [200, 200])
+(const dim      [window.innerWidth, window.innerHeight];
+)
 (const size 5)
 (set module.exports
      'height 100
