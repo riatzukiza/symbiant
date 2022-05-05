@@ -220,7 +220,7 @@
 
           (set (.get game.systems Physics dot)
                'scale 40
-               'mass 1
+               'mass 10
                'forces [Friction])
 
           ;; (set (.get game.systems Velocity dot)
