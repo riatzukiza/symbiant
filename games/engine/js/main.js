@@ -365,11 +365,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var createAnt = (function createAnt$(x_y$6) {
+var createAnt = (function createAnt$(x_y$7, home, startingLife) {
   /* create-ant eval.sibilant:266:0 */
 
-  var x = x_y$6[0],
-      y = x_y$6[1];
+  var x = x_y$7[0],
+      y = x_y$7[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
