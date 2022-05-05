@@ -7,5 +7,5 @@ module.exports.fieldForce = 100;
 module.exports.dimensions = dim;
 module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
-module.exports.decay = 0.1;
+module.exports.decay = 0.01;
 module.exports.friction = 80;
