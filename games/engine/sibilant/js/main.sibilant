@@ -207,15 +207,13 @@
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
          (set cv
-              'xd 0 
-              'yd 0)
-         )
+              'xd 0
+              'yd 0))
         (not (or (= c.entity home) (= c*.entity home)))
         (do
 
          (cv.accelerate [(random-signed 10)])
-         (c*v.accelerate [(random-signed 10)])
-         )
+         (c*v.accelerate [(random-signed 10)]))
         ;; (do
 
         ;;  (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
