@@ -268,8 +268,8 @@
                'color (rgba 255 0 0 255))
           (var home-pos (.get game.systems Physics home))
           (set (.get game.systems Position dot )
-               'x (+ home-pos.x (random-int 1 300))
-               'y (+ home-pos.y (random-int 1 300))
+               'x (+ 40 home-pos.x (random-int 1 300))
+               'y (+ 40 home-pos.y (random-int 1 300))
                'z 1)
 
 
