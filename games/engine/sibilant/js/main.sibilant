@@ -167,35 +167,36 @@
               'xd 0 
               'yd 0)
          )
-        (not (or (= c.entity home) (= c*.entity home)))
-        (do
+        ;;(not (or (= c.entity home) (= c*.entity home)))
+        ;; (do
 
-         (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
-         (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
+        ;;  (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
+        ;;  (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
 
-         ;; (var m1 cp.mass)
-         ;; (var m2 c*p.mass)
+        ;;  ;; (var m1 cp.mass)
+        ;;  ;; (var m2 c*p.mass)
 
-         ;; (var u1 (new Vector cv.xd cv.yd))
-         ;; (var u2 (new Vector c*v.xd c*v.yd))
-         ;; (var v1 (/ (+ (u1.mult (- m1 m2))
-         ;;               (* 2)
-         ;;               ) ))
+        ;;  ;; (var u1 (new Vector cv.xd cv.yd))
+        ;;  ;; (var u2 (new Vector c*v.xd c*v.yd))
+        ;;  ;; (var v1 (/ (+ (u1.mult (- m1 m2))
+        ;;  ;;               (* 2)
+        ;;  ;;               ) ))
 
-         ;; (set cv.pos
-         ;;      'x (-  cv.pos.x (/ cv.xd 2))
-         ;;      'y (-  cv.pos.y (/ cv.yd 2)))
+        ;;  ;; (set cv.pos
+        ;;  ;;      'x (-  cv.pos.x (/ cv.xd 2))
+        ;;  ;;      'y (-  cv.pos.y (/ cv.yd 2)))
 
-         ;; (set c*v.pos
-         ;;      'x (-  c*v.pos.x (/ c*v.xd 2))
-         ;;      'y (-  c*v.pos.y (/ c*v.yd 2)))
-         (set cv
-              'xd (* m* c*v.xd)
-              'yd (* m* c*v.yd))
+        ;;  ;; (set c*v.pos
+        ;;  ;;      'x (-  c*v.pos.x (/ c*v.xd 2))
+        ;;  ;;      'y (-  c*v.pos.y (/ c*v.yd 2)))
+        ;;  (set cv
+        ;;       'xd (* m* c*v.xd)
+        ;;       'yd (* m* c*v.yd))
 
-         (set c*v
-              'xd (* m cv.xd)
-              'yd (* m cv.yd))))
+        ;;  (set c*v
+        ;;       'xd (* m cv.xd)
+        ;;       'yd (* m cv.yd)))
+        )
 
 
     ;; (set cv
