@@ -358,11 +358,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var spawnAnt = (function spawnAnt$(x_y$9, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$10, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$9[0],
-      y = x_y$9[1];
+  var x = x_y$10[0],
+      y = x_y$10[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
@@ -384,23 +384,7 @@ var spawnAnt = (function spawnAnt$(x_y$9, home, startingLife) {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
   
-    var dot = entity(activeGameSystems);
-    game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
-    var homePos = game.systems.get(Position, home);
-    game.systems.get(Position, dot).x = (homePos.x + (Math.floor((Math.random() * (500 - 1))) + 1));
-    game.systems.get(Position, dot).y = (homePos.y + (Math.floor((Math.random() * (500 - 1))) + 1));
-    game.systems.get(Position, dot).z = 1;
-    game.systems.get(Physics, dot).scale = 10;
-    game.systems.get(Physics, dot).mass = 1;
-    game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
-    var dot = entity(activeGameSystems);
-    game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
-    game.systems.get(Position, dot).x = homePos.x;
-    game.systems.get(Position, dot).y = homePos.y;
-    game.systems.get(Position, dot).z = 1;
-    game.systems.get(Physics, dot).scale = 10;
-    game.systems.get(Physics, dot).mass = 1;
-    return game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
+    
   }).call(this);
   }
   ;
