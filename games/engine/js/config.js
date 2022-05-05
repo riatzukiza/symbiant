@@ -4,4 +4,4 @@ module.exports.size = 8;
 module.exports.angleZoom = 100;
 module.exports.noiseZ = 100;
 module.exports.fieldForce = 100;
-module.exports.dimensions = window.size();
+module.exports.dimensions = [ 200200 ];
