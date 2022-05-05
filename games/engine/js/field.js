@@ -19,6 +19,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     }
     if(pH.lastCheck < tick) {
       // console.log("decaying",pH,tick)
+      pH.x = pH.x 
       pH.subFrom({
         x:pH.x * (config.decay * (tick - pH.lastCheck )),
         y:pH.y * (config.decay * (tick - pH.lastCheck )),
@@ -28,15 +29,17 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
 
-
     pH.addTo(vec)
-    vel.accelerate([ pH.x/10,pH.y/10]);
 
-    pH.addTo({
-      x:vel.xd/10,
-      y:vel.yd/10
+    if(pH.getLength() < 10) {
+      vel.accelerate([pH.x,pH.y]);
 
-    })
+      pH.addTo({
+        x:vel.xd,
+        y:vel.yd
+
+      })
+    }
     // console.log({tick,vec,vel})
 
   }
