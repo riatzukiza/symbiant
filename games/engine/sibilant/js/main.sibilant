@@ -283,7 +283,7 @@
 
      (set (.get game.systems Position ant )
           'x x
-          'y x
+          'y y
           'z 1)
 
 
