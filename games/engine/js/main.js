@@ -281,14 +281,14 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var m = ((cp.mass) / (c_p.mass + cp.mass));
   var m_ = ((c_p.mass) / (c_p.mass + cp.mass));
   var v = undefined;
-  cv.xd = (2 * m_ * c_v.xd);
-  cv.yd = (2 * m_ * c_v.yd);
-  c_v.xd = (2 * m * cv.xd);
-  c_v.yd = (2 * m * cv.yd);
   cv.pos.x = (cv.pos.x - (cv.xd / 10));
   cv.pos.y = (cv.pos.y - (cv.yd / 10));
   c_v.pos.x = (c_v.pos.x - (c_v.xd / 10));
-  return c_v.pos.y = (c_v.pos.y - (c_v.yd / 10));
+  c_v.pos.y = (c_v.pos.y - (c_v.yd / 10));
+  cv.xd = (m_ * c_v.xd);
+  cv.yd = (m_ * c_v.yd);
+  c_v.xd = (m * cv.xd);
+  return c_v.yd = (m * cv.yd);
 
 })).once("error", ((err) => {
 	
@@ -297,22 +297,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:184:0 */
+  /* ant eval.sibilant:183:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:185:0 */
+  /* plant eval.sibilant:184:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:186:0 */
+  /* nest eval.sibilant:185:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:187:0 */
+  /* colony eval.sibilant:186:0 */
 
   
 });
