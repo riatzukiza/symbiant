@@ -298,6 +298,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c.pos.x = (3 + hpos.x);
       return c.pos.y = (3 + hpos.y);
     } else {
+      console.log("collision between ants", c, c_);
       cv.xd = (m_ * c_v.xd);
       cv.yd = (m_ * c_v.yd);
       c_v.xd = (m * cv.xd);
@@ -312,22 +313,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:206:0 */
+  /* ant eval.sibilant:207:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:207:0 */
+  /* plant eval.sibilant:208:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:208:0 */
+  /* nest eval.sibilant:209:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:209:0 */
+  /* colony eval.sibilant:210:0 */
 
   
 });

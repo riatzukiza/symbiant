@@ -168,6 +168,7 @@
               'y (+ 3 hpos.y)))
         (do
 
+         (print "collision between ants" c c*)
          (set cv
               'xd (* m* c*v.xd)
               'yd (* m* c*v.yd))
