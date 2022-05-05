@@ -264,6 +264,26 @@ var rgba = memoize(((r, g, b, a) => {
    };
 
 }));
+game.events.on("collision", (([ c, c_, d ]) => {
+	
+  var cv = game.systems.get(Velocity, c.entity);
+  var c_v = game.systems.get(Velocity, c_.entity);
+  var cp = game.systems.get(Physics, c.entity);
+  var c_p = game.systems.get(Physics, c_.entity);
+  var m = ((2 * cp.mass) / (c_p.mass + cp.mass));
+  var m_ = ((2 * c_p.mass) / (c_p.mass + cp.mass));
+  var v = undefined;
+  cv.xd = (m_ * (cv.xd - c_v.xd));
+  cv.yd = (m_ * (cv.yd - c_v.yd));
+  c_v.xd = (m * (c_v.xd + cv.xd));
+  return c_v.yd = (m * (c_v.yd + cv.yd));
+
+})).once("error", ((err) => {
+	
+  console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
+  return console.log(err);
+
+}));
 var ant = (function ant$() {
   /* ant eval.sibilant:159:0 */
 
