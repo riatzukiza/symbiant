@@ -7,6 +7,6 @@
      'noise-z 10
      'field-force 100
      'dimensions dim
-     'columns (Math.round (/ (first dim) size))
-     'rows (Math.round (/ (second dim) size))
+     'columns (Math.ceil (/ (first dim) size))
+     'rows (Math.ceil (/ (second dim) size))
      )
