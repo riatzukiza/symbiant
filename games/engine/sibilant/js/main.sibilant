@@ -171,7 +171,7 @@
                              (print "woosh", v, field, layer)
                              (update-particle v v.pos, field, layer))))
 
-(do-times 1000
+(do-times 10
           (var dot (entity active-game-systems))
 
           (set (.get game.systems Dot dot)
