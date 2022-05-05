@@ -365,11 +365,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var createAnt = (function createAnt$(x_y$5) {
+var createAnt = (function createAnt$(x_y$6) {
   /* create-ant eval.sibilant:266:0 */
 
-  var x = x_y$5[0],
-      y = x_y$5[1];
+  var x = x_y$6[0],
+      y = x_y$6[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
@@ -379,7 +379,8 @@ var createAnt = (function createAnt$(x_y$5) {
   game.systems.get(Position, ant).z = 1;
   game.systems.get(Physics, ant).scale = 10;
   game.systems.get(Physics, ant).mass = 1;
-  return game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
+  game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
+  return ant;
 });
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
