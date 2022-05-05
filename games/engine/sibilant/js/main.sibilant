@@ -266,7 +266,7 @@
 
           (set (.get game.systems Dot dot)
                'color (rgba 255 0 0 255))
-          (var home-pos (.get game.systems Physics home))
+          (var home-pos (.get game.systems Position home))
           (var ant-pos (.get game.systems Position dot ))
           (var randx (random-int 1 300)) 
           (var randy (random-int 1 300)) 
