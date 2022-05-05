@@ -187,10 +187,10 @@
 
 (define SignalField Physics.Force
 
-        (field (create-vector-field config.columns 
+        (field (create-vector-field config.columns
                                     config.rows))
 
-        (layer (create-vector-field config.columns 
+        (layer (create-vector-field config.columns
                                     config.rows))
 
         (def-generic apply (c, field, layer)
@@ -200,6 +200,7 @@
                              ;; (print "woosh", v, field, layer)
                              (update-particle v v.pos, field, layer))))
 
+(var home (entity [Dot Position Physics Collision]))
 (do-times 80
           (var dot (entity active-game-systems))
 

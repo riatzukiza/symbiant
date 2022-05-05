@@ -332,6 +332,7 @@ var SignalField = Physics.Force.define("SignalField", {
     
    }
  });
+var home = entity([ Dot, Position, Physics, Collision ]);
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
