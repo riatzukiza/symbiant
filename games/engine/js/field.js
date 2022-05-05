@@ -10,19 +10,19 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, config.noiseZ) * Math.PI * 2;
     let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, config.noiseZ) * config.fieldForce / 20;
 
-    field[pos.x][pos.y].setLength(length*tick);
-    field[pos.x][pos.y].setAngle(angle*tick);
+    field[pos.x][pos.y].setLength(length );
+    field[pos.x][pos.y].setAngle(angle);
 
     field[pos.x][pos.y].addTo(pheremones[pos.x][pos.y]);
 
     let vec = field[pos.x][pos.y];
 
 
-    if(vec.getLength() < 1) {
-    pheremones[pos.x][pos.y].addTo(vec)
+    if(vec.getLength() < 10) {
+      pheremones[pos.x][pos.y].addTo(vec)
 
-    vec = pheremones[pos.x][pos.y];
-    vel.accelerate([vec.x/(tick / 10000),vec.y/(tick / 10000)]);
+      vec = pheremones[pos.x][pos.y];
+      vel.accelerate([vec.x,vec.y]);
     // console.log({tick,vec,vel})
     }
 

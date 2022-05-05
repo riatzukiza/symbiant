@@ -208,8 +208,8 @@ var Friction = Physics.Force.define("Friction", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          v.xd += (-1 * (v.xd / 16));
-          return v.yd += (-1 * (v.yd / 16));
+          v.xd += (-1 * (v.xd / 32));
+          return v.yd += (-1 * (v.yd / 32));
         }
       }).call(this);
     
@@ -360,7 +360,7 @@ game.systems.get(Collision, target).type = "static";
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < 80;++(i))
+  for (var let = time;time < 80;++(time))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
