@@ -288,12 +288,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return (function() {
     if (c.entity === target) {
       var hpos = game.systems.get(Position, home);
-      c_v.pos.x = (30 + hpos.x);
-      return c_v.pos.y = (30 + hpos.y);
+      c_v.pos.x = (3 + hpos.x);
+      return c_v.pos.y = (3 + hpos.y);
     } else if (c_.entity === target) {
       var hpos = game.systems.get(Position, home);
-      cv.pos.x = (30 + hpos.x);
-      return cv.pos.y = (30 + hpos.y);
+      cv.pos.x = (3 + hpos.x);
+      return cv.pos.y = (3 + hpos.y);
     } else if (!((c.entity === home || c_.entity === home))) {
       
     }

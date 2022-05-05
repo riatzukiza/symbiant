@@ -151,8 +151,8 @@
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
-              'x (+ 30 hpos.x)
-              'y (+ 30 hpos.y))
+              'x (+ 3 hpos.x)
+              'y (+ 3 hpos.y))
 
          ;; (set c*v
          ;;      'xd 0 
@@ -164,8 +164,8 @@
 
          (var hpos (.get game.systems Position home))
          (set cv.pos
-              'x (+ 30 hpos.x)
-              'y (+ 30 hpos.y))
+              'x (+ 3 hpos.x)
+              'y (+ 3 hpos.y))
          ;; (set cv
          ;;      'xd 0 
          ;;      'yd 0)
