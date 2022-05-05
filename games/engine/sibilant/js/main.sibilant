@@ -201,6 +201,7 @@
                              (update-particle v v.pos, field, layer))))
 
 (var home (entity [Dot Position Physics Collision]))
+(var target (entity [Dot Position Physics Collision]))
 (do-times 80
           (var dot (entity active-game-systems))
 
