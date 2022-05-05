@@ -265,18 +265,18 @@
 (set (.get game.systems Collision target)
      'type 'static)
 (def create-ant ([x, y])
-     (var dot (entity active-game-systems))
+     (var ant (entity active-game-systems))
 
      (set (.get game.systems Dot dot)
           'color (rgba 255 0 0 255))
      (var home-pos (.get game.systems Position home))
-     (set (.get game.systems Position dot )
+     (set (.get game.systems Position ant )
           'x x
           'y x
           'z 1)
 
 
-     (set (.get game.systems Physics dot)
+     (set (.get game.systems Physics ant)
           'scale 10
           'mass 1
           'forces [SignalField, Friction])

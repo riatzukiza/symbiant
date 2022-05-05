@@ -365,21 +365,21 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var createAnt = (function createAnt$(x_y$1) {
+var createAnt = (function createAnt$(x_y$2) {
   /* create-ant eval.sibilant:265:0 */
 
-  var x = x_y$1[0],
-      y = x_y$1[1];
+  var x = x_y$2[0],
+      y = x_y$2[1];
 
-  var dot = entity(activeGameSystems);
+  var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
   var homePos = game.systems.get(Position, home);
-  game.systems.get(Position, dot).x = x;
-  game.systems.get(Position, dot).y = x;
-  game.systems.get(Position, dot).z = 1;
-  game.systems.get(Physics, dot).scale = 10;
-  game.systems.get(Physics, dot).mass = 1;
-  return game.systems.get(Physics, dot).forces = [ SignalField, Friction ];
+  game.systems.get(Position, ant).x = x;
+  game.systems.get(Position, ant).y = x;
+  game.systems.get(Position, ant).z = 1;
+  game.systems.get(Physics, ant).scale = 10;
+  game.systems.get(Physics, ant).mass = 1;
+  return game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
 });
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
