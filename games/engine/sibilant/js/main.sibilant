@@ -88,7 +88,6 @@
                              (limit 100)
                              (blend true))))
 
-(.resize rendering (.sub Scalar  (window.size) 4))
 
 (var stage (dom (.div .id 'stage )))
 
