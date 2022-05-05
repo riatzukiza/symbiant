@@ -103,10 +103,7 @@
 (macro do-times (x ...body)
        `(loop (for (let time 0) (< time @x) (++ time) ...@body)))
 (macro every (amount time ...body) `(when (= (mod  @time @amount) 0) ...@body))
-;; (include "../inc/electron"
-;;          "../inc/docs")
 
-;; (assign module.filename (Path.join (process.cwd) "./tests/dot.sibilant"))
 
 (require! (lit Game) "sibilant-game-engine/client/game"
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
