@@ -9,5 +9,5 @@
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 0.5
+     'decay 0.1
      )

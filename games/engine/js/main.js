@@ -313,22 +313,22 @@ game.events.on("collision", (([ c, c_, d ]) => {
 
 }));
 var ant = (function ant$() {
-  /* ant eval.sibilant:208:0 */
+  /* ant eval.sibilant:217:0 */
 
   
 });
 var plant = (function plant$() {
-  /* plant eval.sibilant:209:0 */
+  /* plant eval.sibilant:218:0 */
 
   
 });
 var nest = (function nest$() {
-  /* nest eval.sibilant:210:0 */
+  /* nest eval.sibilant:219:0 */
 
   
 });
 var colony = (function colony$() {
-  /* colony eval.sibilant:211:0 */
+  /* colony eval.sibilant:220:0 */
 
   
 });
@@ -365,11 +365,11 @@ game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
-var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
-  /* spawn-ant eval.sibilant:264:0 */
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:273:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = entity(activeGameSystems);
   game.systems.get(Dot, dot).color = rgba(255, 0, 0, 255);
