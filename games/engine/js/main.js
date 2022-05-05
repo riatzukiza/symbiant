@@ -288,8 +288,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var v = undefined;
   cv.xd = (m_ * c_v.xd);
   cv.yd = (m_ * c_v.yd);
-  c_v.xd = (m * (c_v.xd + cv.xd));
-  return c_v.yd = (m * (c_v.yd + cv.yd));
+  c_v.xd = (m * cv.xd);
+  return c_v.yd = (m * cv.yd);
 
 })).once("error", ((err) => {
 	

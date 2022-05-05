@@ -151,8 +151,8 @@
          'yd (* m* c*v.yd))
 
     (set c*v
-         'xd (* m (+ c*v.xd cv.xd))
-         'yd (* m (+ c*v.yd cv.yd)))
+         'xd (* m cv.xd)
+         'yd (* m cv.yd))
 
     ;; (set cv
     ;;      'xd c*v.xd
