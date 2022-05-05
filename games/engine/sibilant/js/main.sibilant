@@ -270,7 +270,9 @@
 
      (set (.get game.systems Dot dot)
           'color (rgba 255 0 0 255))
+
      (var home-pos (.get game.systems Position home))
+
      (set (.get game.systems Position ant )
           'x x
           'y x
