@@ -151,10 +151,15 @@
     (when (= c.entity target)
 
           (set c*.pos
-               'x c.pos.x
-               'y c.pos.y)
+               'x (+ 3 c.pos.x)
+               'y (+ 3 c.pos.y))
         )
-    (when (= c*.entity target))
+    (when (= c*.entity target)
+
+          (set c.pos
+               'x (+ 3 c*.pos.x)
+               'y (+ 3 c*.pos.y))
+          )
 
     ;; (set cv.pos
     ;;      'x (-  cv.pos.x (/ cv.xd 3))
