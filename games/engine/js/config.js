@@ -1,4 +1,5 @@
 const dim=[ 200200 ];
+const size=5;
 module.exports.height = 100;
 module.exports.width = 100;
 module.exports.size = 5;
