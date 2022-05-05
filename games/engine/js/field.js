@@ -21,8 +21,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       // console.log("decaying",pH,tick)
       pH.x = pH.x 
       pH.subFrom({
-        x:pH.x * (0.5 * (tick - pH.lastCheck )),
-        y:pH.y * (0.5 * (tick - pH.lastCheck )),
+        x:pH.x * (config.decay * (tick - pH.lastCheck )),
+        y:pH.y * (config.decay * (tick - pH.lastCheck )),
       })
       pH.lastCheck = tick
     }
