@@ -31,8 +31,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
     pH.addTo(vec)
-    pH.addTo({x:vel.xd, y:vel.yd})
     vel.accelerate([pH.x,pH.y]);
+    pH.addTo({x:vel.xd, y:vel.yd})
 
     // console.log({tick,vec,vel})
 
