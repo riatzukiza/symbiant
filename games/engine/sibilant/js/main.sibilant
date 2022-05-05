@@ -82,6 +82,7 @@
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
 
+(print config)
 
 (const rendering (.load Rendering
                         (lit (size config.dimensions)
