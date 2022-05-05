@@ -337,7 +337,8 @@
      ant)
 
 (var home-pos (.get game.systems Position home))
-(do-times 150 (spawn-ant [home-pos.x home-pos.y] home))
+(var number 100)
+(do-times number (spawn-ant [home-pos.x home-pos.y] home))
 
 
 
