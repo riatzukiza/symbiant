@@ -176,15 +176,6 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    ;; (print "before collision")
-    ;; (print 'cv.id cv.id )
-    ;; (print 'cv.xd cv.xd )
-    ;; (print 'cv.yd cv.yd )
-
-    ;; (print 'c*v.id c*v.id )
-    ;; (print 'c*v.xd c*v.xd )
-    ;; (print 'c*v.yd c*v.yd )
-
     (if (= c.entity target)
         (do
 
@@ -211,57 +202,8 @@
               'yd 0))
         (not (or (= c.entity home) (= c*.entity home)))
         (do
-
-         (cv.accelerate [(random-signed 10)])
-         (c*v.accelerate [(random-signed 10)]))
-        ;; (do
-
-        ;;  (var m (/ (* 2 cp.mass) (+ c*p.mass cp.mass)))
-        ;;  (var m* (/ (* 2 c*p.mass)(+ c*p.mass cp.mass)))
-
-        ;;  ;; (var m1 cp.mass)
-        ;;  ;; (var m2 c*p.mass)
-
-        ;;  ;; (var u1 (new Vector cv.xd cv.yd))
-        ;;  ;; (var u2 (new Vector c*v.xd c*v.yd))
-        ;;  ;; (var v1 (/ (+ (u1.mult (- m1 m2))
-        ;;  ;;               (* 2)
-        ;;  ;;               ) ))
-
-        ;;  ;; (set cv.pos
-        ;;  ;;      'x (-  cv.pos.x (/ cv.xd 2))
-        ;;  ;;      'y (-  cv.pos.y (/ cv.yd 2)))
-
-        ;;  ;; (set c*v.pos
-        ;;  ;;      'x (-  c*v.pos.x (/ c*v.xd 2))
-        ;;  ;;      'y (-  c*v.pos.y (/ c*v.yd 2)))
-        ;;  (set cv
-        ;;       'xd (* m* c*v.xd)
-        ;;       'yd (* m* c*v.yd))
-
-        ;;  (set c*v
-        ;;       'xd (* m cv.xd)
-        ;;       'yd (* m cv.yd)))
-        )
-
-
-    ;; (set cv
-    ;;      'xd c*v.xd
-    ;;      'yd c*v.yd)
-
-    ;; (set c*v
-    ;;      'xd cv.xd
-    ;;      'yd cv.yd)
-
-    ;; (print "After collision")
-    ;; (print 'cv.id cv.id )
-    ;; (print 'cv.xd cv.xd )
-    ;; (print 'cv.yd cv.yd )
-
-    ;; (print 'c*v.id c*v.id )
-    ;; (print 'c*v.xd c*v.xd )
-    ;; (print 'c*v.yd c*v.yd )
-    )
+         (.accelerate cv [(random-signed 10),(random-signed 10)])
+         (.accelerate c*v [(random-signed 10),(random-signed 10)]))))
 
 (define SignalField Physics.Force
 

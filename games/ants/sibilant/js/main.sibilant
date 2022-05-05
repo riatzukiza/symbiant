@@ -101,9 +101,6 @@
 (require! R "ramda")
 (let set-value (R.curry (=> (value entity) (assign entity.value value))))
 
-(def-promised load-json-file (path)
-  ()
-  )
 
 (generic load (def) (path (entity this))
 

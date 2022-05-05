@@ -86,15 +86,6 @@ let setValue = R.curry((value, entity) => {
   return entity.value = value;
 
 });
-function loadJsonFile( path ){ 
-  (new Promise((success, fail) => {
-  	
-    var resolve = success,
-        reject = fail;
-    return null;
-  
-  }))
- };
 var load = (function load$(path = this.path, entity = this) {
   /* load deps.sibilant:61:8 */
 
