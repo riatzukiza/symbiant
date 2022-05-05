@@ -110,19 +110,19 @@
   (pipe (load-json-file path)
         (.then (set-value _ entity))))
 
-;; (def start (sim)
-;;   (let plants ((create Plant-group) ))
-;;   (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
-;;   (assign global.sim sim)
-;;   (do-times 1000 (.spawn reds))
-;;   (do-times 1000 (.random plants  ))
-;;   (interface sim reds)
+(def start (sim)
+  (let plants ((create Plant-group) ))
+  (let reds ((create Colony) { x 30 y 60} (color 255 0 0) plants ))
+  (assign global.sim sim)
+  (do-times 1000 (.spawn reds))
+  (do-times 1000 (.random plants  ))
+  (interface sim reds)
 
-;;   (on (sim.start) "tick" (now ticks)
-;;       (every 60 ticks (.update plants))
+  (on (sim.start) "tick" (now ticks)
+      (every 60 ticks (.update plants))
 
-;;       (do-times 1 (each Colony.colonies (col) (.update col)))
-;;       (pipe sim.layers
-;;             (.update )
-;;             (.render))))
+      (do-times 1 (each Colony.colonies (col) (.update col)))
+      (pipe sim.layers
+            (.update )
+            (.render))))
 (.load sim  start)
