@@ -1,5 +1,5 @@
 const dim=[ window.innerWidth, window.innerHeight ];
-const size=5;
+const size=10;
 module.exports.size = size;
 module.exports.angleZoom = 10;
 module.exports.noiseZ = 10;
