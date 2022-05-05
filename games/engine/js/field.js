@@ -3,8 +3,8 @@ const config = require("./config.js")
 const Vector = require("./vector")
 module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick) {
   const pos = new Vector(0,0)
-  pos.x = Math.ceil(p.x / config.size);
-  pos.y = Math.ceil(p.y / config.size);
+  pos.x = Math.round(p.x / config.size);
+  pos.y = Math.round(p.y / config.size);
   if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
 
     let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, config.noiseZ) * Math.PI * 2;
@@ -17,15 +17,15 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     if(!pH.lastCheck) {
       pH.lastCheck = tick
     }
-    // if(pH.lastCheck < tick) {
-    //   // console.log("decaying",pH,tick)
-    //   pH.x = pH.x 
-    //   pH.subFrom({
-    //     x:pH.x * (config.decay * (tick - pH.lastCheck )),
-    //     y:pH.y * (config.decay * (tick - pH.lastCheck )),
-    //   })
-    //   pH.lastCheck = tick
-    // }
+    if(pH.lastCheck < tick) {
+      // console.log("decaying",pH,tick)
+      pH.x = pH.x 
+      pH.subFrom({
+        x:pH.x * (config.decay * (tick - pH.lastCheck )),
+        y:pH.y * (config.decay * (tick - pH.lastCheck )),
+      })
+      pH.lastCheck = tick
+    }
 
 
 
