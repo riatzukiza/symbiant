@@ -106,6 +106,7 @@
         (do
 
          (assign c.colliding false)
+         (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
@@ -119,6 +120,7 @@
         (= c*.entity target)
         (do
 
+         (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
          (set cv.pos

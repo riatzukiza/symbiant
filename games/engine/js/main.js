@@ -289,6 +289,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return (function() {
     if (c.entity === target) {
       c.colliding = false;
+      c_.colliding = false;
       var hpos = game.systems.get(Position, home);
       c_v.pos.x = (3 + hpos.x);
       c_v.pos.y = (3 + hpos.y);
@@ -306,6 +307,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
         return (1 - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
+      c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
       cv.pos.x = (3 + hpos.x);
@@ -385,11 +387,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$28, home, startingLife) {
-  /* spawn-ant eval.sibilant:183:0 */
+var spawnAnt = (function spawnAnt$(x_y$29, home, startingLife) {
+  /* spawn-ant eval.sibilant:185:0 */
 
-  var x = x_y$28[0],
-      y = x_y$28[1];
+  var x = x_y$29[0],
+      y = x_y$29[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
