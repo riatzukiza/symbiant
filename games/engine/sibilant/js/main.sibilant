@@ -150,8 +150,8 @@
          (assign c.colliding false)
          (assign c*.colliding false)
 
-         (.accelerate cv [(random-signed 1),(random-signed 1)])
-         (.accelerate c*v [(random-signed 1),(random-signed 1)])
+         ;; (.accelerate cv [(random-signed 1),(random-signed 1)])
+         ;; (.accelerate c*v [(random-signed 1),(random-signed 1)])
 
          (update-particle c*v c*v.pos, Signal-field.field,
                           Signal-field.layer
