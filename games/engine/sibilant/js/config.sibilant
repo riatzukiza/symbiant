@@ -10,5 +10,5 @@
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.9
-     'friction 2
+     'friction 32
      )
