@@ -13,6 +13,7 @@
      'maxLength 10
      'ant-limit 200
      'max-in-decay 50
+     'max-trail 100
      'limit-decay false
      'ant-influence 3
      'friction 32
