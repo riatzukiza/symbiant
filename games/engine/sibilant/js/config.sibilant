@@ -5,12 +5,12 @@
      'size size
      'angle-zoom 30
      'noise-z 70
-     'field-force 1000
+     'field-force 10000
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.1
-     'maxLength 30.5
+     'maxLength 3.5
      'ant-limit 200
      'max-in-decay 400
      'max-trail 400
@@ -18,7 +18,7 @@
      'decay-on-collision true
      'limit-decay true
      'ant-influence 10.8
-     'friction  30.5
+     'friction  80.5
      'collision-static 3
      'spawn-static 10
      'spawn-rate 100
