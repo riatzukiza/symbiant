@@ -55,8 +55,8 @@
              (var v c.velocity)
              (var collision (.get c.system.process.systems Collision c.entity))
              (unless collision.colliding
-                     (incr-by v.xd (* -3 (+ 3 (/ v.xd config.friction))))
-                     (incr-by v.yd (* -3 (+ 3 (/ v.yd config.friction)))))))
+                     (incr-by v.xd (* -0.3 (+ 3 (/ v.xd config.friction))))
+                     (incr-by v.yd (* -0.3 (+ 3 (/ v.yd config.friction)))))))
 (assign global.size window.size)
 (print window.size)
 (require! config "./config")
