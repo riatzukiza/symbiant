@@ -17,7 +17,7 @@
      'min-trail 100
      'decay-on-collision true
      'limit-decay true
-     'ant-influence 1.8
+     'ant-influence 10.8
      'friction  80.5
      'collision-static 3
      'spawn-static 10
