@@ -230,7 +230,7 @@
           'forces [SignalField, Friction])
      (var v (.get game.systems Velocity ant))
 
-     (.accelerate v [(random-signed 1),(random-signed 1)])
+     (.accelerate v [(random-signed 10),(random-signed 10)])
      ant)
 
 (var home-pos (.get game.systems Position home))
