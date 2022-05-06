@@ -14,7 +14,7 @@
      'ant-limit 200
      'max-in-decay 50
      'limit-decay false
-     'ant-influence 0.3
+     'ant-influence 3
      'friction 32
      'spawn-rate 100
      )
