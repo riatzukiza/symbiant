@@ -30,7 +30,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
 
-    pH.addTo(vec)
+    pH.addTo(vec.multTo(2))
 
     pH.addTo({
       x:vel.xd/10,
