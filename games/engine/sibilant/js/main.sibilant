@@ -111,9 +111,9 @@
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
 
-         ;; (set c*v
-         ;;      'xd 0 
-         ;;      'yd 0)
+         (set c*v
+              'xd 0 
+              'yd 0)
 
          )
         (= c*.entity target)
@@ -123,9 +123,9 @@
          (set cv.pos
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
-         ;; (set cv
-         ;;      'xd 0
-         ;;      'yd 0)
+         (set cv
+              'xd 0
+              'yd 0)
          )
         (not (or (= c.entity home) (= c*.entity home)))
         (do
