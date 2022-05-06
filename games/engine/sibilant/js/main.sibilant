@@ -306,3 +306,4 @@
 (.addRange settings "friction" 0 9999 (=> (val) (assign config.max-length val)))
 (.addRange settings "Collision Static" 0 9999 (=> (val) (assign config.max-length val)))
 (.addRange settings "Spawn Static" 0 9999 (=> (val) (assign config.max-length val)))
+(.addRange settings "Spawn Rate" 0 9999 (=> (val) (assign config.max-length val)))
