@@ -128,8 +128,7 @@
          (set cv
               'xd 0
               'yd 0))
-        (print "not target")
-        ))
+        (print "not target")))
 
 (define SignalField Physics.Force
 
@@ -205,7 +204,7 @@
      ant)
 
 (var home-pos (.get game.systems Position home))
-(var number 100)
+(var number 10)
 (do-times number (spawn-ant [home-pos.x home-pos.y] home))
 
 
