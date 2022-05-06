@@ -15,7 +15,7 @@
      'max-in-decay 100
      'max-trail 400
      'min-trail 100
-     'limit-decay false
+     'limit-decay true
      'ant-influence 10
      'friction  1.1
      'spawn-rate 100
