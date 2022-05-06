@@ -18,5 +18,5 @@ module.exports.limitDecay = true;
 module.exports.antInfluence = 10.8;
 module.exports.friction = 2.5;
 module.exports.collisionStatic = 1;
-module.exports.spawnStatic = 10;
+module.exports.spawnStatic = 1;
 module.exports.spawnRate = 100;
