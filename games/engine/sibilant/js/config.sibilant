@@ -5,7 +5,7 @@
      'size size
      'angle-zoom 30
      'noise-z 70
-     'field-force 10000
+     'field-force 1000
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
@@ -18,7 +18,7 @@
      'decay-on-collision true
      'limit-decay true
      'ant-influence 10.8
-     'friction  80.5
+     'friction  30.5
      'collision-static 3
      'spawn-static 10
      'spawn-rate 100
