@@ -12,3 +12,4 @@ module.exports.maxLength = 1;
 module.exports.maxInDecay = 50;
 module.exports.antInfluence = 0.1;
 module.exports.friction = 16;
+module.exports.spawnRate = 100;
