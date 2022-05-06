@@ -179,10 +179,11 @@
 
 (set (.get game.systems Physics target)
      'scale 40
+     'mass 10000
      'forces [])
 
-(set (.get game.systems Collision target)
-     'type 'static)
+;; (set (.get game.systems Collision target)
+;;      'type 'static)
 
 (const ants [])
 (def spawn-ant ([x, y], home, starting-life)

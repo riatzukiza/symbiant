@@ -364,14 +364,14 @@ game.systems.get(Position, target).x = (Math.floor((Math.random() * (config.dime
 game.systems.get(Position, target).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
 game.systems.get(Position, target).z = 1;
 game.systems.get(Physics, target).scale = 40;
+game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
-game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$15, home, startingLife) {
-  /* spawn-ant eval.sibilant:187:0 */
+var spawnAnt = (function spawnAnt$(x_y$16, home, startingLife) {
+  /* spawn-ant eval.sibilant:188:0 */
 
-  var x = x_y$15[0],
-      y = x_y$15[1];
+  var x = x_y$16[0],
+      y = x_y$16[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
