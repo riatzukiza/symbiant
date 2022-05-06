@@ -393,7 +393,14 @@ var SignalField = Physics.Force.define("SignalField", {
       return (function() {
         if (!(collision.colliding)) {
           updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
-          return c.scale = ((v.winCount / (1 + v.looseCount)) || 1);
+          var winRate = (v.winCount / (1 + v.looseCount));
+          return c.scale = (function() {
+            if (winRate > 1) {
+              return winRate;
+            } else {
+              return 1;
+            }
+          }).call(this);
         }
       }).call(this);
     
@@ -429,11 +436,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$68, home, startingLife) {
-  /* spawn-ant eval.sibilant:234:0 */
+var spawnAnt = (function spawnAnt$(x_y$69, home, startingLife) {
+  /* spawn-ant eval.sibilant:237:0 */
 
-  var x = x_y$68[0],
-      y = x_y$68[1];
+  var x = x_y$69[0],
+      y = x_y$69[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
