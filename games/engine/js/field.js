@@ -58,7 +58,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       pheremones:pH
     })
     if(vel.trail.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount)) {
-      console.log("loose",vel)
+      console.trace("loose",vel)
 
       let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
@@ -75,7 +75,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     }
     if(win) {
-      console.log("win",vel)
+      console.trace("win",vel)
       let weight = vel.winCount/(vel.looseCount + 1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.addTo({
