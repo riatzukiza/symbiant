@@ -21,6 +21,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       waitingDecay.add(pH)
     }
     if(decay || (config.limitDecay && waitingDecay.size > config.maxInDecay)) {
+      console.log("decaying")
+
       if(pH.lastCheck < tick) {
         for(let cell of waitingDecay) {
           // console.log("decaying",pH,tick)
@@ -58,7 +60,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       pheremones:pH
     })
     if(vel.trail.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount)) {
-      // console.trace("loose",vel)
+      console.log("loose",vel)
 
       let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
@@ -75,7 +77,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     }
     if(win) {
-      // console.trace("win",{x:vel.xd,y:vel.yd})
+      console.log("win",{x:vel.xd,y:vel.yd})
       let weight = vel.winCount/(vel.looseCount + 1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.addTo({

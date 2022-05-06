@@ -108,7 +108,14 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    (if (= c.entity target)
+    (if
+     (or (and (= c.entity home)
+              (= c*.entity target))
+
+         (and (= c*.entity home)
+              (= c.entity target)))
+     (do (print "target colliding with spawn"))
+     (= c.entity target)
         (do
 
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
