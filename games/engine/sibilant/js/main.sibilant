@@ -136,7 +136,8 @@
         (= c*.entity target)
         (do
 
-         (.accelerate c*v [(random-signed 1),(random-signed 1)])
+         
+         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
@@ -150,7 +151,7 @@
                           true
                           home-pos
                           )
-         (.accelerate cv [(random-signed 1),(random-signed 1)]))
+         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
         (not (or (= c.entity home) (= c*.entity home)
                  (= c.entity target) (= c*.entity target)
                  ))
@@ -264,7 +265,7 @@
           'forces [SignalField, Friction])
      (var v (.get game.systems Velocity ant))
 
-     (.accelerate v [(random-signed 1),(random-signed 1)])
+     (.accelerate v [(random-signed config.spawn-static),(random-signed config.spawn-static)])
      ant)
 
 (var home-pos (.get game.systems Position home))

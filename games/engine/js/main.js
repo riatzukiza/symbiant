@@ -328,13 +328,13 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
       c.colliding = false;
       c_.colliding = false;
@@ -345,13 +345,13 @@ game.events.on("collision", (([ c, c_, d ]) => {
       return cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     } else if (!((c.entity === home || c_.entity === home || c.entity === target || c_.entity === target))) {
       c.colliding = false;
@@ -420,11 +420,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$14, home, startingLife) {
   /* spawn-ant eval.sibilant:245:0 */
 
-  var x = x_y$13[0],
-      y = x_y$13[1];
+  var x = x_y$14[0],
+      y = x_y$14[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -439,13 +439,13 @@ var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
   v.accelerate([ (function() {
     /* eval.sibilant:29:8 */
   
-    var rand = ((Math.random() * (1 - 0)) + 0);
-    return (1 - (rand * 2));
+    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+    return (config.spawnStatic - (rand * 2));
   }).call(this), (function() {
     /* eval.sibilant:29:8 */
   
-    var rand = ((Math.random() * (1 - 0)) + 0);
-    return (1 - (rand * 2));
+    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+    return (config.spawnStatic - (rand * 2));
   }).call(this) ]);
   return ant;
 });
