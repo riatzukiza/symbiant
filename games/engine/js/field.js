@@ -20,7 +20,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       pH.lastCheck = tick
       waitingDecay.add(pH)
     }
-    if(decay) {
+    if(decay || waitingDecay.size > config.maxInDecay) {
       if(pH.lastCheck < tick) {
         for(let cell of waitingDecay) {
           
