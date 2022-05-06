@@ -282,6 +282,7 @@ var rgba = memoize(((r, g, b, a) => {
 }));
 game.events.on("collision", (([ c, c_, d ]) => {
 	
+  console.log("collision", [ c, c_, d ]);
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
@@ -367,11 +368,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
-  /* spawn-ant eval.sibilant:187:0 */
+var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+  /* spawn-ant eval.sibilant:188:0 */
 
-  var x = x_y$12[0],
-      y = x_y$12[1];
+  var x = x_y$13[0],
+      y = x_y$13[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
