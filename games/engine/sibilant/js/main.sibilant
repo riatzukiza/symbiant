@@ -185,18 +185,14 @@
                           config.decay-on-collision
                           false
                           false
-                          home-pos
-
-                          )
-         
+                          home-pos)
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
                           config.decay-on-collision
                           false
                           false
-                          home-pos)
-         )))
+                          home-pos))))
 (define SignalField Physics.Force
 
         (field (create-vector-field config.columns
