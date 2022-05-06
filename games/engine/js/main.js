@@ -356,11 +356,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$24, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$25, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$24[0],
-      y = x_y$24[1];
+  var x = x_y$25[0],
+      y = x_y$25[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -413,22 +413,22 @@ settings.addRange("Noise Force", 1, 9999, config.fieldForce, 1, ((val) => {
   return config.fieldForce = val;
 
 }));
-settings.addRange("Signal Decay", 0, 9999, 1, ((val) => {
+settings.addRange("Signal Decay", 0, 9999, config.decay, 1, ((val) => {
 	
   return config.decay = val;
 
 }));
-settings.addRange("Max P Vector Length", 0, 9999, ((val) => {
+settings.addRange("Max P Vector Length", 0, 9999, config.maxLength, ((val) => {
 	
   return config.maxLength = val;
 
 }));
-settings.addRange("Max Trail", 0, 9999, ((val) => {
+settings.addRange("Max Trail", 0, 9999, config.maxTrail, ((val) => {
 	
   return config.maxTrail = val;
 
 }));
-settings.addRange("Min Trail", 0, 9999, ((val) => {
+settings.addRange("Min Trail", 0, 9999, config.minTrail, ((val) => {
 	
   return config.minTrail = val;
 
