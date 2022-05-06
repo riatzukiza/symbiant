@@ -179,7 +179,6 @@
 
 (set (.get game.systems Physics target)
      'scale 40
-     'mass 1
      'forces [])
 
 (set (.get game.systems Collision target)
