@@ -5,7 +5,7 @@
      'size size
      'angle-zoom 1
      'noise-z 1
-     'field-force 10
+     'field-force 100
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
@@ -15,6 +15,6 @@
      'max-in-decay 50
      'limit-decay false
      'ant-influence 0.03
-     'friction 4
+     'friction 8
      'spawn-rate 100
      )
