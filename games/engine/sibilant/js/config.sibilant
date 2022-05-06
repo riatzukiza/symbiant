@@ -16,7 +16,7 @@
      'max-trail 400
      'min-trail 100
      'decay-on-collision true
-     'limit-decay false
+     'limit-decay true
      'ant-influence 1.8
      'friction  4.5
      'collision-static 3
