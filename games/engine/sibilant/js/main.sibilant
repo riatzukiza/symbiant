@@ -58,7 +58,9 @@
                      (< 100 v.yd)
                      (> -100 v.xd)
                      (> -100 v.yd))
-                 (print "WE GOT A FAST ONE", (lit (x v.xd) (y v.yd))))
+                 (set v
+                      'xd 1
+                      'yd 1))
              (unless collision.colliding
                      (incr-by v.xd (* -0.3 (+ 3 (/ v.xd config.friction))))
                      (incr-by v.yd (* -0.3 (+ 3 (/ v.yd config.friction)))))))
