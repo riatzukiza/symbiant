@@ -54,6 +54,11 @@
         (def apply (c)
              (var v c.velocity)
              (var collision (.get c.system.process.systems Collision c.entity))
+             (if (or (< 40 v.xd)
+                     (< 40 v.yd)
+                     (> -40 v.xd)
+                     (> -40 v.yd))
+                 (print "WE GOT A FAST ONE", (lit (x v.xd) (y v.yd))))
              (unless collision.colliding
                      (incr-by v.xd (* -0.3 (+ 3 (/ v.xd config.friction))))
                      (incr-by v.yd (* -0.3 (+ 3 (/ v.yd config.friction)))))))
@@ -144,7 +149,9 @@
                           home-pos
                           )
          (.accelerate cv [(random-signed 1),(random-signed 1)]))
-        (not (or (= c.entity home) (= c*.entity home)))
+        (not (or (= c.entity home) (= c*.entity home)
+                 (= c.entity target) (= c*.entity target)
+                 ))
         (do
 
          (assign c.colliding false)

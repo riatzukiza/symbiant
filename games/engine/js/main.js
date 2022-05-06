@@ -206,6 +206,14 @@ var Friction = Physics.Force.define("Friction", {
     
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
+      (function() {
+        if ((40 < v.xd || 40 < v.yd || -40 > v.xd || -40 > v.yd)) {
+          return console.log("WE GOT A FAST ONE", { 
+            x:v.xd,
+            y:v.yd
+           });
+        }
+      }).call(this);
       return (function() {
         if (!(collision.colliding)) {
           v.xd += (-0.3 * (3 + (v.xd / config.friction)));
@@ -231,22 +239,22 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:83:0 */
+  /* entity eval.sibilant:88:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:84:0 */
+  /* vector2d eval.sibilant:89:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:86:0 */
+  /* Tree-map.get eval.sibilant:91:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:88:0 */
+  /* memoize eval.sibilant:93:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -347,7 +355,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
         var rand = ((Math.random() * (1 - 0)) + 0);
         return (1 - (rand * 2));
       }).call(this) ]);
-    } else if (!((c.entity === home || c_.entity === home))) {
+    } else if (!((c.entity === home || c_.entity === home || c.entity === target || c_.entity === target))) {
       c.colliding = false;
       c_.colliding = false;
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, homePos);
@@ -414,11 +422,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$72, home, startingLife) {
-  /* spawn-ant eval.sibilant:236:0 */
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:243:0 */
 
-  var x = x_y$72[0],
-      y = x_y$72[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
