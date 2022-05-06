@@ -19,7 +19,7 @@
      'limit-decay false
      'ant-influence 1.8
      'friction  4.5
-     'collision-static 30
+     'collision-static 3
      'spawn-static 10
      'spawn-rate 100
      )
