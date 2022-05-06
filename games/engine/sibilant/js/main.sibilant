@@ -105,27 +105,27 @@
     (if (= c.entity target)
         (do
 
-         ;; (.accelerate cv [(random-signed 1),(random-signed 1)])
-         ;; (assign c.colliding false)
-         ;; (assign c*.colliding false)
-         ;; (var hpos (.get game.systems Position home))
+         (.accelerate cv [(random-signed 1),(random-signed 1)])
+         (assign c.colliding false)
+         (assign c*.colliding false)
+         (var hpos (.get game.systems Position home))
 
-         ;; (set c*v.pos
-         ;;      'x (+ 3 hpos.x)
-         ;;      'y (+ 3 hpos.y))
+         (set c*v.pos
+              'x (+ 3 hpos.x)
+              'y (+ 3 hpos.y))
 
-         ;; (set c*v
-         ;;      'xd 0 
-         ;;      'yd 0)
+         (set c*v
+              'xd 0 
+              'yd 0)
 
-         ;; (update-particle c*v c*v.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  false
-         ;;                  true
-         ;;                  home-pos
-         ;;                  )
-         ;; (.accelerate c*v [(random-signed 1),(random-signed 1)])
+         (update-particle c*v c*v.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          false
+                          true
+                          home-pos
+                          )
+         (.accelerate c*v [(random-signed 1),(random-signed 1)])
          )
         (= c*.entity target)
         (do
