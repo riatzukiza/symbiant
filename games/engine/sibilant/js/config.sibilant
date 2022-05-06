@@ -4,8 +4,8 @@
 (set module.exports
      'size size
      'angle-zoom 1000
-     'noise-z 1000
-     'field-force 100000
+     'noise-z 100
+     'field-force 100
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
