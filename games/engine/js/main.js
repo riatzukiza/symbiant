@@ -351,7 +351,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
         return (1 - (rand / 2));
       }).call(this) ]);
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
-      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
     }
   }).call(this);
 
@@ -393,11 +393,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$35, home, startingLife) {
-  /* spawn-ant eval.sibilant:211:0 */
+var spawnAnt = (function spawnAnt$(x_y$36, home, startingLife) {
+  /* spawn-ant eval.sibilant:210:0 */
 
-  var x = x_y$35[0],
-      y = x_y$35[1];
+  var x = x_y$36[0],
+      y = x_y$36[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
