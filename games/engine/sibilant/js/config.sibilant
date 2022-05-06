@@ -3,7 +3,7 @@
 (const size 5)
 (set module.exports
      'size size
-     'angle-zoom 80
+     'angle-zoom 30
      'noise-z 70
      'field-force 100
      'dimensions dim
