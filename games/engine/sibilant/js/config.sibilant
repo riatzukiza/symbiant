@@ -12,7 +12,7 @@
      'decay 0.04
      'maxLength 4
      'ant-limit 200
-     'max-in-decay 10
+     'max-in-decay 50
      'limit-decay false
      'ant-influence 0.03
      'friction 4
