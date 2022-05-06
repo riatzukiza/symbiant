@@ -170,7 +170,7 @@
 
          )))
 
-(define SignalField Physics.Force
+(define SignalField Physics.Forcejj
 
         (field (create-vector-field config.columns
                                     config.rows))
@@ -186,8 +186,8 @@
                              (update-particle v v.pos, field, layer game.ticker.ticks
                                               false
                                               false
-                                              home-pos
-                                              ))))
+                                              home-pos)
+                             (assign c.size (or v.win-rate 1)))))
 
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))

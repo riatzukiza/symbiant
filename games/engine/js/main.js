@@ -361,7 +361,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   return console.log(err);
 
 }));
-var SignalField = Physics.Force.define("SignalField", { 
+var SignalField = Physics.Forcejj.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),
   apply( c = this.c,field = this.field,layer = this.layer ){ 
@@ -370,7 +370,8 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          return updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
+          updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
+          return c.size = (v.winRate || 1);
         }
       }).call(this);
     
@@ -394,11 +395,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$50, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$51, home, startingLife) {
   /* spawn-ant eval.sibilant:226:0 */
 
-  var x = x_y$50[0],
-      y = x_y$50[1];
+  var x = x_y$51[0],
+      y = x_y$51[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);

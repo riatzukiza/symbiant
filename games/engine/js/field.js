@@ -43,6 +43,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
     if(!vel.trail ) {
+      vel.winRate=0
+      vel.looseRate=0
       vel.trail = [
         {
           x:vel.xd,
@@ -59,8 +61,11 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       let total
       console.log("loose",vel)
       for(let {x,y,pheremones} of vel.trail) {
-        pheremones.subFrom({x,y})
+        pheremones.subFrom({x:x+vel.looseRate,y:y+vel.looseRate})
       }
+      vel.looseRate++
+      vel.winRate--
+
       vel.trail = []
       p.x =homePos.x
       p.y =homePos.y
@@ -70,8 +75,10 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       console.log("win",vel)
       let total
       for(let {x,y,pheremones} of vel.trail) {
-        pheremones.addTo({x,y})
+        pheremones.addTo({x:x+vel.winRate,y:y+vel.winRate})
       }
+      vel.winRate++
+      vel.looseRate--
       vel.trail = []
 
       // vel.trail = []
