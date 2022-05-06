@@ -297,4 +297,4 @@
 (.addRange settings "Noise Z" 1 9999 (=> (val) (assign config.noise-z val)))
 (.addRange settings "Noise Force" 1 9999 (=> (val) (assign config.field-force val)))
 (.addRange settings "Signal Decay" 0 9999 (=> (val) (assign config.decay val)))
-(.addRange settings "Max P Vector Length" 0 9999 (=> (val) (assign config.noise-z val)))
+(.addRange settings "Max P Vector Length" 0 9999 (=> (val) (assign config.max-length val)))
