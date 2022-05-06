@@ -1,6 +1,7 @@
 const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
+const waitingDecay = new Set()
 module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false) {
   const pos = new Vector(0,0)
   pos.x = Math.round(p.x / config.size);
@@ -14,18 +15,23 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     field[pos.x][pos.y].setAngle(angle);
 
     let vec = field[pos.x][pos.y];
+
+    if(!pH.lastCheck) {
+      pH.lastCheck = tick
+      waitingDecay.add(pH)
+    }
     if(decay) {
-      if(!pH.lastCheck) {
-        pH.lastCheck = tick
-      }
       if(pH.lastCheck < tick) {
-        // console.log("decaying",pH,tick)
-        pH.x = pH.x 
-        pH.subFrom({
-          x:pH.x * (config.decay * (tick - pH.lastCheck )),
-          y:pH.y * (config.decay * (tick - pH.lastCheck )),
-        })
-        pH.lastCheck = tick
+        for(let cell of waitingDecay) {
+          
+          // console.log("decaying",pH,tick)
+          cell.subFrom({
+            x:cell.x * (config.decay * (tick - cell.lastCheck )),
+            y:cell.y * (config.decay * (tick - cell.lastCheck )),
+          })
+          cell.lastCheck = tick
+          waitingDecay.delete(cell)
+        }
       }
     }
 
