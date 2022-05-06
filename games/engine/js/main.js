@@ -356,11 +356,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$23, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$24, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$23[0],
-      y = x_y$23[1];
+  var x = x_y$24[0],
+      y = x_y$24[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -398,22 +398,22 @@ setInterval((() => {
 }), config.spawnRate);
 game.start();
 var settings = QuickSettings.create();
-settings.addRange("Angle Zoom", 1, 9999, ((val) => {
+settings.addRange("Angle Zoom", 1, 9999, config.angleZoom, 1, ((val) => {
 	
   return config.angleZoom = val;
 
 }));
-settings.addRange("Noise Z", 1, 9999, ((val) => {
+settings.addRange("Noise Z", 1, 9999, config.noiseZ, 1, ((val) => {
 	
   return config.noiseZ = val;
 
 }));
-settings.addRange("Noise Force", 1, 9999, ((val) => {
+settings.addRange("Noise Force", 1, 9999, config.fieldForce, 1, ((val) => {
 	
   return config.fieldForce = val;
 
 }));
-settings.addRange("Signal Decay", 0, 9999, ((val) => {
+settings.addRange("Signal Decay", 0, 9999, 1, ((val) => {
 	
   return config.decay = val;
 
