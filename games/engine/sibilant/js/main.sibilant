@@ -105,6 +105,8 @@
     (if (= c.entity target)
         (do
 
+         (.accelerate cv [(random-signed 1),(random-signed 1)])
+         (.accelerate c*v [(random-signed 1),(random-signed 1)])
          (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
@@ -128,6 +130,8 @@
         (= c*.entity target)
         (do
 
+         (.accelerate cv [(random-signed 1),(random-signed 1)])
+         (.accelerate c*v [(random-signed 1),(random-signed 1)])
          (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))

@@ -288,6 +288,28 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_p = game.systems.get(Physics, c_.entity);
   return (function() {
     if (c.entity === target) {
+      cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
+      c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
@@ -308,6 +330,28 @@ game.events.on("collision", (([ c, c_, d ]) => {
         return (1 - (rand * 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
+      cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
+      c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
@@ -407,11 +451,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$64, home, startingLife) {
-  /* spawn-ant eval.sibilant:231:0 */
+var spawnAnt = (function spawnAnt$(x_y$65, home, startingLife) {
+  /* spawn-ant eval.sibilant:235:0 */
 
-  var x = x_y$64[0],
-      y = x_y$64[1];
+  var x = x_y$65[0],
+      y = x_y$65[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
