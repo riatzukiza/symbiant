@@ -13,7 +13,7 @@
      'maxLength 200
      'ant-limit 200
      'max-in-decay 50
-     'max-trail 100
+     'max-trail 300
      'min-trail 100
      'limit-decay true
      'ant-influence 1
