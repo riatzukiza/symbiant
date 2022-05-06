@@ -134,7 +134,7 @@
          (update-particle c*v c*v.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
-                          false
+                          true
                           true
                           home-pos
                           )
@@ -161,7 +161,7 @@
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
-                          false
+                          true
                           true
                           home-pos)
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
