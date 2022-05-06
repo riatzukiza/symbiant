@@ -206,7 +206,7 @@
      'forces [])
 
 
-(var target (entity [Dot Position Physics Collision]))
+(var target (entity [Dot Position Physics Collision Velocity]))
 
 (set (.get game.systems Dot target)
      'color (rgba 0 0 255 255))

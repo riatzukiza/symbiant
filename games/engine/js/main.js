@@ -386,7 +386,7 @@ game.systems.get(Position, home).z = 1;
 game.systems.get(Physics, home).scale = 30;
 game.systems.get(Physics, home).mass = 1;
 game.systems.get(Physics, home).forces = [];
-var target = entity([ Dot, Position, Physics, Collision ]);
+var target = entity([ Dot, Position, Physics, Collision, Velocity ]);
 game.systems.get(Dot, target).color = rgba(0, 0, 255, 255);
 game.systems.get(Position, target).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
 game.systems.get(Position, target).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
@@ -407,11 +407,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$55, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$56, home, startingLife) {
   /* spawn-ant eval.sibilant:231:0 */
 
-  var x = x_y$55[0],
-      y = x_y$55[1];
+  var x = x_y$56[0],
+      y = x_y$56[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
