@@ -2,7 +2,7 @@ const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
 const waitingDecay = new Set()
-module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false,win=false) {
+module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false,win=false,homePos) {
   const pos = new Vector(0,0)
   pos.x = Math.round(p.x / config.size);
   pos.y = Math.round(p.y / config.size);
@@ -41,7 +41,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     pH.addTo(vec)
 
-    if(!vel.waitingToWin ) {
+
+    if(!vel.trail ) {
       vel.trail = [
         {
           x:vel.xd,
@@ -49,7 +50,11 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
           pheremones:pH
         }
       ]
-    }
+    } else vel.trail.push({
+      x:vel.xd,
+      y:vel.yd,
+      pheremones:pH
+    })
     if(vel.trail.length >= config.maxTrail) {
       let total
       console.log("loose",vel)
@@ -57,6 +62,9 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
         pheremones.subFrom({x,y})
       }
       vel.trail = []
+      p.x =homePos.x
+      p.y =homePos.y
+
     }
     if(win) {
       console.log("win",vel)
@@ -65,6 +73,10 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
         pheremones.addTo({x,y})
       }
       vel.trail = []
+
+      // vel.trail = []
+      // p.x =homePos.x
+      // p.y =homePos.y
     }
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
     // vel.xd = pH.x

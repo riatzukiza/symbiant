@@ -295,7 +295,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.y = (3 + hpos.y);
       c_v.xd = 0;
       c_v.yd = 0;
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       return c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
@@ -313,7 +313,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       var hpos = game.systems.get(Position, home);
       cv.pos.x = (3 + hpos.x);
       cv.pos.y = (3 + hpos.y);
-      updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true);
+      updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       return cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
@@ -350,8 +350,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
         var rand = ((Math.random() * (1 - 0)) + 0);
         return (1 - (rand * 2));
       }).call(this) ]);
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
-      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, false, homePos);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, false, homePos);
     }
   }).call(this);
 
@@ -370,13 +370,14 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          return updateParticle(v, v.pos, field, layer, game.ticker.ticks);
+          return updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
         }
       }).call(this);
     
    }
  });
 var home = entity([ Dot, Position, Physics, Collision ]);
+var homePos = game.systems.get(Position, home);
 game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
 game.systems.get(Position, home).x = (Math.floor((Math.random() * (config.dimensions[0] - 1))) + 1);
 game.systems.get(Position, home).y = (Math.floor((Math.random() * (config.dimensions[1] - 1))) + 1);
@@ -393,16 +394,15 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$49, home, startingLife) {
-  /* spawn-ant eval.sibilant:212:0 */
+var spawnAnt = (function spawnAnt$(x_y$50, home, startingLife) {
+  /* spawn-ant eval.sibilant:226:0 */
 
-  var x = x_y$49[0],
-      y = x_y$49[1];
+  var x = x_y$50[0],
+      y = x_y$50[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
-  var homePos = game.systems.get(Position, home);
   game.systems.get(Position, ant).x = x;
   game.systems.get(Position, ant).y = y;
   game.systems.get(Position, ant).z = 1;

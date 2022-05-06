@@ -122,6 +122,7 @@
                           game.ticker.ticks
                           true
                           true
+                          home-pos
                           )
          (.accelerate c*v [(random-signed 1),(random-signed 1)]))
         (= c*.entity target)
@@ -138,6 +139,7 @@
                           game.ticker.ticks
                           true
                           true
+                          home-pos
                           )
          (.accelerate cv [(random-signed 1),(random-signed 1)]))
         (not (or (= c.entity home) (= c*.entity home)))
@@ -152,11 +154,18 @@
          (update-particle c*v c*v.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
+                          false
+                          false
+                          home-pos
+
                           )
          
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
+                          false
+                          false
+                          home-pos
                           )
 
          )))
@@ -174,9 +183,14 @@
                      (var collision (.get c.system.process.systems Collision c.entity))
                      (unless collision.colliding
                              ;; (print "woosh", v, field, layer)
-                             (update-particle v v.pos, field, layer game.ticker.ticks))))
+                             (update-particle v v.pos, field, layer game.ticker.ticks
+                                              false
+                                              false
+                                              home-pos
+                                              ))))
 
 (var home (entity [Dot Position Physics Collision]))
+(var home-pos (.get game.systems Position home))
 
 (set (.get game.systems Dot home)
      'color (rgba 0 255 0 255))
@@ -218,7 +232,6 @@
      (set (.get game.systems Dot ant)
           'color (rgba 255 0 0 255))
 
-     (var home-pos (.get game.systems Position home))
 
      (set (.get game.systems Position ant )
           'x x
