@@ -159,8 +159,6 @@
      'mass 1
      'forces [])
 
-(set (.get game.systems Collision home)
-     'type 'static)
 
 (var target (entity [Dot Position Physics Collision]))
 
