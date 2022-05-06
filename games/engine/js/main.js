@@ -288,36 +288,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_p = game.systems.get(Physics, c_.entity);
   return (function() {
     if (c.entity === target) {
-      cv.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
-      }).call(this) ]);
-      c.colliding = false;
-      c_.colliding = false;
-      var hpos = game.systems.get(Position, home);
-      c_v.pos.x = (3 + hpos.x);
-      c_v.pos.y = (3 + hpos.y);
-      c_v.xd = 0;
-      c_v.yd = 0;
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
-      return c_v.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand * 2));
-      }).call(this) ]);
     } else if (c_.entity === target) {
       c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
@@ -429,11 +400,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$66, home, startingLife) {
-  /* spawn-ant eval.sibilant:233:0 */
+var spawnAnt = (function spawnAnt$(x_y$67, home, startingLife) {
+  /* spawn-ant eval.sibilant:235:0 */
 
-  var x = x_y$66[0],
-      y = x_y$66[1];
+  var x = x_y$67[0],
+      y = x_y$67[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
