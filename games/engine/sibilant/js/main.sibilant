@@ -121,6 +121,7 @@
                           Signal-field.layer
                           game.ticker.ticks
                           true
+                          true
                           )
          (.accelerate c*v [(random-signed 1),(random-signed 1)]))
         (= c*.entity target)
@@ -135,6 +136,7 @@
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
+                          true
                           true
                           )
          (.accelerate cv [(random-signed 1),(random-signed 1)]))

@@ -2,7 +2,7 @@ const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
 const waitingDecay = new Set()
-module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false) {
+module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false,win=false) {
   const pos = new Vector(0,0)
   pos.x = Math.round(p.x / config.size);
   pos.y = Math.round(p.y / config.size);
@@ -24,10 +24,12 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       if(pH.lastCheck < tick) {
         for(let cell of waitingDecay) {
           // console.log("decaying",pH,tick)
-          cell.subFrom({
-            x:cell.x * (config.decay * (tick - cell.lastCheck )),
-            y:cell.y * (config.decay * (tick - cell.lastCheck )),
-          })
+          // cell.divTo(Math.pow (config.decay * (tick - cell.lastCheck ),2))
+          cell.divTo(config.decay * (tick - cell.lastCheck ),2)
+          // cell.subFrom({
+          //   x:cell.x * (Math.pow (config.decay * (tick - cell.lastCheck ),2)),
+          //   y:cell.y * (Math.pow (config.decay * (tick - cell.lastCheck ),2)),
+          // })
           cell.lastCheck = tick
           waitingDecay.delete(cell)
         }
@@ -39,11 +41,22 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     pH.addTo(vec)
 
-    pH.addTo({
-      x:vel.xd*config.antInfluence,
-      y:vel.yd*config.antInfluence
-
-    })
+    if(!vel.waitingToWin) {
+      vel.trail = [
+        {
+          x:vel.xd,
+          y:vel.yd,
+          pheremones:pH
+        }
+      ]
+    }
+    if(win) {
+      let total
+      for(let {x,y,pheremones} of vel.trail) {
+        pheremones.addTo({x,y})
+      }
+      vel.trail = []
+    }
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
     // vel.xd = pH.x
     // vel.xy = pH.y
