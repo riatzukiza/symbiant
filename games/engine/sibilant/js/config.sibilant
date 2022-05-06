@@ -10,7 +10,7 @@
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.2
-     'maxLength 200
+     'maxLength 20000
      'ant-limit 200
      'max-in-decay 100
      'max-trail 400
