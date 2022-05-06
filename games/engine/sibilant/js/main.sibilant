@@ -55,8 +55,8 @@
              (var v c.velocity)
              (var collision (.get c.system.process.systems Collision c.entity))
              (unless collision.colliding
-                     (incr-by v.xd (* -1 (+ 1 (/ v.xd config.friction))))
-                     (incr-by v.yd (* -1 (+ 1 (/ v.yd config.friction)))))
+                     (incr-by v.xd (* -1 (+ 2 (/ v.xd config.friction))))
+                     (incr-by v.yd (* -1 (+ 2 (/ v.yd config.friction)))))
              ))
 (assign global.size window.size)
 (print window.size)
