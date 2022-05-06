@@ -41,7 +41,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     pH.addTo(vec)
 
-    if(!vel.waitingToWin) {
+    if(!vel.waitingToWin ) {
       vel.trail = [
         {
           x:vel.xd,
@@ -50,7 +50,16 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
         }
       ]
     }
+    if(vel.trail.length >= config.maxTrail) {
+      let total
+      console.log("loose",vel)
+      for(let {x,y,pheremones} of vel.trail) {
+        pheremones.subFrom({x,y})
+      }
+      vel.trail = []
+    }
     if(win) {
+      console.log("win",vel)
       let total
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.addTo({x,y})

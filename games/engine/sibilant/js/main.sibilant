@@ -233,7 +233,6 @@
      (var v (.get game.systems Velocity ant))
 
      (.accelerate v [(random-signed 1),(random-signed 1)])
-     (print "spawning ant" v)
      ant)
 
 (var home-pos (.get game.systems Position home))
