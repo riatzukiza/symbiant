@@ -9,6 +9,7 @@ module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
 module.exports.decay = 0.1;
 module.exports.maxLength = 1;
+module.exports.antLimit = 200;
 module.exports.maxInDecay = 50;
 module.exports.antInfluence = 0.1;
 module.exports.friction = 16;
