@@ -295,36 +295,14 @@ game.events.on("collision", (([ c, c_, d ]) => {
       var hpos = game.systems.get(Position, home);
       c_v.pos.x = hpos.x;
       c_v.pos.y = hpos.y;
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
-      return c_v.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this) ]);
+      return updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
     } else if (c_.entity === target) {
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
       cv.pos.x = hpos.x;
       cv.pos.y = hpos.y;
-      updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
-      return cv.accelerate([ (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:29:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this) ]);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
     } else if (!((c.entity === home || c_.entity === home || c.entity === target || c_.entity === target))) {
       c.colliding = false;
       c_.colliding = false;
@@ -380,11 +358,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$35, home, startingLife) {
-  /* spawn-ant eval.sibilant:260:0 */
+var spawnAnt = (function spawnAnt$(x_y$36, home, startingLife) {
+  /* spawn-ant eval.sibilant:263:0 */
 
-  var x = x_y$35[0],
-      y = x_y$35[1];
+  var x = x_y$36[0],
+      y = x_y$36[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);

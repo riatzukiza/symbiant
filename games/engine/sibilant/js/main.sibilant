@@ -114,7 +114,9 @@
 
          (and (= c*.entity home)
               (= c.entity target)))
+
      (do (print "target colliding with spawn"))
+
      (= c.entity target)
         (do
 
@@ -138,7 +140,7 @@
                           true
                           home-pos
                           )
-         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+         ;; (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
         (= c*.entity target)
         (do
@@ -164,7 +166,8 @@
                           true
                           true
                           home-pos)
-         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
+         ;; (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+         )
 
         (not (or (= c.entity home) (= c*.entity home)
                  (= c.entity target) (= c*.entity target)))
