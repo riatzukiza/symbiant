@@ -304,8 +304,8 @@
 (.add-boolean settings "Decay on collision"  (=> (val) (assign config.decay-on-collision val)))
 (.add-boolean settings "Limit the number of decay blocks per cycle"  (=> (val) (assign config.limit-decay val)))
 
-(.addRange settings "Ant Influence" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "friction" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "Collision Static" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "Spawn Static" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "Spawn Rate" 0 9999 (=> (val) (assign config.max-length val)))
+(.addRange settings "Ant Influence" 0 9999 (=> (val) (assign config.ant-influence val)))
+(.addRange settings "friction" 0 128 (=> (val) (assign config.friction val)))
+(.addRange settings "Collision Static" 0 9999 (=> (val) (assign config.collision-static val)))
+(.addRange settings "Spawn Static" 0 9999 (=> (val) (assign config.spawn-static val)))
+(.addRange settings "Spawn Rate" 0 9999 (=> (val) (assign config.spawn-rate val)))
