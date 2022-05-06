@@ -202,7 +202,7 @@
 
 
      (set (.get game.systems Physics ant)
-          'scale 10
+          'scale 100
           'mass 1
           'forces [SignalField, Friction])
      ant)
