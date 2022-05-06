@@ -3,8 +3,8 @@
 (const size 10)
 (set module.exports
      'size size
-     'angle-zoom 10000
-     'noise-z 100
+     'angle-zoom 10
+     'noise-z 10
      'field-force 10
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
