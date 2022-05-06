@@ -154,7 +154,7 @@
          (update-particle c*v c*v.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
-                          false
+                          config.decay-on-collision
                           false
                           home-pos
 

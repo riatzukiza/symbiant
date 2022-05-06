@@ -350,7 +350,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
         var rand = ((Math.random() * (1 - 0)) + 0);
         return (1 - (rand * 2));
       }).call(this) ]);
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, false, homePos);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, homePos);
       return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, homePos);
     }
   }).call(this);
@@ -407,11 +407,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$62, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$63, home, startingLife) {
   /* spawn-ant eval.sibilant:231:0 */
 
-  var x = x_y$62[0],
-      y = x_y$62[1];
+  var x = x_y$63[0],
+      y = x_y$63[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
