@@ -1,6 +1,6 @@
 (const dim      [window.innerWidth, window.innerHeight];
 )
-(const size 5)
+(const size 2)
 (set module.exports
      'size size
      'angle-zoom 80
