@@ -37,10 +37,10 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       y:vel.yd/10
 
     })
-    // if(pH.getLength() > 10) pH.setLength(10)
-    vel.xd = pH.x
-    vel.xy = pH.y
-    //vel.accelerate([pH.x,pH.y]);
+    if(pH.getLength() > 1) pH.setLength(1)
+    // vel.xd = pH.x
+    // vel.xy = pH.y
+    vel.accelerate([pH.x,pH.y]);
     // console.log({tick,vec,vel})
 
   }
