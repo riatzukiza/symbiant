@@ -116,6 +116,12 @@
          (set c*v
               'xd 0 
               'yd 0)
+
+         (update-particle c*v c*v.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          true
+                          )
          (.accelerate c*v [(random-signed 1),(random-signed 1)]))
         (= c*.entity target)
         (do
