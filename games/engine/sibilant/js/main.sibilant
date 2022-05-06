@@ -295,3 +295,4 @@
 (var settings (Quick-settings.create))
 (.addRange settings "Angle Zoom" 1 9999 (=> (val) (assign config.angle-zoom val)))
 (.addRange settings "Noise Z" 1 9999 (=> (val) (assign config.noise-z val)))
+(.addRange settings "Noise Force" 1 9999 (=> (val) (assign config.noise-z val)))
