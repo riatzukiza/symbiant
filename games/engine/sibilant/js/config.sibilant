@@ -10,13 +10,13 @@
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.2
-     'maxLength 20
+     'maxLength 200
      'ant-limit 200
      'max-in-decay 100
      'max-trail 400
      'min-trail 100
      'limit-decay false
      'ant-influence 10
-     'friction  3.8
+     'friction  1.8
      'spawn-rate 100
      )
