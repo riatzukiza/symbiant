@@ -54,10 +54,10 @@
         (def apply (c)
              (var v c.velocity)
              (var collision (.get c.system.process.systems Collision c.entity))
-             (if (or (< 100 v.xd)
-                     (< 100 v.yd)
-                     (> -100 v.xd)
-                     (> -100 v.yd))
+             (if (or (< 10 v.xd)
+                     (< 10 v.yd)
+                     (> -10 v.xd)
+                     (> -10 v.yd))
                  (set v
                       'xd 0
                       'yd 0))
