@@ -393,11 +393,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$36, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$37, home, startingLife) {
   /* spawn-ant eval.sibilant:210:0 */
 
-  var x = x_y$36[0],
-      y = x_y$36[1];
+  var x = x_y$37[0],
+      y = x_y$37[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -412,7 +412,7 @@ var spawnAnt = (function spawnAnt$(x_y$36, home, startingLife) {
   return ant;
 });
 var homePos = game.systems.get(Position, home);
-var number = 200;
+var number = 1;
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
