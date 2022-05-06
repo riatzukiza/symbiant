@@ -59,8 +59,8 @@
                      (> -100 v.xd)
                      (> -100 v.yd))
                  (set v
-                      'xd (/ v.xd 1000)
-                      'yd (/ v.yd 1000)))
+                      'xd (/ v.xd config.friction)
+                      'yd (/ v.yd config.friction)))
              (unless collision.colliding
                      (incr-by v.xd (* -0.3 (+ 3 (/ v.xd config.friction))))
                      (incr-by v.yd (* -0.3 (+ 3 (/ v.yd config.friction)))))))
