@@ -96,7 +96,6 @@
 
 
 (on game.events 'collision ([c c* d])
-    (print 'collision [c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
 
@@ -106,7 +105,6 @@
     (if (= c.entity target)
         (do
 
-         (print "HIT")
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
@@ -121,7 +119,6 @@
         (= c*.entity target)
         (do
 
-         (print "HIT")
          (var hpos (.get game.systems Position home))
          (set cv.pos
               'x (+ 3 hpos.x)

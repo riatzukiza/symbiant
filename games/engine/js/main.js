@@ -282,19 +282,16 @@ var rgba = memoize(((r, g, b, a) => {
 }));
 game.events.on("collision", (([ c, c_, d ]) => {
 	
-  console.log("collision", [ c, c_, d ]);
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
   return (function() {
     if (c.entity === target) {
-      console.log("HIT");
       var hpos = game.systems.get(Position, home);
       c_v.pos.x = (3 + hpos.x);
       return c_v.pos.y = (3 + hpos.y);
     } else if (c_.entity === target) {
-      console.log("HIT");
       var hpos = game.systems.get(Position, home);
       cv.pos.x = (3 + hpos.x);
       return cv.pos.y = (3 + hpos.y);
@@ -363,11 +360,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$19, home, startingLife) {
-  /* spawn-ant eval.sibilant:190:0 */
+var spawnAnt = (function spawnAnt$(x_y$20, home, startingLife) {
+  /* spawn-ant eval.sibilant:187:0 */
 
-  var x = x_y$19[0],
-      y = x_y$19[1];
+  var x = x_y$20[0],
+      y = x_y$20[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
