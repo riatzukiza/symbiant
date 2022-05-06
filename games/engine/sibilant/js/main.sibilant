@@ -170,7 +170,7 @@
 
          )))
 
-(define SignalField Physics.Forcejj
+(define SignalField Physics.Force
 
         (field (create-vector-field config.columns
                                     config.rows))
