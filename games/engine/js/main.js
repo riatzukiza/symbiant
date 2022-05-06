@@ -297,13 +297,13 @@ game.events.on("collision", (([ c, c_, d ]) => {
       return c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand / 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
       var hpos = game.systems.get(Position, home);
@@ -312,13 +312,13 @@ game.events.on("collision", (([ c, c_, d ]) => {
       return cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand / 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
-        var rand = ((Math.random() * (2 - 0)) + 0);
-        return (2 - (rand / 2));
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand / 2));
       }).call(this) ]);
     } else if (!((c.entity === home || c_.entity === home))) {
       cv.accelerate([ (function() {
@@ -384,11 +384,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$26, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$27, home, startingLife) {
   /* spawn-ant eval.sibilant:182:0 */
 
-  var x = x_y$26[0],
-      y = x_y$26[1];
+  var x = x_y$27[0],
+      y = x_y$27[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
