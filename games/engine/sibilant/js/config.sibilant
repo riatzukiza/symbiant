@@ -1,19 +1,19 @@
 (const dim      [window.innerWidth, window.innerHeight];
 )
-(const size 10)
+(const size 25)
 (set module.exports
      'size size
-     'angle-zoom 1000
-     'noise-z 100
+     'angle-zoom 10
+     'noise-z 10
      'field-force 100
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 0.1
+     'decay 0.4
      'maxLength 1
      'ant-limit 200
      'max-in-decay 50
-     'ant-influence 0.1
+     'ant-influence 0.5
      'friction 16
      'spawn-rate 100
      )
