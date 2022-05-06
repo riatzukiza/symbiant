@@ -3,14 +3,14 @@
 (const size 10)
 (set module.exports
      'size size
-     'angle-zoom 100
-     'noise-z 100
+     'angle-zoom 1000
+     'noise-z 1000
      'field-force 100000
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.001
-     'maxLength 100
+     'maxLength 17
      'ant-influence 128
      'friction 4
      )
