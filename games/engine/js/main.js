@@ -356,11 +356,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$25, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$26, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$25[0],
-      y = x_y$25[1];
+  var x = x_y$26[0],
+      y = x_y$26[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -433,12 +433,12 @@ settings.addRange("Min Trail", 0, 9999, config.minTrail, ((val) => {
   return config.minTrail = val;
 
 }));
-settings.addBoolean("Decay on collision", ((val) => {
+settings.addBoolean("Decay on collision", config.decayOnCollision, ((val) => {
 	
   return config.decayOnCollision = val;
 
 }));
-settings.addBoolean("Limit the number of decay blocks per cycle", ((val) => {
+settings.addBoolean("Limit the number of decay blocks per cycle", config.limitDecay, ((val) => {
 	
   return config.limitDecay = val;
 

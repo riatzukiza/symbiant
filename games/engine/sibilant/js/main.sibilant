@@ -301,8 +301,8 @@
 (.addRange settings "Max Trail" 0 9999 config.max-trail (=> (val) (assign config.max-trail val)))
 (.addRange settings "Min Trail" 0 9999 config.min-trail (=> (val) (assign config.min-trail val)))
 
-(.add-boolean settings "Decay on collision"  (=> (val) (assign config.decay-on-collision val)))
-(.add-boolean settings "Limit the number of decay blocks per cycle"  (=> (val) (assign config.limit-decay val)))
+(.add-boolean settings "Decay on collision"  config.decay-on-collision (=> (val) (assign config.decay-on-collision val)))
+(.add-boolean settings "Limit the number of decay blocks per cycle"   config.limit-decay (=> (val) (assign config.limit-decay val)))
 
 (.addRange settings "Ant Influence" 0 9999 (=> (val) (assign config.ant-influence val)))
 (.addRange settings "friction" 0 128 (=> (val) (assign config.friction val)))
