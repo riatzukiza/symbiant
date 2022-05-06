@@ -102,10 +102,10 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    (assign c.colliding false)
     (if (= c.entity target)
         (do
 
+         (assign c.colliding false)
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
@@ -119,6 +119,7 @@
         (= c*.entity target)
         (do
 
+         (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
          (set cv.pos
               'x (+ 3 hpos.x)
