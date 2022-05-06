@@ -41,11 +41,11 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     pH.addTo(vec)
 
     pH.addTo({
-      x:vel.xd/10,
-      y:vel.yd/10
+      x:vel.xd/config.antInfluence,
+      y:vel.yd/config.antInfluence
 
     })
-    if(pH.getLength() > 1) pH.setLength(1)
+    if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
     // vel.xd = pH.x
     // vel.xy = pH.y
     vel.accelerate([pH.x,pH.y]);
