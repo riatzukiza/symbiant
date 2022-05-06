@@ -12,7 +12,7 @@
      'decay 0.1
      'maxLength 2
      'ant-limit 200
-     'max-in-decay 50
+     'max-in-decay 100
      'max-trail 400
      'min-trail 100
      'limit-decay true
