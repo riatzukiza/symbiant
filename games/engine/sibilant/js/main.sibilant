@@ -111,7 +111,7 @@
     (if (= c.entity target)
         (do
 
-         (.accelerate cv [(random-signed 1),(random-signed 1)])
+         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
@@ -131,7 +131,7 @@
                           true
                           home-pos
                           )
-         (.accelerate c*v [(random-signed 1),(random-signed 1)])
+         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
         (= c*.entity target)
         (do
