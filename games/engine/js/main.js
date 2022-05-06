@@ -207,7 +207,7 @@ var Friction = Physics.Force.define("Friction", {
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
       (function() {
-        if ((40 < v.xd || 40 < v.yd || -40 > v.xd || -40 > v.yd)) {
+        if ((100 < v.xd || 100 < v.yd || -100 > v.xd || -100 > v.yd)) {
           return console.log("WE GOT A FAST ONE", { 
             x:v.xd,
             y:v.yd
@@ -422,11 +422,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
   /* spawn-ant eval.sibilant:243:0 */
 
-  var x = x_y$3[0],
-      y = x_y$3[1];
+  var x = x_y$4[0],
+      y = x_y$4[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
