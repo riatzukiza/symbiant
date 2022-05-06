@@ -303,3 +303,4 @@
 (.add-boolean settings "Decay on collision" 0 9999 (=> (val) (assign config.max-length val)))
 (.add-boolean settings "Limit the number of decay blocks per cycle" 0 9999 (=> (val) (assign config.max-length val)))
 (.addRange settings "Ant Influence" 0 9999 (=> (val) (assign config.max-length val)))
+(.addRange settings "friction" 0 9999 (=> (val) (assign config.max-length val)))
