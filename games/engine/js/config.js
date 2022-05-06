@@ -1,5 +1,5 @@
-const dim = [ window.innerWidth, window.innerHeight ];
-const size = 1;
+const dim=[ window.innerWidth, window.innerHeight ];
+const size=1;
 module.exports.size = size;
 module.exports.angleZoom = 30;
 module.exports.noiseZ = 70;
@@ -17,6 +17,6 @@ module.exports.decayOnCollision = true;
 module.exports.limitDecay = true;
 module.exports.antInfluence = 10.8;
 module.exports.friction = 20.5;
-module.exports.collisionStatic = 10;
-module.exports.spawnStatic = 10;
+module.exports.collisionStatic = 1;
+module.exports.spawnStatic = 1;
 module.exports.spawnRate = 100;
