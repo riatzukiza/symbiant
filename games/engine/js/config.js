@@ -14,5 +14,5 @@ module.exports.maxInDecay = 50;
 module.exports.maxTrail = 100;
 module.exports.limitDecay = false;
 module.exports.antInfluence = 1;
-module.exports.friction = 4;
+module.exports.friction = 42;
 module.exports.spawnRate = 100;

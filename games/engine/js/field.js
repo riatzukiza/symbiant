@@ -43,8 +43,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
 
     if(!vel.trail ) {
-      vel.winRate=0
-      vel.looseRate=0
+      vel.winCount=0
+      vel.looseCount=0
       vel.trail = [
         {
           x:vel.xd,
@@ -58,13 +58,16 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       pheremones:pH
     })
     if(vel.trail.length >= config.maxTrail) {
-      let total
       console.log("loose",vel)
+
+      let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
-        pheremones.subFrom({x:x+vel.looseRate,y:y+vel.looseRate})
+        pheremones.subFrom({
+          x:x*weight,
+          y:y*weight
+        })
       }
-      vel.looseRate++
-      vel.winRate--
+      vel.looseCount++
 
       vel.trail = []
       p.x =homePos.x
@@ -73,12 +76,14 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     }
     if(win) {
       console.log("win",vel)
-      let total
+      let weight = vel.winCount/(vel.looseCount + 1)
       for(let {x,y,pheremones} of vel.trail) {
-        pheremones.addTo({x:x+vel.winRate,y:y+vel.winRate})
+        pheremones.addTo({
+          x:x*weight,
+          y:y*weight
+        })
       }
-      vel.winRate++
-      vel.looseRate--
+      vel.winCount++
       vel.trail = []
 
       // vel.trail = []
