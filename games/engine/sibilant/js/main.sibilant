@@ -144,23 +144,26 @@
         (do
 
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+
          (assign c.colliding false)
          (assign c*.colliding false)
+
          (var hpos (.get game.systems Position home))
+
          (set cv.pos
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
+
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
                           game.ticker.ticks
                           true
                           true
-                          home-pos
-                          )
+                          home-pos)
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
+
         (not (or (= c.entity home) (= c*.entity home)
-                 (= c.entity target) (= c*.entity target)
-                 ))
+                 (= c.entity target) (= c*.entity target)))
         (do
 
          (assign c.colliding false)
