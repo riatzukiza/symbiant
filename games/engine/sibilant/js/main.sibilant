@@ -221,6 +221,11 @@
      'mass 10000
      'forces [])
 
+(set (.get game.systems Velocity target)
+     'xd (random-signed 10)
+     'yd (random-signed 10)
+     )
+
 ;; (set (.get game.systems Collision target)
 ;;      'type 'static)
 

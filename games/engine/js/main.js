@@ -394,12 +394,24 @@ game.systems.get(Position, target).z = 1;
 game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
-const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$54, home, startingLife) {
-  /* spawn-ant eval.sibilant:226:0 */
+game.systems.get(Velocity, target).xd = (function() {
+  /* eval.sibilant:29:8 */
 
-  var x = x_y$54[0],
-      y = x_y$54[1];
+  var rand = ((Math.random() * (10 - 0)) + 0);
+  return (10 - (rand * 2));
+}).call(this);
+game.systems.get(Velocity, target).yd = (function() {
+  /* eval.sibilant:29:8 */
+
+  var rand = ((Math.random() * (10 - 0)) + 0);
+  return (10 - (rand * 2));
+}).call(this);
+const ants=[];
+var spawnAnt = (function spawnAnt$(x_y$55, home, startingLife) {
+  /* spawn-ant eval.sibilant:231:0 */
+
+  var x = x_y$55[0],
+      y = x_y$55[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
