@@ -233,6 +233,8 @@
 (var home-pos (.get game.systems Position home))
 (var number 1)
 (do-times number (spawn-ant [home-pos.x home-pos.y] home))
+(set-interval (-> (spawn-ant [home-pos.x home-pos.y] home)), 1000)
+
 
 
 
