@@ -187,7 +187,7 @@
                                               false
                                               false
                                               home-pos)
-                             (assign c.size (or v.win-rate 1)))))
+                             (assign c.size (or (/ v.win-count (+ 1 v.loose-count)) 1)))))
 
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))
