@@ -179,23 +179,24 @@
          ;; (.accelerate cv [(random-signed 1),(random-signed 1)])
          ;; (.accelerate c*v [(random-signed 1),(random-signed 1)])
 
-         (update-particle c*v c*v.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          config.decay-on-collision
-                          false
-                          false
-                          home-pos
+         ;; (update-particle c*v c*v.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos
 
-                          )
+         ;;                  )
          
-         (update-particle cv cv.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          config.decay-on-collision
-                          false
-                          false
-                          home-pos))))
+         ;; (update-particle cv cv.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos)
+         )))
 (define SignalField Physics.Force
 
         (field (create-vector-field config.columns
