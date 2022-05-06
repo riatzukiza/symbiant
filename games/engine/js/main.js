@@ -300,12 +300,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
       c.colliding = false;
@@ -318,12 +318,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this) ]);
     } else if (!((c.entity === home || c_.entity === home))) {
       c.colliding = false;
@@ -332,23 +332,23 @@ game.events.on("collision", (([ c, c_, d ]) => {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this) ]);
       c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
       
         var rand = ((Math.random() * (1 - 0)) + 0);
-        return (1 - (rand / 2));
+        return (1 - (rand * 2));
       }).call(this) ]);
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
       return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks);
@@ -393,11 +393,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$43, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$44, home, startingLife) {
   /* spawn-ant eval.sibilant:210:0 */
 
-  var x = x_y$43[0],
-      y = x_y$43[1];
+  var x = x_y$44[0],
+      y = x_y$44[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -414,12 +414,12 @@ var spawnAnt = (function spawnAnt$(x_y$43, home, startingLife) {
     /* eval.sibilant:29:8 */
   
     var rand = ((Math.random() * (100 - 0)) + 0);
-    return (100 - (rand / 2));
+    return (100 - (rand * 2));
   }).call(this), (function() {
     /* eval.sibilant:29:8 */
   
     var rand = ((Math.random() * (100 - 0)) + 0);
-    return (100 - (rand / 2));
+    return (100 - (rand * 2));
   }).call(this) ]);
   console.log("spawning ant", v);
   return ant;
