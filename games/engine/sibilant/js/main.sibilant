@@ -143,7 +143,6 @@
         (= c*.entity target)
         (do
 
-         
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          (assign c.colliding false)
          (assign c*.colliding false)
