@@ -9,7 +9,7 @@
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 10.1
+     'decay 1.1
      'maxLength 30.5
      'ant-limit 200
      'max-in-decay 400
