@@ -10,7 +10,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, config.noiseZ) * Math.PI * 2;
     let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, config.noiseZ) * config.fieldForce / 20;
     let pH = pheremones[pos.x][pos.y]
-    field[pos.x][pos.y].setLength(length );
+    field[pos.x][pos.y].setLength(length * 10);
     field[pos.x][pos.y].setAngle(angle);
 
     let vec = field[pos.x][pos.y];
@@ -32,11 +32,11 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
 
     pH.addTo(vec)
 
-    pH.addTo({
-      x:vel.xd/10,
-      y:vel.yd/10
+    // pH.addTo({
+    //   x:vel.xd/10,
+    //   y:vel.yd/10
 
-    })
+    // })
     vel.accelerate([pH.x,pH.y]);
     // console.log({tick,vec,vel})
 
