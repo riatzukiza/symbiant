@@ -181,6 +181,7 @@
                           game.ticker.ticks
                           config.decay-on-collision
                           false
+                          false
                           home-pos
 
                           )
@@ -189,6 +190,7 @@
                           Signal-field.layer
                           game.ticker.ticks
                           config.decay-on-collision
+                          false
                           false
                           home-pos
                           )
