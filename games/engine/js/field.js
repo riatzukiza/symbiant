@@ -93,7 +93,9 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
     // vel.xd = pH.x
     // vel.xy = pH.y
-    vel.accelerate([pH.x,pH.y]);
+
+    //vel.accelerate([Math.min(pH.x,config.maxSpeed),Math.min()]);
+    vel.accelerate([(pH).x,pH.y]);
     // console.log({tick,vec,vel})
 
   }
