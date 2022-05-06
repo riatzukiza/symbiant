@@ -2,8 +2,19 @@ const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
 const waitingDecay = new Set()
-module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,tick, decay=false,win=false,homePos) {
+module.exports.updateParticle = function updateParticle(
+  vel,
+  p,
+  field,
+  pheremones,
+  tick,
+  decay=false,
+  win=false,
+  homePos,
+  loose =  isNaN(vel.xd)|| isNaN(vel.yd) || (vel?.trail?.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount))
+) {
   const pos = new Vector(0,0)
+  
   pos.x = Math.round(p.x / config.size);
   pos.y = Math.round(p.y / config.size);
   if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
@@ -59,7 +70,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       y:vel.yd,
       pheremones:pH
     })
-    if(vel.trail.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount)) {
+    if(loose) {
       console.log("loose",vel)
 
       let weight = vel.looseCount/(vel.winCount+1)
