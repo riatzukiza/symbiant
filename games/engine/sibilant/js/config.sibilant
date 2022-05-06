@@ -4,7 +4,7 @@
 (set module.exports
      'size size
      'angle-zoom 80
-     'noise-z 70
+     'noise-z 10
      'field-force 10
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
