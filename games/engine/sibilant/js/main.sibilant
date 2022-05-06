@@ -298,8 +298,8 @@
 (.addRange settings "Noise Force" 1 9999 (=> (val) (assign config.field-force val)))
 (.addRange settings "Signal Decay" 0 9999 (=> (val) (assign config.decay val)))
 (.addRange settings "Max P Vector Length" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "Max Trail" 0 9999 (=> (val) (assign config.max-length val)))
-(.addRange settings "Min Trail" 0 9999 (=> (val) (assign config.max-length val)))
+(.addRange settings "Max Trail" 0 9999 (=> (val) (assign config.max-trail val)))
+(.addRange settings "Min Trail" 0 9999 (=> (val) (assign config.min-trail val)))
 
 (.add-boolean settings "Decay on collision" 0 9999 (=> (val) (assign config.max-length val)))
 (.add-boolean settings "Limit the number of decay blocks per cycle" 0 9999 (=> (val) (assign config.max-length val)))
