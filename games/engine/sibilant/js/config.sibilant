@@ -12,5 +12,5 @@
      'decay 0.001
      'maxLength 17
      'ant-influence 128
-     'friction 4
+     'friction 16
      )
