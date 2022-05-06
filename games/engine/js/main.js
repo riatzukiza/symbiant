@@ -356,11 +356,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$15, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$16, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$15[0],
-      y = x_y$15[1];
+  var x = x_y$16[0],
+      y = x_y$16[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -449,6 +449,11 @@ settings.addRange("Ant Influence", 0, 9999, ((val) => {
 
 }));
 settings.addRange("friction", 0, 9999, ((val) => {
+	
+  return config.maxLength = val;
+
+}));
+settings.addRange("Collision Static", 0, 9999, ((val) => {
 	
   return config.maxLength = val;
 
