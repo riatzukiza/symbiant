@@ -12,7 +12,7 @@
      'decay 0.04
      'maxLength 40
      'ant-limit 200
-     'max-in-decay 50
+     'max-in-decay 10
      'ant-influence 0.3
      'friction 2
      'spawn-rate 100
