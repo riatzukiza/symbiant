@@ -206,12 +206,6 @@ var Friction = Physics.Force.define("Friction", {
     
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
-      (function() {
-        if ((100 < v.xd || 100 < v.yd || -100 > v.xd || -100 > v.yd)) {
-          v.xd = (v.xd / config.friction);
-          return v.yd = (v.yd / config.friction);
-        }
-      }).call(this);
       return (function() {
         if (!(collision.colliding)) {
           v.xd += (-0.3 * (3 + (v.xd / config.friction)));
@@ -408,11 +402,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$29, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$30, home, startingLife) {
   /* spawn-ant eval.sibilant:258:0 */
 
-  var x = x_y$29[0],
-      y = x_y$29[1];
+  var x = x_y$30[0],
+      y = x_y$30[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
