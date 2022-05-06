@@ -207,7 +207,7 @@ var Friction = Physics.Force.define("Friction", {
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
       (function() {
-        if ((10 < v.xd || 10 < v.yd || -10 > v.xd || -10 > v.yd)) {
+        if ((20 < v.xd || 20 < v.yd || -20 > v.xd || -20 > v.yd)) {
           v.xd = 0;
           return v.yd = 0;
         }
@@ -420,11 +420,11 @@ game.systems.get(Velocity, target).yd = (function() {
   return (10 - (rand * 2));
 }).call(this);
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
   /* spawn-ant eval.sibilant:245:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$8[0],
+      y = x_y$8[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
