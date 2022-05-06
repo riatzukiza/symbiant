@@ -356,11 +356,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$26, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$27, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$26[0],
-      y = x_y$26[1];
+  var x = x_y$27[0],
+      y = x_y$27[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -443,26 +443,22 @@ settings.addBoolean("Limit the number of decay blocks per cycle", config.limitDe
   return config.limitDecay = val;
 
 }));
-settings.addRange("Ant Influence", 0, 9999, ((val) => {
+settings.addRange("Ant Influence", 0, 9999, config.antInfluence, ((val) => {
 	
   return config.antInfluence = val;
 
 }));
-settings.addRange("friction", 0, 128, ((val) => {
+settings.addRange("friction", 0, 128, config.friction, ((val) => {
 	
   return config.friction = val;
 
 }));
-settings.addRange("Collision Static", 0, 9999, ((val) => {
+settings.addRange("Collision Static", 0, 9999, config.collisionStatic, ((val) => {
 	
   return config.collisionStatic = val;
 
 }));
-settings.addRange("Spawn Static", 0, 9999, ((val) => {
-	
-  return config.spawnStatic = val;
-
-}));
+settings.addRange("Spawn Static", 0, 9999, config.spawnStatic(=>, val(), config.spawnStatic = val;));
 settings.addRange("Spawn Rate", 0, 9999, ((val) => {
 	
   return config.spawnRate = val;
