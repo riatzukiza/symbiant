@@ -124,8 +124,8 @@
          (var hpos (.get game.systems Position home))
 
          (set c*v.pos
-              'x (+ 3 hpos.x)
-              'y (+ 3 hpos.y))
+              'x  hpos.x
+              'y hpos.y)
 
          (set c*v
               'xd 0 
@@ -152,8 +152,8 @@
          (var hpos (.get game.systems Position home))
 
          (set cv.pos
-              'x (+ 3 hpos.x)
-              'y (+ 3 hpos.y))
+              'x  hpos.x
+              'y hpos.y)
 
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer

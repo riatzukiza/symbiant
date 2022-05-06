@@ -310,8 +310,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
-      c_v.pos.x = (3 + hpos.x);
-      c_v.pos.y = (3 + hpos.y);
+      c_v.pos.x = hpos.x;
+      c_v.pos.y = hpos.y;
       c_v.xd = 0;
       c_v.yd = 0;
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, true, homePos);
@@ -341,8 +341,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
-      cv.pos.x = (3 + hpos.x);
-      cv.pos.y = (3 + hpos.y);
+      cv.pos.x = hpos.x;
+      cv.pos.y = hpos.y;
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       return cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
@@ -410,11 +410,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$22, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$23, home, startingLife) {
   /* spawn-ant eval.sibilant:256:0 */
 
-  var x = x_y$22[0],
-      y = x_y$22[1];
+  var x = x_y$23[0],
+      y = x_y$23[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
