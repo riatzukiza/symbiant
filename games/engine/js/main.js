@@ -282,7 +282,6 @@ var rgba = memoize(((r, g, b, a) => {
 }));
 game.events.on("collision", (([ c, c_, d ]) => {
 	
-  console.log("collision", c, c_, d);
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
@@ -302,8 +301,29 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.y = (3 + hpos.y);
       cv.xd = 0;
       return cv.yd = 0;
-    } else {
-      return console.log("not target");
+    } else if (!((c.entity === home || c_.entity === home))) {
+      cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (2 - 0)) + 0);
+        return (2 - (rand / 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (2 - 0)) + 0);
+        return (2 - (rand / 2));
+      }).call(this) ]);
+      return c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (2 - 0)) + 0);
+        return (2 - (rand / 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (2 - 0)) + 0);
+        return (2 - (rand / 2));
+      }).call(this) ]);
     }
   }).call(this);
 
@@ -347,11 +367,11 @@ game.systems.get(Physics, target).mass = 1;
 game.systems.get(Physics, target).forces = [];
 game.systems.get(Collision, target).type = "static";
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$11, home, startingLife) {
-  /* spawn-ant eval.sibilant:184:0 */
+var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
+  /* spawn-ant eval.sibilant:187:0 */
 
-  var x = x_y$11[0],
-      y = x_y$11[1];
+  var x = x_y$12[0],
+      y = x_y$12[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -366,7 +386,7 @@ var spawnAnt = (function spawnAnt$(x_y$11, home, startingLife) {
   return ant;
 });
 var homePos = game.systems.get(Position, home);
-var number = 10;
+var number = 100;
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 

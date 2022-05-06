@@ -96,7 +96,6 @@
 
 
 (on game.events 'collision ([c c* d])
-    (print "collision", c c* d)
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
 
@@ -120,6 +119,7 @@
          )
         (= c*.entity target)
         (do
+
          (print "HIT")
          (var hpos (.get game.systems Position home))
          (set cv.pos
@@ -128,7 +128,10 @@
          (set cv
               'xd 0
               'yd 0))
-        (print "not target")))
+        (not (or (= c.entity home) (= c*.entity home)))
+        (do
+         (.accelerate cv [(random-signed 2),(random-signed 2)])
+         (.accelerate c*v [(random-signed 2),(random-signed 2)]))))
 
 (define SignalField Physics.Force
 
@@ -204,7 +207,7 @@
      ant)
 
 (var home-pos (.get game.systems Position home))
-(var number 10)
+(var number 100)
 (do-times number (spawn-ant [home-pos.x home-pos.y] home))
 
 
