@@ -20,10 +20,9 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       pH.lastCheck = tick
       waitingDecay.add(pH)
     }
-    if(decay || waitingDecay.size > config.maxInDecay) {
+    if(decay || (config.limitDecay && waitingDecay.size > config.maxInDecay)) {
       if(pH.lastCheck < tick) {
         for(let cell of waitingDecay) {
-          
           // console.log("decaying",pH,tick)
           cell.subFrom({
             x:cell.x * (config.decay * (tick - cell.lastCheck )),
@@ -41,8 +40,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     pH.addTo(vec)
 
     pH.addTo({
-      x:vel.xd/config.antInfluence,
-      y:vel.yd/config.antInfluence
+      x:vel.xd*config.antInfluence,
+      y:vel.yd*config.antInfluence
 
     })
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
