@@ -17,6 +17,6 @@
      'min-trail 100
      'limit-decay false
      'ant-influence 10
-     'friction  7.8
+     'friction  3.8
      'spawn-rate 100
      )
