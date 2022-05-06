@@ -13,8 +13,8 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
     field[pos.x][pos.y].setLength(length);
     field[pos.x][pos.y].setAngle(angle);
 
+    let vec = field[pos.x][pos.y];
     if(decay) {
-      let vec = field[pos.x][pos.y];
       if(!pH.lastCheck) {
         pH.lastCheck = tick
       }
