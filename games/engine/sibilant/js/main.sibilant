@@ -114,9 +114,7 @@
          (set c*v
               'xd 0 
               'yd 0)
-         (.accelerate c*v [(random-signed 2),(random-signed 2)])
-
-         )
+         (.accelerate c*v [(random-signed 2),(random-signed 2)]))
         (= c*.entity target)
         (do
 
@@ -125,8 +123,7 @@
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
 
-         (.accelerate cv [(random-signed 2),(random-signed 2)])
-         )
+         (.accelerate cv [(random-signed 2),(random-signed 2)]))
         (not (or (= c.entity home) (= c*.entity home)))
         (do
          (.accelerate cv [(random-signed 2),(random-signed 2)])

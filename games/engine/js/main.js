@@ -384,11 +384,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$22, home, startingLife) {
-  /* spawn-ant eval.sibilant:186:0 */
+var spawnAnt = (function spawnAnt$(x_y$23, home, startingLife) {
+  /* spawn-ant eval.sibilant:183:0 */
 
-  var x = x_y$22[0],
-      y = x_y$22[1];
+  var x = x_y$23[0],
+      y = x_y$23[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
