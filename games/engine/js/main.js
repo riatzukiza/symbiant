@@ -371,7 +371,7 @@ var SignalField = Physics.Force.define("SignalField", {
       return (function() {
         if (!(collision.colliding)) {
           updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
-          var winRate = (v.winCount / (1 + v.looseCount));
+          var winRate = (v.winCount / ((1 + v.looseCount) || 1));
           return c.scale = (function() {
             if (winRate > 1) {
               return winRate;
@@ -402,11 +402,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$30, home, startingLife) {
-  /* spawn-ant eval.sibilant:258:0 */
+var spawnAnt = (function spawnAnt$(x_y$31, home, startingLife) {
+  /* spawn-ant eval.sibilant:260:0 */
 
-  var x = x_y$30[0],
-      y = x_y$30[1];
+  var x = x_y$31[0],
+      y = x_y$31[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
