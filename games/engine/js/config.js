@@ -10,5 +10,5 @@ module.exports.rows = Math.ceil((dim[1] / size));
 module.exports.decay = 0.001;
 module.exports.maxLength = 7;
 module.exports.maxInDecay = 50;
-module.exports.antInfluence = 10;
+module.exports.antInfluence = 0.1;
 module.exports.friction = 16;
