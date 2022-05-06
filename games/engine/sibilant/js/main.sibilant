@@ -126,7 +126,7 @@
          (set cv.pos
               'x (+ 3 hpos.x)
               'y (+ 3 hpos.y))
-
+         (update-particle cv cv.pos, Signal-field.field, Signal-field.layer game.ticker.ticks)
          (.accelerate cv [(random-signed 1),(random-signed 1)]))
         (not (or (= c.entity home) (= c*.entity home)))
         (do
