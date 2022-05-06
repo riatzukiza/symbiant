@@ -192,11 +192,7 @@
                           config.decay-on-collision
                           false
                           false
-                          home-pos
-                          )
-
-         )))
-
+                          home-pos))))
 (define SignalField Physics.Force
 
         (field (create-vector-field config.columns
