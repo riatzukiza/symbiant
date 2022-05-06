@@ -130,6 +130,9 @@
          (.accelerate cv [(random-signed 1),(random-signed 1)]))
         (not (or (= c.entity home) (= c*.entity home)))
         (do
+
+         (assign c.colliding false)
+         (assign c*.colliding false)
          (.accelerate cv [(random-signed 1),(random-signed 1)])
          (.accelerate c*v [(random-signed 1),(random-signed 1)]))))
 
