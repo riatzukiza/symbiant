@@ -57,7 +57,7 @@ module.exports.updateParticle = function updateParticle(vel,p,field,pheremones,t
       y:vel.yd,
       pheremones:pH
     })
-    if(vel.trail.length >= vel.winCount +config.maxTrail -vel.looseCount) {
+    if(vel.trail.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount)) {
       console.log("loose",vel)
 
       let weight = vel.looseCount/(vel.winCount+1)
