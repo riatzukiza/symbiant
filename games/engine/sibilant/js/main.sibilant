@@ -230,7 +230,7 @@
           'forces [SignalField, Friction])
      (var v (.get game.systems Velocity ant))
 
-     (.accelerate v [(random-signed 100),(random-signed 100)])
+     (.accelerate v [(random-signed 1),(random-signed 1)])
      (print "spawning ant" v)
      ant)
 
