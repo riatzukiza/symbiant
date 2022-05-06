@@ -127,9 +127,6 @@
               'x  hpos.x
               'y hpos.y)
 
-         (set c*v
-              'xd 0 
-              'yd 0)
 
          (update-particle c*v c*v.pos, Signal-field.field,
                           Signal-field.layer
