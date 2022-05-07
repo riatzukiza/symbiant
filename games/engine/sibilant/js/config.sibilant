@@ -5,7 +5,7 @@
      'size size
      'angle-zoom 30
      'noise-z 70
-     'field-force 1000
+     'field-force 10
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
