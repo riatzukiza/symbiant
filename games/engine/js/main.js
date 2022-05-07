@@ -430,11 +430,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$6[0],
-      y = x_y$6[1];
+  var x = x_y$7[0],
+      y = x_y$7[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -473,37 +473,37 @@ setInterval((() => {
 }), config.spawnRate);
 game.start();
 var settings = QuickSettings.create();
-settings.addRange("Angle Zoom", 1, 9999, config.angleZoom, 1, ((val) => {
+settings.addRange("Angle Zoom", 1, 999, config.angleZoom, 1, ((val) => {
 	
   return config.angleZoom = val;
 
 }));
-settings.addRange("Noise Z", 1, 9999, config.noiseZ, 1, ((val) => {
+settings.addRange("Noise Z", 1, 999, config.noiseZ, 1, ((val) => {
 	
   return config.noiseZ = val;
 
 }));
-settings.addRange("Noise Force", 1, 9999, config.fieldForce, 1, ((val) => {
+settings.addRange("Noise Force", 1, 999, config.fieldForce, 1, ((val) => {
 	
   return config.fieldForce = val;
 
 }));
-settings.addRange("Signal Decay", 0, 9999, config.decay, 1, ((val) => {
+settings.addRange("Signal Decay", 0, 999, config.decay, 1, ((val) => {
 	
   return config.decay = val;
 
 }));
-settings.addRange("Max P Vector Length", 0, 9999, config.maxLength, ((val) => {
+settings.addRange("Max P Vector Length", 0, 999, config.maxLength, ((val) => {
 	
   return config.maxLength = val;
 
 }));
-settings.addRange("Max Trail", 10, 9999, config.maxTrail, ((val) => {
+settings.addRange("Max Trail", 10, 999, config.maxTrail, ((val) => {
 	
   return config.maxTrail = val;
 
 }));
-settings.addRange("Min Trail", 10, 9999, config.minTrail, ((val) => {
+settings.addRange("Min Trail", 10, 999, config.minTrail, ((val) => {
 	
   return config.minTrail = val;
 
@@ -518,7 +518,7 @@ settings.addBoolean("Limit the number of decay blocks per cycle", config.limitDe
   return config.limitDecay = val;
 
 }));
-settings.addRange("Ant Influence", 0, 9999, config.antInfluence, ((val) => {
+settings.addRange("Ant Influence", 0, 999, config.antInfluence, ((val) => {
 	
   return config.antInfluence = val;
 
@@ -528,17 +528,17 @@ settings.addRange("friction", 2, 128, config.friction, ((val) => {
   return config.friction = val;
 
 }));
-settings.addRange("Collision Static", 0, 9999, config.collisionStatic, ((val) => {
+settings.addRange("Collision Static", 0, 999, config.collisionStatic, ((val) => {
 	
   return config.collisionStatic = val;
 
 }));
-settings.addRange("Spawn Static", 1, 9999, config.spawnStatic, ((val) => {
+settings.addRange("Spawn Static", 1, 999, config.spawnStatic, ((val) => {
 	
   return config.spawnStatic = val;
 
 }));
-settings.addRange("Spawn Rate", 1, 9999, config.spawnRate, ((val) => {
+settings.addRange("Spawn Rate", 1, 999, config.spawnRate, ((val) => {
 	
   return config.spawnRate = val;
 
