@@ -54,7 +54,7 @@
              (print "LIST ROTATING", t, predicate, this)
              (if (predicate this.head.item)
                  this.head.item
-                 (not (> t this.size))
+                 (not (> t (- this.size 1)))
                  (pipe this .rotate (.rotate-until predicate (++ t)))
                  false))
 
