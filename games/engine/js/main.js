@@ -211,7 +211,7 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   return (function() {
     if (predicate(this.head.item)) {
       return this.head.item;
-    } else if (!(t > (this.size - 1))) {
+    } else if (t > (this.size - 1)) {
       return this.rotate().rotateUntil(predicate, ++(t));
     } else {
       return false;
@@ -417,11 +417,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$36, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$37, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$36[0],
-      y = x_y$36[1];
+  var x = x_y$37[0],
+      y = x_y$37[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
