@@ -206,6 +206,12 @@ var Friction = Physics.Force.define("Friction", {
     
       var v = c.velocity;
       var collision = c.system.process.systems.get(Collision, c.entity);
+      (function() {
+        if ((100 < v.xd || 100 < v.yd || -100 > v.xd || -100 > v.yd)) {
+          v.xd = (v.xd / config.friction);
+          return v.yd = (v.yd / config.friction);
+        }
+      }).call(this);
       return (function() {
         if (!(collision.colliding)) {
           v.xd += (-1 * (1 + (v.xd / config.friction)));
@@ -290,20 +296,88 @@ game.events.on("collision", (([ c, c_, d ]) => {
     if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
     } else if (c.entity === target) {
+      cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * ((((1 + c_v.xd) * config.collisionStatic) || config.collisionStatic) - 0)) + 0);
+        return ((((1 + c_v.xd) * config.collisionStatic) || config.collisionStatic) - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * ((((1 + c_v.yd) * config.collisionStatic) || config.collisionStatic) - 0)) + 0);
+        return ((((1 + c_v.yd) * config.collisionStatic) || config.collisionStatic) - (rand * 2));
+      }).call(this) ]);
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
       c_v.pos.x = hpos.x;
-      return c_v.pos.y = hpos.y;
+      c_v.pos.y = hpos.y;
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
+      return c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
+      }).call(this) ]);
     } else if (c_.entity === target) {
+      c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * ((((1 + cv.xd) * config.collisionStatic) || config.collisionStatic) - 0)) + 0);
+        return ((((1 + cv.xd) * config.collisionStatic) || config.collisionStatic) - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * ((((1 + cv.yd) * config.collisionStatic) || config.collisionStatic) - 0)) + 0);
+        return ((((1 + cv.yd) * config.collisionStatic) || config.collisionStatic) - (rand * 2));
+      }).call(this) ]);
       c.colliding = false;
       c_.colliding = false;
       var hpos = game.systems.get(Position, home);
       cv.pos.x = hpos.x;
-      return cv.pos.y = hpos.y;
+      cv.pos.y = hpos.y;
+      updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
+      return cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+        return (config.collisionStatic - (rand * 2));
+      }).call(this) ]);
     } else if (!((c.entity === home || c_.entity === home || c.entity === target || c_.entity === target))) {
       c.colliding = false;
       c_.colliding = false;
+      cv.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
+      c_v.accelerate([ (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:29:8 */
+      
+        var rand = ((Math.random() * (1 - 0)) + 0);
+        return (1 - (rand * 2));
+      }).call(this) ]);
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
       return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
     }
@@ -364,6 +438,7 @@ var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
+  console.log(ant);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
   game.systems.get(Position, ant).x = x;
   game.systems.get(Position, ant).y = y;
