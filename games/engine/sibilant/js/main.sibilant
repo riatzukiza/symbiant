@@ -50,7 +50,9 @@
           (lit List) "sibilant-game-engine/client/data-structures/list"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
-          (lit Tree-map) "tree-kit")
+          (lit Tree-map) "tree-kit"
+
+          config "./config")
 
 (def-generic List.rotate-until (predicate (t 0))
              (print "LIST ROTATING", t, predicate, this)
@@ -61,12 +63,6 @@
                  false))
 
 
-(assign global.size window.size)
-(print window.size)
-(require! config "./config")
-(print (window.size))
-
-(print config)
 
 (const rendering (.load Rendering
                         (lit (size config.dimensions)

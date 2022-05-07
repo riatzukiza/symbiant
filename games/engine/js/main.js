@@ -203,7 +203,8 @@ var {
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
   TreeMap
- } = require("tree-kit");
+ } = require("tree-kit"),
+    config = require("./config");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
   /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
 
@@ -218,11 +219,6 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
     }
   }).call(this);
 });
-global.size = window.size;
-console.log(window.size);
-var config = require("./config");
-console.log(window.size());
-console.log(config);
 const rendering=Rendering.load({ 
   size:config.dimensions,
   limit:100,
@@ -234,22 +230,22 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:87:0 */
+  /* entity eval.sibilant:84:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:88:0 */
+  /* vector2d eval.sibilant:85:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:90:0 */
+  /* Tree-map.get eval.sibilant:87:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:92:0 */
+  /* memoize eval.sibilant:89:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -302,11 +298,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$11, home, startingLife) {
-  /* spawn-ant eval.sibilant:146:0 */
+var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
+  /* spawn-ant eval.sibilant:143:0 */
 
-  var x = x_y$11[0],
-      y = x_y$11[1];
+  var x = x_y$12[0],
+      y = x_y$12[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -345,7 +341,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:175:0 */
+  /* clear-ants eval.sibilant:172:0 */
 
   console.log("clearning ants", ants);
   ants.each(((ant) => {
