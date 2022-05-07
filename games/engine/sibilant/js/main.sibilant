@@ -50,7 +50,7 @@
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
 (def-generic List.rotate-until (predicate (t 0))
-             (print "LIST ROTATING", t, predicate)
+             (print "LIST ROTATING", t, predicate, this)
              (if (predicate this.head.item)
                  this.head.item
                  (not (> t this.size))
