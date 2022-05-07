@@ -417,11 +417,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$5[0],
-      y = x_y$5[1];
+  var x = x_y$6[0],
+      y = x_y$6[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -482,7 +482,7 @@ settings.addRange("Signal Decay", 0, 99, config.decay, 0.1, ((val) => {
   return config.decay = val;
 
 }));
-settings.addRange("Max P Vector Length", 0, 99, config.maxLength, 1, ((val) => {
+settings.addRange("Max P Vector Length", 0, 99, config.maxLength, 0.1, ((val) => {
 	
   return config.maxLength = val;
 
