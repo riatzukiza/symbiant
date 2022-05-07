@@ -6,18 +6,18 @@ var {
   conditional,
   cond,
   partiallyApplyAfter
-} = require("@kit-js/core/js/util");
+ } = require("@kit-js/core/js/util");
 var { 
   Interface
-} = require("@kit-js/interface");
+ } = require("@kit-js/interface");
 var socket = io("/engine");
 socket.on("change", (() => {
-  
+	
   console.log("change ");
   return location.reload();
 
 })).once("error", ((err) => {
-  
+	
   console.log("error on", "change", "of", "socket", "given", "null");
   return console.log(err);
 
@@ -28,9 +28,9 @@ var {
   EventEmitter,
   emit,
   bubble
-} = require("kit-events");
+ } = require("kit-events");
 var renderChildren = R.curry(((_parent, c, i, a) => {
-  
+	
   return (function() {
     if (typeof c === "undefined") {
       return null;
@@ -47,7 +47,7 @@ var renderChildren = R.curry(((_parent, c, i, a) => {
     } else if ((c instanceof Element)) {
       return (function(node) {
         /* node_modules/kit/inc/scope.sibilant:12:9 */
-        
+      
         a[i] = node;
         return renderChildren(_parent, node, i, a);
       })(DocumentNode.wrap(c, _parent._node));
@@ -60,167 +60,161 @@ var renderChildren = R.curry(((_parent, c, i, a) => {
 var DocumentNode = EventEmitter.define("DocumentNode", { 
   init( tagName = this.tagName,attributes = this.attributes,_children = [],_parent = this._parent,_node = document.createElement(tagName) ){ 
     
-    this.tagName = tagName;this.attributes = attributes;this._children = _children;this._parent = _parent;this._node = _node;
-    EventEmitter.init.call(this);
-    return this;
+      this.tagName = tagName;this.attributes = attributes;this._children = _children;this._parent = _parent;this._node = _node;
+      EventEmitter.init.call(this);
+      return this;
     
-  },
+   },
   get children(  ){ 
     
-    return this._children;
+      return this._children;
     
-  },
+   },
   get style(  ){ 
     
-    return this._node.style;
+      return this._node.style;
     
-  },
+   },
   clear( _node = this._node ){ 
     
-    _node.innerHTML = "";
-    return this;
+      _node.innerHTML = "";
+      return this;
     
-  },
+   },
   render( _parent = this._parent,attributes = this.attributes,tagName = this.tagName,_node = this._node,children = this.children ){ 
     
-    _node.innerHTML = "";
-    this._parent = _parent;
-    _parent._node.appendChild(_node);
-    attributes.each(((a, k) => {
+      _node.innerHTML = "";
+      this._parent = _parent;
+      _parent._node.appendChild(_node);
+      attributes.each(((a, k) => {
+      	
+        return _node[k] = a;
       
-      return _node[k] = a;
-      
-    }));
-    children.each(renderChildren(this));
-    this.emit("render");
-    return this;
+      }));
+      children.each(renderChildren(this));
+      this.emit("render");
+      return this;
     
-  },
+   },
   wrap( _node,_parent ){ 
     
-    "create a Document-node from a native DOM Element";
-    return create(DocumentNode)(_node.tagName, {  }, [], _parent, _node);
+      "create a Document-node from a native DOM Element";
+      return create(DocumentNode)(_node.tagName, {  }, [], _parent, _node);
     
-  },
+   },
   append( node = this.node,children = this.children ){ 
     
-    "add a child to the bottom of this one";
-    children.push(node);
-    return this;
+      "add a child to the bottom of this one";
+      children.push(node);
+      return this;
     
-  },
+   },
   prepend( node = this.node,children = this.children ){ 
     
-    "add a child to the top of this one";
-    return this.children = [ node, children ];
+      "add a child to the top of this one";
+      return this.children = [ node, children ];
     
-  },
+   },
   remove( _node = this._node,_parent = this._parent ){ 
     
-    "remove this element from the tree.";
-    _node.remove();
-    _parent.children.filter(((c) => {
+      "remove this element from the tree.";
+      _node.remove();
+      _parent.children.filter(((c) => {
+      	
+        return !(_node === c);
       
-      return !(_node === c);
-      
-    }));
-    _parent.emit("remove", _node);
-    return this;
+      }));
+      _parent.emit("remove", _node);
+      return this;
     
-  }
-});
+   }
+ });
 var DocumentRoot = DocumentNode.define("DocumentRoot", { 
   get _parent(  ){ 
     
-    return this;
+      return this;
     
-  },
+   },
   tagName:"html",
   _node:document.documentElement,
   _children:[]
-});
+ });
 var DocumentBody = DocumentNode.define("DocumentBody", { 
   get _parent(  ){ 
     
-    return this;
+      return this;
     
-  },
+   },
   tagName:"body",
   _node:document.body,
   _children:[]
-});
+ });
 var DocumentHead = DocumentNode.define("DocumentHead", { 
   get _parent(  ){ 
     
-    return this;
+      return this;
     
-  },
+   },
   tagName:"head",
   _node:document.head,
   _children:[]
-});
+ });
 var createDocumentNode = create(DocumentNode);
 console.log(document.appendChild);
 var { 
   TreeMap
-} = require("tree-kit");
+ } = require("tree-kit");
 var { 
   Game
-} = require("sibilant-game-engine/client/game"),
+ } = require("sibilant-game-engine/client/game"),
     { 
-      Rendering
-    } = require("sibilant-game-engine/client/systems/rendering/rendering"),
+  Rendering
+ } = require("sibilant-game-engine/client/systems/rendering/rendering"),
     { 
-      Dot
-    } = require("sibilant-game-engine/client/systems/rendering/dot"),
+  Dot
+ } = require("sibilant-game-engine/client/systems/rendering/dot"),
     { 
-      Position
-    } = require("sibilant-game-engine/client/systems/position"),
+  Position
+ } = require("sibilant-game-engine/client/systems/position"),
     { 
-      Velocity
-    } = require("sibilant-game-engine/client/systems/velocity"),
+  Velocity
+ } = require("sibilant-game-engine/client/systems/velocity"),
     { 
-      Physics
-    } = require("sibilant-game-engine/client/systems/physics"),
+  Physics
+ } = require("sibilant-game-engine/client/systems/physics"),
     { 
-      Scalar
-    } = require("sibilant-game-engine/client/math/scalar"),
+  Scalar
+ } = require("sibilant-game-engine/client/math/scalar"),
     { 
-      Component,
-      System
-    } = require("sibilant-game-engine/client/ecs/component"),
+  Component,
+  System
+ } = require("sibilant-game-engine/client/ecs/component"),
     noise = require("./noise"),
     Vector = require("./vector"),
     { 
-      createVectorField,
-      updateParticle
-    } = require("./field"),
+  createVectorField,
+  updateParticle
+ } = require("./field"),
     { 
-      Collision
-    } = require("sibilant-game-engine/client/systems/collision"),
+  Collision
+ } = require("sibilant-game-engine/client/systems/collision"),
     { 
-      TreeMap
-    } = require("tree-kit");
+  TreeMap
+ } = require("tree-kit");
 var Friction = Physics.Force.define("Friction", { 
   apply( c ){ 
     
-    var v = c.velocity;
-    var collision = c.system.process.systems.get(Collision, c.entity);
-    (function() {
-      if ((100 < v.xd || 100 < v.yd || -100 > v.xd || -100 > v.yd)) {
-        v.xd = (v.xd / config.friction);
-        return v.yd = (v.yd / config.friction);
-      }
-    }).call(this);
-    return (function() {
-      if (!(collision.colliding)) {
-        v.xd += (-1 * (1 + (v.xd / config.friction)));
-        return v.yd += (-1 * (1 + (v.yd / config.friction)));
-      }
-    }).call(this);
+      var v = c.velocity;
+      var collision = c.system.process.systems.get(Collision, c.entity);
+      return (function() {
+        if (!(collision.colliding)) {
+          v.xd += (-1 * (1 + (v.xd / config.friction)));
+          return v.yd += (-1 * (1 + (v.yd / config.friction)));
+        }
+      }).call(this);
     
-  }
-});
+   }
+ });
 global.size = window.size;
 console.log(window.size);
 var config = require("./config");
@@ -230,7 +224,7 @@ const rendering=Rendering.load({
   size:config.dimensions,
   limit:100,
   blend:true
-});
+ });
 var stage = createDocumentNode("div", { 'id': "stage" }, []);
 var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
@@ -256,38 +250,38 @@ var memoize = (function memoize$(f) {
 
   var cache = create(TreeMap)();
   return ((...args) => {
-    
+  	
     return (function() {
       if (cache.has(args)) {
         return cache.get(args);
       } else {
         return (function(value) {
           /* node_modules/kit/inc/scope.sibilant:12:9 */
-          
+        
           cache.set(args, value);
           return value;
         })((function() {
           /* node_modules/kit/inc/macros.sibilant:30:25 */
-          
+        
           return f(...args);
         }).call(this));
       }
     }).call(this);
-    
+  
   });
 });
 var rgba = memoize(((r, g, b, a) => {
-  
+	
   return { 
     r,
     g,
     b,
     a
-  };
+   };
 
 }));
 game.events.on("collision", (([ c, c_, d ]) => {
-  
+	
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
@@ -303,12 +297,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.y = hpos.y;
       return c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
@@ -320,12 +314,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.y = hpos.y;
       return cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
@@ -334,23 +328,23 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_.colliding = false;
       cv.accelerate([ (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
       return c_v.accelerate([ (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
         /* eval.sibilant:29:8 */
-        
+      
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
@@ -358,7 +352,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   }).call(this);
 
 })).once("error", ((err) => {
-  
+	
   console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
   return console.log(err);
 
@@ -368,24 +362,24 @@ var SignalField = Physics.Force.define("SignalField", {
   layer:createVectorField(config.columns, config.rows),
   apply( c = this.c,field = this.field,layer = this.layer ){ 
     
-    var v = c.velocity;
-    var collision = c.system.process.systems.get(Collision, c.entity);
-    return (function() {
-      if (!(collision.colliding)) {
-        updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
-        var winRate = (v.winCount / ((1 + v.looseCount) || 1));
-        return c.scale = (function() {
-          if (winRate > 1) {
-            return winRate;
-          } else {
-            return 1;
-          }
-        }).call(this);
-      }
-    }).call(this);
+      var v = c.velocity;
+      var collision = c.system.process.systems.get(Collision, c.entity);
+      return (function() {
+        if (!(collision.colliding)) {
+          updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
+          var winRate = (v.winCount / ((1 + v.looseCount) || 1));
+          return c.scale = (function() {
+            if (winRate > 1) {
+              return winRate;
+            } else {
+              return 1;
+            }
+          }).call(this);
+        }
+      }).call(this);
     
-  }
-});
+   }
+ });
 var home = entity([ Dot, Position, Physics, Collision ]);
 var homePos = game.systems.get(Position, home);
 game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
@@ -404,11 +398,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$24, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$25, home, startingLife) {
   /* spawn-ant eval.sibilant:265:0 */
 
-  var x = x_y$24[0],
-      y = x_y$24[1];
+  var x = x_y$25[0],
+      y = x_y$25[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -423,12 +417,12 @@ var spawnAnt = (function spawnAnt$(x_y$24, home, startingLife) {
   var v = game.systems.get(Velocity, ant);
   v.accelerate([ (function() {
     /* eval.sibilant:29:8 */
-    
+  
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));
   }).call(this), (function() {
     /* eval.sibilant:29:8 */
-    
+  
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));
   }).call(this) ]);
@@ -437,7 +431,7 @@ var spawnAnt = (function spawnAnt$(x_y$24, home, startingLife) {
 var homePos = game.systems.get(Position, home);
 var number = 1;
 setInterval((() => {
-  
+	
   return (function() {
     if (!(ants.length >= config.antLimit)) {
       return spawnAnt([ homePos.x, homePos.y ], home);
@@ -448,72 +442,72 @@ setInterval((() => {
 game.start();
 var settings = QuickSettings.create();
 settings.addRange("Angle Zoom", 1, 99, config.angleZoom, 1, ((val) => {
-  
+	
   return config.angleZoom = val;
 
 }));
 settings.addRange("Noise Z", 1, 99, config.noiseZ, 1, ((val) => {
-  
+	
   return config.noiseZ = val;
 
 }));
 settings.addRange("Noise Force", 1, 99, config.fieldForce, 1, ((val) => {
-  
+	
   return config.fieldForce = val;
 
 }));
 settings.addRange("Signal Decay", 0, 99, config.decay, 1, ((val) => {
-  
+	
   return config.decay = val;
 
 }));
 settings.addRange("Max P Vector Length", 0, 99, config.maxLength, ((val) => {
-  
+	
   return config.maxLength = val;
 
 }));
 settings.addRange("Max Trail", 10, 999, config.maxTrail, ((val) => {
-  
+	
   return config.maxTrail = val;
 
 }));
 settings.addRange("Min Trail", 10, 99, config.minTrail, ((val) => {
-  
+	
   return config.minTrail = val;
 
 }));
 settings.addBoolean("Decay on collision", config.decayOnCollision, ((val) => {
-  
+	
   return config.decayOnCollision = val;
 
 }));
 settings.addBoolean("Limit the number of decay blocks per cycle", config.limitDecay, ((val) => {
-  
+	
   return config.limitDecay = val;
 
 }));
 settings.addRange("Ant Influence", 0, 99, config.antInfluence, ((val) => {
-  
+	
   return config.antInfluence = val;
 
 }));
 settings.addRange("friction", 2, 128, config.friction, ((val) => {
-  
+	
   return config.friction = val;
 
 }));
 settings.addRange("Collision Static", 0, 99, config.collisionStatic, ((val) => {
-  
+	
   return config.collisionStatic = val;
 
 }));
 settings.addRange("Spawn Static", 1, 99, config.spawnStatic, ((val) => {
-  
+	
   return config.spawnStatic = val;
 
 }));
 settings.addRange("Spawn Rate", 1, 5000, config.spawnRate, ((val) => {
-  
+	
   return config.spawnRate = val;
 
 }));
