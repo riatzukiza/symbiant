@@ -310,9 +310,9 @@
 
 (.start game)
 (var settings (Quick-settings.create))
-(.addRange settings "Angle Zoom" 1 99 config.angle-zoom 1 (=> (val) (assign config.angle-zoom val)))
-(.addRange settings "Noise Z" 1 99 config.noise-z 1 (=> (val) (assign config.noise-z val)))
-(.addRange settings "Noise Force" 1 999 config.field-force 1 (=> (val) (assign config.field-force val)))
+(.addRange settings "Angle Zoom" 1 9999 config.angle-zoom 1 (=> (val) (assign config.angle-zoom val)))
+(.addRange settings "Noise Z" 1 9999 config.noise-z 1 (=> (val) (assign config.noise-z val)))
+(.addRange settings "Noise Force" 1 9999 config.field-force 0.1 (=> (val) (assign config.field-force val)))
 (.addRange settings "Signal Decay" 0 99 config.decay 0.1 (=> (val) (assign config.decay val)))
 (.addRange settings "Max P Vector Length"  0 99 config.max-length 0.1 (=> (val) (assign config.max-length val)))
 (.addRange settings "Max Trail" 10 999 config.max-trail 1(=> (val) (assign config.max-trail val)))
