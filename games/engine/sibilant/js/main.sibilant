@@ -301,7 +301,7 @@
 (.addRange settings "Noise Force" 1 99 config.field-force 1 (=> (val) (assign config.field-force val)))
 (.addRange settings "Signal Decay" 0 99 config.decay 1 (=> (val) (assign config.decay val)))
 (.addRange settings "Max P Vector Length"  0 99 config.max-length (=> (val) (assign config.max-length val)))
-(.addRange settings "Max Trail" 10 99 config.max-trail (=> (val) (assign config.max-trail val)))
+(.addRange settings "Max Trail" 10 999 config.max-trail (=> (val) (assign config.max-trail val)))
 (.addRange settings "Min Trail" 10 99 config.min-trail (=> (val) (assign config.min-trail val)))
 
 (.add-boolean settings "Decay on collision"  config.decay-on-collision (=> (val) (assign config.decay-on-collision val)))
