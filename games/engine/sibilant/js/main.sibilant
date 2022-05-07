@@ -309,4 +309,4 @@
 (.addRange settings "friction" 2 128 config.friction (=> (val) (assign config.friction val)))
 (.addRange settings "Collision Static" 0 999 config.collision-static (=> (val) (assign config.collision-static val)))
 (.addRange settings "Spawn Static" 1 999 config.spawn-static (=> (val) (assign config.spawn-static val)))
-(.addRange settings "Spawn Rate" 1 999 config.spawn-rate (=> (val) (assign config.spawn-rate val)))
+(.addRange settings "Spawn Rate" 1 29999 config.spawn-rate (=> (val) (assign config.spawn-rate val)))
