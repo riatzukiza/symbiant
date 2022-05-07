@@ -82,13 +82,16 @@ module.exports.updateParticle = function updateParticle(
       }
       vel.looseCount++
 
+      vel.xd = 0
+      vel.yd = 0
+
       vel.trail = []
       p.x =homePos.x
       p.y =homePos.y
 
     }
     if(win) {
-      console.log("win",{x:vel.xd,y:vel.yd})
+      console.log("win",vel)
       let weight = vel.winCount/(vel.looseCount + 1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.addTo({
@@ -96,6 +99,8 @@ module.exports.updateParticle = function updateParticle(
           y:y*weight*config.antInfluence,
         })
       }
+      vel.xd = 0
+      vel.yd = 0
       vel.winCount++
       vel.trail = []
 
