@@ -430,11 +430,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
   /* spawn-ant eval.sibilant:261:0 */
 
-  var x = x_y$4[0],
-      y = x_y$4[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -533,12 +533,12 @@ settings.addRange("Collision Static", 0, 9999, config.collisionStatic, ((val) =>
   return config.collisionStatic = val;
 
 }));
-settings.addRange("Spawn Static", 0, 9999, config.spawnStatic, ((val) => {
+settings.addRange("Spawn Static", 1, 9999, config.spawnStatic, ((val) => {
 	
   return config.spawnStatic = val;
 
 }));
-settings.addRange("Spawn Rate", 0, 9999, config.spawnRate, ((val) => {
+settings.addRange("Spawn Rate", 1, 9999, config.spawnRate, ((val) => {
 	
   return config.spawnRate = val;
 
