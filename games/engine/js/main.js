@@ -406,11 +406,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$21, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$22, home, startingLife) {
   /* spawn-ant eval.sibilant:264:0 */
 
-  var x = x_y$21[0],
-      y = x_y$21[1];
+  var x = x_y$22[0],
+      y = x_y$22[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -448,74 +448,3 @@ setInterval((() => {
 
 }), config.spawnRate);
 game.start();
-var settings = QuickSettings.create();
-settings.addRange("Angle Zoom", 1, 99, config.angleZoom, 1, ((val) => {
-	
-  return config.angleZoom = val;
-
-}));
-settings.addRange("Noise Z", 1, 99, config.noiseZ, 1, ((val) => {
-	
-  return config.noiseZ = val;
-
-}));
-settings.addRange("Noise Force", 1, 99, config.fieldForce, 1, ((val) => {
-	
-  return config.fieldForce = val;
-
-}));
-settings.addRange("Signal Decay", 0, 99, config.decay, 1, ((val) => {
-	
-  return config.decay = val;
-
-}));
-settings.addRange("Max P Vector Length", 0, 99, config.maxLength, ((val) => {
-	
-  return config.maxLength = val;
-
-}));
-settings.addRange("Max Trail", 10, 999, config.maxTrail, ((val) => {
-	
-  return config.maxTrail = val;
-
-}));
-settings.addRange("Min Trail", 10, 99, config.minTrail, ((val) => {
-	
-  return config.minTrail = val;
-
-}));
-settings.addBoolean("Decay on collision", config.decayOnCollision, ((val) => {
-	
-  return config.decayOnCollision = val;
-
-}));
-settings.addBoolean("Limit the number of decay blocks per cycle", config.limitDecay, ((val) => {
-	
-  return config.limitDecay = val;
-
-}));
-settings.addRange("Ant Influence", 0, 99, config.antInfluence, ((val) => {
-	
-  return config.antInfluence = val;
-
-}));
-settings.addRange("friction", 2, 128, config.friction, ((val) => {
-	
-  return config.friction = val;
-
-}));
-settings.addRange("Collision Static", 0, 99, config.collisionStatic, ((val) => {
-	
-  return config.collisionStatic = val;
-
-}));
-settings.addRange("Spawn Static", 1, 99, config.spawnStatic, ((val) => {
-	
-  return config.spawnStatic = val;
-
-}));
-settings.addRange("Spawn Rate", 1, 5000, config.spawnRate, ((val) => {
-	
-  return config.spawnRate = val;
-
-}));
