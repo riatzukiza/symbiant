@@ -248,22 +248,22 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:98:0 */
+  /* entity eval.sibilant:99:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:99:0 */
+  /* vector2d eval.sibilant:100:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:101:0 */
+  /* Tree-map.get eval.sibilant:102:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:103:0 */
+  /* memoize eval.sibilant:104:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -417,11 +417,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$34, home, startingLife) {
-  /* spawn-ant eval.sibilant:273:0 */
+var spawnAnt = (function spawnAnt$(x_y$35, home, startingLife) {
+  /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$34[0],
-      y = x_y$34[1];
+  var x = x_y$35[0],
+      y = x_y$35[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
