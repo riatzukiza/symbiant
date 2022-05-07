@@ -19,4 +19,4 @@ module.exports.antInfluence = 1.8;
 module.exports.friction = 8.5;
 module.exports.collisionStatic = 10;
 module.exports.spawnStatic = 10;
-module.exports.spawnRate = 10000;
+module.exports.spawnRate = 1000;
