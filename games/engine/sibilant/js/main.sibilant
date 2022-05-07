@@ -2,26 +2,28 @@
 (include "kit/header" )
 (import-namespace kit)
 (include "kit-interface/header" )
+(import-namespace interface)
 
-(var socket (io "/engine"))
+(const socket (io "/engine"))
 (on socket "change" () (print "change ") (.reload location))
 
 (set global
      'mixin mixin
-     'create create
-     )
-(import-namespace interface)
-(def-lit-macro define (name parent ...body)
-               `(property @name
-                          (.define @parent (quote @name)
-                                   (lit ...@body))))
+     'create create)
+
 (include "kit-html/src/dom")
 
-(def-lit-macro def-curried (name args ...body) `(property @name (R.curry (lambda @args ...@body))))
 
 
 (require! (lit Tree-map) "tree-kit")
 (import-namespace dom)
+
+(def-lit-macro def-curried (name args ...body) `(property @name (R.curry (lambda @args ...@body))))
+
+(def-lit-macro define (name parent ...body)
+               `(property @name
+                          (.define @parent (quote @name)
+                                   (lit ...@body))))
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
 
@@ -59,20 +61,6 @@
                  false))
 
 
-(define Friction Physics.Force
-        (def apply (c)
-             (var v c.velocity)
-             (var collision (.get c.system.process.systems Collision c.entity))
-             ;; (if (or (< 100 v.xd)
-             ;;         (< 100 v.yd)
-             ;;         (> -100 v.xd)
-             ;;         (> -100 v.yd))
-             ;;     (set v
-             ;;          'xd (/ v.xd config.friction)
-             ;;          'yd (/ v.yd config.friction)))
-             (unless collision.colliding
-                     (incr-by v.xd (* -1 (+ 1 (/ v.xd config.friction))))
-                     (incr-by v.yd (* -1 (+ 1 (/ v.yd config.friction)))))))
 (assign global.size window.size)
 (print window.size)
 (require! config "./config")
@@ -110,125 +98,9 @@
 (var rgba (memoize (=> (r g b a) (lit r g b a))))
 
 
-(on game.events 'collision ([c c* d])
-    (var cv (.get game.systems Velocity c.entity))
-    (var c*v (.get game.systems Velocity c*.entity))
-
-    (var cp (.get game.systems Physics c.entity))
-    (var c*p (.get game.systems Physics c*.entity))
-
-    (if
-     (or (and (= c.entity home)
-              (= c*.entity target))
-
-         (and (= c*.entity home)
-              (= c.entity target)))
-
-     (do (print "target colliding with spawn"))
-
-     (= c.entity target)
-        (do
-
-         ;; (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
-         ;;                                     config.collision-static)),
-         ;;                   (random-signed (or (* (+ 1 c*v.yd) config.collision-static)
-         ;;                                      config.collision-static))])
-         (assign c.colliding false)
-         (assign c*.colliding false)
-         (var hpos (.get game.systems Position home))
-
-         (set c*v.pos
-              'x  hpos.x
-              'y hpos.y)
+(require "./collision")
 
 
-         (update-particle c*v c*v.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          true
-                          true
-                          home-pos
-                          )
-         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
-         )
-        (= c*.entity target)
-        (do
-
-         ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
-         ;;                                     config.collision-static)),
-         ;;                   (random-signed (or (* (+ 1 cv.yd) config.collision-static)
-         ;;                                      config.collision-static))])
-
-
-         (assign c.colliding false)
-         (assign c*.colliding false)
-
-         (var hpos (.get game.systems Position home))
-
-         (set cv.pos
-              'x  hpos.x
-              'y hpos.y)
-
-         (update-particle cv cv.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          true
-                          true
-                          home-pos)
-         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
-         )
-
-        (not (or (= c.entity home) (= c*.entity home)
-                 (= c.entity target) (= c*.entity target)))
-        (do
-
-         (assign c.colliding false)
-         (assign c*.colliding false)
-
-         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
-         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
-
-         ;; (update-particle c*v c*v.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
-
-         ;; (update-particle cv cv.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
-         )))
-
-(define SignalField Physics.Force
-
-        (field (create-vector-field config.columns
-                                    config.rows))
-
-        (layer (create-vector-field config.columns
-                                    config.rows))
-
-        (def-generic apply (c, field, layer)
-                     (var v c.velocity)
-                     (var collision (.get c.system.process.systems Collision c.entity))
-                     (unless collision.colliding
-                             ;; (print "woosh", v, field, layer)
-                             (update-particle v v.pos, field, layer game.ticker.ticks
-                                              false
-                                              false
-                                              home-pos)
-                             (var win-rate (/ v.win-count (or (+ 1 v.loose-count)
-                                                              1
-                                                              )))
-                             (assign c.scale (if (> win-rate 1)
-                                                 win-rate
-                                                 1))
-                             )))
 
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))
