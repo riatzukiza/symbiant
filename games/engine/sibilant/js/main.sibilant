@@ -45,10 +45,17 @@
           noise "./noise"
           Vector "./vector"
           (lit create-vector-field update-particle) "./field"
-          ;; (lit Matrix-map) "sibilant-game-engine/client/data-structures/"
+          (lit List) "sibilant-game-engine/client/data-structures/list"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit")
+(def-generic List.rotate-until (predicate (t 0))
+             (if (predicate this.head.item)
+                 this.head.item
+                 (not (> t this.size))
+                 (pipe this .rotate (.rotate-until predicate (++ t)))
+                 false))
+
 
 (define Friction Physics.Force
         (def apply (c)
