@@ -417,11 +417,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$37, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$38, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$37[0],
-      y = x_y$37[1];
+  var x = x_y$38[0],
+      y = x_y$38[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -449,15 +449,17 @@ var spawnAnt = (function spawnAnt$(x_y$37, home, startingLife) {
 });
 var homePos = game.systems.get(Position, home);
 var number = 1;
-setInterval((() => {
+var nextSpawn = null;
+setTimeout(nextSpawn = (() => {
 	
   return (function() {
     if (!(ants.length >= config.antLimit)) {
-      return spawnAnt([ homePos.x, homePos.y ], home);
+      spawnAnt([ homePos.x, homePos.y ], home);
+      return setTimeout(nextSpawn, config.spawnRate);
     }
   }).call(this);
 
-}), config.spawnRate);
+});, config.spawnRate);
 game.start();
 var settings = QuickSettings.create();
 settings.addRange("Angle Zoom", 1, 99, config.angleZoom, 1, ((val) => {

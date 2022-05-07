@@ -297,7 +297,12 @@
 
 (var home-pos (.get game.systems Position home))
 (var number 1)
-(set-interval (-> (unless (>= ants.length config.ant-limit) (spawn-ant [home-pos.x home-pos.y] home))), config.spawn-rate)
+(var next-spawn null)
+(set-timeout
+ (assign next-spawn (-> (unless (>= ants.length config.ant-limit)
+                                (spawn-ant [home-pos.x home-pos.y] home)
+                                (set-timeout next-spawn config.spawn-rate)))),
+ config.spawn-rate)
 
 
 
