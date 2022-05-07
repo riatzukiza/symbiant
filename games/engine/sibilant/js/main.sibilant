@@ -300,6 +300,10 @@
 (var next-spawn (=> () (unless (>= ants.length config.ant-limit)
                             (spawn-ant [home-pos.x home-pos.y] home)
                             (set-timeout next-spawn config.spawn-rate))))
+(def clear-ants ()
+     (each ants (ant) (.despawn ant))
+     (assign ants [])
+     )
 (next-spawn)
 
 

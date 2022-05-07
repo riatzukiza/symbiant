@@ -417,11 +417,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
   /* spawn-ant eval.sibilant:274:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$8[0],
+      y = x_y$8[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -458,6 +458,16 @@ var nextSpawn = (() => {
     }
   }).call(this);
 
+});
+var clearAnts = (function clearAnts$() {
+  /* clear-ants eval.sibilant:303:0 */
+
+  ants.each(((ant) => {
+  	
+    return ant.despawn();
+  
+  }));
+  return ants = [];
 });
 nextSpawn();
 game.start();
