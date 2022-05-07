@@ -64,30 +64,6 @@
              (unless collision.colliding
                      (incr-by v.xd (* -1 (+ 1 (/ v.xd config.friction))))
                      (incr-by v.yd (* -1 (+ 1 (/ v.yd config.friction)))))))
-
-(define SignalField Physics.Force
-
-        (field (create-vector-field config.columns
-                                    config.rows))
-
-        (layer (create-vector-field config.columns
-                                    config.rows))
-
-        (def-generic apply (c, field, layer)
-                     (var v c.velocity)
-                     (var collision (.get c.system.process.systems Collision c.entity))
-                     (unless collision.colliding
-                             ;; (print "woosh", v, field, layer)
-                             (update-particle v v.pos, field, layer game.ticker.ticks
-                                              false
-                                              false
-                                              home-pos)
-                             (var win-rate (/ v.win-count (or (+ 1 v.loose-count)
-                                                              1
-                                                              )))
-                             (assign c.scale (if (> win-rate 1)
-                                                 win-rate
-                                                 1)))))
 (assign global.size window.size)
 (print window.size)
 (require! config "./config")
@@ -144,10 +120,10 @@
      (= c.entity target)
         (do
 
-         ;; (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
-         ;;                                     config.collision-static)),
-         ;;                   (random-signed (or (* (+ 1 c*v.yd) config.collision-static)
-         ;;                                      config.collision-static))])
+         (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
+                                             config.collision-static)),
+                           (random-signed (or (* (+ 1 c*v.yd) config.collision-static)
+                                              config.collision-static))])
          (assign c.colliding false)
          (assign c*.colliding false)
          (var hpos (.get game.systems Position home))
@@ -169,10 +145,10 @@
         (= c*.entity target)
         (do
 
-         ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
-         ;;                                     config.collision-static)),
-         ;;                   (random-signed (or (* (+ 1 cv.yd) config.collision-static)
-         ;;                                      config.collision-static))])
+         (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
+                                             config.collision-static)),
+                           (random-signed (or (* (+ 1 cv.yd) config.collision-static)
+                                              config.collision-static))])
 
 
          (assign c.colliding false)
@@ -217,7 +193,29 @@
                           false
                           false
                           home-pos))))
+(define SignalField Physics.Force
 
+        (field (create-vector-field config.columns
+                                    config.rows))
+
+        (layer (create-vector-field config.columns
+                                    config.rows))
+
+        (def-generic apply (c, field, layer)
+                     (var v c.velocity)
+                     (var collision (.get c.system.process.systems Collision c.entity))
+                     (unless collision.colliding
+                             ;; (print "woosh", v, field, layer)
+                             (update-particle v v.pos, field, layer game.ticker.ticks
+                                              false
+                                              false
+                                              home-pos)
+                             (var win-rate (/ v.win-count (or (+ 1 v.loose-count)
+                                                              1
+                                                              )))
+                             (assign c.scale (if (> win-rate 1)
+                                                 win-rate
+                                                 1)))))
 
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))
