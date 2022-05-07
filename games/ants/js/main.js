@@ -91,4 +91,39 @@ var load = (function load$(path = this.path, entity = this) {
 
   return loadJsonFile(path).then(setValue(_, entity));
 });
+var start = (function start$(sim) {
+  /* start eval.sibilant:110:0 */
+
+  let plants = create(PlantGroup)();
+  let reds = create(Colony)({
+    x: 30,
+    y: 60
+  }, { 
+    red:255,
+    green:0,
+    blue:0
+   }, plants);
+  global.sim = sim;
+  for (let time = 0;time < 1000;++(time)){
+  reds.spawn()};
+  for (let time = 0;time < 1000;++(time)){
+  plants.random()};
+  interface(sim, reds);
+  return sim.start().on("tick", (now, ticks) => {
+  	
+    (function() {
+      if ((ticks % 60) === 0) {
+        return plants.update();
+      }
+    }).call(this);
+    for (let time = 0;time < 1;++(time)){
+    Colony.colonies.each((col) => {
+    	
+      return col.update();
+    
+    })};
+    return sim.layers.update().render();
+  
+  });
+});
 sim.load(start);
