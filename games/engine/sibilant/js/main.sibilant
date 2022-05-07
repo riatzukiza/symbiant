@@ -133,13 +133,13 @@
               'y hpos.y)
 
 
-         (update-particle c*v c*v.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          true
-                          true
-                          home-pos
-                          )
+         ;; (update-particle c*v c*v.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  true
+         ;;                  true
+         ;;                  home-pos
+         ;;                  )
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
         (= c*.entity target)
@@ -160,12 +160,12 @@
               'x  hpos.x
               'y hpos.y)
 
-         (update-particle cv cv.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          true
-                          true
-                          home-pos)
+         ;; (update-particle cv cv.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  true
+         ;;                  true
+         ;;                  home-pos)
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
 
