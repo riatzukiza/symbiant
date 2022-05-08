@@ -8,6 +8,9 @@ var {
   Velocity
  } = require("sibilant-game-engine/client/systems/velocity"),
     { 
+  Collision
+ } = require("sibilant-game-engine/client/systems/collision"),
+    { 
   home,
   homePos,
   target
@@ -25,7 +28,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  console.log("collision event", c, c_, d, { 
+  console.log("collision event", c, c_, d, Collision, { 
     home,
     homePos,
     target
