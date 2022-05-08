@@ -2,7 +2,7 @@
 (require! (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Collision) "sibilant-game-engine/client/systems/collision")
 
-(require! config "./config")
+(require! config "../config")
 
 (define Friction Physics.Force
         (def apply (c)
