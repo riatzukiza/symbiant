@@ -58,7 +58,7 @@
 (var active-game-systems [Dot Position Physics Velocity Collision])
 (var game ((create Game) rendering active-game-systems config.game-speed))
 (set rendering 'background-color
-     (lit (r 0) (g 0) (b 0) (a 1))
+     (lit (r 0) (g 0) (b 0) (a 255))
      )
 
 
