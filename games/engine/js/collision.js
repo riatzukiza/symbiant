@@ -60,22 +60,9 @@ const collisionLoop = (new Tone.Loop((time) => {
   }).call(this);
 
 }));
-game.events.on("tick", (t) => {
+game.events.on("loose", () => {
 	
-  alert("TICK");
-  console.log("trying to make sound");
-  return (function() {
-    if (isCollision) {
-      isCollision = false;
-      return (function() {
-        try {
-          return synth.triggerAttackRelease("A3", "32n");
-        } catch (e) {
-          return console.log("couldn't make a sound");
-        }
-      }).call(this);
-    }
-  }).call(this);
+  return isLoose = true;
 
 });
 game.events.on("collision", ([ c, c_, d ]) => {

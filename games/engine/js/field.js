@@ -2,6 +2,7 @@ const noise = require("./noise")
 const config = require("./config.js")
 const Vector = require("./vector")
 const waitingDecay = new Set()
+const game = require("./game")
 
 const Tone = require("tone");
 
@@ -77,6 +78,7 @@ module.exports.updateParticle = function updateParticle(
     if(loose) {
       console.log("loose",vel)
       synth.triggerAttackRelease("B4", "64n");
+      game.events.emit("loose",[vel,p])
       let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.subFrom({

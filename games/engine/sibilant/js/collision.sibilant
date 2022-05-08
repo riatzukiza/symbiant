@@ -35,14 +35,7 @@
                                          (.trigger-attack-release collision-synth "A4" "32n" time)
                                          (assign is-collision false)))))
 
-(on game.events 'tick (t)
-
-    (alert "TICK")
-    (print "trying to make sound")
-    (when is-collision
-          (assign is-collision false)
-          (try (synth.trigger-attack-release "A3" "32n")
-               (print "couldn't make a sound"))))
+(on game.events 'loose () (assign is-loose true))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
