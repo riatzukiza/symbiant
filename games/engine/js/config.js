@@ -1,14 +1,14 @@
 const dim=[ window.innerWidth, window.innerHeight ];
 const size=2;
 module.exports.size = size;
-module.exports.angleZoom = 1;
-module.exports.noiseZ = 7;
+module.exports.angleZoom = 2334;
+module.exports.noiseZ = 940;
 module.exports.fieldForce = 300;
 module.exports.dimensions = dim;
 module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
 module.exports.decay = 0.1;
-module.exports.maxLength = 1;
+module.exports.maxLength = 98.1;
 module.exports.antLimit = 10000;
 module.exports.maxInDecay = 400;
 module.exports.maxTrail = 400;
