@@ -56,7 +56,7 @@
 (with-dom Document-root (.div .id 'frame container))
 
 (var active-game-systems [Dot Position Physics Velocity Collision])
-(var game ((create Game) rendering active-game-systems))
+(var game ((create Game) rendering active-game-systems config.game-speed))
 
 
 (export game)

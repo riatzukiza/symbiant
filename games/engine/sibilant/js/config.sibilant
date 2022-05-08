@@ -22,4 +22,5 @@
      'collision-static 10
      'spawn-static 10
      'spawn-rate 10000
+     'game-speed 0.1
      )
