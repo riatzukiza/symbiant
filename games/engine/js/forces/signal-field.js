@@ -14,7 +14,12 @@ var {
 var config = require("../config"),
     { 
   game
- } = require("../game");
+ } = require("../game"),
+    { 
+  home,
+  homePos,
+  target
+ } = require("../entities");
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),

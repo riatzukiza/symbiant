@@ -6,9 +6,7 @@
 
 (require! config "../config"
           (lit game) "../game"
-
-          (lit home home-pos target) "../entities"
-          )
+          (lit home home-pos target) "../entities")
 
 (define SignalField Physics.Force
         (field (create-vector-field config.columns
