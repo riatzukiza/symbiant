@@ -44,7 +44,7 @@ const looseLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isLoose) {
-      looseSynth.triggerAttackRelease("C4", "32n", time);
+      looseSynth.triggerAttackRelease("B4", "32n", time);
       return isLoose = false;
     }
   }).call(this);
@@ -54,7 +54,7 @@ const collisionLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isCollision) {
-      collisionSynth.triggerAttackRelease("C4", "32n", time);
+      collisionSynth.triggerAttackRelease("A4", "32n", time);
       return isCollision = false;
     }
   }).call(this);
@@ -97,7 +97,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     } else if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
     } else if (c.entity === target) {
-      synth.triggerAttackRelease("C4", "4n");
+      isWin = true;
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
@@ -113,6 +113,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
+      isWin = true;
       console.log("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;

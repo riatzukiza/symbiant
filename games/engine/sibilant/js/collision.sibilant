@@ -27,12 +27,12 @@
 
 (const loose-loop (new Tone.Loop (=> (time)
                                    (when is-loose
-                                         (.trigger-attack-release loose-synth "C4" "32n" time)
+                                         (.trigger-attack-release loose-synth "B4" "32n" time)
                                          (assign is-loose false)))))
 
 (const collision-loop (new Tone.Loop (=> (time)
                                    (when is-collision
-                                         (.trigger-attack-release collision-synth "C4" "32n" time)
+                                         (.trigger-attack-release collision-synth "A4" "32n" time)
                                          (assign is-collision false)))))
 
 (on game.events 'tick (t)
@@ -71,7 +71,7 @@
 
      (= c.entity target)
         (do
-         (synth.trigger-attack-release "C4" "4n")
+         (assign is-win true)
          ;; (print "ant found target")
          ;; (alert "ant found target")
 
@@ -91,13 +91,13 @@
          (set c*v.pos
               'x  home-pos.x
               'y home-pos.y)
-         
 
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
         (= c*.entity target)
         (do
 
+         (assign is-win true)
          ;; (synth.trigger-attack-release "C4" "8n")
          (print "ant found target")
          ;; (alert "ant found target")
