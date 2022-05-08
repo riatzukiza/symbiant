@@ -53,6 +53,7 @@
           (lit Tree-map) "tree-kit"
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
+          (lit target home home-pos next-spawn)
 
           (lit game active-game-systems) "./game"
           config "./config"
@@ -81,9 +82,5 @@
 
 
 
-
-
-
-
-
 (require "./collision")
+(print target home home-pos next-spawn)

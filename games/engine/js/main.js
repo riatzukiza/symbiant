@@ -211,9 +211,15 @@ var {
   Friction
  } = require("./forces/friction"),
     { 
+  target,
+  home,
+  homePos,
+  nextSpawn
+ } = require({ 
   game,
   activeGameSystems
- } = require("./game"),
+ }),
+    ./game = require("./game"),
     config = require("./config"),
     settings = require("./settings");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
@@ -231,8 +237,9 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   }).call(this);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:73:0 */
+  /* vector2d eval.sibilant:74:0 */
 
   return [ x, y ];
 });
 require("./collision");
+console.log(target, home, homePos, nextSpawn);
