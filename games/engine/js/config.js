@@ -1,5 +1,5 @@
-const dim=[ window.innerWidth, window.innerHeight ];
-const size=25;
+const dim = [ window.innerWidth, window.innerHeight ];
+const size = 25;
 module.exports.size = size;
 module.exports.angleZoom = 100;
 module.exports.noiseZ = 70;
@@ -20,6 +20,6 @@ module.exports.friction = 32;
 module.exports.collisionStatic = 100;
 module.exports.spawnStatic = 100;
 module.exports.spawnRate = 1000;
-module.exports.homeLocation = [ 300200 ];
-module.exports.targetLocation = [ 700900 ];
+module.exports.homeLocation = [ 300, 200 ];
+module.exports.targetLocation = [ 700, 900 ];
 module.exports.gameSpeed = 1;
