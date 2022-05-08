@@ -210,6 +210,9 @@ var {
     { 
   Friction
  } = require("./forces/friction"),
+    { 
+  game
+ } = require("./game"),
     config = require("./config"),
     settings = require("./settings");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
@@ -227,22 +230,22 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   }).call(this);
 });
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:72:0 */
+  /* entity eval.sibilant:73:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:73:0 */
+  /* vector2d eval.sibilant:74:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:75:0 */
+  /* Tree-map.get eval.sibilant:76:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:77:0 */
+  /* memoize eval.sibilant:78:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -295,11 +298,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
-  /* spawn-ant eval.sibilant:131:0 */
+var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
+  /* spawn-ant eval.sibilant:132:0 */
 
-  var x = x_y$4[0],
-      y = x_y$4[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -338,7 +341,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:160:0 */
+  /* clear-ants eval.sibilant:161:0 */
 
   console.log("clearning ants", ants);
   ants.each(((ant) => {
