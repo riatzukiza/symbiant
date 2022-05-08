@@ -32,7 +32,12 @@ const looseSynth = (new Tone.Synth());
 const winSynth = (new Tone.Synth());
 const winLoop = (new Tone.Loop((time) => {
 	
-  return winSynth.triggerAttackRelease("C4", "4n", time);
+  return (function() {
+    if (isWin) {
+      winSynth.triggerAttackRelease("C4", "4n", time);
+      return isWin = false;
+    }
+  }).call(this);
 
 }));
 const looseLoop = (new Tone.Synth());

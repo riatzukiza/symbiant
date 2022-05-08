@@ -20,8 +20,9 @@
 (const loose-synth (new Tone.Synth))
 (const win-synth (new Tone.Synth))
 (const win-loop (new Tone.Loop (=> (time)
-                                   (.trigger-attack-release win-synth "C4" "4n" time)
-                                   )))
+                                   (when is-win
+                                         (.trigger-attack-release win-synth "C4" "4n" time)
+                                         (assign is-win false)))))
 (const loose-loop (new Tone.Synth))
 (const loose-loop (new Tone.Synth))
 
