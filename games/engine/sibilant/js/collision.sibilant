@@ -30,11 +30,10 @@
          ;;                                      config.collision-static))])
          (assign c.colliding false)
          (assign c*.colliding false)
-         (var hpos (.get game.systems Position home))
 
          (set c*v.pos
-              'x  hpos.x
-              'y hpos.y)
+              'x  home-pos.x
+              'y home-pos.y)
 
 
          (update-particle c*v c*v.pos, Signal-field.field,
@@ -58,11 +57,10 @@
          (assign c.colliding false)
          (assign c*.colliding false)
 
-         (var hpos (.get game.systems Position home))
 
          (set cv.pos
-              'x  hpos.x
-              'y hpos.y)
+              'x  home-pos.x
+              'y home-pos.y)
 
          (update-particle cv cv.pos, Signal-field.field,
                           Signal-field.layer
