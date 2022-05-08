@@ -86,6 +86,11 @@
      'mass 10000
      'forces [])
 
+(set (.get game.systems Collision target)
+     'name 'target)
+
+(set (.get game.systems Collision home)
+     'name 'home)
 (set target 'name 'target)
 (set home 'name 'home)
 ;; (set (.get game.systems Velocity target)
