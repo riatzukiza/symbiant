@@ -78,7 +78,6 @@ game.events.on("collision", ([ c, c_, d ]) => {
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
-      synth.triggerAttackRelease("C4", "8n");
       console.log("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
