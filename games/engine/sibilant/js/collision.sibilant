@@ -1,0 +1,100 @@
+(require! (lit game) "./game"
+
+          (lit Physics) "sibilant-game-engine/client/systems/physics"
+
+          (lit Velocity) "sibilant-game-engine/client/systems/velocity"
+          )
+(on game.events 'collision ([c c* d])
+    (var cv (.get game.systems Velocity c.entity))
+    (var c*v (.get game.systems Velocity c*.entity))
+
+    (var cp (.get game.systems Physics c.entity))
+    (var c*p (.get game.systems Physics c*.entity))
+
+    (if
+     (or (and (= c.entity home)
+              (= c*.entity target))
+
+         (and (= c*.entity home)
+              (= c.entity target)))
+
+     (do (print "target colliding with spawn"))
+
+     (= c.entity target)
+        (do
+
+         ;; (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
+         ;;                                     config.collision-static)),
+         ;;                   (random-signed (or (* (+ 1 c*v.yd) config.collision-static)
+         ;;                                      config.collision-static))])
+         (assign c.colliding false)
+         (assign c*.colliding false)
+         (var hpos (.get game.systems Position home))
+
+         (set c*v.pos
+              'x  hpos.x
+              'y hpos.y)
+
+
+         (update-particle c*v c*v.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          true
+                          true
+                          home-pos
+                          )
+         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+         )
+        (= c*.entity target)
+        (do
+
+         ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
+         ;;                                     config.collision-static)),
+         ;;                   (random-signed (or (* (+ 1 cv.yd) config.collision-static)
+         ;;                                      config.collision-static))])
+
+
+         (assign c.colliding false)
+         (assign c*.colliding false)
+
+         (var hpos (.get game.systems Position home))
+
+         (set cv.pos
+              'x  hpos.x
+              'y hpos.y)
+
+         (update-particle cv cv.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          true
+                          true
+                          home-pos)
+         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+         )
+
+        (not (or (= c.entity home) (= c*.entity home)
+                 (= c.entity target) (= c*.entity target)))
+        (do
+
+         (assign c.colliding false)
+         (assign c*.colliding false)
+
+         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+
+         ;; (update-particle c*v c*v.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos)
+
+         ;; (update-particle cv cv.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos)
+         )))

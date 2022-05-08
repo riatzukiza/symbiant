@@ -67,20 +67,6 @@
 
 
 
-(const rendering (.load Rendering
-                        (lit (size config.dimensions)
-                             (limit 100)
-                             (blend true))))
-
-
-(var stage (dom (.div .id 'stage )))
-
-
-(var container (dom (.div .id "container" rendering.context.canvas)))
-(with-dom Document-root (.div .id 'frame container))
-
-(var active-game-systems [Dot Position Physics Velocity Collision])
-(var game ((create Game) rendering active-game-systems))
 
 
 (def entity (aspects ) (.spawn game.ent aspects ))
