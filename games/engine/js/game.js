@@ -167,6 +167,18 @@ var {
     { 
   Rendering
  } = require("sibilant-game-engine/client/systems/rendering/rendering"),
+    { 
+  Dot
+ } = require("sibilant-game-engine/client/systems/rendering/dot"),
+    { 
+  Position
+ } = require("sibilant-game-engine/client/systems/position"),
+    { 
+  Velocity
+ } = require("sibilant-game-engine/client/systems/velocity"),
+    { 
+  Physics
+ } = require("sibilant-game-engine/client/systems/physics"),
     config = require("./config");
 const rendering=Rendering.load({ 
   size:config.dimensions,
