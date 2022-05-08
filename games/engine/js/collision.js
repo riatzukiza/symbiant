@@ -27,11 +27,16 @@ const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 game.events.on("tick", () => {
 	
-  const synth = (new Tone.Synth()).toDestination();
   return (function() {
     if (isCollision) {
       isCollision = false;
-      return synth.triggerAttackRelease("A3", "128n");
+      return (function() {
+        try {
+          return synth.triggerAttackRelease("A3", "128n");
+        } catch (e) {
+          return console.log("couldn't make a sound");
+        }
+      }).call(this);
     }
   }).call(this);
 
