@@ -16,7 +16,7 @@
 
     (when is-collision
           (assign is-collision false)
-          (try (synth.trigger-attack-release "A3" "4n")
+          (try (synth.trigger-attack-release "A3" "32n")
                (print "couldn't make a sound"))))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
