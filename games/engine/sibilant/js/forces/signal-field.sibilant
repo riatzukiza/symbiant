@@ -19,7 +19,6 @@
                      (var v c.velocity)
                      (var collision (.get c.system.process.systems Collision c.entity))
                      (unless collision.colliding
-                             (print "updating signal field" entities)
                              (update-particle v v.pos, field, layer game.ticker.ticks
                                               false
                                               false
