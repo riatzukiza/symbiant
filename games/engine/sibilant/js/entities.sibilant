@@ -76,12 +76,12 @@
 ;; (set (.get game.systems Collision target)
 ;;      'type 'static)
 
-(const ants [])
-(const ants ((create Entity-group)))
+(const ants ((create Entity-group)
+             "Ants"
+             active-game-systems
+             game.ent))
 (def spawn-ant ([x, y], home, starting-life)
-     (var ant (entity active-game-systems))
-     (.push ants ant)
-     (print ant)
+     (var ant (.spawn ants active-game-systems))
 
      (set (.get game.systems Dot ant)
           'color (rgba 255 0 0 255))
@@ -106,6 +106,7 @@
 (var next-spawn (=> () (unless (>= ants.length config.ant-limit)
                             (spawn-ant [home-pos.x home-pos.y] home)
                             (set-timeout next-spawn config.spawn-rate))))
+(export ants)
 (export target)
 (export home)
 (export home-pos)
