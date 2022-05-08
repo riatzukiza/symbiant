@@ -65,7 +65,7 @@
      'y (second config.home-location)
      'z 1)
 
-(print "home pos" (.get game.systems Position home ))
+(print "home starting pos" (.get game.systems Position home ))
 
 (set (.get game.systems Physics home)
      'scale 1
@@ -81,7 +81,7 @@
      'x (first config.target-location)
      'y (second config.target-location)
      'z 1)
-(print "target pos" (.get game.systems Position target ))
+(print "target starting pos" (.get game.systems Position target ))
 
 (set (.get game.systems Physics target)
      'scale 30
