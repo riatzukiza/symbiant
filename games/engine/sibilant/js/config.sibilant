@@ -15,13 +15,13 @@
      'max-in-decay 400
      'max-trail 400
      'min-trail 10
-     'decay-on-collision false 
+     'decay-on-collision  true
      'options-amplitude 1
      'limit-decay false
      'ant-influence 10
      'friction  64
-     'collision-static 100
-     'spawn-static 100
+     'collision-static 0
+     'spawn-static 0
      'spawn-rate 1000
      'home-location [300, 200]
      'target-location [700, 900]
