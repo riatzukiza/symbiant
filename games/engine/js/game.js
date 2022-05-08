@@ -162,9 +162,6 @@ var DocumentHead = DocumentNode.define("DocumentHead", {
 var createDocumentNode = create(DocumentNode);
 console.log(document.appendChild);
 var { 
-  TreeMap
- } = require("tree-kit"),
-    { 
   Rendering
  } = require("sibilant-game-engine/client/systems/rendering/rendering"),
     { 
