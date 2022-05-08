@@ -25,12 +25,12 @@
                                          (assign is-win false)))))
 (const loose-loop (new Tone.Loop (=> (time)
                                    (when is-loose
-                                         (.trigger-attack-release win-synth "C4" "32n" time)
+                                         (.trigger-attack-release loose-synth "C4" "32n" time)
                                          (assign is-loose false)))))
 (const collision-loop (new Tone.Loop (=> (time)
-                                   (when is-loose
-                                         (.trigger-attack-release win-synth "C4" "32n" time)
-                                         (assign is-win false)))))
+                                   (when is-collision
+                                         (.trigger-attack-release collision-synth "C4" "32n" time)
+                                         (assign is-collision false)))))
 
 (on game.events 'tick (t)
 

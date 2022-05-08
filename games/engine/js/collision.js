@@ -44,7 +44,7 @@ const looseLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isLoose) {
-      winSynth.triggerAttackRelease("C4", "32n", time);
+      looseSynth.triggerAttackRelease("C4", "32n", time);
       return isLoose = false;
     }
   }).call(this);
@@ -53,9 +53,9 @@ const looseLoop = (new Tone.Loop((time) => {
 const collisionLoop = (new Tone.Loop((time) => {
 	
   return (function() {
-    if (isLoose) {
-      winSynth.triggerAttackRelease("C4", "32n", time);
-      return isWin = false;
+    if (isCollision) {
+      collisionSynth.triggerAttackRelease("C4", "32n", time);
+      return isCollision = false;
     }
   }).call(this);
 
