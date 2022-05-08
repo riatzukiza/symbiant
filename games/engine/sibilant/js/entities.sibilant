@@ -84,7 +84,7 @@
 (set (.get game.systems Physics target)
      'scale 40
      'mass 10000
-     'forces [Friction])
+     'forces [])
 
 ;; (set (.get game.systems Velocity target)
 ;;      ;; 'xd (random-signed 10)
