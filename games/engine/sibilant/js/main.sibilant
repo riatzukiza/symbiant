@@ -60,7 +60,6 @@
           settings "./settings")
 
 (def-generic List.rotate-until (predicate (t 0))
-             (print "LIST ROTATING", t, predicate, this)
              (if (predicate this.head.item)
                  this.head.item
                  (> t (- this.size 1))

@@ -225,7 +225,6 @@ var {
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
   /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
 
-  console.log("LIST ROTATING", t, predicate, this);
   return (function() {
     if (predicate(this.head.item)) {
       return this.head.item;
@@ -237,7 +236,7 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   }).call(this);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:74:0 */
+  /* vector2d eval.sibilant:73:0 */
 
   return [ x, y ];
 });
