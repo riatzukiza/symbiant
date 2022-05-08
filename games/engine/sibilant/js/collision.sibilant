@@ -7,8 +7,9 @@
           (lit home home-pos target) "./entities"
           (lit update-particle) "./field"
           (lit Signal-field) "./forces/signal-field"
-          config "./config"
-          )
+          Tone "tone"
+          config "./config")
+(const synth (.to-destination (new Tone.Synth)))
 
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
@@ -36,6 +37,7 @@
 
      (= c.entity target)
         (do
+         (synth-trigger-attack-release "C4" "8n")
          ;; (print "ant found target")
          ;; (alert "ant found target")
 
@@ -62,6 +64,7 @@
         (= c*.entity target)
         (do
 
+         (synth-trigger-attack-release "C4" "8n")
          (print "ant found target")
          ;; (alert "ant found target")
          ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)

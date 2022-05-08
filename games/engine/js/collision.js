@@ -21,7 +21,9 @@ var {
     { 
   SignalField
  } = require("./forces/signal-field"),
+    Tone = require("tone"),
     config = require("./config");
+const synth = (new Tone.Synth()).toDestination();
 game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
@@ -37,6 +39,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
     } else if (c.entity === target) {
+      synthTriggerAttackRelease("C4", "8n");
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
@@ -52,6 +55,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
+      synthTriggerAttackRelease("C4", "8n");
       console.log("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
