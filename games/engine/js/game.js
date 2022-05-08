@@ -194,10 +194,10 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems, config.gameSpeed);
 rendering.backgroundColor = { 
-  r:0,
-  g:0,
-  b:0,
-  a:1
+  r:255,
+  g:255,
+  b:255,
+  a:255
  };
 exports.game = game;
 exports.activeGameSystems = activeGameSystems;
