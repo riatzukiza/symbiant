@@ -1,7 +1,7 @@
 const dim=[ window.innerWidth, window.innerHeight ];
 const size=2;
 module.exports.size = size;
-module.exports.angleZoom = 2334;
+module.exports.angleZoom = 152;
 module.exports.noiseZ = 940;
 module.exports.fieldForce = 300;
 module.exports.dimensions = dim;
@@ -11,7 +11,7 @@ module.exports.decay = 0.1;
 module.exports.maxLength = 98.1;
 module.exports.antLimit = 10000;
 module.exports.maxInDecay = 20;
-module.exports.maxTrail = 20;
+module.exports.maxTrail = 999;
 module.exports.minTrail = 10;
 module.exports.decayOnCollision = true;
 module.exports.optionsAmplitude = 1;

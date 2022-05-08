@@ -3,7 +3,7 @@
 (const size 2)
 (set module.exports
      'size size
-     'angle-zoom 2334
+     'angle-zoom 152
      'noise-z 940
      'field-force 300
      'dimensions dim
@@ -13,7 +13,7 @@
      'maxLength 98.1
      'ant-limit 10000
      'max-in-decay 20
-     'max-trail 20
+     'max-trail 999
      'min-trail 10
      'decay-on-collision  true
      'options-amplitude 1
