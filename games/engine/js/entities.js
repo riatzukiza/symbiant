@@ -62,6 +62,7 @@ var EntityGroup = Interface.define("EntityGroup", {
     
       return group.each(((e) => {
       	
+        console.log("despawning", e);
         return e.despawn();
       
       }));
@@ -79,12 +80,12 @@ var EntityGroup = Interface.define("EntityGroup", {
    }
  });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:43:0 */
+  /* Tree-map.get eval.sibilant:45:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:46:0 */
+  /* memoize eval.sibilant:48:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -119,7 +120,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:53:0 */
+  /* entity eval.sibilant:55:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -141,11 +142,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
-  /* spawn-ant eval.sibilant:99:0 */
+var spawnAnt = (function spawnAnt$(x_y$14, home, startingLife) {
+  /* spawn-ant eval.sibilant:101:0 */
 
-  var x = x_y$13[0],
-      y = x_y$13[1];
+  var x = x_y$14[0],
+      y = x_y$14[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -157,12 +158,12 @@ var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
   v.accelerate([ (function() {
-    /* eval.sibilant:37:8 */
+    /* eval.sibilant:39:8 */
   
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));
   }).call(this), (function() {
-    /* eval.sibilant:37:8 */
+    /* eval.sibilant:39:8 */
   
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));
@@ -181,7 +182,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:125:0 */
+  /* clear-ants eval.sibilant:127:0 */
 
   return ants.clear();
 });
