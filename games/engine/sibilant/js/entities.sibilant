@@ -14,6 +14,15 @@
           (lit Tree-map) "tree-kit"
           config "./config")
 
+(macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
+
+(macro random-signed (max)
+       `(scoped
+         (var rand (random-float 0 @max))
+         (- @max (* rand 2))))
+
+(macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
+
 (def Tree-map.get ((dots args))
      (get (.find this (dots args)) 'value))
 
