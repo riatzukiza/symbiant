@@ -127,17 +127,19 @@ var entity = (function entity$(aspects) {
 var home = entity([ Dot, Position, Physics, Collision ]);
 var homePos = game.systems.get(Position, home);
 game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
-console.log("home pos", game.systems.get(Position, home).x = config.homeLocation[0];
+game.systems.get(Position, home).x = config.homeLocation[0];
 game.systems.get(Position, home).y = config.homeLocation[1];
-game.systems.get(Position, home).z = 1;);
+game.systems.get(Position, home).z = 1;
+console.log("home pos", game.systems.get(Position, home));
 game.systems.get(Physics, home).scale = 1;
 game.systems.get(Physics, home).mass = 1;
 game.systems.get(Physics, home).forces = [];
 var target = entity([ Dot, Position, Physics, Collision, Velocity ]);
 game.systems.get(Dot, target).color = rgba(0, 0, 255, 255);
-console.log("target pos", game.systems.get(Position, target).x = config.targetLocation[0];
+game.systems.get(Position, target).x = config.targetLocation[0];
 game.systems.get(Position, target).y = config.targetLocation[1];
-game.systems.get(Position, target).z = 1;);
+game.systems.get(Position, target).z = 1;
+console.log("target pos", game.systems.get(Position, target));
 game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
@@ -146,11 +148,11 @@ game.systems.get(Collision, home).name = "home";
 target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
-  /* spawn-ant eval.sibilant:109:0 */
+var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
+  /* spawn-ant eval.sibilant:111:0 */
 
-  var x = x_y$4[0],
-      y = x_y$4[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -186,7 +188,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:135:0 */
+  /* clear-ants eval.sibilant:137:0 */
 
   return ants.clear();
 });
