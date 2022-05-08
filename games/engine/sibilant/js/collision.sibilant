@@ -18,6 +18,9 @@
     (print "collision event" c c* (lit home home-pos target))
 
     (if
+     (or (= c.entity home)
+         (= c*.entity home))
+     (do (print "something collided with home"))
      (or (and (= c.entity home)
               (= c*.entity target))
 
