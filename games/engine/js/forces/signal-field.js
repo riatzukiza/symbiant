@@ -29,6 +29,11 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
+          console.log("updating signal field", { 
+            home,
+            homePos,
+            target
+           });
           updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
           var winRate = (v.winCount / ((1 + v.looseCount) || 1));
           return c.scale = (function() {
