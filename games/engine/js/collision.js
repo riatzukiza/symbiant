@@ -25,18 +25,9 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  console.log("collision event", c, c_, d, { 
-    home,
-    homePos,
-    target
-   });
   return (function() {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
-    } else if ((c.entity === home || c_.entity === home)) {
-      return console.log("something collided with home", c.entity, c_.entity);
-    } else if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
-      return console.log("target colliding with spawn");
     } else if (c.entity === target) {
       console.log("ant found target");
       c.colliding = false;
@@ -45,12 +36,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.y = homePos.y;
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       return c_v.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
@@ -63,12 +54,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.y = homePos.y;
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       return cv.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
@@ -78,23 +69,23 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c.colliding = false;
       c_.colliding = false;
       cv.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
       return c_v.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:39:8 */
+        /* eval.sibilant:31:8 */
       
         var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
