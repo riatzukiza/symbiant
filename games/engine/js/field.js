@@ -76,7 +76,7 @@ module.exports.updateParticle = function updateParticle(
     })
     if(loose) {
       console.log("loose",vel)
-      synth.triggerAttackRelease("B4", "4n");
+      // synth.triggerAttackRelease("B4", "4n");
       let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.subFrom({

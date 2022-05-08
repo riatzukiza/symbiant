@@ -114,11 +114,4 @@ const Simulation = extend(EventEmitter.prototype, {
     
    }
  });
-exports.Simulation = Simulation;.cb ){ 
-    
-      cb(this);
-      return this;
-    
-   }
- });
 exports.Simulation = Simulation;

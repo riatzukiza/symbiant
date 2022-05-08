@@ -27,6 +27,45 @@ const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 var isWin = false;
 var isLoose = false;
+const collisionSynth = (new Tone.Synth()).toDestination();
+const looseSynth = (new Tone.Synth()).toDestination();
+const winSynth = (new Tone.Synth()).toDestination();
+const winLoop = (new Tone.Loop((time) => {
+	
+  return (function() {
+    if (isWin) {
+      winSynth.triggerAttackRelease("C4", "32n", time);
+      return isWin = false;
+    }
+  }).call(this);
+
+}, "64n")).start(0);
+const looseLoop = (new Tone.Loop((time) => {
+	
+  return (function() {
+    if (isLoose) {
+      looseSynth.triggerAttackRelease("B4", "32n", time);
+      return isLoose = false;
+    }
+  }).call(this);
+
+}, "64n")).start(0);
+const collisionLoop = (new Tone.Loop((time) => {
+	
+  return (function() {
+    if (isCollision) {
+      collisionSynth.triggerAttackRelease("A4", "32n", time);
+      return isCollision = false;
+    }
+  }).call(this);
+
+}, "64n")).start(0);
+Tone.Transport.start();
+game.events.on("loose", () => {
+	
+  return isLoose = true;
+
+});
 game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
@@ -92,7 +131,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
-      c_v.accelerate([ (function() {
+      return c_v.accelerate([ (function() {
         /* eval.sibilant:33:8 */
       
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
@@ -103,8 +142,6 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
-      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
-      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
     }
   }).call(this);
   c_.colliding = false;
