@@ -14,8 +14,8 @@ var {
  } = require("./entities"),
     { 
   updateParticleField
- } = require(config),
-    ./config = require("./config");
+ } = require("./field"),
+    config = require("./config");
 game.events.on("collision", (([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
