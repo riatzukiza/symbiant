@@ -34,6 +34,7 @@
      (= c.entity target)
         (do
          (print "ant found target")
+         (alert "ant found target")
 
          ;; (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
          ;;                                     config.collision-static)),
@@ -59,6 +60,7 @@
         (do
 
          (print "ant found target")
+         (alert "ant found target")
          ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
          ;;                                     config.collision-static)),
          ;;                   (random-signed (or (* (+ 1 cv.yd) config.collision-static)
@@ -84,7 +86,6 @@
                  (= c.entity target) (= c*.entity target)))
         (do
          (print "ant is colliding with another ant")
-
 
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
