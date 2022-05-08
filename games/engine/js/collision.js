@@ -42,6 +42,7 @@ const winLoop = (new Tone.Loop((time) => {
 }, "64n")).start(0);
 const looseLoop = (new Tone.Loop((time) => {
 	
+  alert("Someone lost");
   return (function() {
     if (isLoose) {
       looseSynth.triggerAttackRelease("B4", "32n", time);

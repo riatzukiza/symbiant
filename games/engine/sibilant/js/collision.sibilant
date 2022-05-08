@@ -26,6 +26,7 @@
                                           (assign is-win false))) "64n") 0))
 
 (const loose-loop (.start (new Tone.Loop (=> (time)
+                                             (alert "Someone lost")
                                       (when is-loose
                                             (.trigger-attack-release loose-synth "B4" "32n" time)
                                             (assign is-loose false))) "64n") "8n"))
