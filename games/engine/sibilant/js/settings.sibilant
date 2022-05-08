@@ -19,6 +19,6 @@
 (.addRange settings "Spawn Static" 1 99 config.spawn-static 1 (=> (val) (assign config.spawn-static val)))
 (.addRange settings "Spawn Rate" 1 99999 config.spawn-rate 1 (=> (val) (assign config.spawn-rate val)))
 (.addRange settings "Game speed" 0.1 5 config.game-speed 0.1 (=> (val) (assign config.game-speed val)))
-(.add-button settings "Clear ants" clear-ants)
+(.add-button settings "Clear ants" entities.clear-ants)
 
 (assign module.exports settings)

@@ -76,5 +76,5 @@ settings.addRange("Game speed", 0.1, 5, config.gameSpeed, 0.1, ((val) => {
   return config.gameSpeed = val;
 
 }));
-settings.addButton("Clear ants", clearAnts);
+settings.addButton("Clear ants", entities.clearAnts);
 module.exports = settings;
