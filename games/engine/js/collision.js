@@ -29,8 +29,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
     } else if (c.entity === target) {
-      console.log("ant found target");
-      alert("ant found target");
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
@@ -47,7 +45,6 @@ game.events.on("collision", (([ c, c_, d ]) => {
       }).call(this) ]);
     } else if (c_.entity === target) {
       console.log("ant found target");
-      alert("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
       cv.pos.y = homePos.y;
