@@ -84,7 +84,7 @@
 (require "./collision")
 (next-spawn)
 (print target home home-pos next-spawn)
-(.set-bounds Collision (first config.size) (second config.size)
+(.set-bounds Collision (first config.dimensions) (second config.dimensions)
              100
              50)
 ;; (set Collision
