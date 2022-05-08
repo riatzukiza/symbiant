@@ -17,27 +17,12 @@ var {
   Physics
  } = require("sibilant-game-engine/client/systems/physics"),
     { 
-  Scalar
- } = require("sibilant-game-engine/client/math/scalar"),
-    { 
   Component,
   System
  } = require("sibilant-game-engine/client/ecs/component"),
-    noise = require("./noise"),
-    Vector = require("./vector"),
-    { 
-  createVectorField,
-  updateParticle
- } = require("./field"),
-    { 
-  List
- } = require("sibilant-game-engine/client/data-structures/list"),
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
-    { 
-  TreeMap
- } = require("tree-kit"),
     { 
   SignalField
  } = require("./forces/signal-field"),
@@ -45,6 +30,11 @@ var {
   Friction
  } = require("./forces/friction"),
     config = require("./config");
+var entity = (function entity$(aspects) {
+  /* entity eval.sibilant:16:0 */
+
+  return game.ent.spawn(aspects);
+});
 var home = entity([ Dot, Position, Physics, Collision ]);
 var homePos = game.systems.get(Position, home);
 game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
@@ -63,11 +53,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants = [];
-var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
-  /* spawn-ant eval.sibilant:62:0 */
+var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
+  /* spawn-ant eval.sibilant:59:0 */
 
-  var x = x_y$6[0],
-      y = x_y$6[1];
+  var x = x_y$7[0],
+      y = x_y$7[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);

@@ -4,22 +4,19 @@
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
-          (lit Scalar) "sibilant-game-engine/client/math/scalar"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
-          noise "./noise"
-          Vector "./vector"
-          (lit create-vector-field update-particle) "./field"
-          (lit List) "sibilant-game-engine/client/data-structures/list"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
-          (lit Tree-map) "tree-kit"
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
 
           config "./config")
 
+
+(def entity (aspects ) (.spawn game.ent aspects ))
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))
+
 
 (set (.get game.systems Dot home)
      'color (rgba 0 255 0 255))
