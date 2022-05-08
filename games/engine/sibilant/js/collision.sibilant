@@ -20,20 +20,21 @@
 (const loose-synth (.to-destionation (new Tone.Synth)))
 (const win-synth (.to-destionation (new Tone.Synth)))
 
-(const win-loop (new Tone.Loop (=> (time)
-                                   (when is-win
-                                         (.trigger-attack-release win-synth "C4" "32n" time)
-                                         (assign is-win false)))))
+(const win-loop (.start (new Tone.Loop (=> (time)
+                                    (when is-win
+                                          (.trigger-attack-release win-synth "C4" "32n" time)
+                                          (assign is-win false))))))
 
-(const loose-loop (new Tone.Loop (=> (time)
-                                   (when is-loose
-                                         (.trigger-attack-release loose-synth "B4" "32n" time)
-                                         (assign is-loose false)))))
+(const loose-loop (.start (new Tone.Loop (=> (time)
+                                      (when is-loose
+                                            (.trigger-attack-release loose-synth "B4" "32n" time)
+                                            (assign is-loose false))))))
 
-(const collision-loop (new Tone.Loop (=> (time)
-                                   (when is-collision
-                                         (.trigger-attack-release collision-synth "A4" "32n" time)
-                                         (assign is-collision false)))))
+(const collision-loop (.start (new Tone.Loop (=> (time)
+                                          (when is-collision
+                                                (.trigger-attack-release collision-synth "A4" "32n" time)
+                                                (assign is-collision false))))))
+(Tone.Transport.start)
 
 (on game.events 'loose () (assign is-loose true))
 (on game.events 'collision ([c c* d])
