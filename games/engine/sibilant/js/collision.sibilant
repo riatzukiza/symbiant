@@ -13,6 +13,8 @@
 (const synth (.to-destination (new Tone.Synth)))
 (var is-collision false)
 (on game.events 'tick ()
+
+    (const synth (.to-destination (new Tone.Synth)))
     (when is-collision
           (assign is-collision false)
           (synth.trigger-attack-release "A3" "64n")))

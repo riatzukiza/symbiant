@@ -27,6 +27,7 @@ const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 game.events.on("tick", () => {
 	
+  const synth = (new Tone.Synth()).toDestination();
   return (function() {
     if (isCollision) {
       isCollision = false;
