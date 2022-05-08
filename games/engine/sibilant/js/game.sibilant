@@ -59,6 +59,7 @@
 (var game ((create Game) rendering active-game-systems))
 
 (.start game)
+
 (export game)
 (export active-game-systems)
 
