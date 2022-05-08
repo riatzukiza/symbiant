@@ -17,7 +17,7 @@
           (lit Friction) "./forces/friction"
 
           config "./config")
-(def setup-entities ()
+(def setup-entities (game)
 
      (var home (entity [Dot Position Physics Collision]))
      (var home-pos (.get game.systems Position home))
