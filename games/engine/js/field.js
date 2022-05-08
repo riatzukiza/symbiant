@@ -87,11 +87,13 @@ module.exports.updateParticle = function updateParticle(
         })
       }
       vel.looseCount++
+      vel.trail = []
+    }
+    if(loose ) {
 
       vel.xd = 0
       vel.yd = 0
 
-      vel.trail = []
       p.x =homePos.x
       p.y =homePos.y
 
@@ -105,14 +107,13 @@ module.exports.updateParticle = function updateParticle(
           y:y*weight*config.antInfluence,
         })
       }
+
+      vel.trail = []
+      vel.winCount++
+    }
+    if(win) {
       vel.xd = 0
       vel.yd = 0
-      vel.winCount++
-      vel.trail = []
-
-      // vel.trail = []
-      // p.x =homePos.x
-      // p.y =homePos.y
     }
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength)
     // vel.xd = pH.x
@@ -120,6 +121,10 @@ module.exports.updateParticle = function updateParticle(
 
     //vel.accelerate([Math.min(pH.x,config.maxSpeed),Math.min()]);
     vel.accelerate([pH.x,pH.y]);
+    pH.addTo({
+      x:vel.xd*config.antInfluence,
+      y:vel.yd*config.antInfluence,
+    })
     // console.log({tick,vec,vel})
 
   }
