@@ -25,6 +25,11 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
+  console.log("collision event", c, c_, d, { 
+    home,
+    homePos,
+    target
+   });
   return (function() {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
