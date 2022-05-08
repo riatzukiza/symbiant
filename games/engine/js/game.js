@@ -196,7 +196,7 @@ var game = create(Game)(rendering, activeGameSystems, config.gameSpeed);
 rendering.backgroundColor = { 
   r:255,
   g:255,
-  b:255,
+  b:,
   a:255
  };
 exports.game = game;

@@ -39,7 +39,7 @@
 
 (macro random-signed (max)
        `(scoped
-         (var rand (random-float 0 @max))
+         (var rand (random-float 1 @max))
          (- @max (* rand 2))))
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
@@ -58,7 +58,7 @@
 (var active-game-systems [Dot Position Physics Velocity Collision])
 (var game ((create Game) rendering active-game-systems config.game-speed))
 (set rendering 'background-color
-     (lit (r 255) (g 255) (b 255) (a 255))
+     (lit (r 255) (g 255) (b ) (a 255))
      )
 
 
