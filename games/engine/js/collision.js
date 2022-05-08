@@ -39,7 +39,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
     } else if (c.entity === target) {
-      synthTriggerAttackRelease("C4", "8n");
+      synth.triggerAttackRelease("C4", "8n");
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
@@ -55,7 +55,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
-      synthTriggerAttackRelease("C4", "8n");
+      synth.triggerAttackRelease("C4", "8n");
       console.log("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
@@ -73,7 +73,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
       }).call(this) ]);
     } else if (!((c.entity === home || c_.entity === home || c.entity === target || c_.entity === target))) {
       console.log("ant is colliding with another ant");
-      synthTriggerAttackRelease("A4", "8n");
+      synth.triggerAttackRelease("A4", "8n");
       cv.accelerate([ (function() {
         /* eval.sibilant:33:8 */
       
