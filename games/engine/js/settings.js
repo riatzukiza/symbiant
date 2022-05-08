@@ -72,7 +72,7 @@ settings.addRange("Spawn Rate", 1, 99999, config.spawnRate, 1, ((val) => {
 }));
 settings.addRange("Game speed", 0.1, 5, config.spawnRate, 0.1, ((val) => {
 	
-  return config.spawnRate = val;
+  return config.gameSpeed = val;
 
 }));
 module.exports = settings;
