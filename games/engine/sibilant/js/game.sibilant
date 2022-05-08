@@ -22,6 +22,7 @@
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
+          (lit Collision) "sibilant-game-engine/client/systems/collision"
 
           config "./config"
           )

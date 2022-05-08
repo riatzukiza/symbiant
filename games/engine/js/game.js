@@ -179,6 +179,9 @@ var {
     { 
   Physics
  } = require("sibilant-game-engine/client/systems/physics"),
+    { 
+  Collision
+ } = require("sibilant-game-engine/client/systems/collision"),
     config = require("./config");
 const rendering=Rendering.load({ 
   size:config.dimensions,
