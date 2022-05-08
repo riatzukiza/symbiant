@@ -20,8 +20,8 @@
      'limit-decay true
      'ant-influence 10
      'friction  64
-     'collision-static 0
-     'spawn-static 0
+     'collision-static 10
+     'spawn-static 10
      'spawn-rate 100
      'home-location [300, 200]
      'target-location [700, 900]
