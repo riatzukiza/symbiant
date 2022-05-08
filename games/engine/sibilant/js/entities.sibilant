@@ -17,76 +17,76 @@
           (lit Friction) "./forces/friction"
 
           config "./config")
-(def setup-entities (game)
+(var home (entity [Dot Position Physics Collision]))
+(var home-pos (.get game.systems Position home))
 
-     (var home (entity [Dot Position Physics Collision]))
-     (var home-pos (.get game.systems Position home))
+(set (.get game.systems Dot home)
+     'color (rgba 0 255 0 255))
 
-     (set (.get game.systems Dot home)
-          'color (rgba 0 255 0 255))
+(set (.get game.systems Position home )
+     'x (random-int 1 (first config.dimensions))
+     'y (random-int 1 (second config.dimensions))
+     'z 1)
 
-     (set (.get game.systems Position home )
-          'x (random-int 1 (first config.dimensions))
-          'y (random-int 1 (second config.dimensions))
+(set (.get game.systems Physics home)
+     'scale 30
+     'mass 1
+     'forces [])
+
+
+(var target (entity [Dot Position Physics Collision Velocity]))
+
+(set (.get game.systems Dot target)
+     'color (rgba 0 0 255 255))
+
+(set (.get game.systems Position target )
+     'x (random-int 1 (first config.dimensions))
+     'y (random-int 1 (second config.dimensions))
+     'z 1)
+
+(set (.get game.systems Physics target)
+     'scale 40
+     'mass 10000
+     'forces [Friction])
+
+;; (set (.get game.systems Velocity target)
+;;      ;; 'xd (random-signed 10)
+;;      ;; 'yd (random-signed 10)
+;;      )
+
+;; (set (.get game.systems Collision target)
+;;      'type 'static)
+
+(const ants [])
+(def spawn-ant ([x, y], home, starting-life)
+     (var ant (entity active-game-systems))
+     (.push ants ant)
+     (print ant)
+
+     (set (.get game.systems Dot ant)
+          'color (rgba 255 0 0 255))
+
+
+     (set (.get game.systems Position ant )
+          'x x
+          'y y
           'z 1)
 
-     (set (.get game.systems Physics home)
-          'scale 30
+
+     (set (.get game.systems Physics ant)
+          'scale 10
           'mass 1
-          'forces [])
+          'forces [SignalField, Friction])
+     (var v (.get game.systems Velocity ant))
 
+     (.accelerate v [(random-signed config.spawn-static),(random-signed config.spawn-static)])
+     ant)
 
-     (var target (entity [Dot Position Physics Collision Velocity]))
-
-     (set (.get game.systems Dot target)
-          'color (rgba 0 0 255 255))
-
-     (set (.get game.systems Position target )
-          'x (random-int 1 (first config.dimensions))
-          'y (random-int 1 (second config.dimensions))
-          'z 1)
-
-     (set (.get game.systems Physics target)
-          'scale 40
-          'mass 10000
-          'forces [Friction])
-
-     ;; (set (.get game.systems Velocity target)
-     ;;      ;; 'xd (random-signed 10)
-     ;;      ;; 'yd (random-signed 10)
-     ;;      )
-
-     ;; (set (.get game.systems Collision target)
-     ;;      'type 'static)
-
-     (const ants [])
-     (def spawn-ant ([x, y], home, starting-life)
-          (var ant (entity active-game-systems))
-          (.push ants ant)
-          (print ant)
-
-          (set (.get game.systems Dot ant)
-               'color (rgba 255 0 0 255))
-
-
-          (set (.get game.systems Position ant )
-               'x x
-               'y y
-               'z 1)
-
-
-          (set (.get game.systems Physics ant)
-               'scale 10
-               'mass 1
-               'forces [SignalField, Friction])
-          (var v (.get game.systems Velocity ant))
-
-          (.accelerate v [(random-signed config.spawn-static),(random-signed config.spawn-static)])
-          ant)
-
-     (var home-pos (.get game.systems Position home))
-     (var number 1)
-     (var next-spawn (=> () (unless (>= ants.length config.ant-limit)
-                                    (spawn-ant [home-pos.x home-pos.y] home)
-                                    (set-timeout next-spawn config.spawn-rate))))
-     (next-spawn))
+(var home-pos (.get game.systems Position home))
+(var number 1)
+(var next-spawn (=> () (unless (>= ants.length config.ant-limit)
+                            (spawn-ant [home-pos.x home-pos.y] home)
+                            (set-timeout next-spawn config.spawn-rate))))
+(export home-pos)
+(export next-spawn)
+(next-spawn)
