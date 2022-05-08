@@ -3,8 +3,10 @@
           (lit Physics) "sibilant-game-engine/client/systems/physics"
 
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
-          (lit home home-pos target) "./entities"
-          (lit update-particle) "./field"
+          (lit home home-pos target) "./entities
+(
+"
+          (lit update-particle) "../field"
           (lit Signal-field) "./forces/signal-field"
           config "./config"
           )
@@ -15,7 +17,7 @@
 
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
-    (print "collision event")
+    (print "collision event" c c*)
 
     (if
      (or (and (= c.entity home)

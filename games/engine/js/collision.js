@@ -11,10 +11,10 @@ var {
   home,
   homePos,
   target
- } = require("./entities"),
+ } = require("./entities\n"+"(\n"+""),
     { 
   updateParticle
- } = require("./field"),
+ } = require("../field"),
     { 
   SignalField
  } = require("./forces/signal-field"),
@@ -25,7 +25,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  console.log("collision event");
+  console.log("collision event", c, c_);
   return (function() {
     if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
