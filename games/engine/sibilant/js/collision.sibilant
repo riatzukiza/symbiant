@@ -93,7 +93,7 @@
                  (= c.entity target) (= c*.entity target)))
         (do
          (print "ant is colliding with another ant")
-         (synth.trigger-attack-release "C3" "16n")
+         (synth.trigger-attack-release "A3" "16n")
 
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
