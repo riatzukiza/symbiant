@@ -20,4 +20,6 @@ module.exports.friction = 32;
 module.exports.collisionStatic = 100;
 module.exports.spawnStatic = 100;
 module.exports.spawnRate = 1000;
+module.exports.homeLocation = [ 100100 ];
+module.exports.targetLocation = [ 300300 ];
 module.exports.gameSpeed = 1;
