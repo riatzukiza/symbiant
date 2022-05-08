@@ -62,7 +62,7 @@ var EntityGroup = Interface.define("EntityGroup", {
     
       return group.each(((e) => {
       	
-        return e.clear();
+        return e.despawn();
       
       }));
     
@@ -141,11 +141,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
   /* spawn-ant eval.sibilant:99:0 */
 
-  var x = x_y$12[0],
-      y = x_y$12[1];
+  var x = x_y$13[0],
+      y = x_y$13[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
