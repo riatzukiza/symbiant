@@ -193,6 +193,5 @@ var container = createDocumentNode("div", { 'id': "container" }, [ rendering.con
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
-game.start();
 exports.game = game;
 exports.activeGameSystems = activeGameSystems;
