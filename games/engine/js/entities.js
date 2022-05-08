@@ -49,12 +49,12 @@ game.systems.get(Position, target).z = 1;
 game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
-const ants = [];
-var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
+const ants=[];
+var spawnAnt = (function spawnAnt$(x_y$10, home, startingLife) {
   /* spawn-ant eval.sibilant:58:0 */
 
-  var x = x_y$8[0],
-      y = x_y$8[1];
+  var x = x_y$10[0],
+      y = x_y$10[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -68,20 +68,20 @@ var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
   v.accelerate([ (function() {
-    /* eval.sibilant:33:8 */
+    /* eval.sibilant:31:8 */
   
-    let rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
-    return (config.spawnStatic - (rand / 2));
+    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+    return (config.spawnStatic - (rand * 2));
   }).call(this), (function() {
-    /* eval.sibilant:33:8 */
+    /* eval.sibilant:31:8 */
   
-    let rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
-    return (config.spawnStatic - (rand / 2));
+    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+    return (config.spawnStatic - (rand * 2));
   }).call(this) ]);
   return ant;
 });
 var number = 1;
-var nextSpawn = () => {
+var nextSpawn = (() => {
 	
   return (function() {
     if (!(ants.length >= config.antLimit)) {
@@ -90,7 +90,8 @@ var nextSpawn = () => {
     }
   }).call(this);
 
-};
+});
+exports.target = target;
 exports.home = home;
 exports.homePos = homePos;
 exports.nextSpawn = nextSpawn;

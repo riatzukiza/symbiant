@@ -83,6 +83,7 @@
 (var next-spawn (=> () (unless (>= ants.length config.ant-limit)
                             (spawn-ant [home-pos.x home-pos.y] home)
                             (set-timeout next-spawn config.spawn-rate))))
+(export target)
 (export home)
 (export home-pos)
 (export next-spawn)
