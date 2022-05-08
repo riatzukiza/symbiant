@@ -30,7 +30,7 @@
 (macro random-signed (max)
        `(scoped
          (var rand (random-float 1 @max))
-         (- (-  @max (* rand 2)) 1)))
+         (-  @max (* rand 2))))
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
 
