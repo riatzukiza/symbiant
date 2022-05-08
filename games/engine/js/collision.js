@@ -25,22 +25,8 @@ var {
     config = require("./config");
 const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
-game.events.on("tick", () => {
-	
-  return (function() {
-    if (isCollision) {
-      isCollision = false;
-      return (function() {
-        try {
-          return synth.triggerAttackRelease("A3", "32n");
-        } catch (e) {
-          return console.log("couldn't make a sound");
-        }
-      }).call(this);
-    }
-  }).call(this);
-
-});
+var isWin = false;
+var isLoose = false;
 game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
@@ -60,7 +46,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     } else if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
     } else if (c.entity === target) {
-      synth.triggerAttackRelease("C4", "4n");
+      isWin = true;
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
@@ -76,7 +62,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
-      synth.triggerAttackRelease("C4", "8n");
+      isWin = true;
       console.log("ant found target");
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
@@ -106,7 +92,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
-      return c_v.accelerate([ (function() {
+      c_v.accelerate([ (function() {
         /* eval.sibilant:33:8 */
       
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
@@ -117,6 +103,8 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
     }
   }).call(this);
   c_.colliding = false;
