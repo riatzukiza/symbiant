@@ -25,7 +25,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  console.log("collision");
+  console.log("collision event");
   return (function() {
     if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
