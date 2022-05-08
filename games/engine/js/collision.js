@@ -23,13 +23,13 @@ var {
  } = require("./forces/signal-field"),
     Tone = require("tone"),
     config = require("./config");
-const synth = (new Tone.Synth()).toDestination();
 game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
+  const synth = (new Tone.Synth()).toDestination();
   console.log("collision event", c, c_, d, Collision.quads, { 
     home,
     homePos,
