@@ -195,3 +195,4 @@ var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 exports.game = game;
 exports.activeGameSystems = activeGameSystems;
+game.start();
