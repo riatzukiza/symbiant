@@ -27,7 +27,8 @@
          (and (= c*.entity home)
               (= c.entity target)))
 
-     (do (print "target colliding with spawn"))
+     (do (print "target colliding with spawn")
+         )
 
      (= c.entity target)
         (do
