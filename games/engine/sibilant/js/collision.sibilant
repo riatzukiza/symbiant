@@ -4,7 +4,7 @@
 
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit home home-pos target) "./entities"
-          config ./config
+          config "./config"
           )
 
 (on game.events 'collision ([c c* d])
