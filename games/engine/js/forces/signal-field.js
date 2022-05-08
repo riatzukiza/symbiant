@@ -7,7 +7,7 @@ var {
     { 
   createVectorField,
   updateParticle
- } = require("./field"),
+ } = require("../field"),
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision");

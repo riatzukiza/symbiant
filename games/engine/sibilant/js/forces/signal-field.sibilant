@@ -1,7 +1,7 @@
 
 (require! (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
-          (lit create-vector-field update-particle) "./field"
+          (lit create-vector-field update-particle) "../field"
           (lit Collision) "sibilant-game-engine/client/systems/collision")
 
 (require! config "../config")
