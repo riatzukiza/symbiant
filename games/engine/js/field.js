@@ -23,8 +23,8 @@ module.exports.updateParticle = function updateParticle(
   pos.y = Math.round(p.y / config.size);
   if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
 
-    let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, config.noiseZ) * Math.PI * 2;
-    let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, config.noiseZ) * config.fieldForce / 20;
+    let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, (config.noiseZ / 10000)) * Math.PI * 2;
+    let length = noise.simplex3(pos.x/50 + 40000, pos.y/50 + 40000, tick * (config.noiseZ / 10000)) * config.fieldForce / 20;
     let pH = pheremones[pos.x][pos.y]
     field[pos.x][pos.y].setLength(length);
     field[pos.x][pos.y].setAngle(angle);

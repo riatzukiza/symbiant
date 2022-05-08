@@ -17,7 +17,7 @@
      'min-trail 10
      'decay-on-collision  true
      'options-amplitude 1
-     'limit-decay false
+     'limit-decay true
      'ant-influence 10
      'friction  64
      'collision-static 0
