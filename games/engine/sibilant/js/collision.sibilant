@@ -11,6 +11,11 @@
           config "./config")
 
 (const synth (.to-destination (new Tone.Synth)))
+(var is-collision false)
+(on game.events 'tick
+    (when is-collision
+          (assign is-collision false)
+          (synth.trigger-attack-release "A3" "64n")))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
@@ -94,7 +99,7 @@
                  (and (= c.entity target) (= c*.entity target)) ))
         (do
          (print "ant is colliding with another ant" c, c*)
-         (synth.trigger-attack-release "A3" "64n")
+
 
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
