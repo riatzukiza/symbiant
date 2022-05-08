@@ -215,11 +215,11 @@ var {
   home,
   homePos,
   nextSpawn
- } = require({ 
+ } = require("/.entities"),
+    { 
   game,
   activeGameSystems
- }),
-    ./game = require("./game"),
+ } = require("./game"),
     config = require("./config"),
     settings = require("./settings");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
