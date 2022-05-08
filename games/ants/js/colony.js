@@ -1,32 +1,28 @@
 const { 
   Pheremones
- }=require("./pheremons");
+ } = require("./pheremons");
 const { 
   Entity
- }=require("./entity");
+ } = require("./entity");
 const { 
   Ant,
   eachWeight,
   mapWeights
- }=require("./ant");
+ } = require("./ant");
 const { 
   create,
   extend,
   mixin
- }=require("./util");
+ } = require("./util");
 const { 
   StateSpace
- }=require("./state-space");
-(function() {
-  /* node_modules/kit/inc/scope.sibilant:12:9 */
-
-  return {
-    red: 255,
-    green: 255,
-    blue: 0
-  };
-})();
-const Colony={ 
+ } = require("./state-space");
+let yellow = {
+  red: 255,
+  green: 255,
+  blue: 0
+};
+const Colony = { 
   symbol:Symbol("Colony"),
   id:1,
   colonies:(new Set()),
@@ -39,11 +35,11 @@ const Colony={
    },
   serialize( ants = this.ants ){ 
     
-      return ants.toArray().map(((ant) => {
+      return ants.toArray().map((ant) => {
       	
         return ant.serialize();
       
-      }));
+      });
     
    },
   save(  ){ 
@@ -57,22 +53,22 @@ const Colony={
   spawn( count = this.count,nest = this.nest,collision = this.collision ){ 
     
       console.log("spawning ants at nest", nest);
-      eachInArea(collision, nest, ((spot, i, j, x, y) => {
+      eachInArea(collision, nest, (spot, i, j, x, y) => {
       	
         return Ant.spawn.call(this, x, y);
       
-      }), count);
+      }, count);
       return this;
     
    },
   move( ants = this.ants,weights = this.weights,display = this.display,color = this.color,nest = this.nest ){ 
     
       "Process the movement of ever ant in a set of ants, updating weights along the way.";
-      ants.each(((ant) => {
+      ants.each((ant) => {
       	
         return ant.move();
       
-      }));
+      });
       return display.set(nest.x, nest.y, yellow);
     
    }
