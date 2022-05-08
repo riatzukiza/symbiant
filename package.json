@@ -25,6 +25,7 @@
     "react": "^16.3.1",
     "source-map-support": "^0.4.11",
     "tree-kit": "git+https://github.com/riatzukiza/tree-kit.git",
+    "@timohausmann/quadtree-js": "^1.2.5",
     "webgl": "git+https://bitbucket.org/kettlelogic/andy_webgl.git"
   },
   "dependencies": {
