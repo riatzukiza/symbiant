@@ -59,7 +59,7 @@
          (set c*v.pos
               'x  home-pos.x
               'y home-pos.y)
-
+         
 
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
          )
