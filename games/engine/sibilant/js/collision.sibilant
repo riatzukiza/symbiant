@@ -3,6 +3,7 @@
           (lit Physics) "sibilant-game-engine/client/systems/physics"
 
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
+          (lit home home-pos target)
           )
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
