@@ -25,5 +25,8 @@
      'spawn-rate 2000
      'home-location [300, 200]
      'target-location [700, 900]
+     'track-trail false
+     'reward-winners false
+     'punish-loosers false
      'game-speed 1
      )

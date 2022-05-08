@@ -23,4 +23,7 @@ module.exports.spawnStatic = 0;
 module.exports.spawnRate = 2000;
 module.exports.homeLocation = [ 300, 200 ];
 module.exports.targetLocation = [ 700, 900 ];
+module.exports.trackTrail = false;
+module.exports.rewardWinners = false;
+module.exports.punishLoosers = false;
 module.exports.gameSpeed = 1;

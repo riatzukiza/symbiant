@@ -59,22 +59,24 @@ module.exports.updateParticle = function updateParticle(
     pH.addTo(vec)
 
 
-    if(!vel.trail ) {
-      vel.winCount=0
-      vel.looseCount=0
-      vel.trail = [
-        {
-          x:vel.xd,
-          y:vel.yd,
-          pheremones:pH
-        }
-      ]
-    } else vel.trail.push({
-      x:vel.xd,
-      y:vel.yd,
-      pheremones:pH
-    })
-    if(loose) {
+    if(config.trackTrail) {
+      if(!vel.trail ) {
+        vel.winCount=0
+        vel.looseCount=0
+        vel.trail = [
+          {
+            x:vel.xd,
+            y:vel.yd,
+            pheremones:pH
+          }
+        ]
+      } else vel.trail.push({
+        x:vel.xd,
+        y:vel.yd,
+        pheremones:pH
+      })
+    }
+    if(loose && config.punishLoosers) {
       console.log("loose",vel)
       // synth.triggerAttackRelease("B4", "4n");
       let weight = vel.looseCount/(vel.winCount+1)
@@ -94,7 +96,7 @@ module.exports.updateParticle = function updateParticle(
       p.y =homePos.y
 
     }
-    if(win) {
+    if(win && config.rewardWinners) {
       console.log("win",vel)
       let weight = vel.winCount/(vel.looseCount + 1)
       for(let {x,y,pheremones} of vel.trail) {
