@@ -83,4 +83,5 @@
 
 
 (require "./collision")
+(next-spawn)
 (print target home home-pos next-spawn)

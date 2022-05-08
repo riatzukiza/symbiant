@@ -242,4 +242,5 @@ var vector2d = (function vector2d$(x, y) {
   return [ x, y ];
 });
 require("./collision");
+nextSpawn();
 console.log(target, home, homePos, nextSpawn);
