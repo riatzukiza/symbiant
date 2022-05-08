@@ -66,7 +66,7 @@ settings.addRange("Collision Static", 0, 99, config.collisionStatic, 1, ((val) =
   return config.collisionStatic = val;
 
 }));
-settings.addRange("Spawn Static", 1, 99, config.spawnStatic, 1, ((val) => {
+settings.addRange("Spawn Static", 0, 99, config.spawnStatic, 1, ((val) => {
 	
   return config.spawnStatic = val;
 
