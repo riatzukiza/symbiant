@@ -15,6 +15,7 @@
 
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
+    (print "collision")
 
     (if
      (or (and (= c.entity home)
