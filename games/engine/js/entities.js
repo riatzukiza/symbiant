@@ -1,10 +1,4 @@
 var { 
-  Game
- } = require("sibilant-game-engine/client/game"),
-    { 
-  Rendering
- } = require("sibilant-game-engine/client/systems/rendering/rendering"),
-    { 
   Dot
  } = require("sibilant-game-engine/client/systems/rendering/dot"),
     { 
@@ -29,9 +23,12 @@ var {
     { 
   Friction
  } = require("./forces/friction"),
-    config = require("./config");
+    { 
+  game
+ } = require(config),
+    ./config = require("./config");
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:16:0 */
+  /* entity eval.sibilant:15:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -53,11 +50,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants = [];
-var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
-  /* spawn-ant eval.sibilant:59:0 */
+var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
+  /* spawn-ant eval.sibilant:58:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$8[0],
+      y = x_y$8[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
