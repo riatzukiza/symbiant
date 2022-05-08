@@ -204,6 +204,12 @@ var {
     { 
   TreeMap
  } = require("tree-kit"),
+    { 
+  SignalField
+ } = require("./forces/signal-field"),
+    { 
+  Friction
+ } = require("./forces/friction"),
     config = require("./config");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
   /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
@@ -230,22 +236,22 @@ createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot)
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
 var game = create(Game)(rendering, activeGameSystems);
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:84:0 */
+  /* entity eval.sibilant:85:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:85:0 */
+  /* vector2d eval.sibilant:86:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:87:0 */
+  /* Tree-map.get eval.sibilant:88:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:89:0 */
+  /* memoize eval.sibilant:90:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -298,11 +304,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
-  /* spawn-ant eval.sibilant:143:0 */
+var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+  /* spawn-ant eval.sibilant:144:0 */
 
-  var x = x_y$12[0],
-      y = x_y$12[1];
+  var x = x_y$13[0],
+      y = x_y$13[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -341,7 +347,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:172:0 */
+  /* clear-ants eval.sibilant:173:0 */
 
   console.log("clearning ants", ants);
   ants.each(((ant) => {

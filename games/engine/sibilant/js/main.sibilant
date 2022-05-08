@@ -51,6 +51,8 @@
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit"
+          (lit Signal-field) "./forces/signal-field"
+          (lit Friction) "./forces/friction"
 
           config "./config")
 
