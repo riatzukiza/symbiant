@@ -25,8 +25,8 @@ var {
  } = require("./forces/friction"),
     { 
   game
- } = require(config),
-    ./config = require("./config");
+ } = require("./game"),
+    config = require("./config");
 var entity = (function entity$(aspects) {
   /* entity eval.sibilant:15:0 */
 
@@ -50,11 +50,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$10, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$11, home, startingLife) {
   /* spawn-ant eval.sibilant:58:0 */
 
-  var x = x_y$10[0],
-      y = x_y$10[1];
+  var x = x_y$11[0],
+      y = x_y$11[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);

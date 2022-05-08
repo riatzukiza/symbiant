@@ -7,7 +7,7 @@
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
-          (lit game )
+          (lit game ) "./game"
 
           config "./config")
 
