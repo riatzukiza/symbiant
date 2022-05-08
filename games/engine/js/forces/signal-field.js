@@ -27,7 +27,7 @@ var SignalField = Physics.Force.define("SignalField", {
         if (!(collision.colliding)) {
           updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, entities.homePos);
           var winRate = (v.winCount / ((1 + v.looseCount) || 1));
-          c.scale = (10 * (function() {
+          c.scale = (1 * (function() {
             if (winRate > 1) {
               return winRate;
             } else {
