@@ -2,7 +2,7 @@
           entities "./entities"
           )
 (var settings (Quick-settings.create))
-(.addRange settings "Options amplitude" 1 100 config.angle-zoom 0.01 (=> (val) (assign config.options-amplitude val)))
+(.addRange settings "Options amplitude" 1 100 config.options-amplitude 0.01 (=> (val) (assign config.options-amplitude val)))
 (.addRange settings "Angle Zoom" 1 9999 config.angle-zoom 1 (=> (val) (assign config.angle-zoom (/ val config.options-amplitude ))))
 (.addRange settings "Noise Z" 1 9999 config.noise-z 1 (=> (val) (assign config.noise-z (/ val config.options-amplitude ))))
 (.addRange settings "Noise Force" 1 9999 config.field-force 0.1 (=> (val) (assign config.field-force (/ val config.options-amplitude ))))

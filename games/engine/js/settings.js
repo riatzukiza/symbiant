@@ -1,7 +1,7 @@
 var config = require("./config"),
     entities = require("./entities");
 var settings = QuickSettings.create();
-settings.addRange("Options amplitude", 1, 100, config.angleZoom, 0.01, (val) => {
+settings.addRange("Options amplitude", 1, 100, config.optionsAmplitude, 0.01, (val) => {
 	
   return config.optionsAmplitude = val;
 
