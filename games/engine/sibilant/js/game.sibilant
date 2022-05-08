@@ -16,7 +16,9 @@
 
 
 (require! (lit Tree-map) "tree-kit"
-          (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering")
+          (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
+          config "./config"
+          )
 
 (import-namespace dom)
 

@@ -166,7 +166,8 @@ var {
  } = require("tree-kit"),
     { 
   Rendering
- } = require("sibilant-game-engine/client/systems/rendering/rendering");
+ } = require("sibilant-game-engine/client/systems/rendering/rendering"),
+    config = require("./config");
 const rendering=Rendering.load({ 
   size:config.dimensions,
   limit:100,
