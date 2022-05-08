@@ -17,6 +17,7 @@
           (lit Friction) "./forces/friction"
 
           config "./config")
+
 (var home (entity [Dot Position Physics Collision]))
 (var home-pos (.get game.systems Position home))
 
@@ -82,11 +83,11 @@
      (.accelerate v [(random-signed config.spawn-static),(random-signed config.spawn-static)])
      ant)
 
-(var home-pos (.get game.systems Position home))
 (var number 1)
 (var next-spawn (=> () (unless (>= ants.length config.ant-limit)
                             (spawn-ant [home-pos.x home-pos.y] home)
                             (set-timeout next-spawn config.spawn-rate))))
+(export home)
 (export home-pos)
 (export next-spawn)
 (next-spawn)
