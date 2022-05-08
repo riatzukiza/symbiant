@@ -168,6 +168,9 @@ var {
   Rendering
  } = require("sibilant-game-engine/client/systems/rendering/rendering"),
     { 
+  Game
+ } = require("sibilant-game-engine/client/game"),
+    { 
   Dot
  } = require("sibilant-game-engine/client/systems/rendering/dot"),
     { 

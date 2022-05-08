@@ -17,7 +17,7 @@
 
 (require! (lit Tree-map) "tree-kit"
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
-
+          (lit Game) "sibilant-game-engine/client/game"
           (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
