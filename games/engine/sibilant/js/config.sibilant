@@ -12,8 +12,8 @@
      'decay 0.1
      'maxLength 98.1
      'ant-limit 10000
-     'max-in-decay 400
-     'max-trail 400
+     'max-in-decay 20
+     'max-trail 20
      'min-trail 10
      'decay-on-collision  true
      'options-amplitude 1
@@ -25,8 +25,8 @@
      'spawn-rate 100
      'home-location [300, 200]
      'target-location [700, 900]
-     'track-trail false
-     'reward-winners false
-     'punish-loosers false
+     'track-trail true
+     'reward-winners true
+     'punish-loosers true
      'game-speed 1
      )
