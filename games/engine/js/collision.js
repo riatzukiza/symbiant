@@ -13,7 +13,7 @@ var {
   target
  } = require("./entities"),
     { 
-  updateParticleField
+  updateParticle
  } = require("./field"),
     config = require("./config");
 game.events.on("collision", (([ c, c_, d ]) => {
