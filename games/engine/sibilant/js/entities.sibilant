@@ -1,5 +1,9 @@
 (include "kit/header" )
 (import-namespace kit)
+(include "kit-interface/header")
+
+(import-namespace interface)
+
 
 (require! (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
@@ -14,6 +18,17 @@
           (lit game active-game-systems) "./game"
           (lit Tree-map) "tree-kit"
           config "./config")
+
+(define Entity-group Interface
+
+        (init (name aspects system (group ((create Group)))))
+
+        (def clear (group) (.each group clear))
+
+        (def-generic spawn ( aspects system group)
+                     (collect e (.spawn system aspects )
+                              (.add group e))))
+
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
 
