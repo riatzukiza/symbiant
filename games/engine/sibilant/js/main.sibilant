@@ -54,9 +54,7 @@
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
 
-          (lit game
-               active-game-systems
-               ) "./game"
+          (lit game active-game-systems) "./game"
           config "./config"
           settings "./settings")
 
