@@ -17,7 +17,7 @@
     (const synth (.to-destination (new Tone.Synth)))
     (when is-collision
           (assign is-collision false)
-          (synth.trigger-attack-release "A3" "64n")))
+          (synth.trigger-attack-release "A3" "128n")))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))

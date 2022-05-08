@@ -31,7 +31,7 @@ game.events.on("tick", () => {
   return (function() {
     if (isCollision) {
       isCollision = false;
-      return synth.triggerAttackRelease("A3", "64n");
+      return synth.triggerAttackRelease("A3", "128n");
     }
   }).call(this);
 
