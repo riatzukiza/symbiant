@@ -39,7 +39,7 @@ const winLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-})).start();
+}, "64n")).start(0);
 const looseLoop = (new Tone.Loop((time) => {
 	
   return (function() {
@@ -49,7 +49,7 @@ const looseLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-})).start();
+}, "64n")).start(0);
 const collisionLoop = (new Tone.Loop((time) => {
 	
   return (function() {
@@ -59,7 +59,7 @@ const collisionLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-})).start();
+}, "64n")).start(0);
 Tone.Transport.start();
 game.events.on("loose", () => {
 	
