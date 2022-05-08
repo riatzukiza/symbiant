@@ -14,9 +14,9 @@
 (var is-collision false)
 (on game.events 'tick ()
 
+    (print "trying to make sound")
     (when is-collision
           (assign is-collision false)
-          (print "trying to make sound")
           (try (synth.trigger-attack-release "A3" "32n")
                (print "couldn't make a sound"))))
 (on game.events 'collision ([c c* d])
