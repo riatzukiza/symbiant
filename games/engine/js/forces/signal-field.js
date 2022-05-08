@@ -11,7 +11,11 @@ var {
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision");
-var config = require("../config");
+var config = require("../config"),
+    { 
+  game
+ } = require(from),
+    ../game = require("../game");
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),
