@@ -28,7 +28,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
   var c_v = game.systems.get(Velocity, c_.entity);
   var cp = game.systems.get(Physics, c.entity);
   var c_p = game.systems.get(Physics, c_.entity);
-  console.log("collision event", c, c_, d, Collision, { 
+  console.log("collision event", c, c_, d, Collision.quads, { 
     home,
     homePos,
     target

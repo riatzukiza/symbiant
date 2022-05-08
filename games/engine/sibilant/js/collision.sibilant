@@ -17,7 +17,7 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
     (print "collision event" c c* d
-           Collision
+           Collision.quads
            (lit home home-pos target))
 
 
