@@ -215,7 +215,7 @@ var {
   home,
   homePos,
   nextSpawn
- } = require("/.entities"),
+ } = require("./entities"),
     { 
   game,
   activeGameSystems
