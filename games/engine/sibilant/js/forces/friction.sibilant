@@ -16,7 +16,7 @@
              ;;          'xd (/ v.xd config.friction)
              ;;          'yd (/ v.yd config.friction)))
              (unless collision.colliding
-                     (incr-by v.xd (* -1 (+ 1 (/ v.xd config.friction))))
-                     (incr-by v.yd (* -1 (+ 1 (/ v.yd config.friction)))))))
+                     (incr-by v.xd (* -1 (/ v.xd config.friction)))
+                     (incr-by v.yd (* -1 (/ v.yd config.friction))))))
 
 (export Friction)
