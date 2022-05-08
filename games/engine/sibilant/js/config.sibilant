@@ -22,7 +22,7 @@
      'collision-static 100
      'spawn-static 100
      'spawn-rate 1000
-     'home-location [100,100]
-     'target-location [300,300]
+     'home-location [300,200]
+     'target-location [700,900]
      'game-speed 1
      )
