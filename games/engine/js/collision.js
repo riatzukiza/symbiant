@@ -11,7 +11,7 @@ var {
   home,
   homePos,
   target
- } = undefined;
+ } = require("./entities");
 game.events.on("collision", (([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
