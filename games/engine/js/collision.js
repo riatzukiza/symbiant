@@ -15,6 +15,9 @@ var {
     { 
   updateParticle
  } = require("./field"),
+    { 
+  SignalField
+ } = require("./forces/signal-field"),
     config = require("./config");
 game.events.on("collision", (([ c, c_, d ]) => {
 	
