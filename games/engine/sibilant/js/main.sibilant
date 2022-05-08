@@ -87,9 +87,9 @@
 (.set-bounds Collision (first config.size) (second config.size)
              200
              200)
-(set Collision
-     'logging true
-     )
+;; (set Collision
+;;      'logging true
+;;     )
 
 
 (.start game)

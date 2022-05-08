@@ -37,14 +37,4 @@ Set.prototype.difference = function difference( setB ){
  };
 Set.prototype.toArray = function toArray(  ){ 
   [ ...this ]
- }; of setB ) {
-     
-      difference.delete(elem)
-    
-    };
-    return difference;
-  })((new Set(this)))
- };
-Set.prototype.toArray = function toArray(  ){ 
-  [ ...this ]
  };

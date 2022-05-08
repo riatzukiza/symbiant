@@ -244,5 +244,4 @@ require("./collision");
 nextSpawn();
 console.log(target, home, homePos, nextSpawn);
 Collision.setBounds(config.size[0], config.size[1], 200, 200);
-Collision.logging = true;
 game.start();
