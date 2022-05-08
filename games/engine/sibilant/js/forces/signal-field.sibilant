@@ -5,8 +5,7 @@
           (lit Collision) "sibilant-game-engine/client/systems/collision")
 
 (require! config "../config"
-          (lit game) from "../game"
-          )
+          (lit game) "../game")
 
 (define SignalField Physics.Force
         (field (create-vector-field config.columns
@@ -19,7 +18,6 @@
                      (var v c.velocity)
                      (var collision (.get c.system.process.systems Collision c.entity))
                      (unless collision.colliding
-                             ;; (print "woosh", v, field, layer)
                              (update-particle v v.pos, field, layer game.ticker.ticks
                                               false
                                               false

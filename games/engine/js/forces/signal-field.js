@@ -14,8 +14,7 @@ var {
 var config = require("../config"),
     { 
   game
- } = require(from),
-    ../game = require("../game");
+ } = require("../game");
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),
