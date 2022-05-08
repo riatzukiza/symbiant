@@ -1,29 +1,34 @@
 var config = require("./config"),
     entities = require("./entities");
 var settings = QuickSettings.create();
+settings.addRange("Options amplitude", 1, 100, config.angleZoom, 0.01, ((val) => {
+	
+  return config.optionsAmplitude = val;
+
+}));
 settings.addRange("Angle Zoom", 1, 9999, config.angleZoom, 1, ((val) => {
 	
-  return config.angleZoom = val;
+  return config.angleZoom = (config.optionsAmplitude / 10);
 
 }));
 settings.addRange("Noise Z", 1, 9999, config.noiseZ, 1, ((val) => {
 	
-  return config.noiseZ = val;
+  return config.noiseZ = (config.optionsAmplitude / 10);
 
 }));
 settings.addRange("Noise Force", 1, 9999, config.fieldForce, 0.1, ((val) => {
 	
-  return config.fieldForce = val;
+  return config.fieldForce = (config.optionsAmplitude / 10);
 
 }));
 settings.addRange("Signal Decay", 0, 99, config.decay, 0.1, ((val) => {
 	
-  return config.decay = val;
+  return config.decay = (config.optionsAmplitude / 10);
 
 }));
 settings.addRange("Max P Vector Length", 0, 99, config.maxLength, 0.1, ((val) => {
 	
-  return config.maxLength = val;
+  return config.maxLength = (config.optionsAmplitude / 10);
 
 }));
 settings.addRange("Max Trail", 10, 999, config.maxTrail, 1, ((val) => {
