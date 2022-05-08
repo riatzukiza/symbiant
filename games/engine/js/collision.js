@@ -34,14 +34,32 @@ const winLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isWin) {
-      winSynth.triggerAttackRelease("C4", "4n", time);
+      winSynth.triggerAttackRelease("C4", "32n", time);
       return isWin = false;
     }
   }).call(this);
 
 }));
-const looseLoop = (new Tone.Synth());
-const looseLoop = (new Tone.Synth());
+const looseLoop = (new Tone.Loop((time) => {
+	
+  return (function() {
+    if (isLoose) {
+      winSynth.triggerAttackRelease("C4", "32n", time);
+      return isLoose = false;
+    }
+  }).call(this);
+
+}));
+const collisionLoop = (new Tone.Loop((time) => {
+	
+  return (function() {
+    if (isLoose) {
+      winSynth.triggerAttackRelease("C4", "32n", time);
+      return isWin = false;
+    }
+  }).call(this);
+
+}));
 game.events.on("tick", (t) => {
 	
   alert("TICK");
