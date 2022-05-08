@@ -24,6 +24,9 @@ var {
   System
  } = require("sibilant-game-engine/client/ecs/component"),
     { 
+  EntityGroup
+ } = require("sibilant-game-engine/client/ecs/component"),
+    { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
@@ -41,12 +44,12 @@ var {
  } = require("tree-kit"),
     config = require("./config");
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:26:0 */
+  /* Tree-map.get eval.sibilant:27:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:29:0 */
+  /* memoize eval.sibilant:30:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -81,7 +84,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:36:0 */
+  /* entity eval.sibilant:37:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -103,11 +106,12 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
-  /* spawn-ant eval.sibilant:79:0 */
+const ants=create(EntityGroup)();
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:81:0 */
 
-  var x = x_y$2[0],
-      y = x_y$2[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -121,12 +125,12 @@ var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
   v.accelerate([ (function() {
-    /* eval.sibilant:20:8 */
+    /* eval.sibilant:21:8 */
   
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));
   }).call(this), (function() {
-    /* eval.sibilant:20:8 */
+    /* eval.sibilant:21:8 */
   
     var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
     return (config.spawnStatic - (rand * 2));

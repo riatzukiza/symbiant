@@ -6,6 +6,7 @@
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
+          (lit Entity-group) "sibilant-game-engine/client/ecs/component"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Signal-field) "./forces/signal-field"
@@ -76,6 +77,7 @@
 ;;      'type 'static)
 
 (const ants [])
+(const ants ((create Entity-group)))
 (def spawn-ant ([x, y], home, starting-life)
      (var ant (entity active-game-systems))
      (.push ants ant)
