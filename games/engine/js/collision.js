@@ -11,7 +11,9 @@ var {
   home,
   homePos,
   target
- } = require("./entities");
+ } = require("./entities"),
+    config = require.apply(this, /),
+    config = undefined;
 game.events.on("collision", (([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
