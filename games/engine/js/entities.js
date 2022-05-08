@@ -141,12 +141,14 @@ game.systems.get(Position, target).z = 1;
 game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
+target.name = "target";
+home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
-  /* spawn-ant eval.sibilant:101:0 */
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:103:0 */
 
-  var x = x_y$2[0],
-      y = x_y$2[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -182,7 +184,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:127:0 */
+  /* clear-ants eval.sibilant:129:0 */
 
   return ants.clear();
 });
