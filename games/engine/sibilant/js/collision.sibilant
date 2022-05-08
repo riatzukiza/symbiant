@@ -28,13 +28,12 @@
 (const loose-loop (.start (new Tone.Loop (=> (time)
                                       (when is-loose
                                             (.trigger-attack-release loose-synth "B4" "32n" time)
-                                            (assign is-loose false))) "64n") 0))
+                                            (assign is-loose false))) "64n") "8n"))
 
 (const collision-loop (.start (new Tone.Loop (=> (time)
                                           (when is-collision
                                                 (.trigger-attack-release collision-synth "A4" "32n" time)
-                                                (assign is-collision false)))
-                                   "64n") 0))
+                                                (assign is-collision false))) "64n") "16n"))
 (Tone.Transport.start)
 
 (on game.events 'loose () (assign is-loose true))
