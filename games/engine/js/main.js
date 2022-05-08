@@ -216,7 +216,6 @@ var {
  } = require("./game"),
     config = require("./config"),
     settings = require("./settings");
-require("./collision");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
   /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
 
@@ -231,38 +230,4 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
     }
   }).call(this);
 });
-var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:74:0 */
-
-  return [ x, y ];
-});
-TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:76:0 */
-
-  return this.find(...args).value;
-});
-var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:78:0 */
-
-  var cache = create(TreeMap)();
-  return ((...args) => {
-  	
-    return (function() {
-      if (cache.has(args)) {
-        return cache.get(args);
-      } else {
-        return (function(value) {
-          /* node_modules/kit/inc/scope.sibilant:12:9 */
-        
-          cache.set(args, value);
-          return value;
-        })((function() {
-          /* node_modules/kit/inc/macros.sibilant:30:25 */
-        
-          return f(...args);
-        }).call(this));
-      }
-    }).call(this);
-  
-  });
-});
+require("./collision");

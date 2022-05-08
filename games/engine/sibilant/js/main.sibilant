@@ -58,7 +58,6 @@
           config "./config"
           settings "./settings")
 
-(require "./collision")
 (def-generic List.rotate-until (predicate (t 0))
              (print "LIST ROTATING", t, predicate, this)
              (if (predicate this.head.item)
@@ -71,15 +70,6 @@
 
 
 
-(def vector2d (x y) [x y])
-
-(def Tree-map.get ((dots args))
-     (get (.find this (dots args)) 'value))
-(def memoize (f)
-     (var cache ((create Tree-map)))
-     (=> ((dots args))
-         (remember cache args
-                   (f (dots args)))))
 
 
 
@@ -93,3 +83,4 @@
 
 
 
+(require "./collision")
