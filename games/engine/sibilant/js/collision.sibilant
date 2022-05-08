@@ -38,7 +38,7 @@
 
      (= c.entity target)
         (do
-         (synth.trigger-attack-release "C4" "8n")
+         (synth.trigger-attack-release "C4" "3n")
          ;; (print "ant found target")
          ;; (alert "ant found target")
 

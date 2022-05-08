@@ -39,7 +39,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     if (c.entity === c_.entity) {
       return console.log("something thinks its colliding with its self");
     } else if (c.entity === target) {
-      synth.triggerAttackRelease("C4", "8n");
+      synth.triggerAttackRelease("C4", "3n");
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
