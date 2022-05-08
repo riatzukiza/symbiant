@@ -27,9 +27,9 @@ const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 var isWin = false;
 var isLoose = false;
-const collisionSynth = (new Tone.Synth());
-const looseSynth = (new Tone.Synth());
-const winSynth = (new Tone.Synth());
+const collisionSynth = (new Tone.Synth()).toDestination();
+const looseSynth = (new Tone.Synth()).toDestionation();
+const winSynth = (new Tone.Synth()).toDestionation();
 const winLoop = (new Tone.Loop((time) => {
 	
   return (function() {
