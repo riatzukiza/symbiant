@@ -25,6 +25,18 @@ var {
     config = require("./config");
 const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
+var isWin = false;
+var isLoose = false;
+const collisionSynth = (new Tone.Synth());
+const looseSynth = (new Tone.Synth());
+const winSynth = (new Tone.Synth());
+const winLoop = (new Tone.Loop((time) => {
+	
+  return winSynth.triggerAttackRelease("C4", "4n", time);
+
+}));
+const looseLoop = (new Tone.Synth());
+const looseLoop = (new Tone.Synth());
 game.events.on("tick", (t) => {
 	
   alert("TICK");
@@ -107,7 +119,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
-      return c_v.accelerate([ (function() {
+      c_v.accelerate([ (function() {
         /* eval.sibilant:33:8 */
       
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
@@ -118,6 +130,8 @@ game.events.on("collision", ([ c, c_, d ]) => {
         let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand / 2));
       }).call(this) ]);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, false, homePos);
     }
   }).call(this);
   c_.colliding = false;

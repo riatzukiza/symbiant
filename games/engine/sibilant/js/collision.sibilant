@@ -11,7 +11,20 @@
           config "./config")
 
 (const synth (.to-destination (new Tone.Synth)))
+
 (var is-collision false)
+(var is-win false)
+(var is-loose false)
+
+(const collision-synth (new Tone.Synth))
+(const loose-synth (new Tone.Synth))
+(const win-synth (new Tone.Synth))
+(const win-loop (new Tone.Loop (=> (time)
+                                   (.trigger-attack-release win-synth "C4" "4n" time)
+                                   )))
+(const loose-loop (new Tone.Synth))
+(const loose-loop (new Tone.Synth))
+
 (on game.events 'tick (t)
 
     (alert "TICK")
@@ -109,21 +122,21 @@
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
 
-         ;; (update-particle c*v c*v.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
+         (update-particle c*v c*v.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          config.decay-on-collision
+                          false
+                          false
+                          home-pos)
 
-         ;; (update-particle cv cv.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
+         (update-particle cv cv.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          config.decay-on-collision
+                          false
+                          false
+                          home-pos)
          ))
 
     (assign c*.colliding false)
