@@ -23,7 +23,7 @@
 
         (init (name aspects system (group ((create Group)))))
 
-        (def clear (group) (.each group clear))
+        (def-generic clear (group) (.each group clear))
 
         (def-generic spawn ( aspects system group)
                      (collect e (.spawn system aspects )
