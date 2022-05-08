@@ -54,6 +54,7 @@
         (= c*.entity target)
         (do
 
+         (print "ant found target")
          ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
          ;;                                     config.collision-static)),
          ;;                   (random-signed (or (* (+ 1 cv.yd) config.collision-static)
@@ -80,6 +81,7 @@
         (not (or (= c.entity home) (= c*.entity home)
                  (= c.entity target) (= c*.entity target)))
         (do
+         (print "ant is colliding with another ant")
 
          (assign c.colliding false)
          (assign c*.colliding false)
