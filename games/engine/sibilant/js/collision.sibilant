@@ -26,16 +26,16 @@
 
     (if (= c.entity c*.entity)
         (do (print "something thinks its colliding with its self"))
-     ;; (or (= c.entity home)
-     ;;     (= c*.entity home))
-     ;; (do (print "something collided with home" c.entity c*.entity))
-     ;; (or (and (= c.entity home)
-     ;;          (= c*.entity target))
+     (or (= c.entity home)
+         (= c*.entity home))
+     (do (print "something collided with home" c.entity c*.entity))
+     (or (and (= c.entity home)
+              (= c*.entity target))
 
-     ;;     (and (= c*.entity home)
-     ;;          (= c.entity target)))
+         (and (= c*.entity home)
+              (= c.entity target)))
 
-     ;; (do (print "target colliding with spawn"))
+     (do (print "target colliding with spawn"))
 
      (= c.entity target)
         (do
