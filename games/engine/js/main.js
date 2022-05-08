@@ -230,4 +230,9 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
     }
   }).call(this);
 });
+var vector2d = (function vector2d$(x, y) {
+  /* vector2d eval.sibilant:73:0 */
+
+  return [ x, y ];
+});
 require("./collision");
