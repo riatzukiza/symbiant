@@ -22,7 +22,7 @@
      'friction  64
      'collision-static 0
      'spawn-static 0
-     'spawn-rate 1000
+     'spawn-rate 2000
      'home-location [300, 200]
      'target-location [700, 900]
      'game-speed 1
