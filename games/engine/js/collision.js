@@ -62,7 +62,7 @@ const collisionLoop = (new Tone.Loop((time) => {
 
 }, "64n")).start("16n");
 Tone.Transport.start();
-Tone.Transport.bpm(800, 10);
+Tone.Transport.bpm.rampTo(800, 10);
 game.events.on("loose", () => {
 	
   return isLoose = true;

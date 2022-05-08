@@ -36,7 +36,7 @@
                                                 (.trigger-attack-release collision-synth "A4" "32n" time)
                                                 (assign is-collision false))) "64n") "16n"))
 (Tone.Transport.start)
-(Tone.Transport.bpm 800 10)
+(Tone.Transport.bpm.ramp-to 800 10)
 
 (on game.events 'loose () (assign is-loose true))
 (on game.events 'collision ([c c* d])
