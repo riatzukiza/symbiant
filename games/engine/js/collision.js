@@ -30,6 +30,7 @@ game.events.on("tick", () => {
   return (function() {
     if (isCollision) {
       isCollision = false;
+      console.log("trying to make sound");
       return (function() {
         try {
           return synth.triggerAttackRelease("A3", "32n");
