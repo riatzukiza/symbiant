@@ -18,9 +18,9 @@
      'decay-on-collision false 
      'limit-decay false
      'ant-influence 1
-     'friction  8.5
-     'collision-static 10
-     'spawn-static 10
+     'friction  2
+     'collision-static 100
+     'spawn-static 100
      'spawn-rate 1000
      'game-speed 1
      )
