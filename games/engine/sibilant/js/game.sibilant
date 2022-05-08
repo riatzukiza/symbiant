@@ -17,6 +17,7 @@
 
 (require! (lit Tree-map) "tree-kit"
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering")
+
 (import-namespace dom)
 
 (def-lit-macro def-curried (name args ...body) `(property @name (R.curry (lambda @args ...@body))))
