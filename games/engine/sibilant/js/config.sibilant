@@ -26,6 +26,7 @@
      'home-location [300, 200]
      'target-location [700, 900]
      'track-trail true
+     'vary-noise-with-time true
      'reward-winners true
      'punish-loosers true
      'game-speed 1
