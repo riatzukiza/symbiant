@@ -85,8 +85,8 @@
 (next-spawn)
 (print target home home-pos next-spawn)
 (.set-bounds Collision (first config.size) (second config.size)
-             200
-             200)
+             20
+             20)
 ;; (set Collision
 ;;      'logging true
 ;;     )
