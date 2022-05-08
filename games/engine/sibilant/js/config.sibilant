@@ -19,7 +19,7 @@
      'limit-decay false
      'ant-influence 10
      'friction  2
-     'collision-static 100
+     'collision-static 10
      'spawn-static 100
      'spawn-rate 1000
      'home-location [300, 200]
