@@ -192,6 +192,6 @@ var stage = createDocumentNode("div", { 'id': "stage" }, []);
 var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
 var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
-var game = create(Game)(rendering, activeGameSystems);
+var game = create(Game)(rendering, activeGameSystems, config.gameSpeed);
 exports.game = game;
 exports.activeGameSystems = activeGameSystems;

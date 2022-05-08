@@ -112,7 +112,7 @@
 
 
      (set (.get game.systems Physics ant)
-          'scale 10
+          'scale 1
           'mass 1
           'forces [SignalField, Friction])
      (var v (.get game.systems Velocity ant))

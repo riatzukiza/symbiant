@@ -11,7 +11,7 @@ module.exports.updateParticle = function updateParticle(
   decay=false,
   win=false,
   homePos,
-  loose =  isNaN(vel.xd)|| isNaN(vel.yd) || (vel?.trail?.length >= Math.max(vel.winCount +config.maxTrail -vel.looseCount))
+  loose =  isNaN(vel.xd)|| isNaN(vel.yd) || (vel?.trail?.length >= config.maxTrail) //Math.max(vel.winCount +config.maxTrail -vel.looseCount))
 ) {
   const pos = new Vector(0,0)
   

@@ -142,18 +142,18 @@ game.systems.get(Physics, target).scale = 70;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$18, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
   /* spawn-ant eval.sibilant:101:0 */
 
-  var x = x_y$18[0],
-      y = x_y$18[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
   game.systems.get(Position, ant).x = x;
   game.systems.get(Position, ant).y = y;
   game.systems.get(Position, ant).z = 1;
-  game.systems.get(Physics, ant).scale = 10;
+  game.systems.get(Physics, ant).scale = 1;
   game.systems.get(Physics, ant).mass = 1;
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
