@@ -34,8 +34,8 @@ var SignalField = Physics.Force.define("SignalField", {
               return 1;
             }
           }).call(this));
-          c.pos.x = Math.round(v.pos.x);
-          return c.pos.y = Math.round(v.pos.y);
+          v.pos.x = Math.round(v.pos.x);
+          return v.pos.y = Math.round(v.pos.y);
         }
       }).call(this);
     

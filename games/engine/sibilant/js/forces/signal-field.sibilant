@@ -28,7 +28,7 @@
                                                               )))
                              (assign c.scale (* 10 (if (> win-rate 1)
                                                        win-rate 1)))
-                             (set c.pos
+                             (set v.pos
                                   'x (Math.round v.pos.x)
                                   'y (Math.round v.pos.y)
                                   )
