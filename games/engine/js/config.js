@@ -1,5 +1,5 @@
-const dim = [ window.innerWidth, window.innerHeight ];
-const size = 25;
+const dim=[ window.innerWidth, window.innerHeight ];
+const size=25;
 module.exports.size = size;
 module.exports.angleZoom = 100;
 module.exports.noiseZ = 70;
@@ -11,7 +11,7 @@ module.exports.decay = 0.1;
 module.exports.maxLength = 100;
 module.exports.antLimit = 1000;
 module.exports.maxInDecay = 400;
-module.exports.maxTrail = 20;
+module.exports.maxTrail = 100;
 module.exports.minTrail = 10;
 module.exports.decayOnCollision = false;
 module.exports.limitDecay = false;
