@@ -29,3 +29,5 @@
                                                  win-rate
                                                  1))
                              )))
+
+(export SignalField)
