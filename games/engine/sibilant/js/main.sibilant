@@ -71,7 +71,6 @@
 
 
 
-(def entity (aspects ) (.spawn game.ent aspects ))
 (def vector2d (x y) [x y])
 
 (def Tree-map.get ((dots args))
