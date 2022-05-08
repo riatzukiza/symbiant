@@ -11,6 +11,8 @@
 
           config "./config")
 
+(def Tree-map.get ((dots args))
+     (get (.find this (dots args)) 'value))
 
 (def memoize (f)
      (var cache ((create Tree-map)))

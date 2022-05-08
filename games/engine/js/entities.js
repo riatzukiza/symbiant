@@ -27,8 +27,13 @@ var {
   game
  } = require("./game"),
     config = require("./config");
+TreeMap.get = (function TreeMap$get$(...args) {
+  /* Tree-map.get eval.sibilant:14:0 */
+
+  return this.find(...args).value;
+});
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:15:0 */
+  /* memoize eval.sibilant:17:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -63,7 +68,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:22:0 */
+  /* entity eval.sibilant:24:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -85,11 +90,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
-  /* spawn-ant eval.sibilant:65:0 */
+var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+  /* spawn-ant eval.sibilant:67:0 */
 
-  var x = x_y$12[0],
-      y = x_y$12[1];
+  var x = x_y$13[0],
+      y = x_y$13[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
