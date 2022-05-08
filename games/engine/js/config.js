@@ -1,8 +1,8 @@
 const dim=[ window.innerWidth, window.innerHeight ];
 const size=25;
 module.exports.size = size;
-module.exports.angleZoom = 30;
-module.exports.noiseZ = 70;
+module.exports.angleZoom = 300;
+module.exports.noiseZ = 700;
 module.exports.fieldForce = 300;
 module.exports.dimensions = dim;
 module.exports.columns = Math.ceil((dim[0] / size));
