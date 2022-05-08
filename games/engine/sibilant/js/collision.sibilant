@@ -12,10 +12,8 @@
 
 (const synth (.to-destination (new Tone.Synth)))
 (var is-collision false)
-(on game.events 'tick (t)
+(on game.events 'tick ()
 
-    (alert "TICK")
-    (print "trying to make sound")
     (when is-collision
           (assign is-collision false)
           (try (synth.trigger-attack-release "A3" "32n")

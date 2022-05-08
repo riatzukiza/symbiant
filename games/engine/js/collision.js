@@ -25,10 +25,8 @@ var {
     config = require("./config");
 const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
-game.events.on("tick", (t) => {
+game.events.on("tick", () => {
 	
-  alert("TICK");
-  console.log("trying to make sound");
   return (function() {
     if (isCollision) {
       isCollision = false;
