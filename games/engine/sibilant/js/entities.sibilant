@@ -1,3 +1,5 @@
+(include "kit/header" )
+(import-namespace kit)
 (require! (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
