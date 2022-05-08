@@ -8,7 +8,7 @@
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
           (lit game ) "./game"
-
+          (lit Tree-map) "tree-kit"
           config "./config")
 
 (def Tree-map.get ((dots args))

@@ -26,6 +26,9 @@ var {
     { 
   game
  } = require("./game"),
+    { 
+  TreeMap
+ } = require("tree-kit"),
     config = require("./config");
 TreeMap.get = (function TreeMap$get$(...args) {
   /* Tree-map.get eval.sibilant:14:0 */
@@ -90,11 +93,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$13, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$14, home, startingLife) {
   /* spawn-ant eval.sibilant:67:0 */
 
-  var x = x_y$13[0],
-      y = x_y$13[1];
+  var x = x_y$14[0],
+      y = x_y$14[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
