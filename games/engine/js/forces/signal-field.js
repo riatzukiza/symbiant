@@ -15,11 +15,7 @@ var config = require("../config"),
     { 
   game
  } = require("../game"),
-    { 
-  home,
-  homePos,
-  target
- } = require("../entities");
+    entities = require("../entities");
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),
@@ -29,12 +25,8 @@ var SignalField = Physics.Force.define("SignalField", {
       var collision = c.system.process.systems.get(Collision, c.entity);
       return (function() {
         if (!(collision.colliding)) {
-          console.log("updating signal field", { 
-            home,
-            homePos,
-            target
-           });
-          updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, homePos);
+          console.log("updating signal field", entities);
+          updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, entities.homePos);
           var winRate = (v.winCount / ((1 + v.looseCount) || 1));
           return c.scale = (function() {
             if (winRate > 1) {
