@@ -24,7 +24,8 @@ var {
   Friction
  } = require("./forces/friction"),
     { 
-  game
+  game,
+  activeGameSystem
  } = require("./game"),
     { 
   TreeMap
@@ -93,11 +94,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$14, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$15, home, startingLife) {
   /* spawn-ant eval.sibilant:67:0 */
 
-  var x = x_y$14[0],
-      y = x_y$14[1];
+  var x = x_y$15[0],
+      y = x_y$15[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
