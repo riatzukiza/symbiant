@@ -1,7 +1,7 @@
 (include "kit/header" )
 (import-namespace kit)
-(include "kit-interface/header")
 
+(include "kit-interface/header")
 (import-namespace interface)
 
 
@@ -10,7 +10,7 @@
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
-          (lit Entity-group) "sibilant-game-engine/client/ecs/entity"
+          (lit Group) "sibilant-game-engine/client/datastructures/group"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Signal-field) "./forces/signal-field"
