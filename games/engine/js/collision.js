@@ -72,7 +72,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     } else if (!(((c.entity === home && c_.entity === home) || c.entity === target || c_.entity === target))) {
-      console.log("ant is colliding with another ant");
+      console.log("ant is colliding with another ant", c, c_);
       cv.accelerate([ (function() {
         /* eval.sibilant:39:8 */
       

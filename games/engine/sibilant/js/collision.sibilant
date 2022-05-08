@@ -93,7 +93,7 @@
         (not (or (and (= c.entity home) (= c*.entity home))
                  (and (= c.entity target)) (= c*.entity target)))
         (do
-         (print "ant is colliding with another ant")
+         (print "ant is colliding with another ant" c, c*)
          ;; (synth.trigger-attack-release "A3" "64n")
 
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
