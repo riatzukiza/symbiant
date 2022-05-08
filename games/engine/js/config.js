@@ -1,5 +1,5 @@
 const dim=[ window.innerWidth, window.innerHeight ];
-const size=25;
+const size=2;
 module.exports.size = size;
 module.exports.angleZoom = 30;
 module.exports.noiseZ = 70;
@@ -9,7 +9,7 @@ module.exports.columns = Math.ceil((dim[0] / size));
 module.exports.rows = Math.ceil((dim[1] / size));
 module.exports.decay = 0.1;
 module.exports.maxLength = 1;
-module.exports.antLimit = 10000;
+module.exports.antLimit = 1000;
 module.exports.maxInDecay = 400;
 module.exports.maxTrail = 400;
 module.exports.minTrail = 10;

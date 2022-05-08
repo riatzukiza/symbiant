@@ -1,6 +1,6 @@
 (const dim      [window.innerWidth, window.innerHeight];
 )
-(const size 25)
+(const size 2)
 (set module.exports
      'size size
      'angle-zoom 30
@@ -11,7 +11,7 @@
      'rows (Math.ceil (/ (second dim) size))
      'decay 0.1
      'maxLength 1
-     'ant-limit 10000
+     'ant-limit 1000
      'max-in-decay 400
      'max-trail 400
      'min-trail 10
