@@ -216,6 +216,7 @@ var {
  } = require("./game"),
     config = require("./config"),
     settings = require("./settings");
+require("./collision");
 List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
   /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
 
@@ -231,22 +232,22 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   }).call(this);
 });
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:73:0 */
+  /* entity eval.sibilant:74:0 */
 
   return game.ent.spawn(aspects);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:74:0 */
+  /* vector2d eval.sibilant:75:0 */
 
   return [ x, y ];
 });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:76:0 */
+  /* Tree-map.get eval.sibilant:77:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:78:0 */
+  /* memoize eval.sibilant:79:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -280,7 +281,6 @@ var rgba = memoize(((r, g, b, a) => {
    };
 
 }));
-require("./collision");
 var home = entity([ Dot, Position, Physics, Collision ]);
 var homePos = game.systems.get(Position, home);
 game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
@@ -299,11 +299,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$7, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
   /* spawn-ant eval.sibilant:132:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
@@ -353,4 +353,3 @@ var clearAnts = (function clearAnts$() {
   return ants = [];
 });
 nextSpawn();
-game.start();
