@@ -6,7 +6,7 @@
           (lit Velocity) "sibilant-game-engine/client/systems/velocity"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
-          (lit Entity-group) "sibilant-game-engine/client/ecs/component"
+          (lit Entity-group) "sibilant-game-engine/client/ecs/entity"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Signal-field) "./forces/signal-field"

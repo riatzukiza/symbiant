@@ -25,7 +25,7 @@ var {
  } = require("sibilant-game-engine/client/ecs/component"),
     { 
   EntityGroup
- } = require("sibilant-game-engine/client/ecs/component"),
+ } = require("sibilant-game-engine/client/ecs/entity"),
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
@@ -107,11 +107,11 @@ game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
 const ants=create(EntityGroup)();
-var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
   /* spawn-ant eval.sibilant:81:0 */
 
-  var x = x_y$3[0],
-      y = x_y$3[1];
+  var x = x_y$4[0],
+      y = x_y$4[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
