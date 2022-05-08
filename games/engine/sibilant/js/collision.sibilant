@@ -10,6 +10,7 @@
           Tone "tone"
           config "./config")
 
+(const synth (.to-destination (new Tone.Synth)))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
@@ -17,7 +18,6 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    (const synth (.to-destination (new Tone.Synth)))
     (print "collision event" c c* d
            Collision.quads
            (lit home home-pos target))
