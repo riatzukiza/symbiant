@@ -1,4 +1,5 @@
-var config = require("./config");
+var config = require("./config"),
+    entities = require("./entities");
 var settings = QuickSettings.create();
 settings.addRange("Angle Zoom", 1, 9999, config.angleZoom, 1, ((val) => {
 	
@@ -75,4 +76,5 @@ settings.addRange("Game speed", 0.1, 5, config.gameSpeed, 0.1, ((val) => {
   return config.gameSpeed = val;
 
 }));
+settings.addButton("Clear ants", clearAnts);
 module.exports = settings;

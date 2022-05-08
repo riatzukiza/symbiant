@@ -1,4 +1,6 @@
-(require! config "./config")
+(require! config "./config"
+          entities "./entities"
+          )
 (var settings (Quick-settings.create))
 (.addRange settings "Angle Zoom" 1 9999 config.angle-zoom 1 (=> (val) (assign config.angle-zoom val)))
 (.addRange settings "Noise Z" 1 9999 config.noise-z 1 (=> (val) (assign config.noise-z val)))
@@ -17,6 +19,6 @@
 (.addRange settings "Spawn Static" 1 99 config.spawn-static 1 (=> (val) (assign config.spawn-static val)))
 (.addRange settings "Spawn Rate" 1 99999 config.spawn-rate 1 (=> (val) (assign config.spawn-rate val)))
 (.addRange settings "Game speed" 0.1 5 config.game-speed 0.1 (=> (val) (assign config.game-speed val)))
-;; (.add-button settings "Clear ants" clear-ants)
+(.add-button settings "Clear ants" clear-ants)
 
 (assign module.exports settings)
