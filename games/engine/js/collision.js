@@ -30,6 +30,7 @@ game.events.on("collision", ([ c, c_, d ]) => {
     if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
     } else if (c.entity === target) {
+      console.log("ant found target");
       c.colliding = false;
       c_.colliding = false;
       c_v.pos.x = homePos.x;

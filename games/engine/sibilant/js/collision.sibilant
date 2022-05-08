@@ -28,6 +28,7 @@
 
      (= c.entity target)
         (do
+         (print "ant found target")
 
          ;; (.accelerate cv [(random-signed (or (* (+ 1 c*v.xd) config.collision-static)
          ;;                                     config.collision-static)),
