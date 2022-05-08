@@ -11,33 +11,15 @@
           config "./config")
 
 (const synth (.to-destination (new Tone.Synth)))
-
 (var is-collision false)
-(var is-win false)
-(var is-loose false)
+(on game.events 'tick (t)
 
-;; (const collision-synth (.to-destination (new Tone.Synth)))
-;; (const loose-synth (.to-destination (new Tone.Synth)))
-;; (const win-synth (.to-destination (new Tone.Synth)))
-
-;; (const win-loop (.start (new Tone.Loop (=> (time)
-;;                                     (when is-win
-;;                                           (.trigger-attack-release win-synth "C4" "32n" time)
-;;                                           (assign is-win false))) "64n") 0))
-
-;; (const loose-loop (.start (new Tone.Loop (=> (time)
-;;                                       (when is-loose
-;;                                             (.trigger-attack-release loose-synth "B4" "32n" time)
-;;                                             (assign is-loose false))) "64n") 0))
-
-;; (const collision-loop (.start (new Tone.Loop (=> (time)
-;;                                           (when is-collision
-;;                                                 (.trigger-attack-release collision-synth "A4" "32n" time)
-;;                                                 (assign is-collision false)))
-;;                                    "64n") 0))
-;; (Tone.Transport.start)
-
-;; (on game.events 'loose () (assign is-loose true))
+    (alert "TICK")
+    (print "trying to make sound")
+    (when is-collision
+          (assign is-collision false)
+          (try (synth.trigger-attack-release "A3" "32n")
+               (print "couldn't make a sound"))))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
@@ -66,7 +48,7 @@
 
      (= c.entity target)
         (do
-         (assign is-win true)
+         (synth.trigger-attack-release "C4" "4n")
          ;; (print "ant found target")
          ;; (alert "ant found target")
 
@@ -86,13 +68,14 @@
          (set c*v.pos
               'x  home-pos.x
               'y home-pos.y)
+         
 
-         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)]))
+         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+         )
         (= c*.entity target)
         (do
 
-         (assign is-win true)
-         ;; (synth.trigger-attack-release "C4" "8n")
+         (synth.trigger-attack-release "C4" "8n")
          (print "ant found target")
          ;; (alert "ant found target")
          ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
@@ -126,21 +109,21 @@
          (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
 
-         (update-particle c*v c*v.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          config.decay-on-collision
-                          false
-                          false
-                          home-pos)
+         ;; (update-particle c*v c*v.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos)
 
-         (update-particle cv cv.pos, Signal-field.field,
-                          Signal-field.layer
-                          game.ticker.ticks
-                          config.decay-on-collision
-                          false
-                          false
-                          home-pos)
+         ;; (update-particle cv cv.pos, Signal-field.field,
+         ;;                  Signal-field.layer
+         ;;                  game.ticker.ticks
+         ;;                  config.decay-on-collision
+         ;;                  false
+         ;;                  false
+         ;;                  home-pos)
          ))
 
     (assign c*.colliding false)
