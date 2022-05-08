@@ -25,9 +25,14 @@ var {
     config = require("./config");
 const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
-game.events.on("tick", (when, isCollision, isCollision = false;, synth.triggerAttackRelease("A3", "64n")) => {
+game.events.on("tick", () => {
 	
-  
+  return (function() {
+    if (isCollision) {
+      isCollision = false;
+      return synth.triggerAttackRelease("A3", "64n");
+    }
+  }).call(this);
 
 });
 game.events.on("collision", ([ c, c_, d ]) => {
