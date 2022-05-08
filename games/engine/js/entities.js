@@ -27,8 +27,43 @@ var {
   game
  } = require("./game"),
     config = require("./config");
+var memoize = (function memoize$(f) {
+  /* memoize eval.sibilant:15:0 */
+
+  var cache = create(TreeMap)();
+  return ((...args) => {
+  	
+    return (function() {
+      if (cache.has(args)) {
+        return cache.get(args);
+      } else {
+        return (function(value) {
+          /* node_modules/kit/inc/scope.sibilant:12:9 */
+        
+          cache.set(args, value);
+          return value;
+        })((function() {
+          /* node_modules/kit/inc/macros.sibilant:30:25 */
+        
+          return f(...args);
+        }).call(this));
+      }
+    }).call(this);
+  
+  });
+});
+var rgba = memoize(((r, g, b, a) => {
+	
+  return { 
+    r,
+    g,
+    b,
+    a
+   };
+
+}));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:15:0 */
+  /* entity eval.sibilant:22:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -50,11 +85,11 @@ game.systems.get(Physics, target).scale = 40;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [ Friction ];
 const ants=[];
-var spawnAnt = (function spawnAnt$(x_y$11, home, startingLife) {
-  /* spawn-ant eval.sibilant:58:0 */
+var spawnAnt = (function spawnAnt$(x_y$12, home, startingLife) {
+  /* spawn-ant eval.sibilant:65:0 */
 
-  var x = x_y$11[0],
-      y = x_y$11[1];
+  var x = x_y$12[0],
+      y = x_y$12[1];
 
   var ant = entity(activeGameSystems);
   ants.push(ant);
