@@ -18,6 +18,7 @@
           (lit game active-game-systems) "./game"
           (lit Tree-map) "tree-kit"
           config "./config")
+(var clear (#->  .clear))
 
 (define Entity-group Interface
 
