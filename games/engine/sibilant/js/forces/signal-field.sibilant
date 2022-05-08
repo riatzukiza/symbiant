@@ -28,7 +28,8 @@
                                                               )))
                              (assign c.scale (* 1 (if (> win-rate 1)
                                                        win-rate 1)))
-                             (set v.pos
-                                  'x (Math.round v.pos.x)
-                                  'y (Math.round v.pos.y)))))
+                             ;; (set v.pos
+                             ;;      'x (Math.round v.pos.x)
+                             ;;      'y (Math.round v.pos.y))
+                             )))
 (export SignalField)

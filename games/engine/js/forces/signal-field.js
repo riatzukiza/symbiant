@@ -27,15 +27,13 @@ var SignalField = Physics.Force.define("SignalField", {
         if (!(collision.colliding)) {
           updateParticle(v, v.pos, field, layer, game.ticker.ticks, false, false, entities.homePos);
           var winRate = (v.winCount / ((1 + v.looseCount) || 1));
-          c.scale = (1 * (function() {
+          return c.scale = (1 * (function() {
             if (winRate > 1) {
               return winRate;
             } else {
               return 1;
             }
           }).call(this));
-          v.pos.x = Math.round(v.pos.x);
-          return v.pos.y = Math.round(v.pos.y);
         }
       }).call(this);
     
