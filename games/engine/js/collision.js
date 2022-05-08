@@ -27,45 +27,6 @@ const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 var isWin = false;
 var isLoose = false;
-const collisionSynth = (new Tone.Synth()).toDestination();
-const looseSynth = (new Tone.Synth()).toDestination();
-const winSynth = (new Tone.Synth()).toDestination();
-const winLoop = (new Tone.Loop((time) => {
-	
-  return (function() {
-    if (isWin) {
-      winSynth.triggerAttackRelease("C4", "32n", time);
-      return isWin = false;
-    }
-  }).call(this);
-
-}, "64n")).start(0);
-const looseLoop = (new Tone.Loop((time) => {
-	
-  return (function() {
-    if (isLoose) {
-      looseSynth.triggerAttackRelease("B4", "32n", time);
-      return isLoose = false;
-    }
-  }).call(this);
-
-}, "64n")).start(0);
-const collisionLoop = (new Tone.Loop((time) => {
-	
-  return (function() {
-    if (isCollision) {
-      collisionSynth.triggerAttackRelease("A4", "32n", time);
-      return isCollision = false;
-    }
-  }).call(this);
-
-}, "64n")).start(0);
-Tone.Transport.start();
-game.events.on("loose", () => {
-	
-  return isLoose = true;
-
-});
 game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);

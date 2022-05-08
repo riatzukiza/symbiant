@@ -16,28 +16,28 @@
 (var is-win false)
 (var is-loose false)
 
-(const collision-synth (.to-destination (new Tone.Synth)))
-(const loose-synth (.to-destination (new Tone.Synth)))
-(const win-synth (.to-destination (new Tone.Synth)))
+;; (const collision-synth (.to-destination (new Tone.Synth)))
+;; (const loose-synth (.to-destination (new Tone.Synth)))
+;; (const win-synth (.to-destination (new Tone.Synth)))
 
-(const win-loop (.start (new Tone.Loop (=> (time)
-                                    (when is-win
-                                          (.trigger-attack-release win-synth "C4" "32n" time)
-                                          (assign is-win false))) "64n") 0))
+;; (const win-loop (.start (new Tone.Loop (=> (time)
+;;                                     (when is-win
+;;                                           (.trigger-attack-release win-synth "C4" "32n" time)
+;;                                           (assign is-win false))) "64n") 0))
 
-(const loose-loop (.start (new Tone.Loop (=> (time)
-                                      (when is-loose
-                                            (.trigger-attack-release loose-synth "B4" "32n" time)
-                                            (assign is-loose false))) "64n") 0))
+;; (const loose-loop (.start (new Tone.Loop (=> (time)
+;;                                       (when is-loose
+;;                                             (.trigger-attack-release loose-synth "B4" "32n" time)
+;;                                             (assign is-loose false))) "64n") 0))
 
-(const collision-loop (.start (new Tone.Loop (=> (time)
-                                          (when is-collision
-                                                (.trigger-attack-release collision-synth "A4" "32n" time)
-                                                (assign is-collision false)))
-                                   "64n") 0))
-(Tone.Transport.start)
+;; (const collision-loop (.start (new Tone.Loop (=> (time)
+;;                                           (when is-collision
+;;                                                 (.trigger-attack-release collision-synth "A4" "32n" time)
+;;                                                 (assign is-collision false)))
+;;                                    "64n") 0))
+;; (Tone.Transport.start)
 
-(on game.events 'loose () (assign is-loose true))
+;; (on game.events 'loose () (assign is-loose true))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
