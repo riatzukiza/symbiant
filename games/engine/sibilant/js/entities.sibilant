@@ -26,7 +26,7 @@
 
         (def-generic clear (group) (.each group (=> (e)
                                                     (print "despawning" e)
-                                                    (.despawn e))))
+                                                    (.clear e))))
 
         (def-generic spawn ( aspects system group)
                      (collect e (.spawn system aspects )
