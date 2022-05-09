@@ -148,11 +148,11 @@ game.systems.get(Collision, home).name = "home";
 target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
   /* spawn-ant eval.sibilant:111:0 */
 
-  var x = x_y$3[0],
-      y = x_y$3[1];
+  var x = x_y$4[0],
+      y = x_y$4[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -192,7 +192,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:139:0 */
+  /* clear-ants eval.sibilant:140:0 */
 
   return ants.clear();
 });

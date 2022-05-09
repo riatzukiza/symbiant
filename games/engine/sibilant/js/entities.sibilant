@@ -130,6 +130,7 @@
      (if (not (== config.spawn-static 0))
          (.accelerate v [(random-signed config.spawn-static),
                           (random-signed config.spawn-static)]))
+
      ant)
 
 (var number 1)
