@@ -1,7 +1,7 @@
 const dim=[ window.innerWidth, window.innerHeight ];
 const size=2;
 module.exports.size = size;
-module.exports.angleZoom = 1;
+module.exports.angleZoom = 2;
 module.exports.noiseZ = 1;
 module.exports.fieldForce = 1;
 module.exports.dimensions = dim;
