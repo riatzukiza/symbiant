@@ -128,25 +128,24 @@
          (assign is-collision true)
 
 
-         (if (not (= config.collisio-static 0))
-             (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
-         (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
+         (if (not (= config.collision-static 0))
+             (do (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+                 (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])))
 
-         ;; (update-particle c*v c*v.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
 
-         ;; (update-particle cv cv.pos, Signal-field.field,
-         ;;                  Signal-field.layer
-         ;;                  game.ticker.ticks
-         ;;                  config.decay-on-collision
-         ;;                  false
-         ;;                  false
-         ;;                  home-pos)
+         (update-particle c*v c*v.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          config.decay-on-collision
+                          false
+                          home-pos)
+
+         (update-particle cv cv.pos, Signal-field.field,
+                          Signal-field.layer
+                          game.ticker.ticks
+                          config.decay-on-collision
+                          false
+                          home-pos)
          ))
 
     (assign c*.colliding false)

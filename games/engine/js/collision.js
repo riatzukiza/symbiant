@@ -135,8 +135,19 @@ game.events.on("collision", (([ c, c_, d ]) => {
       console.log("ant is colliding with another ant", c, c_);
       isCollision = true;
       (function() {
-        if (!(config.collisioStatic === 0)) {
-          return cv.accelerate([ (function() {
+        if (!(config.collisionStatic === 0)) {
+          cv.accelerate([ (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this), (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this) ]);
+          return c_v.accelerate([ (function() {
             /* eval.sibilant:39:8 */
           
             var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
@@ -149,17 +160,8 @@ game.events.on("collision", (([ c, c_, d ]) => {
           }).call(this) ]);
         }
       }).call(this);
-      return c_v.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:39:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this) ]);
+      updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, homePos);
+      return updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, config.decayOnCollision, false, homePos);
     }
   }).call(this);
   c_.colliding = false;
