@@ -44,7 +44,6 @@ const looseLoop=(new Tone.Loop(((time) => {
 	
   return (function() {
     if (isLoose) {
-      alert("This should actually mean someone lost");
       looseSynth.triggerAttackRelease("B4", "32n", time);
       return isLoose = false;
     }
