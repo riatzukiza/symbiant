@@ -91,7 +91,7 @@
               'y home-pos.y)
 
          (if (not (== config.spawn-static 0))
-             (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])))
+             (.accelerate c*v [(collision-signed config.collision-static),(random-signed config.collision-static)])))
         (= c*.entity target)
         (do
 
@@ -117,7 +117,8 @@
               'x  home-pos.x
               'y home-pos.y)
 
-         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+         (if (not (== config.collision-static 0))
+             (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
          )
 
         (not (or (and (= c.entity home) (= c*.entity home))
