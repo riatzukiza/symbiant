@@ -97,7 +97,12 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.y = homePos.y;
       return (function() {
         if (!(config.collisionStatic === 0)) {
-          return c_v.accelerate([ collisionSigned(config.collisionStatic), (function() {
+          return c_v.accelerate([ (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this), (function() {
             /* eval.sibilant:39:8 */
           
             var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);

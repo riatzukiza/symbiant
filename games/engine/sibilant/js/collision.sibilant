@@ -91,7 +91,7 @@
               'y home-pos.y)
 
          (if (not (= config.collision-static 0))
-             (.accelerate c*v [(collision-signed config.collision-static),(random-signed config.collision-static)])))
+             (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])))
         (= c*.entity target)
         (do
 
