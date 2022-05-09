@@ -50,6 +50,16 @@ const looseLoop=(new Tone.Loop(((time) => {
   }).call(this);
 
 }), "64n")).start("64n");
+const collisionLoop=(new Tone.Loop(((time) => {
+	
+  return (function() {
+    if (isCollision) {
+      collisionSynth.triggerAttackRelease("A2", "32n", time);
+      return isCollision = false;
+    }
+  }).call(this);
+
+}), "64n")).start("16n");
 Tone.Transport.start();
 Tone.Transport.bpm.rampTo(800, 100);
 game.events.on("loose", (() => {
