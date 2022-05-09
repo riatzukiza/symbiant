@@ -90,7 +90,7 @@
               'x  home-pos.x
               'y home-pos.y)
 
-         (if (not (== config.spawn-static 0))
+         (if (not (== config.collision-static 0))
              (.accelerate c*v [(collision-signed config.collision-static),(random-signed config.collision-static)])))
         (= c*.entity target)
         (do
@@ -128,7 +128,8 @@
          (assign is-collision true)
 
 
-         (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)])
+         (if (not (== config.collisio-static 0))
+             (.accelerate cv [(random-signed config.collision-static),(random-signed config.collision-static)]))
          (.accelerate c*v [(random-signed config.collision-static),(random-signed config.collision-static)])
 
          ;; (update-particle c*v c*v.pos, Signal-field.field,

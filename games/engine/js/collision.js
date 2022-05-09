@@ -96,7 +96,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
       return (function() {
-        if (!(==(config.spawnStatic, 0))) {
+        if (!(==(config.collisionStatic, 0))) {
           return c_v.accelerate([ collisionSigned(config.collisionStatic), (function() {
             /* eval.sibilant:39:8 */
           
@@ -129,17 +129,21 @@ game.events.on("collision", (([ c, c_, d ]) => {
     } else if (!(((c.entity === home && c_.entity === home) || (c.entity === target && c_.entity === target)))) {
       console.log("ant is colliding with another ant", c, c_);
       isCollision = true;
-      cv.accelerate([ (function() {
-        /* eval.sibilant:39:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:39:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand * 2));
-      }).call(this) ]);
+      (function() {
+        if (!(==(config.collisioStatic, 0))) {
+          return cv.accelerate([ (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this), (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this) ]);
+        }
+      }).call(this);
       return c_v.accelerate([ (function() {
         /* eval.sibilant:39:8 */
       
