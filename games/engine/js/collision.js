@@ -54,6 +54,7 @@ Tone.Transport.start();
 Tone.Transport.bpm.rampTo(800, 100);
 game.events.on("loose", (() => {
 	
+  alert("an ant has lost");
   return isLoose = true;
 
 })).once("error", ((err) => {

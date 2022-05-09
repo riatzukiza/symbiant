@@ -38,7 +38,9 @@
 (Tone.Transport.start)
 (Tone.Transport.bpm.ramp-to 800 100)
 
-(on game.events 'loose () (assign is-loose true))
+(on game.events 'loose ()
+    (alert "an ant has lost")
+    (assign is-loose true))
 (on game.events 'collision ([c c* d])
     (var cv (.get game.systems Velocity c.entity))
     (var c*v (.get game.systems Velocity c*.entity))
