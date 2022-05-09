@@ -21,7 +21,7 @@
      'ant-influence 10
      'friction  2
      'collision-static 0
-     'spawn-static 10
+     'spawn-static 0
      'spawn-rate 0
      'home-location [300, 200]
      'target-location [700, 900]
