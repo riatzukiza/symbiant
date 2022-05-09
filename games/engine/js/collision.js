@@ -96,7 +96,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
       return (function() {
-        if (!(==(config.collisionStatic, 0))) {
+        if (!(config.collisionStatic === 0)) {
           return c_v.accelerate([ collisionSigned(config.collisionStatic), (function() {
             /* eval.sibilant:39:8 */
           
@@ -112,7 +112,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.x = homePos.x;
       cv.pos.y = homePos.y;
       return (function() {
-        if (!(==(config.collisionStatic, 0))) {
+        if (!(config.collisionStatic === 0)) {
           return cv.accelerate([ (function() {
             /* eval.sibilant:39:8 */
           
@@ -130,7 +130,7 @@ game.events.on("collision", (([ c, c_, d ]) => {
       console.log("ant is colliding with another ant", c, c_);
       isCollision = true;
       (function() {
-        if (!(==(config.collisioStatic, 0))) {
+        if (!(config.collisioStatic === 0)) {
           return cv.accelerate([ (function() {
             /* eval.sibilant:39:8 */
           
