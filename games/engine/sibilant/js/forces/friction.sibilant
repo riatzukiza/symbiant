@@ -15,9 +15,8 @@
              ;;     (set v
              ;;          'xd (/ v.xd config.friction)
              ;;          'yd (/ v.yd config.friction)))
-             (unless (or (and (= v.xd 0)
-                              (= v.yd 0)
-                              ) collision.colliding)
+             (unless (and (= v.xd 0)
+                              (= v.yd 0))
                      (incr-by v.xd (* -1 (/ v.xd config.friction)))
                      (incr-by v.yd (* -1 (/ v.yd config.friction))))))
 
