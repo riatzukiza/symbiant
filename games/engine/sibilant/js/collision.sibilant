@@ -16,9 +16,9 @@
 (var is-win false)
 (var is-loose false)
 
-(const collision-synth (.to-destination (new Tone.Synth)))
-(const loose-synth (.to-destination (new Tone.Synth)))
-(const win-synth (.to-destination (new Tone.Synth)))
+(const collision-synth (.to-destination (new Tone.FMSynth)))
+(const loose-synth (.to-destination (new Tone.AMSynth)))
+(const win-synth (.to-destination (new Tone.FMSynth)))
 
 (const win-loop (.start (new Tone.Loop (=> (time)
                                     (when is-win
@@ -36,7 +36,7 @@
                                                 (.trigger-attack-release collision-synth "A4" "32n" time)
                                                 (assign is-collision false))) "64n") "16n"))
 (Tone.Transport.start)
-(Tone.Transport.bpm.ramp-to 800 10)
+(Tone.Transport.bpm.ramp-to 800 100)
 
 (on game.events 'loose () (assign is-loose true))
 (on game.events 'collision ([c c* d])

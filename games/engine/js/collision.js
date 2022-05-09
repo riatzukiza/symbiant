@@ -23,14 +23,14 @@ var {
  } = require("./forces/signal-field"),
     Tone = require("tone"),
     config = require("./config");
-const synth = (new Tone.Synth()).toDestination();
+const synth=(new Tone.Synth()).toDestination();
 var isCollision = false;
 var isWin = false;
 var isLoose = false;
-const collisionSynth = (new Tone.Synth()).toDestination();
-const looseSynth = (new Tone.Synth()).toDestination();
-const winSynth = (new Tone.Synth()).toDestination();
-const winLoop = (new Tone.Loop((time) => {
+const collisionSynth=(new Tone.FMSynth()).toDestination();
+const looseSynth=(new Tone.AMSynth()).toDestination();
+const winSynth=(new Tone.FMSynth()).toDestination();
+const winLoop=(new Tone.Loop(((time) => {
 	
   return (function() {
     if (isWin) {
@@ -39,8 +39,8 @@ const winLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-}, "64n")).start(0);
-const looseLoop = (new Tone.Loop((time) => {
+}), "64n")).start(0);
+const looseLoop=(new Tone.Loop(((time) => {
 	
   return (function() {
     if (isLoose) {
@@ -50,8 +50,8 @@ const looseLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-}, "64n")).start("8n");
-const collisionLoop = (new Tone.Loop((time) => {
+}), "64n")).start("8n");
+const collisionLoop=(new Tone.Loop(((time) => {
 	
   return (function() {
     if (isCollision) {
@@ -60,15 +60,20 @@ const collisionLoop = (new Tone.Loop((time) => {
     }
   }).call(this);
 
-}, "64n")).start("16n");
+}), "64n")).start("16n");
 Tone.Transport.start();
-Tone.Transport.bpm.rampTo(800, 10);
-game.events.on("loose", () => {
+Tone.Transport.bpm.rampTo(800, 100);
+game.events.on("loose", (() => {
 	
   return isLoose = true;
 
-});
-game.events.on("collision", ([ c, c_, d ]) => {
+})).once("error", ((err) => {
+	
+  console.log("error on", "loose", "of", "game.events", "given", "null");
+  return console.log(err);
+
+}));
+game.events.on("collision", (([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
@@ -92,15 +97,15 @@ game.events.on("collision", ([ c, c_, d ]) => {
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
       return c_v.accelerate([ (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     } else if (c_.entity === target) {
       isWin = true;
@@ -109,44 +114,49 @@ game.events.on("collision", ([ c, c_, d ]) => {
       cv.pos.x = homePos.x;
       cv.pos.y = homePos.y;
       return cv.accelerate([ (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     } else if (!(((c.entity === home && c_.entity === home) || (c.entity === target && c_.entity === target)))) {
       console.log("ant is colliding with another ant", c, c_);
       isCollision = true;
       cv.accelerate([ (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
       return c_v.accelerate([ (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:33:8 */
+        /* eval.sibilant:41:8 */
       
-        let rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
-        return (config.collisionStatic - (rand / 2));
+        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     }
   }).call(this);
   c_.colliding = false;
   return c.colliding = false;
 
-});
+})).once("error", ((err) => {
+	
+  console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
+  return console.log(err);
+
+}));
