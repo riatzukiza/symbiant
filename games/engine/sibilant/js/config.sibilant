@@ -5,7 +5,7 @@
      'size size
      'angle-zoom 152
      'noise-z 940
-     'field-force 300
+     'field-force 1
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
@@ -23,8 +23,8 @@
      'collision-static 10
      'spawn-static 10
      'spawn-rate 10
-     'home-location [300, 200]
-     'target-location [700, 900]
+     'target-location [300, 200]
+     'home-location [700, 900]
      'track-trail true
      'vary-noise-with-time true
      'reward-winners true
