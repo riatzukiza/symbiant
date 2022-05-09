@@ -9,9 +9,9 @@
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 0.1
+     'decay 6.9
      'maxLength 98.1
-     'ant-limit 10000
+     'ant-limit 5000
      'max-in-decay 20
      'max-trail 999
      'min-trail 10
@@ -22,7 +22,7 @@
      'friction  2
      'collision-static 10
      'spawn-static 10
-     'spawn-rate 100
+     'spawn-rate 10
      'home-location [300, 200]
      'target-location [700, 900]
      'track-trail true
