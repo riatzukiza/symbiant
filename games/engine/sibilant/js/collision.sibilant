@@ -17,7 +17,7 @@
 (var is-loose false)
 
 (const collision-synth (.to-destination (new Tone.FMSynth)))
-(const loose-synth (.to-destination (new Tone.AMSynth)))
+(const loose-synth (.to-destination (new Tone.FMSynth)))
 (const win-synth (.to-destination (new Tone.FMSynth)))
 
 (const win-loop (.start (new Tone.Loop (=> (time)
