@@ -3,8 +3,8 @@
 (const size 2)
 (set module.exports
      'size size
-     'angle-zoom 152
-     'noise-z 940
+     'angle-zoom 1425
+     'noise-z 880
      'field-force 200
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
@@ -13,12 +13,12 @@
      'maxLength 98.1
      'ant-limit 5000
      'max-in-decay 20
-     'max-trail 400
+     'max-trail 999
      'min-trail 10
-     'decay-on-collision  true
+     'decay-on-collision false
      'options-amplitude 1
-     'limit-decay true
-     'ant-influence 10
+     'limit-decay false
+     'ant-influence 99
      'friction  2
      'collision-static 0
      'spawn-static 0
