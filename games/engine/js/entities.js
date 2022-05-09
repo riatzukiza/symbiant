@@ -148,11 +148,11 @@ game.systems.get(Collision, home).name = "home";
 target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
   /* spawn-ant eval.sibilant:111:0 */
 
-  var x = x_y$2[0],
-      y = x_y$2[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -163,17 +163,21 @@ var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
   game.systems.get(Physics, ant).mass = 1;
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
-  v.accelerate([ (function() {
-    /* eval.sibilant:39:8 */
-  
-    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
-    return (config.spawnStatic - (rand * 2));
-  }).call(this), (function() {
-    /* eval.sibilant:39:8 */
-  
-    var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
-    return (config.spawnStatic - (rand * 2));
-  }).call(this) ]);
+  (function() {
+    if (!(==(config.spawnStatic, 0))) {
+      return v.accelerate([ (function() {
+        /* eval.sibilant:39:8 */
+      
+        var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+        return (config.spawnStatic - (rand * 2));
+      }).call(this), (function() {
+        /* eval.sibilant:39:8 */
+      
+        var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
+        return (config.spawnStatic - (rand * 2));
+      }).call(this) ]);
+    }
+  }).call(this);
   return ant;
 });
 var number = 1;
@@ -188,7 +192,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:137:0 */
+  /* clear-ants eval.sibilant:139:0 */
 
   return ants.clear();
 });
