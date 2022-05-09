@@ -49,7 +49,7 @@ const looseLoop=(new Tone.Loop(((time) => {
     }
   }).call(this);
 
-}), "64n")).start("8n");
+}), "64n")).start("64");
 Tone.Transport.start();
 Tone.Transport.bpm.rampTo(800, 100);
 game.events.on("loose", (() => {

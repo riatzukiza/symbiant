@@ -4,6 +4,7 @@ const Vector = require("./vector")
 const waitingDecay = new Set()
 
 const Tone = require("tone");
+const {game} = require("./game")
 
 const synth=(new Tone.Synth()).toDestination();
 module.exports.updateParticle = function updateParticle(
@@ -78,7 +79,7 @@ module.exports.updateParticle = function updateParticle(
     }
     if(loose && config.punishLoosers) {
       console.log("loose",vel)
-      // synth.triggerAttackRelease("B4", "4n");
+      game.events.emit("loose")
       let weight = vel.looseCount/(vel.winCount+1)
       for(let {x,y,pheremones} of vel.trail) {
         pheremones.subFrom({
