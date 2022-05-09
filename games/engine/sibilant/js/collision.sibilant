@@ -30,11 +30,11 @@
                                             (.trigger-attack-release loose-synth "B7" "32n" time)
                                             (assign is-loose false))) "64n") "8n"))
 
-(const collision-loop (.start (new Tone.Loop (=> (time)
-                                          (when is-collision
-                                                (.trigger-attack-release collision-synth "A2" "32n" time)
-                                                (assign is-collision false)))
-                                   "64n") "16n"))
+;; (const collision-loop (.start (new Tone.Loop (=> (time)
+;;                                           (when is-collision
+;;                                                 (.trigger-attack-release collision-synth "A2" "32n" time)
+;;                                                 (assign is-collision false)))
+;;                                    "64n") "16n"))
 (Tone.Transport.start)
 (Tone.Transport.bpm.ramp-to 800 100)
 
