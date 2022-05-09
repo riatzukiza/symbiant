@@ -32,7 +32,7 @@
 
 (const collision-loop (.start (new Tone.Loop (=> (time)
                                           (when is-collision
-                                                (.trigger-attack-release collision-synth "A4" "32n" time)
+                                                (.trigger-attack-release collision-synth "A2" "32n" time)
                                                 (assign is-collision false)))
                                    "64n") "16n"))
 (Tone.Transport.start)

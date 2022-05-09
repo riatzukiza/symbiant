@@ -54,7 +54,7 @@ const collisionLoop=(new Tone.Loop(((time) => {
 	
   return (function() {
     if (isCollision) {
-      collisionSynth.triggerAttackRelease("A4", "32n", time);
+      collisionSynth.triggerAttackRelease("A2", "32n", time);
       return isCollision = false;
     }
   }).call(this);
