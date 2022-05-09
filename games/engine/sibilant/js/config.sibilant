@@ -20,11 +20,11 @@
      'limit-decay true
      'ant-influence 10
      'friction  2
-     'collision-static 10
+     'collision-static 0
      'spawn-static 10
-     'spawn-rate 10
-     'target-location [300, 200]
-     'home-location [700, 900]
+     'spawn-rate 0
+     'home-location [300, 200]
+     'target-location [700, 900]
      'track-trail true
      'vary-noise-with-time true
      'reward-winners true
