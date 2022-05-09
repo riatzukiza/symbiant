@@ -148,11 +148,11 @@ game.systems.get(Collision, home).name = "home";
 target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
+var spawnAnt = (function spawnAnt$(x_y$5, home, startingLife) {
   /* spawn-ant eval.sibilant:111:0 */
 
-  var x = x_y$4[0],
-      y = x_y$4[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -164,7 +164,7 @@ var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
   game.systems.get(Physics, ant).forces = [ SignalField, Friction ];
   var v = game.systems.get(Velocity, ant);
   (function() {
-    if (!(==(config.spawnStatic, 0))) {
+    if (!(config.spawnStatic === 0)) {
       return v.accelerate([ (function() {
         /* eval.sibilant:39:8 */
       

@@ -127,7 +127,7 @@
           'forces [SignalField, Friction])
      (var v (.get game.systems Velocity ant))
 
-     (if (not (== config.spawn-static 0))
+     (if (not (= config.spawn-static 0))
          (.accelerate v [(random-signed config.spawn-static),
                           (random-signed config.spawn-static)]))
 
