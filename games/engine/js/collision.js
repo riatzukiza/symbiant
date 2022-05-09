@@ -95,17 +95,21 @@ game.events.on("collision", (([ c, c_, d ]) => {
       updateParticle(c_v, c_v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       c_v.pos.x = homePos.x;
       c_v.pos.y = homePos.y;
-      return c_v.accelerate([ (function() {
-        /* eval.sibilant:41:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
-        return (config.collisionStatic - (rand * 2));
-      }).call(this), (function() {
-        /* eval.sibilant:41:8 */
-      
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
-        return (config.collisionStatic - (rand * 2));
-      }).call(this) ]);
+      return (function() {
+        if (!(==(config.spawnStatic, 0))) {
+          return c_v.accelerate([ (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this), (function() {
+            /* eval.sibilant:39:8 */
+          
+            var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
+            return (config.collisionStatic - (rand * 2));
+          }).call(this) ]);
+        }
+      }).call(this);
     } else if (c_.entity === target) {
       isWin = true;
       console.log("ant found target");
@@ -113,39 +117,39 @@ game.events.on("collision", (([ c, c_, d ]) => {
       cv.pos.x = homePos.x;
       cv.pos.y = homePos.y;
       return cv.accelerate([ (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     } else if (!(((c.entity === home && c_.entity === home) || (c.entity === target && c_.entity === target)))) {
       console.log("ant is colliding with another ant", c, c_);
       isCollision = true;
       cv.accelerate([ (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
       return c_v.accelerate([ (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:41:8 */
+        /* eval.sibilant:39:8 */
       
-        var rand = ((Math.random() * (config.collisionStatic - (-1 * config.collisionStatic))) + (-1 * config.collisionStatic));
+        var rand = ((Math.random() * (config.collisionStatic - 0)) + 0);
         return (config.collisionStatic - (rand * 2));
       }).call(this) ]);
     }
