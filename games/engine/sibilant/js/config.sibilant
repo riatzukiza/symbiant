@@ -13,7 +13,7 @@
      'maxLength 98.1
      'ant-limit 5000
      'max-in-decay 20
-     'max-trail 999
+     'max-trail 400
      'min-trail 10
      'decay-on-collision  true
      'options-amplitude 1
