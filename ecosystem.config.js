@@ -4,7 +4,7 @@ module.exports = {
     script: 'index.sibilant',
     interpreter:Path.resolve("./node_modules/sibilant/bin/sibilant"),
     interpreter_args:"-x",
-    ignore_watch:"./games/*/js/**.js",
+    ignore_watch:["./games/*/js/**.js","./node_modules"],
     watch: '.'
 
   },],
