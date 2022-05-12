@@ -90,7 +90,11 @@ game.events.on("collision", ([ c, c_, d ]) => {
         }
       }).call(this);
     } else if ((c.entity === home || c_.entity === home)) {
-      return console.log("something collided with home", c.entity, c_.entity);
+      return (function() {
+        if (config.printCollisionEvent) {
+          return console.log("something collided with home", c.entity, c_.entity);
+        }
+      }).call(this);
     } else if (((c.entity === home && c_.entity === target) || (c_.entity === home && c.entity === target))) {
       return console.log("target colliding with spawn");
     } else if (c.entity === target) {
