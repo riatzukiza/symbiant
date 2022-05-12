@@ -22,7 +22,7 @@
      'friction  2
      'collision-static 0
      'spawn-static 0
-     'spawn-rate 0
+     'spawn-rate 100
      'home-location [300, 200]
      'target-location [700, 900]
      'track-trail true
