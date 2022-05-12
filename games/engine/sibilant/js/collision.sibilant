@@ -97,7 +97,7 @@
 
          (assign is-win true)
          ;; (synth.trigger-attack-release "C4" "8n")
-         (print "ant found target")
+         (if config.print-collision-event (print "ant found target"))
          ;; (alert "ant found target")
          ;; (.accelerate c*v [(random-signed (or (* (+ 1 cv.xd) config.collision-static)
          ;;                                     config.collision-static)),

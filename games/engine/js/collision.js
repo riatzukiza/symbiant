@@ -123,7 +123,11 @@ game.events.on("collision", ([ c, c_, d ]) => {
       }).call(this);
     } else if (c_.entity === target) {
       isWin = true;
-      console.log("ant found target");
+      (function() {
+        if (config.printCollisionEvent) {
+          return console.log("ant found target");
+        }
+      }).call(this);
       updateParticle(cv, cv.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
       cv.pos.x = homePos.x;
       cv.pos.y = homePos.y;
