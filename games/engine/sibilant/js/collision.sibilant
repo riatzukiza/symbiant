@@ -48,14 +48,14 @@
     (var cp (.get game.systems Physics c.entity))
     (var c*p (.get game.systems Physics c*.entity))
 
-    (print "collision event" c c* d
-           Collision.quads
-           (lit home home-pos target))
-
+    (if config.print-collision-event
+        (print "collision event" c c* d
+               Collision.quads
+               (lit home home-pos target)))
 
 
     (if (= c.entity c*.entity)
-        (do (print "something thinks its colliding with its self"))
+        (do (if config.print-collision-event (print "something thinks its colliding with its self")))
      (or (= c.entity home)
          (= c*.entity home))
      (do (print "something collided with home" c.entity c*.entity))
