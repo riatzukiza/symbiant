@@ -9,13 +9,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "sibilant": "*",
-    "sibilant-game-engine": "git+https://github.com:riatzukiza/sibilant-game-engine.git",
+    "@timohausmann/quadtree-js": "^1.2.5",
     "jimp": "0.2.27",
     "js-beautify": "^1.7.5",
     "kit": "git+https://github.com/riatzukiza/kit.git",
-    "kit-events": "git+https://github.com/riatzukiza/kit-events.git",
     "kit-async": "git+https://github.com/riatzukiza/kit-async.git",
+    "kit-events": "git+https://github.com/riatzukiza/kit-events.git",
     "kit-file-system": "git+https://github.com/riatzukiza/kit-file-system.git",
     "kit-html": "git+https://github.com/riatzukiza/kit-html.git",
     "kit-http": "git+https://github.com/riatzukiza/kit-http.git",
@@ -23,9 +22,9 @@
     "mathjs": "*",
     "mousetrap": "*",
     "react": "^16.3.1",
+    "sibilant-game-engine": "git+https://github.com:riatzukiza/sibilant-game-engine.git",
     "source-map-support": "^0.4.11",
     "tree-kit": "git+https://github.com/riatzukiza/tree-kit.git",
-    "@timohausmann/quadtree-js": "^1.2.5",
     "webgl": "git+https://bitbucket.org/kettlelogic/andy_webgl.git"
   },
   "dependencies": {
