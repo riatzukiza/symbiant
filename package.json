@@ -28,7 +28,7 @@
     "webgl": "git+https://bitbucket.org/kettlelogic/andy_webgl.git"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^1.6.0",
+    "@tensorflow/tfjs": "^3.20.0",
     "browserify": "*",
     "browserify-fs": "^1.0.0",
     "chokidar": "^1.6.1",
