@@ -1,0 +1,29 @@
+
+(macro xml ( element-function root)
+       `(@element-function ...@(let ((name `(quote @(first (content-of (first (content-of root))))))
+                                     (elements (rest root.contents))
+                                     (attributes-list [])
+                                     (values []))
+
+
+                                 (while (> elements.length 0)
+                                   (let ((el (.shift elements)))
+
+                                     (if (dotted? el)
+                                         (do (.push attributes-list el)
+                                             (.push attributes-list (.shift elements)))
+
+                                         (and (expression? el)
+                                              (dotted? (first el.contents)))
+                                         (.push values `(xml @element-function  @el))
+
+                                         (.push values el))))
+
+
+                                 [ name  `(hash ...@attributes-list)  `[...@values] ])))
+
+(macro dom (root) `(xml create-document-node @root))
+
+(macro with-dom (parent root)
+       `(pipe (dom @root)
+              (.render @parent)))

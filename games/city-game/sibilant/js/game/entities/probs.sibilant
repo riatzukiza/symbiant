@@ -1,0 +1,77 @@
+
+(def prob-prod (arr)
+  (.reduce arr (=> (v comp) (* v (percent-of comp))) 1))
+
+
+(def reduce-until  (matrix cond f value)
+
+  (var break? false)
+  (loop
+     (for-up-to x matrix.width
+                (if! break? break))
+     (for-up-to y matrix.height
+
+                (var cell (.get matrix x y))
+                (assign value (f value cell x y matrix))
+
+                (if! (cond value cell x y matrix)
+                     (assign break? true) break)))
+  value)
+
+
+(def decide (random) (=> ([counter]) (>= counter random)))
+
+(def increment-counter ([counter ] p x y) [(+ counter p) x y])
+
+(def select-random-location (matrix)
+
+  (var total (.convolve count-kernel matrix)
+       prob (.map  matrix (=> (v) (/ v total))))
+
+  (rest (reduce-until prob (decide (Math.random)) increment-counter [0 0 0 ])))
+
+
+(var conditional-probability prob-prod)
+
+(type Probability-space )
+(describe Probability-space
+
+          (init (matrix))
+
+          (gett total (.convolve count-kernel this.matrix))
+          (gett prob (.map  this.matrix (=> (v) (/ v this.total))))
+
+          (def-generic get-total (matrix)
+            (.convolve count-kernel matrix))
+
+          (def-generic get-probability-matrix (matrix (total (.get-total Probability-space matrix)))
+            (.map  matrix (=> (v) (/ v total))))
+
+          (def joint (probs)
+            (.reduce probs mult (identity)))
+
+          (def-generic random-location (prob)
+
+            (rest (reduce-until prob (decide (Math.random)) increment-counter [0 0 0 ]))))
+
+;; needs more descriptive name
+(def find (ent-coord-part c)
+  (mod (+ ent-coord-part -1 (if (<= c 0) (+ c 100) c)) 100))
+
+
+(def-curried local-joint-probability (entity prob field )
+
+  (let* ((na (get (.get field entity.x entity.y) 'neiborhood))
+         (location na))
+
+    (.mult prob location)))
+
+(def mult ( a b) (.mult a b))
+
+(def-curried local-joint-of (arr entity)
+  (.reduce arr (local-joint-probability entity) (identity)))
+
+(def random-neighbor (entity kernels probability-space)
+  (pipe (local-joint-of kernels entity)
+        (Probability-space.get-probability-matrix)
+        (Probability-space.random-location)))

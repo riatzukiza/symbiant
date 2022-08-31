@@ -1,0 +1,11 @@
+
+(type Direction)
+(def-component Direction (value (direction this))
+
+  "A vector, determined from speed and movement components."
+
+  )
+
+
+(describe Direction (value [ 1 1 ]))
+

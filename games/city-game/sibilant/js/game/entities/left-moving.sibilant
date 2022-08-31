@@ -1,0 +1,71 @@
+
+;; component
+(type Move-left )
+
+(def-description Move-left (entity)
+  (def-generic update (entity)
+    (-- entity.x )))
+
+(type Move-right )
+
+(def-description Move-right (entity)
+  (def-generic update (entity)
+    (++ entity.x )))
+
+(type Move-up)
+
+(def-description Move-up (entity)
+  (def-generic update (entity)
+    (-- entity.y )))
+
+(type Move-down)
+
+(def-description Move-down (entity)
+  (def-generic update (entity)
+    (++ entity.y )))
+
+(type Edge-detection)
+
+(def-description Edge-detection (entity)
+
+  (def-generic update (entity)
+
+    (print "detecting edges")
+    (if (= entity.x 0)
+        ;; left edge
+        (assign entity.components [(create-instance-of Move-right entity) (second entity.components) (third entity.components)])
+
+        ;; right edge
+        (= entity.x 99)
+        (assign entity.components [(create-instance-of Move-left entity) (second entity.components) (third entity.components)]))
+
+    ;; top edge
+    (if (= entity.y 0)
+        (assign entity.components [(first entity.components) (create-instance-of Move-down entity) (third entity.components)])
+
+        ;; bottom edge
+        (= entity.y 99)
+        (assign entity.components [(first entity.components) (create-instance-of Move-up entity) (third entity.components)]))))
+
+(macro def-component (name args ...body)
+       `(def-description @name (entity ...@(get args 'contents))
+          (def-generic update (entity ...@(get args 'contents))
+            ...@body)))
+
+
+;; entity
+
+(specify Left-moving (extend Entity))
+
+(describe Left-moving
+
+          ;; components associate
+          (components [ Move-left Move-up Edge-detection])
+
+          ;; Meta data
+          (r 256)
+          (g 256)
+          (b 256)
+
+          (a 256)
+          )

@@ -1,0 +1,40 @@
+(def register-description (name obj)
+  (let ((description (get Descriptions (quote name))) )
+    (if description
+        (mixin  obj description)
+        (set Descriptions name (mixin obj (lit (symbol (Symbol name))))))))
+
+(macro def-var (name value)
+       (if (dotted? name)
+           `(assign @name @value)
+           `(var @name @value)))
+
+;; (macro def-description (name args ...body)
+;;        "define a type and describe it in a function like syntax. The arguements body is passed to the last instance of the init macro as its argument body."
+
+
+;;        `( @name (register-description (quote name)
+;;                                       (create-description @args ...@body))))
+
+(macro create-description (args ...body)
+       "create a type and describe it in a function like syntax.
+The arguements body is passed to the last instance of the init macro as its argument body."
+
+       (require! R "ramda")
+       (def init-expression? (e) (and (expression? e) (= (get (first e.contents) 'token)  'init)))
+       (def describer? (e) (not (init-expression? e)))
+
+       (var init-form (pipe body (.filter  init-expression?)
+                            ))
+       ;; (def bind (a f )
+       ;;   (.reduce a (=> (v e) (each e (x) (.push e (f x))) v) []))
+       ;; (def flatten (a)
+       ;;   (bind a (cond )))
+       (var content-tail (R.pipe (R.prop 'contents) R.tail))
+       (var flatten-init-list (R.flatten (.map init-form content-tail)))
+
+       (var init-body (ternary init-form  [] flatten-init-list))
+
+       (var description [ `(init @args ...@init-body) ...(pipe body (.filter  describer?))])
+
+       `(register-description (lit ...@description) {}  ))

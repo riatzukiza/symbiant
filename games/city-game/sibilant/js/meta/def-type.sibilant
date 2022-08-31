@@ -1,0 +1,55 @@
+(meta
+
+ (var *types (new Map))
+
+ (def init-expression? (e)
+   (and (expression? e) (= (get (first e.contents) 'token)  'init)))
+
+ (def describer? (e)
+   (not (init-expression? e)))
+
+ (def create-description (args ...body)
+   "define a type and describe it in a function like syntax.
+The arguements body is passed to the last instance of the init
+macro as its argument body."
+
+
+   (var init-form (pipe body (.filter  init-expression?)
+                        last
+                        ))
+   (var init-body (ternary init-form (rest init-form.contents) []))
+
+   (var description [ `(init @args ...@init-body) ...(pipe body (.filter  describer?))])
+
+   `(let ((type (mixin (lit ...@description)  )))
+      (mixin type (create type) )))
+
+ (macro might-have (*map token a b)
+        `(if (.has @*map @token)
+             @a
+             @b))
+
+ (macro *maybe-type-exists (name a b)
+        `(might-have *types (quote @name)
+                     @a
+                     @b))
+
+ (macro remember (*map token value)
+        `(might-have @*map @token
+                     (.get @*map @token)
+                     (collect r @value (.set @*map @token r))))
+
+ (def macros.def-ext (name args ext ...body)
+   (*maybe-type-exists name
+                       (create-description args ...body)
+
+                       `(var @name
+                             (mixin @ext @(create-description  args
+                                                               ...[ `(symbol (property Symbol Name))...body]) ))))
+ (def macros.def-type (name args ...body)
+   "create a type, using this syntax extension is not allowed"
+
+   (*maybe-type-exists *types name
+
+                       (create-description args ...body)
+                       `(var @name @(create-description  args ...[ `(property symbol (Symbol (quote @name))) ...body])))))

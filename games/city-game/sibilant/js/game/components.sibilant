@@ -1,0 +1,28 @@
+(macro percent-of (container)
+       `(/ (get @container 'value) (get @container 'max)))
+
+(macro include-module (path)
+       `(include (+ @path "/index")))
+
+(macro component-of (e comp)
+       `(get @e (get @comp 'symbol)))
+
+(macro require-components (ent vars ...body)
+       `(let (...@(.map vars.contents (=> (v) `(@v (component-of @ent @v)))))
+          ...@body))
+
+
+(macro sprint (val) `(print (quote @val) @val))
+
+(def last-of (arr)
+  (last arr))
+
+
+(include "./components/location-display.sibilant"
+         "./components/collision.sibilant"
+         "./components/direction.sibilant"
+         "./components/movement.sibilant"
+         "./components/pathing.sibilant"
+         "./components/inertia.sibilant"
+         "./components/road-field-element.sibilant"
+         "./components/road-map-view.sibilant")

@@ -1,0 +1,122 @@
+
+
+(macro css-rule (name ...statements)
+       "Create a single valid CSS rule from a name, and a series of string pairs."
+       `(.join [
+
+               @name "{"
+               ...@(map statements (s)
+                        `(+ @(first s.contents) ":" @(second s.contents)";"))
+               "}"
+               ] ""))
+
+
+(macro css (...rules)
+       "Create a valid css style sheet from a series of rules."
+       `(.join [ ...@(map rules (r)
+                          `(css-rule @(first r.contents)
+                                     ...@(rest r.contents))) ] "")) 
+
+
+(macro lit* (...body ) `(let* (...@body) (lit ...@(.map body (=> (el) (first el.contents))))))
+
+
+(with-dom Document-head
+  (.style (css
+
+           (".boxed"
+            ("box-sizing" "border-box")
+            ("border" "1px solid"))
+
+           ("#stage" ("float" "left"))
+
+           (".grid-element"
+            ("width" "20%")
+            ("border-width" "3px")
+            ("float" "left")))))
+
+(type Entity-list )
+
+(def-describe Entity-list
+
+    (name
+     *parent
+
+     (table (dom (.div .class-name "entity-table boxed" )))
+
+     (*matrix ((create Matrix)))
+
+     (*container (with-dom container
+                   (.div .class-name "entity-list-container boxed"
+
+                         (.h2 name)
+
+                         (.div .class-name "entity-list boxed"
+                               .style "overflow:scroll;height:300px"
+                               table)))))
+
+  (def-generic add (entity))
+  (def-generic remove (entity)))
+
+
+(def display-component-value (c)
+  (let ((name (symbol-to-string c.symbol)))
+
+    (-> (if (or (string? c.value)
+                (number? c.value))
+
+            c.value
+
+            (undefined? c.value)
+
+            "no value"))))
+
+(type Component-display)
+
+(def-describe Component-display
+    (entity
+     (*nodes (map entity.components (c)
+                  (let ((name (symbol-to-string c.symbol)))
+
+                    (dom (.div .class-name "boxed".name (+ name " : ") (.span name)
+                               (display-component-value c))))))))
+(type Entity-panel )
+
+;; The entity panel is a grid based interface for looking at the values associated with various game entities.
+;;
+
+(def boxed (el)
+  (dom (.div .class-name "boxed" el)))
+
+(macro adom (node) `(-> (dom @node)))
+
+(def labeled-box (label e) (boxed (dom (.span label " : " e))))
+
+(comment "the bellow is, I think, slightly better than what came before it.")
+
+(def-describe Entity-panel (entity (*node (.create-node this entity)))
+
+  (def-generic create-node (entity )
+
+    (dom (.div  .class-name "grid-element boxed"
+
+                .name "locational-display"
+
+                (labeled-box (-> "x") (-> entity.x))
+                (labeled-box (-> "y") (-> entity.y))
+
+
+                (-> (map entity.components (c)
+                      (labeled-box (symbol-to-string c.symbol)
+                                   (display-component-value c)))))))
+
+  (def-generic update (entity *entity-list *node)
+
+    (.clear *node)
+
+    (.render  *node *entity-list.table)))
+
+(def entity-display-system (name)
+  (extend Entity-panel
+          (lit name
+               (*entity-list ((create Entity-list) name container)))))

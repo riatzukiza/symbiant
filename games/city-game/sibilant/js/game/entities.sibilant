@@ -1,0 +1,79 @@
+
+(specify Entity (extend Event-emitter.prototype ))
+
+(def register-entity-type (obj)
+  (var t (extend Entity obj))
+  (.push Entity.types t)
+  t)
+
+
+(describe Entity
+
+          (types [])
+          (layer (.get sim.layers))
+
+          ;; components associate
+          (gett pos [this.x this.y])
+          (sett pos [x y] (set-for this  x  y))
+
+          (render true)
+
+          (init (x y components render?)
+
+                (unless this.spawned?
+                  (if render? (.add  this.layer this)) ;; add entity to the set of entities to be rendered
+
+                  (.push entities this) ;; add entity to list of all entities in th egame
+
+                  (assign this.components
+
+                          (pipe components
+
+                                ;; (.map (=> (T) (set this T.symbol (new T this)))) ;; this could also work
+                                ;; (.map (=> (T) (new T this))) ;; that could also work
+
+                                (.map (=> (T) (set this T.symbol (create-instance-of T this))))))
+
+                  (set this 'spawned? true)))
+
+          (def move ([x y]) (.move Collision [x y] this))
+
+          (def-generic remove ((entity this) layer)
+            (assign entities (R.without [entity] entities))
+            (.delete layer entity))
+
+          (def-generic update (components)
+            (each components (comp)
+
+
+                  (.update comp))))
+
+;; These entity types are just for conveinience. An entity could have any of
+;; its components removed from it at any time, and an entity could be created from
+;; the empty entity by adding components to it after it is created
+
+
+
+
+
+
+;; (type Speed )
+;; (def-component Speed ()
+;;   "A container for the rate of change of position")
+
+;; (def-component Position ())
+
+;; (def-component Color ())
+;; (def-component Size ())
+
+
+
+;; entity
+
+
+
+(include "./entities/boundry.sibilant"
+         "./entities/road.sibilant"
+         "./entities/agent.sibilant")
+
+

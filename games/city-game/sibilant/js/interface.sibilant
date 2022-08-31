@@ -1,0 +1,63 @@
+
+(include "./dom-util.sibilant")
+
+(var gl-el (get-by-id "gl" )
+     html-tag (pipe (get-by-tagname "html") first))
+
+(var stage (dom (.div .id "stage")))
+
+(def create-entity-selector ( ent-type )
+
+  (var name (symbol-to-string ent-type.symbol))
+
+  (dom (.div .id name
+             name
+             (.input .type "radio"
+                     .name "entity"
+                     .onclick (lambda (e)
+                                (assign active-entity-type ent-type))))))
+
+(var check-boxes (.map Entity.types create-entity-selector ))
+
+(var entity-menu
+     (dom (.div .id "entity-menu"
+                (.h1 "Spawn")
+                (dots check-boxes))))
+(with-dom Document-head (.style (css ("#entity-menu"
+                                      ("float" "left")) )))
+
+
+;;(.remove entity-menu)
+
+(var entity-nodes [])
+
+(.render entity-menu container)
+;;(.render entity-list container)
+
+
+(def gl-el.onmousedown (e)
+  (.prevent-default e)
+
+  (def gl-el.onmousemove (e)
+
+    (.prevent-default e)
+
+    (let* ((pointer-location (get-relative-pointer-location gl-el e))
+           (selected-cell (get-cell-coord pointer-location)))
+
+      (create-instance-of active-entity-type selected-cell.x selected-cell.y))))
+
+(def gl-el.onclick (e)
+
+  (.prevent-default e)
+
+  (let* ((pointer-location (get-relative-pointer-location gl-el e))
+         (selected-cell (get-cell-coord pointer-location)))
+
+    (create-instance-of active-entity-type selected-cell.x selected-cell.y)))
+
+(def gl-el.onmouseup (e)
+  (.prevent-default e)
+  (assign gl-el.onmousemove null))
+
+(assign gl-el.onclick null)

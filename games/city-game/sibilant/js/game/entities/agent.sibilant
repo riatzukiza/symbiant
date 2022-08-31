@@ -1,0 +1,156 @@
+(specify Agent (register-entity-type))
+
+(var count-kernel (kernel 3 3
+                          [
+
+                          [ 1 1 1 ]
+                          [ 1 1 1 ]
+                          [ 1 1 1 ]
+
+                          ]))
+(include "./probs")
+(macro def-component (name args ...body)
+       `(def-description @name (entity ...@(get args 'contents))
+          (def-generic update (entity ...@(get args 'contents))
+            ...@body)))
+
+
+
+
+
+;; (type Map-view)
+;; (def-component Map-view ())
+
+
+
+(def-generic Matrix.filter (f (m this))
+  (collect r [] (each m (el x y)
+                      (if (f el x y) (.push r el)))))
+
+(def summate (list)
+  (var c 0)
+  (each list (v) (incr-by c v)) c)
+
+(def random-step (collection choose-agents)
+  "Produce the tuple of numbers which validly describes the next move an agent will make"
+
+  ;; (let ((a 0))
+  ;;   (let ((b 1))))
+
+  (let ((allowed-moves (.filter collection choose-agents)))
+
+    ;;(print "choosing randomly" allowed-moves )
+
+    (let* ((count (summate (.map allowed-moves (=> (v) (first v))) ))
+
+           (rand (random-int count))
+           (index-of-consideration 0))
+
+      (collect result [ 0 0 ]
+               (for-up-to i allowed-moves.length
+
+                          ;; if! is an if statement, all macros suffixed with an ! are statements, and
+                          ;; can't be returned like other forms.
+
+                          (if! (> index-of-consideration rand)
+                               (print result allowed-moves)
+
+                               break)
+                          (var l (get allowed-moves i))
+
+                          (incr-by index-of-consideration (first l))
+
+                          (assign result (rest (get allowed-moves i))))))))
+
+
+
+;; (type Movement)
+;; (def-component Movement ())
+
+;; (type Decision)
+;; (def-component Decision ())
+
+;; (type Objective)
+;; (def-component Objective ())
+
+
+
+;;the objective is to make it from the goal and back again.
+
+
+
+
+(describe Agent
+          (render? true)
+
+          (r 255)
+          (g 255)
+          (b 255)
+          (a 255)
+
+          (components
+           [
+           Inertia
+           Road-map-view ;; a line of sight of the agents immediate surroundings.
+
+           ;; Decision ;; Must attempt to make a choice every tick, failing to do so will increase conjestion in the area around the agent
+
+           Movement
+
+           Direction
+
+           Collision ;; Cannot walk over/past/through other agents
+
+           Pathing ;; can only walk on roads
+
+           (entity-display-system "Agent")
+           ;; Objective ;; where they are trying to go.
+
+
+           ]))
+;; (var goals (new Set))
+
+;; (specify Goal (register-entity-type))
+;; (def-description Goal (x y components)
+
+;;   (render? true)
+;;   (init (.add goals this) (.apply Entity.init this arguments))
+;;   (components [Collision])
+
+;;   (r 0)
+;;   (g 255)
+;;   (b 10)
+;;   (a 255))
+
+;; (specify Home (register-entity-type))
+;; (describe Home
+
+;;           (r 0)
+;;           (g 20)
+;;           (b 255)
+;;           )
+
+
+
+
+
+
+
+
+
+
+;; A measurement of how many times entities have failed to move while in a location.
+;; (define-field Conjestion-field true)
+
+;; (def-description Conjestion-field ()
+;;   (r 255)
+;;   (g 0)
+;;   (b 0)
+
+;;   (a 255)
+
+;;   (decay 0.1))
+
+;; (def-component Conjestion-field.Component (ticks x y value field decay)
+;;   (.set field x y (if (> value decay) (- value decay) 0)))
+

@@ -1,0 +1,14 @@
+(type Inertia)
+(def-component Inertia (value)
+
+  (require-components
+   entity
+
+   (Movement
+    Direction)
+
+   (assign Movement.value
+           [
+           (+ entity.x (first Direction.value))
+           (+ entity.y (second Direction.value))
+           ])))
