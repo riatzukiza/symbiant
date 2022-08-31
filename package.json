@@ -31,7 +31,7 @@
     "@tensorflow/tfjs": "^1.6.0",
     "browserify": "*",
     "browserify-fs": "^1.0.0",
-    "chokidar": "^1.6.1",
+    "chokidar": "^3.5.3",
     "commander": "^2.9.0",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
