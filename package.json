@@ -22,7 +22,7 @@
     "mathjs": "*",
     "mousetrap": "*",
     "react": "^16.3.1",
-    "sibilant-game-engine": "git+https://github.com:riatzukiza/sibilant-game-engine.git#",
+    "sibilant-game-engine": "git+https://github.com:riatzukiza/sibilant-game-engine.git",
     "source-map-support": "^0.4.11",
     "tree-kit": "git+https://github.com/riatzukiza/tree-kit.git",
     "webgl": "git+https://bitbucket.org/kettlelogic/andy_webgl.git"
