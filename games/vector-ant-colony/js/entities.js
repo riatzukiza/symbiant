@@ -10,6 +10,24 @@ var {
 var { 
   Interface
  } = require("@kit-js/interface");
+global.mixin = mixin;
+global.create = create;
+var { 
+  List
+ } = require("sibilant-game-engine/client/data-structures/list");
+List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
+  /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
+
+  return (function() {
+    if (predicate(this.head.item)) {
+      return this.head.item;
+    } else if (t > (this.size - 1)) {
+      return this.rotate().rotateUntil(predicate, ++(t));
+    } else {
+      return false;
+    }
+  }).call(this);
+});
 var { 
   Dot
  } = require("sibilant-game-engine/client/systems/rendering/dot"),
@@ -47,7 +65,7 @@ var {
  } = require("tree-kit"),
     config = require("./config");
 var clear = (function() {
-  /* eval.sibilant:21:11 */
+  /* eval.sibilant:32:11 */
 
   return arguments[0].clear();
 });
@@ -82,15 +100,21 @@ var EntityGroup = Interface.define("EntityGroup", {
         return e;
       })(system.spawn(aspects));
     
+   },
+  despawn( entity = this.entity,group = this.group ){ 
+    
+      group.remove(entity);
+      return entity.despawn();
+    
    }
  });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:43:0 */
+  /* Tree-map.get eval.sibilant:57:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:46:0 */
+  /* memoize eval.sibilant:60:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -125,7 +149,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:53:0 */
+  /* entity eval.sibilant:67:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -139,25 +163,14 @@ console.log("home starting pos", game.systems.get(Position, home));
 game.systems.get(Physics, home).scale = 1;
 game.systems.get(Physics, home).mass = 1;
 game.systems.get(Physics, home).forces = [];
-var target = entity([ Dot, Position, Physics, Collision, Velocity ]);
-game.systems.get(Dot, target).color = rgba(0, 0, 255, 255);
-game.systems.get(Position, target).x = config.targetLocation[0];
-game.systems.get(Position, target).y = config.targetLocation[1];
-game.systems.get(Position, target).z = 1;
-console.log("target starting pos", game.systems.get(Position, target));
-game.systems.get(Physics, target).scale = 30;
-game.systems.get(Physics, target).mass = 10000;
-game.systems.get(Physics, target).forces = [];
-game.systems.get(Collision, target).name = "target";
 game.systems.get(Collision, home).name = "home";
-target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
-  /* spawn-ant eval.sibilant:109:0 */
+var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
+  /* spawn-ant eval.sibilant:101:0 */
 
-  var x = x_y$6[0],
-      y = x_y$6[1];
+  var x = x_y$8[0],
+      y = x_y$8[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -177,11 +190,11 @@ var spawnAnt = (function spawnAnt$(x_y$6, home, startingLife) {
 });
 const rocks=create(EntityGroup)("Rocks", [ Dot, Position, Physics, Collision, Velocity ], game.ent);
 console.log(rocks);
-var spawnRock = (function spawnRock$(x_y$7, mass, scale) {
-  /* spawn-rock eval.sibilant:140:0 */
+var spawnRock = (function spawnRock$(x_y$9, mass, scale) {
+  /* spawn-rock eval.sibilant:133:0 */
 
-  var x = x_y$7[0],
-      y = x_y$7[1];
+  var x = x_y$9[0],
+      y = x_y$9[1];
 
   var rock = rocks.spawn([ Dot, Position, Physics, Collision, Velocity ]);
   var hardness = Math.min(Math.round((0.01 * (mass / scale))), 255);
@@ -191,6 +204,22 @@ var spawnRock = (function spawnRock$(x_y$7, mass, scale) {
   game.systems.get(Physics, rock).forces = [ Friction ];
   game.systems.get(Position, rock).x = x;
   return game.systems.get(Position, rock).y = y;
+});
+const plants=create(EntityGroup)("Plants", [ Dot, Position, Physics, Collision, Velocity ], game.ent);
+var spawnPlant = (function spawnPlant$(x_y$10, mass) {
+  /* spawn-plant eval.sibilant:151:0 */
+
+  var x = x_y$10[0],
+      y = x_y$10[1];
+
+  var plant = plants.spawn([ Dot, Position, Physics, Collision, Velocity ]);
+  var hardness = Math.min(Math.round((0.1 * mass)), 255);
+  game.systems.get(Dot, plant).color = rgba((hardness + 30), 255, (hardness + 30), 255);
+  game.systems.get(Physics, plant).mass = mass;
+  game.systems.get(Physics, plant).scale = mass;
+  game.systems.get(Physics, plant).forces = [ Friction ];
+  game.systems.get(Position, plant).x = x;
+  return game.systems.get(Position, plant).y = y;
 });
 var number = 1;
 var nextSpawn = (() => {
@@ -204,13 +233,45 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:161:0 */
+  /* clear-ants eval.sibilant:172:0 */
 
   return ants.clear();
 });
+(function() {
+  /* node_modules/kit/inc/loops.sibilant:26:8 */
+
+  var $for = null;
+  for (var i = 0;i < config.rocks;++(i))
+  {
+  $for = (function() {
+    /* node_modules/kit/inc/loops.sibilant:28:35 */
+  
+    return spawnRock([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))), (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+  }).call(this);
+  }
+  ;
+  return $for;
+}).call(this);
+(function() {
+  /* node_modules/kit/inc/loops.sibilant:26:8 */
+
+  var $for = null;
+  for (var i = 0;i < config.startingPlants;++(i))
+  {
+  $for = (function() {
+    /* node_modules/kit/inc/loops.sibilant:28:35 */
+  
+    return spawnPlant([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+  }).call(this);
+  }
+  ;
+  return $for;
+}).call(this);
 exports.spawnRock = spawnRock;
+exports.spawnPlant = spawnPlant;
 exports.ants = ants;
-exports.target = target;
+exports.plants = plants;
+exports.rocks = rocks;
 exports.home = home;
 exports.homePos = homePos;
 exports.nextSpawn = nextSpawn;

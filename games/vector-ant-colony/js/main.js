@@ -10,6 +10,24 @@ var {
 var { 
   Interface
  } = require("@kit-js/interface");
+var { 
+  List
+ } = require("sibilant-game-engine/client/data-structures/list");
+List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0) {
+  /* List.rotate-until node_modules/kit/inc/core/function-expressions.sibilant:29:8 */
+
+  return (function() {
+    if (predicate(this.head.item)) {
+      return this.head.item;
+    } else if (t > (this.size - 1)) {
+      return this.rotate().rotateUntil(predicate, ++(t));
+    } else {
+      return false;
+    }
+  }).call(this);
+});
+global.mixin = mixin;
+global.create = create;
 const socket=io("/engine");
 socket.on("change", (() => {
 	
@@ -22,8 +40,6 @@ socket.on("change", (() => {
   return console.log(err);
 
 }));
-global.mixin = mixin;
-global.create = create;
 var { 
   EventEmitter,
   emit,
@@ -162,11 +178,14 @@ var DocumentHead = DocumentNode.define("DocumentHead", {
 var createDocumentNode = create(DocumentNode);
 console.log(document.appendChild);
 var { 
-  Rendering
- } = require("sibilant-game-engine/client/systems/rendering/rendering"),
-    { 
+  TreeMap
+ } = require("tree-kit");
+var { 
   Game
  } = require("sibilant-game-engine/client/game"),
+    { 
+  Rendering
+ } = require("sibilant-game-engine/client/systems/rendering/rendering"),
     { 
   Dot
  } = require("sibilant-game-engine/client/systems/rendering/dot"),
@@ -180,24 +199,95 @@ var {
   Physics
  } = require("sibilant-game-engine/client/systems/physics"),
     { 
+  Scalar
+ } = require("sibilant-game-engine/client/math/scalar"),
+    { 
+  Component,
+  System
+ } = require("sibilant-game-engine/client/ecs/component"),
+    noise = require("./noise"),
+    Vector = require("./vector"),
+    { 
+  createVectorField,
+  updateParticle
+ } = require("./field"),
+    { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
-    config = require("./config");
-const rendering=Rendering.load({ 
-  size:config.dimensions,
-  limit:100,
-  blend:true
- });
-var stage = createDocumentNode("div", { 'id': "stage" }, []);
-var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
-createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
-var activeGameSystems = [ Dot, Position, Physics, Velocity, Collision ];
-var game = create(Game)(rendering, activeGameSystems, config.gameSpeed);
-rendering.backgroundColor = { 
-  r:255,
-  g:255,
-  b:255,
-  a:255
- };
-exports.game = game;
-exports.activeGameSystems = activeGameSystems;
+    { 
+  TreeMap
+ } = require("tree-kit"),
+    { 
+  SignalField
+ } = require("./forces/signal-field"),
+    { 
+  Friction
+ } = require("./forces/friction"),
+    { 
+  home,
+  homePos,
+  nextSpawn,
+  plants,
+  spawnPlant,
+  spawnRock
+ } = require("./entities"),
+    { 
+  game,
+  activeGameSystems
+ } = require("./game"),
+    config = require("./config"),
+    settings = require("./settings");
+var vector2d = (function vector2d$(x, y) {
+  /* vector2d eval.sibilant:69:0 */
+
+  return [ x, y ];
+});
+Collision.setBounds(config.dimensions[0], config.dimensions[1], 20, 50);
+game.start();
+var R = require("ramda");
+var { 
+  create,
+  extend,
+  mixin,
+  conditional,
+  cond,
+  partiallyApplyAfter
+ } = require("@kit-js/core/js/util");
+var { 
+  Interface
+ } = require("@kit-js/interface");
+global.mixin = mixin;
+global.create = create;
+console.log([ SignalField, Friction ]);
+(function() {
+  /* node_modules/kit/inc/loops.sibilant:26:8 */
+
+  var $for = null;
+  for (var i = 0;i < config.rocks;++(i))
+  {
+  $for = (function() {
+    /* node_modules/kit/inc/loops.sibilant:28:35 */
+  
+    return spawnRock([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))), (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+  }).call(this);
+  }
+  ;
+  return $for;
+}).call(this);
+(function() {
+  /* node_modules/kit/inc/loops.sibilant:26:8 */
+
+  var $for = null;
+  for (var i = 0;i < config.startingPlants;++(i))
+  {
+  $for = (function() {
+    /* node_modules/kit/inc/loops.sibilant:28:35 */
+  
+    return spawnPlant([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+  }).call(this);
+  }
+  ;
+  return $for;
+}).call(this);
+require("./events");
+nextSpawn();

@@ -4,6 +4,17 @@
 (include "kit-interface/header")
 (import-namespace interface)
 
+(set global
+     'mixin mixin
+     'create create)
+
+(require! (lit List) "sibilant-game-engine/client/data-structures/list")
+(def-generic List.rotate-until (predicate (t 0))
+             (if (predicate this.head.item)
+                 this.head.item
+                 (> t (- this.size 1))
+                 (pipe this .rotate (.rotate-until predicate (++ t)))
+                 false))
 
 (require! (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
           (lit Position) "sibilant-game-engine/client/systems/position"
@@ -31,7 +42,10 @@
 
         (def-generic spawn ( aspects system group)
                      (collect e (.spawn system aspects )
-                              (.add group e))))
+                              (.add group e)))
+        (def-generic despawn (entity group)
+                     (.remove group entity)
+                     (.despawn entity )))
 
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
@@ -71,36 +85,14 @@
      'forces [])
 
 
-(var target (entity [Dot Position Physics Collision Velocity]))
 
-(set (.get game.systems Dot target)
-     'color (rgba 0 0 255 255))
-(set (.get game.systems Position target )
-     'x (first config.target-location)
-     'y (second config.target-location)
-     'z 1)
-(print "target starting pos" (.get game.systems Position target ))
 
-(set (.get game.systems Physics target)
-     'scale 30
-     'mass 10000
-     'forces [])
 
-(set (.get game.systems Collision target)
-     'name 'target)
 
 
 (set (.get game.systems Collision home)
      'name 'home)
-(set target 'name 'target)
 (set home 'name 'home)
-;; (set (.get game.systems Velocity target)
-;;      ;; 'xd (random-signed 10)
-;;      ;; 'yd (random-signed 10)
-;;      )
-
-;; (set (.get game.systems Collision target)
-;;      'type 'static)
 
 (const ants ((create Entity-group)
              "Ants"
@@ -135,6 +127,7 @@
 (const rocks ((create Entity-group) "Rocks" [Dot, Position, Physics, Collision, Velocity]
               game.ent
               ))
+
 (print rocks)
 
 (def spawn-rock ([x, y], mass, scale)
@@ -153,16 +146,47 @@
           'x x
           'y y))
 
+(const plants ((create Entity-group) "Plants" [Dot, Position, Physics, Collision, Velocity]
+              game.ent))
+(def spawn-plant ([x, y], mass)
+     (var plant (.spawn plants [Dot, Position, Physics, Collision, Velocity]))
+     (var hardness (Math.min (Math.round (* 0.1 mass)) 255))
+
+     (set (.get game.systems Dot plant)
+          'color (rgba (+ hardness 30) 255   (+ hardness 30) 255))
+
+     (set (.get game.systems Physics plant)
+          'mass mass
+          'scale mass
+          'forces [Friction])
+
+     (set (.get game.systems Position plant)
+          'x x
+          'y y))
+
 (var number 1)
 (var next-spawn (=> () (unless (>= ants.group.size config.ant-limit)
                             (spawn-ant [home-pos.x home-pos.y] home)
                             (set-timeout next-spawn (Math.round (* 1000 (/ 1 config.spawn-rate)))))))
 
 (def clear-ants () (.clear ants))
+
+(do-times config.rocks (spawn-rock [(random-signed window.innerWidth window.innerHeight)
+                                     (random-signed window.innerWidth window.innerHeight)]
+                                   (+ 10 (random-signed 10))
+                                   (+ 10 (random-signed 10))))
+(do-times config.starting-plants (spawn-plant [(random-signed window.innerWidth window.innerHeight)
+                                                (random-signed window.innerWidth window.innerHeight)]
+                                              (+ 10 (random-signed 10))))
 (export spawn-rock)
+(export spawn-plant)
+
 (export ants)
-(export target)
+(export plants)
+(export rocks)
+
 (export home)
 (export home-pos)
 (export next-spawn)
 (export clear-ants)
+

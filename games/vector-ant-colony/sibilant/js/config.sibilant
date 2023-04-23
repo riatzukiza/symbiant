@@ -10,6 +10,10 @@
      'rows (Math.ceil (/ (second dim) size))
      'decay (random-float 10)
      'maxLength (random-int 100)
+     'growth-rate 0.001
+     'starting-plants 100
+     'max-velocity 10
+     'plantMassLimit 100
      'ant-limit 1000
      'max-in-decay 20
      'max-trail 999
@@ -24,7 +28,7 @@
      'spawn-rate (random-int 10)
      'home-location [300, 200]
      'target-location [700, 900]
-     'rocks 100
+     'rocks 200
      'stationary-resistance-coefficiant 0.1
      'track-trail true
      'vary-noise-with-time true

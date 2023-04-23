@@ -182,6 +182,12 @@ var {
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
+    { 
+  SignalField
+ } = require("./forces/signal-field"),
+    { 
+  Friction
+ } = require("./forces/friction"),
     config = require("./config");
 const rendering=Rendering.load({ 
   size:config.dimensions,

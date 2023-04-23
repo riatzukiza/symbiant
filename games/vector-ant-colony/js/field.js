@@ -114,9 +114,11 @@ module.exports.updateParticle = function updateParticle(
         vel.winCount++;
     }
     if(win) {
-        vel.returning = true;
         vel.xd = 0;
         vel.yd = 0;
+
+        p.x =homePos.x;
+        p.y =homePos.y;
     }
     if(pH.getLength() > config.maxLength) pH.setLength(config.maxLength);
     // vel.xd = pH.x

@@ -1,15 +1,24 @@
-(namespace engine-tests)
+(namespace vector-ants)
 (include "kit/header" )
 (import-namespace kit)
 (include "kit-interface/header" )
 (import-namespace interface)
 
-(const socket (io "/engine"))
-(on socket "change" () (print "change ") (.reload location))
+(require! (lit List) "sibilant-game-engine/client/data-structures/list")
+(def-generic List.rotate-until (predicate (t 0))
+             (if (predicate this.head.item)
+                 this.head.item
+                 (> t (- this.size 1))
+                 (pipe this .rotate (.rotate-until predicate (++ t)))
+                 false))
 
 (set global
      'mixin mixin
      'create create)
+
+(const socket (io "/engine"))
+(on socket "change" () (print "change ") (.reload location))
+
 
 (include "kit-html/src/dom")
 
@@ -45,39 +54,46 @@
           noise "./noise"
           Vector "./vector"
           (lit create-vector-field update-particle) "./field"
-          (lit List) "sibilant-game-engine/client/data-structures/list"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Tree-map) "tree-kit"
           (lit Signal-field) "./forces/signal-field"
           (lit Friction) "./forces/friction"
-          (lit target home home-pos next-spawn spawn-rock) "./entities"
+          (lit  home home-pos next-spawn plants spawn-plant spawn-rock) "./entities"
 
           (lit game active-game-systems) "./game"
           config "./config"
           settings "./settings")
 
-(def-generic List.rotate-until (predicate (t 0))
-             (if (predicate this.head.item)
-                 this.head.item
-                 (> t (- this.size 1))
-                 (pipe this .rotate (.rotate-until predicate (++ t)))
-                 false))
 
 (def vector2d (x y) [x y])
 
 
-(require "./collision")
-(next-spawn)
-(print target home home-pos next-spawn)
+
+
 (.set-bounds Collision (first config.dimensions) (second config.dimensions)
              20
              50)
 
 (.start game)
 
+(namespace vector-ants)
+(include "kit/header" )
+(import-namespace kit)
+(include "kit-interface/header" )
+(import-namespace interface)
+
+(set global
+     'mixin mixin
+     'create create)
+
+(print [Signal-field Friction])
 (do-times config.rocks (spawn-rock [(random-signed window.innerWidth window.innerHeight)
                              (random-signed window.innerWidth window.innerHeight)]
-                           (+ 10 (random-signed 100))
-                           (+ 20 (random-signed 80))))
-
+                           (+ 10 (random-signed 10))
+                           (+ 10 (random-signed 10))))
+(do-times config.starting-plants (spawn-plant [(random-signed window.innerWidth window.innerHeight)
+                                                (random-signed window.innerWidth window.innerHeight)]
+                                              (+ 10 (random-signed 10))))
+(require "./events")
+(next-spawn)
