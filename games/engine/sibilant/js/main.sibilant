@@ -78,7 +78,7 @@
 
 (.start game)
 
-(do-times config.rocks (spawn-rock [(random-signed 0 window.innerHeight) (random-signed 0 window.innerWidth)]
+(do-times config.rocks (spawn-rock [(random-signed 1 window.innerHeight) (random-signed 1 window.innerWidth)]
                            (+ 10 (random-signed 100))
                            (+ 20 (random-signed 80))))
 

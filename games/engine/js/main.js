@@ -258,13 +258,13 @@ game.start();
     return spawnRock([ (function() {
       /* eval.sibilant:30:8 */
     
-      var rand = ((Math.random() * (0 - 0)) + 0);
-      return (0 - (rand * 2));
+      var rand = ((Math.random() * (1 - 0)) + 0);
+      return (1 - (rand * 2));
     }).call(this), (function() {
       /* eval.sibilant:30:8 */
     
-      var rand = ((Math.random() * (0 - 0)) + 0);
-      return (0 - (rand * 2));
+      var rand = ((Math.random() * (1 - 0)) + 0);
+      return (1 - (rand * 2));
     }).call(this) ], (10 + (function() {
       /* eval.sibilant:30:8 */
     
