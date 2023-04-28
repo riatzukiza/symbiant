@@ -3,9 +3,6 @@
 (import-namespace kit)
 (include "kit-interface/header" )
 (import-namespace interface)
-(macro do-times (n ...body)
-       `(for ( i 0) (< i @n) (++ i)
-             ...@body))
 (const socket (io "/engine"))
 (on socket "change" () (print "change ") (.reload location))
 
@@ -36,6 +33,9 @@
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
 
+(macro do-times (n ...body)
+       `(for ( i 0) (< i @n) (++ i)
+             ...@body))
 (require! (lit Game) "sibilant-game-engine/client/game"
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
           (lit Dot) "sibilant-game-engine/client/systems/rendering/dot"
