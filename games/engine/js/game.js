@@ -184,7 +184,6 @@ var {
  } = require("sibilant-game-engine/client/systems/collision"),
     config = require("./config");
 const rendering=Rendering.load({ 
-  size:config.dimensions,
   limit:1000,
   blend:true
  });
