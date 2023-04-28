@@ -18,7 +18,7 @@
      'options-amplitude (random-int 100)
      'limit-decay false
      'ant-influence (random-int 100)
-     'friction  (random-int 10)
+     'friction  (+ 2 (random-int 8))
      'collision-static (random-int 10)
      'spawn-static (random-int 10)
      'spawn-rate (random-int 10)
@@ -35,3 +35,4 @@
      'step-wise-update true
      'game-speed 1
      )
+(print exports.config)
