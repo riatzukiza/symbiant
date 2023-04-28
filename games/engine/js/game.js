@@ -183,11 +183,7 @@ var {
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     config = require("./config");
-const rendering=Rendering.load({ 
-  size:config.dimensions,
-  limit:1000,
-  blend:true
- });
+const rendering=Rendering.load();
 var stage = createDocumentNode("div", { 'id': "stage" }, []);
 var container = createDocumentNode("div", { 'id': "container" }, [ rendering.context.canvas ]);
 createDocumentNode("div", { 'id': "frame" }, [ container ]).render(DocumentRoot);
