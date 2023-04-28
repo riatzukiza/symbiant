@@ -1,5 +1,5 @@
-const dim=[ window.innerWidth, window.innerHeight ];
-const size=1;
+const dim = [ window.innerWidth, window.innerHeight ];
+const size = 1;
 module.exports.size = size;
 module.exports.angleZoom = (Math.floor((Math.random() * ( - 100))) + 100);
 module.exports.noiseZ = (Math.floor((Math.random() * ( - 100))) + 100);

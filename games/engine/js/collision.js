@@ -23,14 +23,14 @@ var {
  } = require("./forces/signal-field"),
     Tone = require("tone"),
     config = require("./config");
-const synth=(new Tone.Synth()).toDestination();
+const synth = (new Tone.Synth()).toDestination();
 var isCollision = false;
 var isWin = false;
 var isLoose = false;
-const collisionSynth=(new Tone.FMSynth()).toDestination();
-const looseSynth=(new Tone.FMSynth()).toDestination();
-const winSynth=(new Tone.FMSynth()).toDestination();
-const winLoop=(new Tone.Loop(((time) => {
+const collisionSynth = (new Tone.FMSynth()).toDestination();
+const looseSynth = (new Tone.FMSynth()).toDestination();
+const winSynth = (new Tone.FMSynth()).toDestination();
+const winLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isWin) {
@@ -39,8 +39,8 @@ const winLoop=(new Tone.Loop(((time) => {
     }
   }).call(this);
 
-}), "64n")).start(0);
-const looseLoop=(new Tone.Loop(((time) => {
+}, "64n")).start(0);
+const looseLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isLoose) {
@@ -49,8 +49,8 @@ const looseLoop=(new Tone.Loop(((time) => {
     }
   }).call(this);
 
-}), "64n")).start("64n");
-const collisionLoop=(new Tone.Loop(((time) => {
+}, "64n")).start("64n");
+const collisionLoop = (new Tone.Loop((time) => {
 	
   return (function() {
     if (isCollision) {
@@ -59,20 +59,15 @@ const collisionLoop=(new Tone.Loop(((time) => {
     }
   }).call(this);
 
-}), "64n")).start("16n");
+}, "64n")).start("16n");
 Tone.Transport.start();
 Tone.Transport.bpm.rampTo(800, 100);
-game.events.on("loose", (() => {
+game.events.on("loose", () => {
 	
   return isLoose = true;
 
-})).once("error", ((err) => {
-	
-  console.log("error on", "loose", "of", "game.events", "given", "null");
-  return console.log(err);
-
-}));
-game.events.on("collision", (([ c, c_, d ]) => {
+});
+game.events.on("collision", ([ c, c_, d ]) => {
 	
   var cv = game.systems.get(Velocity, c.entity);
   var c_v = game.systems.get(Velocity, c_.entity);
@@ -155,9 +150,4 @@ game.events.on("collision", (([ c, c_, d ]) => {
   c_.colliding = false;
   return c.colliding = false;
 
-})).once("error", ((err) => {
-	
-  console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
-  return console.log(err);
-
-}));
+});

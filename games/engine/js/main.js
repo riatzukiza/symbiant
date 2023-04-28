@@ -237,7 +237,7 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
   }).call(this);
 });
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:67:0 */
+  /* vector2d eval.sibilant:69:0 */
 
   return [ x, y ];
 });
@@ -250,28 +250,28 @@ game.start();
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < config.rocks;++(i))
+  for (var let = time;time < config.rocks;++(time))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
   
     return spawnRock([ (function() {
-      /* eval.sibilant:31:8 */
+      /* eval.sibilant:33:8 */
     
-      var rand = ((Math.random() * (window.innerWidth - 0)) + 0);
-      return (window.innerWidth - (rand * 2));
+      var rand = ((Math.random() * (0 - 0)) + 0);
+      return (0 - (rand * 2));
     }).call(this), (function() {
-      /* eval.sibilant:31:8 */
+      /* eval.sibilant:33:8 */
     
-      var rand = ((Math.random() * (window.innerWidth - 0)) + 0);
-      return (window.innerWidth - (rand * 2));
+      var rand = ((Math.random() * (0 - 0)) + 0);
+      return (0 - (rand * 2));
     }).call(this) ], (10 + (function() {
-      /* eval.sibilant:31:8 */
+      /* eval.sibilant:33:8 */
     
       var rand = ((Math.random() * (100 - 0)) + 0);
       return (100 - (rand * 2));
     }).call(this)), (20 + (function() {
-      /* eval.sibilant:31:8 */
+      /* eval.sibilant:33:8 */
     
       var rand = ((Math.random() * (80 - 0)) + 0);
       return (80 - (rand * 2));

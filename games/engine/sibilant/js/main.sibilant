@@ -3,7 +3,9 @@
 (import-namespace kit)
 (include "kit-interface/header" )
 (import-namespace interface)
-
+(macro do-times (n ...body)
+       `(for ( i 0) (< i @n) (++ i)
+             ...@body))
 (const socket (io "/engine"))
 (on socket "change" () (print "change ") (.reload location))
 
@@ -76,8 +78,7 @@
 
 (.start game)
 
-(do-times config.rocks (spawn-rock [(random-signed window.innerWidth window.innerHeight)
-                             (random-signed window.innerWidth window.innerHeight)]
+(do-times config.rocks (spawn-rock [(random-signed 0 window.innerHeight) (random-signed 0 window.innerWidth)]
                            (+ 10 (random-signed 100))
                            (+ 20 (random-signed 80))))
 

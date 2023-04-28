@@ -197,4 +197,4 @@ const Pheremones = {
     
    }
  };
-exports.Pheremones = Pheremones;mones;
+exports.Pheremones = Pheremones;

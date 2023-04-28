@@ -263,7 +263,7 @@ console.log([ SignalField, Friction ]);
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < config.rocks;++(i))
+  for (var let = time;time < config.rocks;++(time))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
@@ -278,7 +278,7 @@ console.log([ SignalField, Friction ]);
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
   var $for = null;
-  for (var i = 0;i < config.startingPlants;++(i))
+  for (var let = time;time < config.startingPlants;++(time))
   {
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
