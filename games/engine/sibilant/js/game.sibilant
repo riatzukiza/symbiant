@@ -44,8 +44,7 @@
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
 (const rendering (.load Rendering
-                        (lit (size [(* 2 window.innerWidth), (* 2 window.innerHeight)])
-                             (limit 1000)
+                        (lit (dimensions [(* 2 window.innerWidth), (* 2 window.innerHeight)])
                              (blend true))))
 
 (print "rendering" rendering)
