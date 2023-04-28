@@ -24,7 +24,7 @@
      'spawn-rate (random-int 10)
      'home-location [300, 200]
      'target-location [700, 900]
-     'rocks 10
+     'rocks 20
      'stationary-resistance-coefficiant 0.1
      'track-trail true
      'vary-noise-with-time true
