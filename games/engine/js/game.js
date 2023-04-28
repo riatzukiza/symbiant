@@ -185,7 +185,7 @@ var {
     config = require("./config");
 const rendering=Rendering.load({ 
   size:config.dimensions,
-  limit:100,
+  limit:1000,
   blend:true
  });
 var stage = createDocumentNode("div", { 'id': "stage" }, []);
