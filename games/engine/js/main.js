@@ -244,7 +244,7 @@ var vector2d = (function vector2d$(x, y) {
 require("./collision");
 nextSpawn();
 console.log(target, home, homePos, nextSpawn);
-Collision.setBounds(config.dimensions[1], config.dimensions[0], 20, 50);
+Collision.setBounds(config.dimensions[0], config.dimensions[1], 20, 50);
 game.start();
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */

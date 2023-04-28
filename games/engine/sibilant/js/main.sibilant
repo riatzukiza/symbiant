@@ -72,7 +72,7 @@
 (require "./collision")
 (next-spawn)
 (print target home home-pos next-spawn)
-(.set-bounds Collision (second config.dimensions) (first config.dimensions) 
+(.set-bounds Collision (first config.dimensions) (second config.dimensions)
              20
              50)
 
