@@ -43,7 +43,10 @@
          (- @max (* rand 2))))
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
-(const rendering (.load Rendering))
+(const rendering (.load Rendering
+                        (lit (size config.dimensions)
+                             (limit 100)
+                             (blend true))))
 
 
 (var stage (dom (.div .id 'stage )))
