@@ -78,7 +78,7 @@
 
 (.start game)
 (macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
-(do-times config.rocks (spawn-rock [(random-int 1 window.innerHeight) (random-int 1 window.innerWidth)]
+(do-times config.rocks (spawn-rock [(random-int 1 window.innerWidth) (random-int 1 window.innerHeight)]
                            (+ 10 (random-int 100))
                            (+ 20 (random-int 80))))
 
