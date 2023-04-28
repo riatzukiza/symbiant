@@ -255,7 +255,7 @@ game.start();
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
   
-    return spawnRock(window.size(), (10 + (Math.floor((Math.random() * ( - 100))) + 100)), (20 + (Math.floor((Math.random() * ( - 80))) + 80)));
+    return spawnRock([ (Math.floor((Math.random() * (window.innerWidth - 0))) + 0), (Math.floor((Math.random() * (window.innerHeight - 0))) + 0) ], (10 + (Math.floor((Math.random() * ( - 100))) + 100)), (20 + (Math.floor((Math.random() * ( - 80))) + 80)));
   }).call(this);
   }
   ;
