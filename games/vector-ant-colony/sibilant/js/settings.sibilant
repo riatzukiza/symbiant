@@ -6,7 +6,7 @@
 (.addRange settings "Angle Zoom" 1 99 config.angle-zoom 1 (=> (val) (assign config.angle-zoom (/ val config.options-amplitude ))))
 (.addRange settings "Noise Z" 1 99 config.noise-z 1 (=> (val) (assign config.noise-z (/ val config.options-amplitude ))))
 (.addRange settings "Noise Force" 1 99 config.field-force 0.1 (=> (val) (assign config.field-force (/ val config.options-amplitude ))))
-(.addRange settings "Signal Decay" 0 99 config.decay 0.1 (=> (val) (assign config.decay (/ val config.options-amplitude))))
+(.addRange settings "Signal Decay" 0 5 config.decay 0.01 (=> (val) (assign config.decay (/ val config.options-amplitude))))
 (.addRange settings "Max P Vector Length"  0 99 config.max-length 0.1 (=> (val) (assign config.max-length (/ val config.options-amplitude ))))
 (.addRange settings "Max Trail" 10 999 config.max-trail 1(=> (val) (assign config.max-trail val)))
 (.addRange settings "Min Trail" 10 99 config.min-trail 1 (=> (val) (assign config.min-trail val)))

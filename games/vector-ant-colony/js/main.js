@@ -28,11 +28,15 @@ List.rotateUntil = (function List$rotateUntil$(predicate = this.predicate, t = 0
 });
 global.mixin = mixin;
 global.create = create;
-const socket=io("/engine");
+const socket=io("/vector-ant-colony");
 socket.on("change", (() => {
 	
   console.log("change ");
-  return location.reload();
+  return setTimeout((() => {
+  	
+    return location.reload();
+  
+  }), 5000);
 
 })).once("error", ((err) => {
 	
@@ -238,27 +242,14 @@ var {
     config = require("./config"),
     settings = require("./settings");
 var vector2d = (function vector2d$(x, y) {
-  /* vector2d eval.sibilant:69:0 */
+  /* vector2d eval.sibilant:72:0 */
 
   return [ x, y ];
 });
 Collision.setBounds(config.dimensions[0], config.dimensions[1], 20, 50);
 game.start();
-var R = require("ramda");
-var { 
-  create,
-  extend,
-  mixin,
-  conditional,
-  cond,
-  partiallyApplyAfter
- } = require("@kit-js/core/js/util");
-var { 
-  Interface
- } = require("@kit-js/interface");
 global.mixin = mixin;
 global.create = create;
-console.log([ SignalField, Friction ]);
 (function() {
   /* node_modules/kit/inc/loops.sibilant:26:8 */
 
@@ -268,7 +259,27 @@ console.log([ SignalField, Friction ]);
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
   
-    return spawnRock([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))), (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+    return spawnRock([ (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (window.innerWidth - 0)) + 0);
+      return (window.innerWidth - (rand * 2));
+    }).call(this), (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (window.innerHeight - 0)) + 0);
+      return (window.innerHeight - (rand * 2));
+    }).call(this) ], (10 + (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (10 - 0)) + 0);
+      return (10 - (rand * 2));
+    }).call(this)), (10 + (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (10 - 0)) + 0);
+      return (10 - (rand * 2));
+    }).call(this)));
   }).call(this);
   }
   ;
@@ -283,11 +294,25 @@ console.log([ SignalField, Friction ]);
   $for = (function() {
     /* node_modules/kit/inc/loops.sibilant:28:35 */
   
-    return spawnPlant([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
+    return spawnPlant([ (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (window.innerWidth - 0)) + 0);
+      return (window.innerWidth - (rand * 2));
+    }).call(this), (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (window.innerHeight - 0)) + 0);
+      return (window.innerHeight - (rand * 2));
+    }).call(this) ], (10 + (function() {
+      /* eval.sibilant:42:8 */
+    
+      var rand = ((Math.random() * (10 - 0)) + 0);
+      return (10 - (rand * 2));
+    }).call(this)));
   }).call(this);
   }
   ;
   return $for;
 }).call(this);
 require("./events");
-nextSpawn();

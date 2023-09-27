@@ -1,7 +1,7 @@
-
 (require! (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Collision) "sibilant-game-engine/client/systems/collision")
 
+(print "what")
 (require! config "../config")
 
 (define Friction Physics.Force

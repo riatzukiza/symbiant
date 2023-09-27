@@ -48,6 +48,9 @@ var {
   Group
  } = require("sibilant-game-engine/client/data-structures/group"),
     { 
+  List
+ } = require("sibilant-game-engine/client/data-structures/list"),
+    { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
@@ -65,7 +68,7 @@ var {
  } = require("tree-kit"),
     config = require("./config");
 var clear = (function() {
-  /* eval.sibilant:32:11 */
+  /* eval.sibilant:34:11 */
 
   return arguments[0].clear();
 });
@@ -104,17 +107,17 @@ var EntityGroup = Interface.define("EntityGroup", {
   despawn( entity = this.entity,group = this.group ){ 
     
       group.remove(entity);
-      return entity.despawn();
+      return entity.clear();
     
    }
  });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:57:0 */
+  /* Tree-map.get eval.sibilant:60:0 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:60:0 */
+  /* memoize eval.sibilant:63:0 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -149,7 +152,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:67:0 */
+  /* entity eval.sibilant:70:0 */
 
   return game.ent.spawn(aspects);
 });
@@ -166,11 +169,11 @@ game.systems.get(Physics, home).forces = [];
 game.systems.get(Collision, home).name = "home";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
-  /* spawn-ant eval.sibilant:101:0 */
+var spawnAnt = (function spawnAnt$(x_y$4, home, startingLife) {
+  /* spawn-ant eval.sibilant:104:0 */
 
-  var x = x_y$8[0],
-      y = x_y$8[1];
+  var x = x_y$4[0],
+      y = x_y$4[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -190,11 +193,11 @@ var spawnAnt = (function spawnAnt$(x_y$8, home, startingLife) {
 });
 const rocks=create(EntityGroup)("Rocks", [ Dot, Position, Physics, Collision, Velocity ], game.ent);
 console.log(rocks);
-var spawnRock = (function spawnRock$(x_y$9, mass, scale) {
-  /* spawn-rock eval.sibilant:133:0 */
+var spawnRock = (function spawnRock$(x_y$5, mass, scale) {
+  /* spawn-rock eval.sibilant:136:0 */
 
-  var x = x_y$9[0],
-      y = x_y$9[1];
+  var x = x_y$5[0],
+      y = x_y$5[1];
 
   var rock = rocks.spawn([ Dot, Position, Physics, Collision, Velocity ]);
   var hardness = Math.min(Math.round((0.01 * (mass / scale))), 255);
@@ -206,11 +209,11 @@ var spawnRock = (function spawnRock$(x_y$9, mass, scale) {
   return game.systems.get(Position, rock).y = y;
 });
 const plants=create(EntityGroup)("Plants", [ Dot, Position, Physics, Collision, Velocity ], game.ent);
-var spawnPlant = (function spawnPlant$(x_y$10, mass) {
-  /* spawn-plant eval.sibilant:151:0 */
+var spawnPlant = (function spawnPlant$(x_y$6, mass) {
+  /* spawn-plant eval.sibilant:154:0 */
 
-  var x = x_y$10[0],
-      y = x_y$10[1];
+  var x = x_y$6[0],
+      y = x_y$6[1];
 
   var plant = plants.spawn([ Dot, Position, Physics, Collision, Velocity ]);
   var hardness = Math.min(Math.round((0.1 * mass)), 255);
@@ -222,57 +225,17 @@ var spawnPlant = (function spawnPlant$(x_y$10, mass) {
   return game.systems.get(Position, plant).y = y;
 });
 var number = 1;
-var nextSpawn = (() => {
-	
-  return (function() {
-    if (!(ants.group.size >= config.antLimit)) {
-      spawnAnt([ homePos.x, homePos.y ], home);
-      return setTimeout(nextSpawn, Math.round((1000 * (1 / config.spawnRate))));
-    }
-  }).call(this);
-
-});
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:172:0 */
+  /* clear-ants eval.sibilant:173:0 */
 
   return ants.clear();
 });
-(function() {
-  /* node_modules/kit/inc/loops.sibilant:26:8 */
-
-  var $for = null;
-  for (var i = 0;i < config.rocks;++(i))
-  {
-  $for = (function() {
-    /* node_modules/kit/inc/loops.sibilant:28:35 */
-  
-    return spawnRock([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))), (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
-  }).call(this);
-  }
-  ;
-  return $for;
-}).call(this);
-(function() {
-  /* node_modules/kit/inc/loops.sibilant:26:8 */
-
-  var $for = null;
-  for (var i = 0;i < config.startingPlants;++(i))
-  {
-  $for = (function() {
-    /* node_modules/kit/inc/loops.sibilant:28:35 */
-  
-    return spawnPlant([ ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)), ((Math.random() * (window.innerWidth - (-1 * window.innerWidth))) + (-1 * window.innerWidth)) ], (10 + ((Math.random() * (10 - (-1 * 10))) + (-1 * 10))));
-  }).call(this);
-  }
-  ;
-  return $for;
-}).call(this);
 exports.spawnRock = spawnRock;
 exports.spawnPlant = spawnPlant;
+exports.spawnAnt = spawnAnt;
 exports.ants = ants;
 exports.plants = plants;
 exports.rocks = rocks;
 exports.home = home;
 exports.homePos = homePos;
-exports.nextSpawn = nextSpawn;
 exports.clearAnts = clearAnts;

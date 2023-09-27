@@ -11,6 +11,7 @@ var {
   Collision
  } = require("sibilant-game-engine/client/systems/collision"),
     { 
+  spawnAnt,
   home,
   homePos,
   ants,
@@ -48,6 +49,41 @@ var signalFood = (function signalFood$(v) {
   c_v.pos.y = homePos.y;
   return null;
 });
+game.events.on("tick", (() => {
+	
+  (function() {
+    if (!(ants.group.size >= config.antLimit)) {
+      return spawnAnt([ homePos.x, homePos.y ], home);
+    }
+  }).call(this);
+  return plants.group.each(((plant) => {
+  	
+    var physics = game.systems.get(Physics, plant);
+    (function() {
+      if (0 >= physics.mass) {
+        console.log("plant despawned");
+        return plants.despawn(plant);
+      } else {
+        physics.mass = (physics.mass + config.growthRate);
+        physics.scale = (physics.scale + config.growthRate);
+        return (function() {
+          if (physics.mass > config.plantMassLimit) {
+            physics.mass = (physics.mass / 2);
+            return spawnPlant([ (((Math.random() * (physics.mass - (-1 * physics.mass))) + (-1 * physics.mass)) + physics.position.x), (((Math.random() * (physics.mass - (-1 * physics.mass))) + (-1 * physics.mass)) + physics.position.y) ], physics.mass);
+          }
+        }).call(this);
+      }
+    }).call(this);
+    return null;
+  
+  }));
+
+})).once("error", ((err) => {
+	
+  console.log("error on", "tick", "of", "game.events", "given", "null");
+  return console.log(err);
+
+}));
 game.events.on("loose", (() => {
 	
   return isLoose = true;
@@ -60,22 +96,21 @@ game.events.on("loose", (() => {
 }));
 game.events.on("collision", (([ c, c_, d ]) => {
 	
+  var v = game.systems.get(Velocity, c.entity);
+  var v_ = game.systems.get(Velocity, c_.entity);
+  var p = game.systems.get(Physics, c.entity);
+  var p_ = game.systems.get(Physics, c_.entity);
+  (function() {
+    if ((v && v_ && p && p_)) {
+      return game.events.emit("simpleCollision", [ c_, c ]);
+    }
+  }).call(this);
   (function() {
     if (config.printCollisionEvent) {
       return console.log("collision event", c, c_, d, Collision.quads, { 
         home,
         homePos
        });
-    }
-  }).call(this);
-  (function() {
-    if ((ants.has(c_.entity) && c.entity === home)) {
-      return game.events.emit("homeAntCollision", [ c, c_ ]);
-    }
-  }).call(this);
-  (function() {
-    if ((ants.has(c.entity) && c_.entity === home)) {
-      return game.events.emit("homeAntCollision", [ c_, c ]);
     }
   }).call(this);
   (function() {
@@ -98,33 +133,19 @@ game.events.on("collision", (([ c, c_, d ]) => {
       return game.events.emit("antFoundPlant", [ c, c_ ]);
     }
   }).call(this);
-  var v = game.systems.get(Velocity, c.entity);
-  var v_ = game.systems.get(Velocity, c_.entity);
-  var p = game.systems.get(Physics, c.entity);
-  var p_ = game.systems.get(Physics, c_.entity);
-  var m = p.mass;
-  var m_ = p_.mass;
   (function() {
-    if ((v && v_ && p && p_)) {
-      return game.events.emit("simpleCollision", [ c_, c ]);
+    if ((ants.has(c.entity) && ants.has(c_.entity))) {
+      return game.events.emit("antCollision", [ c, c_ ]);
     }
   }).call(this);
+  var m = p.mass;
+  var m_ = p_.mass;
   c_.colliding = false;
   return c.colliding = false;
 
 })).once("error", ((err) => {
 	
   console.log("error on", "collision", "of", "game.events", "given", "[ c, c_, d ]()");
-  return console.log(err);
-
-}));
-game.events.on("homeAntCollision", (([ home, c ]) => {
-	
-  return applyStatic(c);
-
-})).once("error", ((err) => {
-	
-  console.log("error on", "homeAntCollision", "of", "game.events", "given", "[ home, c ]()");
   return console.log(err);
 
 }));
@@ -138,8 +159,26 @@ game.events.on("plantCollidingWithSpawn", (([ home, plant ]) => {
   return console.log(err);
 
 }));
+game.events.on("antCollision", (([ c, c_ ]) => {
+	
+  var v = game.systems.get(Velocity, c.entity);
+  var v_ = game.systems.get(Velocity, c_.entity);
+  var p = game.systems.get(Physics, c.entity);
+  var p_ = game.systems.get(Physics, c_.entity);
+  applyStatic(c);
+  applyStatic(c_);
+  updateParticle(v, v.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, false, homePos);
+  return updateParticle(v_, v_.pos, SignalField.field, SignalField.layer, game.ticker.ticks, false, false, homePos);
+
+})).once("error", ((err) => {
+	
+  console.log("error on", "antCollision", "of", "game.events", "given", "[ c, c_ ]()");
+  return console.log(err);
+
+}));
 game.events.on("antFoundPlant", (([ ant, plant ]) => {
 	
+  console.log("ant found plant", ant, plant);
   var av = game.systems.get(Velocity, ant.entity);
   isWin = true;
   updateParticle(av, av.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, true, homePos);
@@ -172,41 +211,6 @@ game.events.on("simpleCollision", (([ c, c_ ]) => {
 })).once("error", ((err) => {
 	
   console.log("error on", "simpleCollision", "of", "game.events", "given", "[ c, c_ ]()");
-  return console.log(err);
-
-}));
-game.events.on("tick", (() => {
-	
-  ants.group.each(((ant) => {
-  	
-    return updateParticle(av, av.pos, SignalField.field, SignalField.layer, game.ticker.ticks, true, false, homePos);
-  
-  }), null);
-  return plants.group.each(((plant) => {
-  	
-    (function() {
-      if (0 >= pp.mass) {
-        console.log("plant despawned");
-        return plant.entity.despawn();
-      } else {
-        var physics = game.systems.get(Physics, plant);
-        physics.mass = (physics.mass + config.growthRate);
-        physics.scale = (physics.scale + config.growthRate);
-        return (function() {
-          if (physics.mass > config.plantMassLimit) {
-            physics.mass = (physics.mass / 2);
-            return spawnPlant([ (((Math.random() * (physics.mass - (-1 * physics.mass))) + (-1 * physics.mass)) + physics.position.x), (((Math.random() * (physics.mass - (-1 * physics.mass))) + (-1 * physics.mass)) + physics.position.y) ], physics.mass);
-          }
-        }).call(this);
-      }
-    }).call(this);
-    return null;
-  
-  }));
-
-})).once("error", ((err) => {
-	
-  console.log("error on", "tick", "of", "game.events", "given", "null");
   return console.log(err);
 
 }));

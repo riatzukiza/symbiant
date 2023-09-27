@@ -1,3 +1,4 @@
+(namespace vector-ants)
 (include "kit/header" )
 (import-namespace kit)
 
@@ -22,6 +23,7 @@
           (lit Physics) "sibilant-game-engine/client/systems/physics"
           (lit Component System) "sibilant-game-engine/client/ecs/component"
           (lit Group) "sibilant-game-engine/client/data-structures/group"
+          (lit List) "sibilant-game-engine/client/data-structures/list"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit Signal-field) "./forces/signal-field"
@@ -33,7 +35,8 @@
 
 (define Entity-group Interface
 
-        (init (name aspects system (group ((create Group)))))
+        (init (name aspects system (group ((create Group) )))
+              )
 
         (def-generic clear (group) (.each group (=> (e)
                                                     (print "despawning" e)
@@ -45,7 +48,7 @@
                               (.add group e)))
         (def-generic despawn (entity group)
                      (.remove group entity)
-                     (.despawn entity )))
+                     (.clear entity )))
 
 
 (macro random-sign  ( ) `(if (< (Math.random) 0.5) -1 1))
@@ -165,21 +168,13 @@
           'y y))
 
 (var number 1)
-(var next-spawn (=> () (unless (>= ants.group.size config.ant-limit)
-                            (spawn-ant [home-pos.x home-pos.y] home)
-                            (set-timeout next-spawn (Math.round (* 1000 (/ 1 config.spawn-rate)))))))
+;; (var next-spawn (=> () ))
 
 (def clear-ants () (.clear ants))
 
-(do-times config.rocks (spawn-rock [(random-signed window.innerWidth window.innerHeight)
-                                     (random-signed window.innerWidth window.innerHeight)]
-                                   (+ 10 (random-signed 10))
-                                   (+ 10 (random-signed 10))))
-(do-times config.starting-plants (spawn-plant [(random-signed window.innerWidth window.innerHeight)
-                                                (random-signed window.innerWidth window.innerHeight)]
-                                              (+ 10 (random-signed 10))))
 (export spawn-rock)
 (export spawn-plant)
+(export spawn-ant)
 
 (export ants)
 (export plants)
@@ -187,6 +182,5 @@
 
 (export home)
 (export home-pos)
-(export next-spawn)
 (export clear-ants)
 

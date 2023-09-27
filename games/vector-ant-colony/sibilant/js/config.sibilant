@@ -11,7 +11,7 @@
      'decay (random-float 10)
      'maxLength (random-int 100)
      'growth-rate 0.001
-     'starting-plants 100
+     'starting-plants 10
      'max-velocity 10
      'plantMassLimit 100
      'ant-limit 1000

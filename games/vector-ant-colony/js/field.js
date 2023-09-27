@@ -16,7 +16,8 @@ module.exports.updateParticle = function updateParticle(
     decay=false,
     win=false,
     homePos,
-    loose =  (vel.xd < 0.0001 && vel.yd < 0.0001) || isNaN(vel.xd)|| isNaN(vel.yd) || (vel?.trail?.length >= config.maxTrail) //Math.max(vel.winCount +config.maxTrail -vel.looseCount))
+    loose =  // (vel.xd < 0.0001 && vel.yd < 0.0001) ||
+    isNaN(vel.xd)|| isNaN(vel.yd) || (vel?.trail?.length >= config.maxTrail) //Math.max(vel.winCount +config.maxTrail -vel.looseCount))
 ) {
     const pos = new Vector(0,0);
     pos.x = Math.min(Math.max(Math.round(p.x / config.size),0), config.columns-1) || 1;
@@ -81,8 +82,8 @@ module.exports.updateParticle = function updateParticle(
         let weight = vel.looseCount/(vel.winCount+1);
         for(let {x,y,pheremones} of vel.trail) {
             pheremones.subFrom({
-                x:(x*weight*config.antInfluence)/config.lossFactor,
-                y:(y*weight*config.antInfluence)/config.lossFactor,
+                x:(x*weight*config.antInfluence),
+                y:(y*weight*config.antInfluence),
             });
         }
     }
@@ -105,8 +106,8 @@ module.exports.updateParticle = function updateParticle(
         let weight = vel.winCount/(vel.looseCount + 1);
         for(let {x,y,pheremones} of vel.trail) {
             pheremones.addTo({
-                x:config.winYield/(x*weight*config.antInfluence),
-                y:config.winYield/(y*weight*config.antInfluence),
+                x:(x*weight*config.antInfluence),
+                y:(y*weight*config.antInfluence),
             });
         }
 

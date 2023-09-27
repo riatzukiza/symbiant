@@ -16,8 +16,10 @@
      'mixin mixin
      'create create)
 
-(const socket (io "/engine"))
-(on socket "change" () (print "change ") (.reload location))
+(const socket (io "/vector-ant-colony"))
+(on socket "change" ()
+    (print "change ")
+    (set-timeout (->  (.reload location)) 5000))
 
 
 (include "kit-html/src/dom")
@@ -42,6 +44,7 @@
          (-  @max (* rand 2))))
 
 (macro random-float ( min max) `(+ (* (Math.random) (- @max @min)) @min))
+(macro random-int ( min max) `(+ (Math.floor (* (Math.random) (- @max @min))) @min))
 
 (require! (lit Game) "sibilant-game-engine/client/game"
           (lit Rendering) "sibilant-game-engine/client/systems/rendering/rendering"
@@ -77,23 +80,17 @@
 
 (.start game)
 
-(namespace vector-ants)
-(include "kit/header" )
-(import-namespace kit)
-(include "kit-interface/header" )
-(import-namespace interface)
-
 (set global
      'mixin mixin
      'create create)
 
-(print [Signal-field Friction])
-(do-times config.rocks (spawn-rock [(random-signed window.innerWidth window.innerHeight)
-                             (random-signed window.innerWidth window.innerHeight)]
+(do-times config.rocks (spawn-rock [(random-signed window.innerWidth )
+                                    (random-signed window.innerHeight )]
                            (+ 10 (random-signed 10))
                            (+ 10 (random-signed 10))))
-(do-times config.starting-plants (spawn-plant [(random-signed window.innerWidth window.innerHeight)
-                                                (random-signed window.innerWidth window.innerHeight)]
+(do-times config.starting-plants (spawn-plant [(random-signed window.innerWidth )
+                                               (random-signed window.innerHeight )]
                                               (+ 10 (random-signed 10))))
 (require "./events")
-(next-spawn)
+
+;; (next-spawn)
