@@ -20,8 +20,9 @@ module.exports.updateParticle = function updateParticle(
 ) {
     const pos = new Vector(0,0)
     
-    pos.x = Math.round(p.x / config.size);
-    pos.y = Math.round(p.y / config.size);
+    pos.x = Math.min(Math.floor(p.x / config.size), config.columns-1);
+    pos.y = Math.min(Math.floor(p.y / config.size), config.rows-1);
+
     if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
 
         let angle = noise.simplex3(pos.x/config.angleZoom/5, pos.y/config.angleZoom/5, tick *(config.noiseZ / 10000)) * Math.PI * 2;
@@ -129,6 +130,8 @@ module.exports.updateParticle = function updateParticle(
         })
         // console.log({tick,vec,vel})
 
+    } else {
+        console.log("STUCK",pos.x,pos.y,p.x,p.y,config.rows, config.columns)
     }
 }
 

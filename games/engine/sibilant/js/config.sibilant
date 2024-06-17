@@ -14,6 +14,7 @@
      'max-in-decay 20
      'max-trail 999
      'min-trail 10
+     'print-collision-event false
      'decay-on-collision false
      'options-amplitude 10
      'limit-decay false

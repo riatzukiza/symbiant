@@ -25,7 +25,6 @@
         (init (name aspects system (group ((create Group)))))
 
         (def-generic clear (group) (.each group (=> (e)
-                                                    (print "despawning" e)
                                                     (.clear e))))
 
         (def-generic spawn ( aspects system group)
@@ -65,7 +64,6 @@
      'y (second config.home-location)
      'z 1)
 
-(print "home starting pos" (.get game.systems Position home ))
 
 (set (.get game.systems Physics home)
      'scale 1
@@ -81,7 +79,6 @@
      'x (first config.target-location)
      'y (second config.target-location)
      'z 1)
-(print "target starting pos" (.get game.systems Position target ))
 
 (set (.get game.systems Physics target)
      'scale 30

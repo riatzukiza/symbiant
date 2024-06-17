@@ -62,7 +62,6 @@ var EntityGroup = Interface.define("EntityGroup", {
     
       return group.each(((e) => {
       	
-        console.log("despawning", e);
         return e.clear();
       
       }));
@@ -80,12 +79,12 @@ var EntityGroup = Interface.define("EntityGroup", {
    }
  });
 TreeMap.get = (function TreeMap$get$(...args) {
-  /* Tree-map.get eval.sibilant:1:1596 */
+  /* Tree-map.get eval.sibilant:1:1520 */
 
   return this.find(...args).value;
 });
 var memoize = (function memoize$(f) {
-  /* memoize eval.sibilant:1:1676 */
+  /* memoize eval.sibilant:1:1600 */
 
   var cache = create(TreeMap)();
   return ((...args) => {
@@ -120,7 +119,7 @@ var rgba = memoize(((r, g, b, a) => {
 
 }));
 var entity = (function entity$(aspects) {
-  /* entity eval.sibilant:1:1879 */
+  /* entity eval.sibilant:1:1803 */
 
   return game.ent.spawn(aspects);
 });
@@ -130,7 +129,6 @@ game.systems.get(Dot, home).color = rgba(0, 255, 0, 255);
 game.systems.get(Position, home).x = config.homeLocation[0];
 game.systems.get(Position, home).y = config.homeLocation[1];
 game.systems.get(Position, home).z = 1;
-console.log("home starting pos", game.systems.get(Position, home));
 game.systems.get(Physics, home).scale = 1;
 game.systems.get(Physics, home).mass = 1;
 game.systems.get(Physics, home).forces = [];
@@ -139,7 +137,6 @@ game.systems.get(Dot, target).color = rgba(0, 0, 255, 255);
 game.systems.get(Position, target).x = config.targetLocation[0];
 game.systems.get(Position, target).y = config.targetLocation[1];
 game.systems.get(Position, target).z = 1;
-console.log("target starting pos", game.systems.get(Position, target));
 game.systems.get(Physics, target).scale = 30;
 game.systems.get(Physics, target).mass = 10000;
 game.systems.get(Physics, target).forces = [];
@@ -148,11 +145,11 @@ game.systems.get(Collision, home).name = "home";
 target.name = "target";
 home.name = "home";
 const ants=create(EntityGroup)("Ants", activeGameSystems, game.ent);
-var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
-  /* spawn-ant eval.sibilant:1:3331 */
+var spawnAnt = (function spawnAnt$(x_y$3, home, startingLife) {
+  /* spawn-ant eval.sibilant:1:3123 */
 
-  var x = x_y$2[0],
-      y = x_y$2[1];
+  var x = x_y$3[0],
+      y = x_y$3[1];
 
   var ant = ants.spawn(activeGameSystems);
   game.systems.get(Dot, ant).color = rgba(255, 0, 0, 255);
@@ -166,12 +163,12 @@ var spawnAnt = (function spawnAnt$(x_y$2, home, startingLife) {
   (function() {
     if (!(config.spawnStatic === 0)) {
       return v.accelerate([ (function() {
-        /* eval.sibilant:1:1433 */
+        /* eval.sibilant:1:1357 */
       
         var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
         return (config.spawnStatic - (rand * 2));
       }).call(this), (function() {
-        /* eval.sibilant:1:1433 */
+        /* eval.sibilant:1:1357 */
       
         var rand = ((Math.random() * (config.spawnStatic - 0)) + 0);
         return (config.spawnStatic - (rand * 2));
@@ -192,7 +189,7 @@ var nextSpawn = (() => {
 
 });
 var clearAnts = (function clearAnts$() {
-  /* clear-ants eval.sibilant:1:4200 */
+  /* clear-ants eval.sibilant:1:3992 */
 
   return ants.clear();
 });

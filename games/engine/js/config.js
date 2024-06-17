@@ -13,6 +13,7 @@ module.exports.antLimit = 1000;
 module.exports.maxInDecay = 20;
 module.exports.maxTrail = 999;
 module.exports.minTrail = 10;
+module.exports.printCollisionEvent = false;
 module.exports.decayOnCollision = false;
 module.exports.optionsAmplitude = 10;
 module.exports.limitDecay = false;
