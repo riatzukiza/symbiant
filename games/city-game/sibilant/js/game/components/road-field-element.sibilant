@@ -1,3 +1,0 @@
-(type Road-field-element)
-
-(def-component Road-field-element ( (field-component (.add Road-map entity.pos))))

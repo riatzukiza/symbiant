@@ -13,8 +13,8 @@
           (lit Group) "sibilant-game-engine/client/data-structures/group"
 
           (lit Collision) "sibilant-game-engine/client/systems/collision"
-          (lit Signal-field) "./forces/signal-field"
-          (lit Friction) "./forces/friction"
+          (lit Signal-field) "./signal-field"
+          (lit Friction) "./friction"
           (lit game active-game-systems) "./game"
           (lit Tree-map) "tree-kit"
           config "./config")

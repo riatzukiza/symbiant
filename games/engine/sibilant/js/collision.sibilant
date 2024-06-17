@@ -6,7 +6,7 @@
           (lit Collision) "sibilant-game-engine/client/systems/collision"
           (lit home home-pos target) "./entities"
           (lit update-particle) "./field"
-          (lit Signal-field) "./forces/signal-field"
+          (lit Signal-field) "./signal-field"
           Tone "tone"
           config "./config")
 

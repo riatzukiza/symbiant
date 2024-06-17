@@ -1,12 +1,12 @@
 
 (require! (lit Position) "sibilant-game-engine/client/systems/position"
           (lit Physics) "sibilant-game-engine/client/systems/physics"
-          (lit create-vector-field update-particle) "../field"
+          (lit create-vector-field update-particle) "./field"
           (lit Collision) "sibilant-game-engine/client/systems/collision")
 
-(require! config "../config"
-          (lit game) "../game"
-          entities "../entities")
+(require! config "./config"
+          (lit game) "./game"
+          entities "./entities")
 
 (define SignalField Physics.Force
         (field (create-vector-field config.columns

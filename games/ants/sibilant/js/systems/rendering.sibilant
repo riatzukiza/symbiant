@@ -1,3 +1,0 @@
-(type Rendering
-      (property entities (.get sim.layers))
-      (property weights []))

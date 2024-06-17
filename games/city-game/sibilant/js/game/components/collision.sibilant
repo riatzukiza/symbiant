@@ -1,5 +1,0 @@
-(type Collision)
-(def-description Collision (entity (field-element (.add Collision-field entity.pos)))
-
-  (def-generic update (entity)
-    (.move Collision-field entity.pos entity)))

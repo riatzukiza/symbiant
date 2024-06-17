@@ -142,4 +142,3 @@ module.exports.createVectorField = function createVectorField(columns,rows) {
     }
     return field
 }
-

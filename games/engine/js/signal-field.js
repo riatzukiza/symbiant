@@ -7,15 +7,15 @@ var {
     { 
   createVectorField,
   updateParticle
- } = require("../field"),
+ } = require("./field"),
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision");
-var config = require("../config"),
+var config = require("./config"),
     { 
   game
- } = require("../game"),
-    entities = require("../entities");
+ } = require("./game"),
+    entities = require("./entities");
 var SignalField = Physics.Force.define("SignalField", { 
   field:createVectorField(config.columns, config.rows),
   layer:createVectorField(config.columns, config.rows),

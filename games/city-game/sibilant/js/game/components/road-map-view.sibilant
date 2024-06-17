@@ -1,9 +1,0 @@
-(type Road-map-view)
-(def-component Road-map-view ((*view-matrix (moore (dots entity.pos) Road-map.field)))
-  (assign this.*view-matrix.offset
-          [
-          (- entity.x 1)
-
-          (- entity.y 1)
-
-          ] ))

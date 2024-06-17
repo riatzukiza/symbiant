@@ -4,7 +4,7 @@ var {
     { 
   Collision
  } = require("sibilant-game-engine/client/systems/collision");
-var config = require("../config");
+var config = require("./config");
 var Friction = Physics.Force.define("Friction", { 
   apply( c ){ 
     
