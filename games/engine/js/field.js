@@ -20,8 +20,8 @@ module.exports.updateParticle = function updateParticle(
 ) {
     const pos = new Vector(0,0)
     
-    pos.x = Math.min(Math.floor(p.x / config.size), config.columns-1);
-    pos.y = Math.min(Math.floor(p.y / config.size), config.rows-1);
+    pos.x = Math.max(Math.min(Math.floor(p.x / config.size), config.columns-1),0);
+    pos.y = Math.max(Math.min(Math.floor(p.y / config.size), config.rows-1),0);
 
     if(pos.x >= 0 && pos.x < config.columns && pos.y >= 0 && pos.y < config.rows) {
 
@@ -89,7 +89,7 @@ module.exports.updateParticle = function updateParticle(
         }
         if(loose ) {
 
-            console.log("loose",vel)
+            // console.log("loose",vel)
             game.events.emit("loose")
             vel.xd = 0
             vel.yd = 0

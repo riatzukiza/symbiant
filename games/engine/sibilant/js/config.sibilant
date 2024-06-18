@@ -2,13 +2,13 @@
 (const size 1)
 (set module.exports
      'size size
-     'angle-zoom 30
-     'noise-z 10
-     'field-force 10
+     'angle-zoom 15
+     'noise-z 30
+     'field-force 85.6
      'dimensions dim
      'columns (Math.ceil (/ (first dim) size))
      'rows (Math.ceil (/ (second dim) size))
-     'decay 0.1
+     'decay 12.1
      'maxLength 99
      'ant-limit 1000
      'max-in-decay 20
@@ -18,11 +18,11 @@
      'decay-on-collision false
      'options-amplitude 10
      'limit-decay false
-     'ant-influence 1
+     'ant-influence 50
      'friction  2
-     'collision-static 0
-     'spawn-static 0
-     'spawn-rate 1
+     'collision-static 1
+     'spawn-static 1
+     'spawn-rate 1000
      'home-location [300, 200]
      'target-location [700, 900]
      'track-trail true
